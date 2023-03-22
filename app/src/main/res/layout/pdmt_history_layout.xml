@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pDmtHistory"
+            type="com.fintech.petoindia.data.model.PDMTHistoryModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10sp"
+        android:layout_marginStart="12sp">
+
+        <RelativeLayout
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:layout_toStartOf="@id/endPart"
+            android:id="@+id/wholeBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/image_ele"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:text="@{`₹ `+pDmtHistory.AMOUNT}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"
+                    />
+
+                <ImageView
+                    android:id="@+id/beneficiary_image"
+                    android:layout_width="45sp"
+                    android:layout_height="45sp"
+                    android:layout_margin="8sp"
+                    android:src="@drawable/ic_bank"
+                    android:contentDescription="@string/todo" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/beneficiary_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="12sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/image_ele"
+                >
+
+                <TextView
+                    android:text="@{`Status\n`+pDmtHistory.STATUS}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"
+                    />
+                <TextView
+                    android:text="@{`Account\n`+pDmtHistory.ACCOUNT}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"/>
+
+                <TextView
+                    android:text="@{`Reference Id\n`+pDmtHistory.REFFRENCE_ID}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"/>
+
+                <TextView
+                    android:text="@{`Time-Date\n`+pDmtHistory.TIMESTAMP}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/endPart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_pending"/>
+
+            <ImageView
+                android:id="@+id/deleteBeneficiary"
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_more"
+                android:contentDescription="@string/todo" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/contactDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="?android:attr/listDivider"
+            android:layout_below="@id/wholeBody"
+            android:layout_marginStart="53sp"
+            tools:ignore="SmallSp" />
+
+
+
+    </RelativeLayout>
+
+
+</layout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="commissionModelPack"
+            type="com.fintech.petoindia.data.model.ComPackageModel" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="140sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.MIN_AMOUNT+` - `+commissionModelPack.MAX_AMOUNT}"
+                />
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.GST}"
+                android:id="@+id/DailyReportCredit"/>
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.TDS}"
+                android:id="@+id/DailyReportDebit"/>
+            <TextView
+                android:layout_width="180sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.TYPE}"
+                android:id="@+id/DailyReportBalance"/>
+            <TextView
+                android:layout_width="220sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.AMOUNT_TYPE}"
+                android:id="@+id/DailyReportType"/>
+            <TextView
+                android:layout_width="160sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="1sp"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@{commissionModelPack.AMOUNT}"
+                android:id="@+id/DailyReportDate"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

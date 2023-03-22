@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="profileViewModel"
+            type="com.fintech.petoindia.viewmodel.ProfileViewModel"/>
+
+        <variable
+            name="userProfileModel"
+            type="com.fintech.petoindia.data.db.entities.UserProfile" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.profile.SocialMedia">
+
+
+        <ScrollView
+            android:id="@+id/infoSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/updateTheSocialDetails"
+            android:layout_alignParentTop="true">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="2sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+                    android:layout_marginVertical="4sp"
+                    android:orientation="vertical"
+                    android:paddingVertical="8sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_facebook"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/facebook_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.FACEBOOK_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_twitter"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/twitter_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.TWITTER_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_linkedin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/linkedin_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.LINKEDIN_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_instagram"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/instagram_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.INSTAGRAM_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_dribble"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/dribble_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.DRIBBLE_BOX_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_dropbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/dropbox_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.DROPBOX_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_google_plus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/google_plus_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.GOOGLE_PLUS_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_pinterest"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/pinterest_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.PINTEREST_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_skype"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/skype_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.SKYPE_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_vine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/vine_url"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:text="@={userProfileModel.VINE_URL}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/updateTheSocialDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/iconColor"
+            android:onClick="@{profileViewModel::updateSocialMediaData}"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="20dp"
+            android:layout_marginBottom="-8dp"
+            android:text="@string/update"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+</layout>

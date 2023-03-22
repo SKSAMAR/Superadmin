@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="dmtUserData"
+            type="com.fintech.petoindia.data.network.responses.DmtUserData" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/screenBackground">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/infoSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="3dp"
+            app:contentPadding="4sp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_2sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/first_name"
+                        android:text="@={dmtUserData.fname}"
+                        android:textAlignment="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/last_name"
+                        android:textAlignment="center"
+                        android:text="@={dmtUserData.lname}"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:hint="@string/mobile_number"
+                        android:text="@={dmtUserData.mobile}"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_2sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_1_limit"
+                        android:textAlignment="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_2_limit"
+                        android:textAlignment="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_3_limit"
+                        android:textAlignment="center"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_2sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_1_limit"
+                        android:textAlignment="center"
+                        android:text="@={dmtUserData.bank1_limit}"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_2_limit"
+                        android:textAlignment="center"
+                        android:text="@={dmtUserData.bank2_limit}"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/bank_3_limit"
+                        android:textAlignment="center"
+                        android:text="@={dmtUserData.bank3_limit}"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    >
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/refreshDmtUser"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/refresh"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_8sdp"
+                        />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/deleteDmtUser"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:textSize="@dimen/_8sdp"
+                        android:text="@string/delete"
+                        android:textAllCaps="false" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</layout>

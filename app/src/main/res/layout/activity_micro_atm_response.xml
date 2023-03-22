@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="microAtmData"
+            type="com.fintech.petoindia.data.model.MicroAtmModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MicroAtmResponse">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/message_"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.message}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/response_"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.response}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/txn_amount"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.transAmount}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/balance_amount"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.balAmount}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/balance_rrn"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.balRrn}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/txn_id"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.txnId}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/txn_type"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.transType}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/type"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.type}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/card_type"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.cardType}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/card_number"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.cardNumber}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/terminal"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.terminalId}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="6dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bank_name"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18sdp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@={microAtmData.bankName}"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:fontFamily="@font/sagnika"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

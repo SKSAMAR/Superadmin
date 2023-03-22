@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/selectionOfBiller">
+
+    <fragment
+        android:id="@+id/selectionOfBiller"
+        android:name="com.fintech.petoindia.activities.bbps.fragments.SelectionOfBiller"
+        android:label="SelectionOfBiller" >
+        <action
+            android:id="@+id/action_selectionOfBiller_to_billFetch"
+            app:destination="@id/billFetch" />
+    </fragment>
+    <fragment
+        android:id="@+id/billFetch"
+        android:name="com.fintech.petoindia.activities.bbps.fragments.BillFetch"
+        android:label="fragment_bill_fetch"
+        tools:layout="@layout/fragment_bill_fetch" >
+        <action
+            android:id="@+id/action_billFetch_to_billPayment"
+            app:destination="@id/billPayment" />
+    </fragment>
+    <fragment
+        android:id="@+id/billPayment"
+        android:name="com.fintech.petoindia.activities.bbps.fragments.BillPayment"
+        android:label="fragment_bill_payment"
+        tools:layout="@layout/fragment_bill_payment" >
+        <action
+            android:id="@+id/action_billPayment_to_selectionOfBiller"
+            app:destination="@id/selectionOfBiller" />
+    </fragment>
+</navigation>

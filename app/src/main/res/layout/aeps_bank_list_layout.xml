@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="bankListModel"
+            type="com.fintech.petoindia.data.model.AEPSBanksModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/circleNameLayout"
+        android:layout_marginStart="12sp">
+
+        <ImageView
+            android:id="@+id/circle_image"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="8sp"
+            android:layout_marginBottom="8sp"
+            android:src="@drawable/ic_aeps_bank" />
+
+        <LinearLayout
+            android:id="@+id/bankNameDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/circle_image"
+            >
+
+            <TextView
+                android:id="@+id/aepsBankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="1sp"
+                android:fontFamily="@font/sagnika"
+                android:text="@{bankListModel.bankname}"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/bankDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="?android:attr/listDivider"
+            android:layout_below="@id/circle_image"
+            android:layout_marginStart="53sp"
+            tools:ignore="SmallSp" />
+
+
+
+    </RelativeLayout>
+
+</layout>

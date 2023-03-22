@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="enter_your_otp">Enter your OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="create_account">Create Account</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="recharges">Recharges</string>
+    <string name="utilities">Utilities</string>
+    <string name="finances_and_taxes">Finances and Taxes</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
+    <string name="history">History</string>
+    <string name="hello">Hello,</string>
+    <string name="add_wallet">Add Wallet</string>
+    <string name="money_transfer">Money Transfer</string>
+    <string name="recent_recharges">Recent Recharges</string>
+    <string name="all_contacts">All Contacts</string>
+    <string name="_1234567890">1234567890</string>
+    <string name="search_by_number_or_name">  Search by number or name</string>
+    <string name="operator">Operator</string>
+    <string name="recharge">Recharge</string>
+    <string name="operators">Operators</string>
+    <string name="balance_enquiry">Balance Enquiry</string>
+    <string name="cash_withdraw">Cash Withdraw</string>
+    <string name="account_number">Account number</string>
+    <string name="confirm_account_number">Confirm account number</string>
+    <string name="ifsc">IFSC</string>
+    <string name="account_holder_name">Account holder name</string>
+    <string name="phone_number_optional">Phone number (Optional)</string>
+    <string name="nickname">Nickname</string>
+    <string name="you_can_send_money_to_your_contact_using_their_bank_account_number_and_ifsc_code">You can send money to your contact using their bank account number and IFSC code.</string>
+    <string name="confirm">Confirm</string>
+    <string name="categories">Categories</string>
+    <string name="filters">Filters</string>
+    <string name="to_person">to person</string>
+    <string name="debited_from">Debited from..</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="operator_name_re">Operator Name</string>
+    <string name="select_card_type">Select Card Type</string>
+    <string name="cash_deposit">Cash Deposit</string>
+</resources>

@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+
+    ext.compose_version = '1.2.0-beta03'
+    ext.kotlin_version = '1.6.21'
+    ext.supportLibVersion = "25.3.0"
+    ext.lottieVersion = '5.2.0'
+    ext.accompanist_version = '0.24.11-rc'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.1'
+        def nav_version = "2.4.2"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+
+
+        repositories {
+            maven { url "https://oss.jfrog.org/libs-snapshot" }
+        }
+
+        maven {
+            url "https://artifactory.paytm.in/libs-release-local"
+        }
+        maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases/' }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

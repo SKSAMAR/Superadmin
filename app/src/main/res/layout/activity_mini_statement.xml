@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="miniStatementViewModel"
+            type="com.fintech.petoindia.viewmodel.AepsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.aeps.MiniStatement">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/captureFingerPrintButton"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/infoSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0.5dp"
+                    app:contentPadding="2sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12sp"
+                        android:layout_marginVertical="4sp"
+                        android:orientation="vertical"
+                        android:paddingVertical="8sp">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/aadhaar_number_layout"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/aadhaar_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/aadhaar_number"
+                                android:maxLines="1"
+                                android:inputType="number"
+
+                                android:maxLength="12"
+                                android:importantForAutofill="no"
+                                android:text="@={miniStatementViewModel.aadhaar}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/mobile_number_layout"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/mobile_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/mobile_number"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:maxLength="10"
+
+                                android:importantForAutofill="no"
+                                android:text="@={miniStatementViewModel.mobile}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/select_bank_layout"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/selectedBankName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:hint="@string/select_your_bank"
+                                android:maxLines="1"
+                                android:onClick="@{miniStatementViewModel::selectBankList}"
+                                android:text="@={miniStatementViewModel.selectedBank}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/captureFingerPrintButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-7dp"
+            android:backgroundTint="@color/iconColor"
+            android:paddingHorizontal="5sp"
+            android:paddingVertical="20sp"
+            android:text="@string/mini_statement"
+            android:visibility="visible" />
+
+        </RelativeLayout>
+
+</layout>

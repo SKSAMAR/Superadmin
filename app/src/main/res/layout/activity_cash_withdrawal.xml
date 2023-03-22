@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="cashWithdrawalViewModel"
+            type="com.fintech.petoindia.viewmodel.AepsViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.aeps.CashWithdrawal">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/captureFingerPrintButton"
+            android:layout_alignParentTop="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/infoSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0.5dp"
+                    app:contentPadding="2sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8sp"
+                        android:layout_marginHorizontal="12sp"
+                        android:layout_marginVertical="4sp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/aadharLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={cashWithdrawalViewModel.aadhaar}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:background="@android:color/transparent"
+                                android:hint="@string/aadhaar_number"
+                                android:id="@+id/aadhaar_number"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:maxLength="12"
+
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/mobileLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={cashWithdrawalViewModel.mobile}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:background="@android:color/transparent"
+                                android:hint="@string/mobile_number"
+                                android:id="@+id/mobile_number"
+                                android:inputType="number"
+                                android:maxLines="1"
+
+                                android:maxLength="10"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/amount_layout"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={cashWithdrawalViewModel.amount}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:background="@android:color/transparent"
+                                android:hint="@string/amount"
+                                android:id="@+id/amount_number"
+                                android:inputType="number"
+                                android:maxLength="5"
+
+                                android:maxLines="1"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/bank_list_layout"
+                            android:orientation="vertical">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:onClick="@{cashWithdrawalViewModel::selectBankList}"
+                                android:text="@={cashWithdrawalViewModel.selectedBank}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:background="@android:color/transparent"
+                                android:hint="@string/select_your_bank"
+                                android:id="@+id/selectedBankName"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:maxLines="1"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+        </ScrollView>
+
+
+                <Button
+                android:id="@+id/captureFingerPrintButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/iconColor"
+                android:paddingHorizontal="5sp"
+                android:paddingVertical="20sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="-7dp"
+                android:visibility="visible"
+                android:text="@string/cash_withdraw" />
+
+            </RelativeLayout>
+
+</layout>

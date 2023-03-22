@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="payoutViewModel"
+            type="com.fintech.petoindia.viewmodel.PayoutViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.payoutpaysprint.PaysprintPayout">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/userSearchCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="2sp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search by Name or Number"
+                    android:background="@android:color/white"
+                    android:fontFamily="@font/sagnika"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/userSearchCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/dmt_user_recycler"
+            />
+
+        <TextView
+            android:id="@+id/no_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_records"
+            android:textSize="@dimen/_18sdp"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{payoutViewModel::addMorePayoutAccount}"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/add_more_beneficiary"
+            android:src="@drawable/ic_baseline_add_24"
+            app:backgroundTint="@color/iconColor"
+            app:tint="@android:color/white"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:contentDescription="@string/todo" />
+
+    </RelativeLayout>
+
+</layout>

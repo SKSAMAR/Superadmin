@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="ccViewModel"
+            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.creditcard.CCFetchBill">
+
+
+        <ScrollView
+            android:id="@+id/scroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/buttonsLayout"
+            android:layout_alignParentTop="true">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/credit_card_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ccName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/name"
+                            android:inputType="text"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:text="@={ccViewModel.cc_name}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ccNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/card_number"
+                            android:inputType="number"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:text="@={ccViewModel.cc_number}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ccAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/amount"
+                            android:inputType="number"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            android:text="@={ccViewModel.cc_amount}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ccMobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/registered_mobile_number"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:maxLines="1"
+                            android:text="@={ccViewModel.cc_mobile}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/card_typeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:layout_margin="@dimen/_5sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/cardType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{ccViewModel::selectCardType}"
+                            android:focusableInTouchMode="false"
+                            android:focusable="false"
+                            android:cursorVisible="false"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/select_card_type"
+                            android:text="@={ccViewModel.selectedcardType}"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLength="50"
+                            android:maxLines="1"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/otp_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/otp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/otp"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLength="15"
+                            android:maxLines="1"
+                            android:text="@={ccViewModel.cc_otp}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/buttonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-8dp">
+
+
+            <Button
+                android:onClick="@{ccViewModel::sendOtpCrediCardBill}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20sp"
+                android:paddingHorizontal="5sp"
+                android:text="@string/send_otp"
+                android:backgroundTint="@color/iconColor"
+                android:id="@+id/sendOtp"/>
+
+
+
+            <Button
+                android:visibility="gone"
+                android:onClick="@{ccViewModel::startCreditCardPayment}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20sp"
+                android:paddingHorizontal="5sp"
+                android:text="@string/pay_bill"
+                android:backgroundTint="@color/iconColor"
+                android:id="@+id/payMoney"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

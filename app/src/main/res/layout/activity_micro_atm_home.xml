@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.microatm.MicroAtmHome">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/buttonsLayout">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/infoSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0.5dp"
+                    app:contentPadding="2sp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="8sp"
+                        android:layout_marginHorizontal="12sp"
+                        android:layout_marginVertical="4sp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/amount_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+
+                                android:hint="@string/amount"
+                                android:maxLength="5"
+                                android:id="@+id/edAmount"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/micro_atm_layout"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:orientation="vertical">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:hint="@string/select_micro_atm_device"
+                                android:id="@+id/selectedBankName"
+                                android:focusableInTouchMode="false"
+                                android:drawableEnd="@drawable/ic_arrow_drop_down"
+                                android:maxLines="1"
+                                android:focusable="false"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-7dp"
+            android:id="@+id/buttonsLayout"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:paddingVertical="8dp"
+                android:backgroundTint="@color/iconColor"
+                android:text="@string/my_balance_nenquiry" />
+
+            <Button
+                android:id="@+id/btnWithdraw"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:paddingVertical="8dp"
+                android:backgroundTint="@color/iconColor"
+                android:text="@string/my_cash_nwithdrawal" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+</layout>

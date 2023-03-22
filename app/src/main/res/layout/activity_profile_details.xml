@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="profileDetailsModel"
+            type="com.fintech.petoindia.viewmodel.ProfileViewModel" />
+        <variable
+            name="userModel"
+            type="com.fintech.petoindia.data.db.entities.User" />
+
+        <variable
+            name="userProfileModel"
+            type="com.fintech.petoindia.data.db.entities.UserProfile" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.profile.ProfileDetails">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/updateTheProfileDetails"
+            android:layout_alignParentTop="true">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/infoSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="2sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12sp"
+                    android:layout_marginVertical="4sp"
+                    android:orientation="vertical"
+                    android:paddingVertical="8sp">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_first_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/first_name"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:importantForAutofill="no"
+                            android:text="@={userModel.name}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_last_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/last_name"
+                            android:inputType="textPersonName"
+                            android:maxLines="1"
+                            android:importantForAutofill="no"
+                            android:text="@={userModel.lastname}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_mobile_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/mobile_number"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:importantForAutofill="no"
+                            android:text="@={userModel.mobile}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_alternate_mobile_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/alternate_mobile"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:importantForAutofill="no"
+                            android:text="@={userProfileModel.ALTERNATE_PHONE_NO}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/email_address"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text="@={userModel.email}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/selectedDOB"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/date_of_birth"
+                            android:maxLines="1"
+                            android:onClick="@{profileDetailsModel::selectDOB}"
+                            android:text="@={userProfileModel.DOB}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <RadioGroup
+                        android:id="@+id/genderRadio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:onCheckedChanged="@{profileDetailsModel::selectTheGender}"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/male" />
+
+                        <RadioButton
+                            android:id="@+id/fe_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/female" />
+
+                        <RadioButton
+                            android:id="@+id/others"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/others" />
+
+                    </RadioGroup>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/country"
+                            android:inputType="textPostalAddress"
+                            android:maxLines="1"
+                            android:text="@={userProfileModel.COUNTRY}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_state"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/state_province_region"
+                                android:inputType="textPostalAddress"
+                                android:maxLines="1"
+                                android:text="@={userProfileModel.STATE}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="2dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_pin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:ems="10"
+                                android:hint="@string/pin_code"
+                                android:inputType="textPostalAddress"
+                                android:maxLines="1"
+                                android:text="@={userModel.pin}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/address"
+                            android:inputType="textPostalAddress"
+                            android:maxLines="1"
+                            android:text="@={userModel.address}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
+        <Button
+            android:onClick="@{profileDetailsModel::updateProfileData}"
+            android:id="@+id/updateTheProfileDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/iconColor"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="20dp"
+            android:layout_marginBottom="-8dp"
+            android:text="@string/update"
+            android:visibility="visible"/>
+
+    </RelativeLayout>
+</layout>

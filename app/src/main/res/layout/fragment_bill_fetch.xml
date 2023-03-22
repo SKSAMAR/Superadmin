@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".activities.bbps.fragments.BillFetch">
+            <LinearLayout
+                android:id="@+id/card_root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/third_rectangle">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/biller_coverage"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:maxLines="1"
+                        android:inputType="none"
+                        android:background="@android:color/transparent"
+                        android:editable="false"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/ind"
+                        android:id="@+id/biller_coverage"
+                        tools:ignore="Deprecated" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:background="@drawable/third_rectangle"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/biller_category"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+
+                    <EditText
+                        android:id="@+id/biller_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/transparent"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@{viewModel.op_category}"
+                        tools:ignore="Deprecated,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ad1Layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/third_rectangle"
+                    android:layout_marginTop="@dimen/_10sdp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_pencil"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedBBPS.ad1_d_name}"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:maxLines="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@={viewModel.ad1}"
+                        android:id="@+id/ad1"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/third_rectangle"
+                    android:layout_marginTop="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedBBPS.displayname}"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+
+                    <EditText
+                        android:id="@+id/consumer_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@={viewModel.consumer_number}"
+                        tools:ignore="TextFields" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/ad2Layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/third_rectangle"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedBBPS.ad2_d_name}"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:maxLines="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@={viewModel.ad2}"
+                        android:id="@+id/ad2"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ad3Layout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/third_rectangle"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedBBPS.ad3_d_name}"
+                        android:layout_marginStart="3dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:maxLines="1"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@android:color/transparent"
+                        android:inputType="text"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@={viewModel.ad3}"
+                        android:id="@+id/ad3"
+                        />
+                </RelativeLayout>
+
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:onClick="@{viewModel::onFetchBBPSBill}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/getDetails"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_margin="@dimen/_10sdp"
+                    app:contentPaddingLeft="44dp"
+                    app:contentPaddingRight="44dp"
+                    app:contentPaddingTop="12dp"
+                    app:contentPaddingBottom="12dp"
+                    app:cardCornerRadius="@dimen/_25sdp"
+                    app:cardBackgroundColor="@color/iconColor">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_20sdp"
+                            android:text="@string/get_details"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/spacer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:orientation="vertical"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+</layout>

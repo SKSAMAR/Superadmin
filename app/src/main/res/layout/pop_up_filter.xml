@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:contentPadding="8dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cancel_image"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:src="@drawable/ic_baseline_close_24"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:id="@+id/titleFilterGiven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/select_dates"
+                android:textSize="17sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ToFilterAnalyticDateSection"
+                android:layout_below="@+id/titleFilterGiven"
+                android:gravity="center"
+                android:layout_marginTop="5sp"
+                android:paddingVertical="8sp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="140sp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="11sp"
+                    android:paddingVertical="8sp"
+                    android:hint="@string/from_date"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_marginEnd="3sp"
+                    android:background="@drawable/third_rectangle"
+                    android:id="@+id/FromFilterAnalyticDate"
+                    />
+                <TextView
+                    android:layout_width="140sp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="11sp"
+                    android:paddingVertical="8sp"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="@drawable/third_rectangle"
+                    android:hint="@string/to_date"
+                    android:layout_marginStart="3sp"
+                    android:id="@+id/ToFilterAnalyticDate" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ToFilterAnalyticDateSection"
+                android:layout_marginTop="8sp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/FilterAnalyticButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5sp"
+                        android:text="@string/search" />
+                    <Button
+                        android:id="@+id/FilterAnalyticResetButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5sp"
+                        android:text="@string/reset" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

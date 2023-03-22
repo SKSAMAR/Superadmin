@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="@string/home"
+        android:id="@+id/navHome"
+        android:icon="@drawable/ic_home"
+        android:fontFamily="@font/sagnika"
+        android:textStyle="bold"
+        
+        />
+
+    <item android:title="@string/account"
+        android:id="@+id/navAccount"
+        android:icon="@drawable/ic_account"
+        android:fontFamily="@font/sagnika"
+        android:textStyle="bold"
+        
+        />
+
+
+<!--    <item android:title="@string/scan_amp_pay"-->
+<!--        android:fontFamily="@font/sagnika"-->
+<!--        android:textStyle="bold"-->
+<!--        -->
+<!--        />-->
+
+
+<!--    <item android:title="@string/store"-->
+<!--        android:icon="@drawable/ic_store"-->
+<!--        android:fontFamily="@font/sagnika"-->
+<!--        android:textStyle="bold"-->
+<!--        -->
+<!--        />-->
+
+
+    <item android:title="@string/history"
+        android:id="@+id/navHistory"
+        android:icon="@drawable/ic_history"
+        android:fontFamily="@font/sagnika"
+        android:textStyle="bold"
+        
+        />
+</menu>

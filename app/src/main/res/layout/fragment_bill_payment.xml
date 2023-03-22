@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewModel"
+        type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+</data>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:overScrollMode="never"
+    tools:context=".activities.bbps.fragments.BillPayment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/main_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardBackgroundColor="@color/white">
+            <LinearLayout
+                android:id="@+id/card_root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:text="@{viewModel.op_category}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:id="@+id/category"
+                        tools:ignore="Deprecated" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/biller"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:text="@{viewModel.myFetchedBill.bill_fetch.userName}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:id="@+id/biller_name"
+                        tools:ignore="Deprecated" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.selectedBBPS.displayname}"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:text="@{viewModel.consumer_number}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:id="@+id/consumer_number"
+                        tools:ignore="Deprecated,TextFields" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/amount"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:text="@{viewModel.myFetchedBill.bill_fetch.billnetamount}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="none"
+                        android:editable="false"
+                        android:id="@+id/bill_net_amount"
+                        tools:ignore="Deprecated" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enter_m_pin_"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:text="@={viewModel.mPin}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:id="@+id/mPinBBPS"
+                        />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:onClick="@{viewModel::proceedToPayBillBBPS}"
+                            android:id="@+id/confirm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_2sdp"
+                            android:text="@string/proceed_"/>
+
+                        <Button
+                            android:id="@+id/edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_5sdp"
+                            android:backgroundTint="@color/white"
+                            android:textColor="@color/iconColor"
+                            android:text="@string/edit"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/spacer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:orientation="vertical"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</ScrollView>
+</layout>

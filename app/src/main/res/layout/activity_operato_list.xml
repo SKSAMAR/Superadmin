@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.fastag.OperatorList">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/opSearchCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="2sp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search by name"
+                    android:background="@android:color/white"
+                    android:fontFamily="@font/sagnika"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/opSearchCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/op_user_recycler"
+            />
+
+        <TextView
+            android:id="@+id/no_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_records"
+            android:textSize="@dimen/_18sdp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+</layout>

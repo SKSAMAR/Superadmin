@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="profileViewModel"
+            type="com.fintech.petoindia.viewmodel.ProfileViewModel" />
+        <variable
+            name="userModel"
+            type="com.fintech.petoindia.data.db.entities.User" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.profile.Settings">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/updateSettingsDetails"
+            android:layout_alignParentTop="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_mobile"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/registered_mobile_number"
+                        android:inputType="number"
+                        android:padding="15dp"
+                        android:importantForAutofill="no"
+                        android:text="@={userModel.mobile}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_old_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/old_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/old_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:padding="15dp"
+                        android:text="@={profileViewModel.old_pass}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_new_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/new_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/new_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:padding="15dp"
+                        android:text="@={profileViewModel.new_pass}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_confirm_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/confirm_your_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:padding="15dp"
+                        android:text="@={profileViewModel.confirm_pass}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/updateSettingsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-6dp"
+            android:backgroundTint="@color/iconColor"
+            android:onClick="@{profileViewModel::updateSettingsDetailsData}"
+            android:paddingVertical="15dp"
+            android:text="@string/update"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</layout>

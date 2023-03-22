@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="myHistoryModel"
+            type="com.fintech.petoindia.data.model.HistoryModel" />
+
+    </data>
+
+<!--    app:urlImage="@{myHistoryModel.logo}"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/historyCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="8dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/history_logo_layout"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/history_logo"
+                        android:layout_width="45sp"
+                        android:layout_height="45sp"
+                        android:src="@drawable/ic_history"
+                        android:layout_marginBottom="8sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4sp"
+                        android:hint="@string/date"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp"
+                        android:text="@{myHistoryModel.date}"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10sp"
+                    android:layout_toEndOf="@+id/history_logo_layout"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sagnika"
+                        android:hint="@string/payment_to"
+                        android:text="@{myHistoryModel.paid_to_receive_from}"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sagnika"
+                        android:hint="@string/to_person"
+                        android:text="@{myHistoryModel.to_person}" />
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amount"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="4sp"
+                    android:id="@+id/history_amount"
+                    android:text="@{myHistoryModel.amount}"
+                    android:textAlignment="viewEnd"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/history_amount"
+                    android:layout_marginTop="28dp"
+                    android:hint="@string/debited_from"
+                    android:textSize="10sp"
+                    android:text="@{myHistoryModel.debited_from_credit_to}"
+                    tools:ignore="SmallSp"
+                    android:textAlignment="viewEnd"
+                    />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+</layout>

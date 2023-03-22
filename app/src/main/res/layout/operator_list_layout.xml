@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="operatorModel"
+            type="com.fintech.petoindia.data.model.OperatorModel" />
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12sp">
+
+        <ImageView
+            app:urlImage="@{operatorModel.logo}"
+            android:id="@+id/contacts_image"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:scaleType="fitCenter"
+            android:layout_margin="8sp"/>
+
+        <LinearLayout
+            android:id="@+id/contactNameNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="15sp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/contacts_image"
+            >
+
+            <TextView
+                android:id="@+id/operatorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="1sp"
+                android:fontFamily="@font/sagnika"
+                android:text="@{operatorModel.name}"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/contactDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="?android:attr/listDivider"
+            android:layout_below="@id/contacts_image"
+            android:layout_marginStart="53sp"
+            tools:ignore="SmallSp" />
+
+
+
+    </RelativeLayout>
+
+</layout>

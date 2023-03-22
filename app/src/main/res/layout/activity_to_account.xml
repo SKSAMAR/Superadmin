@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="MyBankViewModel"
+            type="com.fintech.petoindia.viewmodel.ToBankViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.tobank.ToAccount">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/banksSearchCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="2sp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SearchView
+                    android:id="@+id/bankSearchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search bank account"
+                    android:background="@android:color/white"
+                    android:fontFamily="@font/sagnika"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+                <SearchView
+                    android:visibility="gone"
+                    android:id="@+id/historySearchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search History by account"
+                    android:background="@android:color/white"
+                    android:fontFamily="@font/sagnika"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bankSectionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/banksSearchCard"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="2sp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/loader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/_35sdp"
+                    android:id="@+id/bankOptionTabs"/>
+
+                <View
+                    android:id="@+id/tabLayoutDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_below="@id/bankOptionTabs"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/bankLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tabLayoutDivider">
+
+                    <TextView
+                        android:id="@+id/noBankRecords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/no_records"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="48dp"
+                        android:id="@+id/myBankListRecycler"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/historyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tabLayoutDivider">
+
+                    <TextView
+                        android:id="@+id/noHistoryRecords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/no_records"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="48dp"
+                        android:id="@+id/myHistoryListRecycler"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:onClick="@{MyBankViewModel::onAddBankPage}"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="25sp"
+            android:layout_marginEnd="15sp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="21dp"
+            app:cardElevation="2dp"
+            app:contentPaddingTop="10sp"
+            app:contentPaddingBottom="10sp"
+            app:contentPaddingLeft="25sp"
+            app:contentPaddingRight="25sp"
+            app:cardBackgroundColor="@color/iconColor"
+            android:id="@+id/AddBeneficiary"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:focusable="true">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/add_recipient_bank_account"
+                    android:textColor="#fff"
+                    android:textSize="14sp"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fastagViewModel"
+            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.fastag.FastagFetchBill">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/fetch_lic_bill">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/infoSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="5sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:text="@={fastagViewModel.fastagOpperatorModel.name}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/operator"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            android:id="@+id/operatorName"
+                            android:importantForAutofill="no"
+                            android:focusableInTouchMode="false"
+                            android:focusable="false"
+                            android:padding="15dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/consumer_number"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:text="@={fastagViewModel.consumer_number}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/ca_number"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:id="@+id/ca_number"
+                            android:importantForAutofill="no"
+                            android:padding="15dp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </ScrollView>
+
+
+        <Button
+            android:onClick="@{fastagViewModel::onFetchTheBillFastag}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20sp"
+            android:paddingHorizontal="5sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-8dp"
+            android:text="@string/fetch_bill"
+            android:backgroundTint="@color/iconColor"
+            android:id="@+id/fetch_lic_bill"/>
+
+    </RelativeLayout>
+
+</layout>

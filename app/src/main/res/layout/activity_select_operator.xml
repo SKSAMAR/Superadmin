@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="selectOperatorViewModel"
+            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/screenBackground"
+        android:scrollbars="none"
+        android:id="@+id/parentScroll"
+        tools:context=".activities.rechargeactivities.SelectOperator">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/selectOperatorSliders"
+                android:layout_width="match_parent"
+                android:layout_height="160sp"
+                android:layout_marginVertical="4sp" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/OperatorListCard"
+                android:visibility="gone"
+                android:layout_below="@+id/selectOperatorSliders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:minHeight="@dimen/_100sdp"
+                    >
+                    <TextView
+                        android:text="@string/operators"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sagnika"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        />
+                    <androidx.appcompat.widget.SearchView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:iconifiedByDefault="false"
+                        app:queryHint="Search by name"
+                        android:id="@+id/operatorSearchList"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:id="@+id/no_operators"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="@dimen/_16sdp"
+                            android:fontFamily="@font/sagnika"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            android:text="@string/not_found"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/operatorsRecycler"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

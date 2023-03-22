@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dialogSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:contentPadding="10sp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="85sp"
+                    android:layout_height="85sp"
+                    android:src="@drawable/ic_aeps"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/centerLogo"/>
+                <TextView
+                    android:id="@+id/alertTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sagnika"
+                    android:textColor="@color/black"
+                    android:hint="@string/title"
+                    android:textStyle="bold"
+                    android:layout_below="@id/centerLogo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="5sp"
+                    android:textAlignment="center"
+                    android:textSize="20sp"/>
+                <ScrollView
+                    android:id="@+id/alertMessageLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/alertTitle"
+                    android:layout_centerHorizontal="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/alertMessage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sagnika"
+                            android:textColor="@color/black"
+                            android:hint="@string/message"
+                            android:layout_margin="5sp"
+                            android:textAlignment="center"
+                            android:textSize="16sp"/>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/alertMessageLayout">
+
+                    <TextView
+                        android:id="@+id/alertCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sagnika"
+                        android:textColor="@color/black"
+                        android:text="@string/cancel"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="5sp"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:padding="10sp"
+                        />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/alertHome"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/sagnika"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:text="@string/home"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:layout_margin="5sp"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:padding="10sp"-->
+<!--                        />-->
+
+                    <TextView
+                        android:id="@+id/alertOkay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sagnika"
+                        android:textColor="@color/black"
+                        android:text="@string/okay"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="5sp"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:padding="10sp"
+                        />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+</layout>

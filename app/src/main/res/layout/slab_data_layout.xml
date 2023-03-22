@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="slabInfoResponse"
+            type="com.fintech.petoindia.data.network.responses.SlabInfoResponse" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/third_rectangle"
+                android:textAlignment="center"
+                android:hint="@string/min"
+                android:text="@={slabInfoResponse.min_amount}"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="2"
+                android:background="@drawable/third_rectangle"
+                android:hint="@string/max"
+                android:text="@={slabInfoResponse.max_amount}"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="2"
+                android:background="@drawable/third_rectangle"
+                android:hint="@string/commission"
+                android:text="@={slabInfoResponse.amount}"/>
+
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAlignment="center"-->
+<!--                android:background="@drawable/third_rectangle"-->
+<!--                android:layout_weight="1"-->
+<!--                android:hint="@string/tds"-->
+<!--                android:text="@={slabInfoResponse.tds}"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textAlignment="center"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/third_rectangle"-->
+<!--                android:hint="@string/gst"-->
+<!--                android:text="@={slabInfoResponse.tds}"/>-->
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

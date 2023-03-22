@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="payoutViewModel"
+            type="com.fintech.petoindia.viewmodel.PayoutViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.payoutpaysprint.VerifyAccounts">
+
+        <ScrollView
+            android:id="@+id/scroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/sendCreditCardOtp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/credit_card_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="12dp"
+                app:contentPadding="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/select_document_type"
+                        android:textSize="@dimen/_18sdp"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/sagnika"
+                        android:id="@+id/title"/>
+
+                    <RadioGroup
+                        android:id="@+id/doc_selection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pan"
+                            android:layout_marginHorizontal="@dimen/_5sdp"
+                            android:id="@+id/pan"
+                            />
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/aadhaar"
+                            android:layout_marginHorizontal="@dimen/_5sdp"
+                            android:id="@+id/Aadhaar"
+                            />
+                    </RadioGroup>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edi_passbook"
+                        android:layout_margin="@dimen/_6sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/select_passbook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
+                            android:focusable="false"
+                            android:hint="@string/passbook_photo"
+                            android:inputType="text"
+                            android:padding="15dp"
+                            android:importantForAutofill="no"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/pan_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/pan_card_image"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/select_pan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
+                                android:hint="@string/select_pan_card"
+                                android:inputType="textPersonName"
+                                android:importantForAutofill="no"
+                                android:padding="15dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/aadhaar_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/aadhaar_front_card_image"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/select_front_aadhaar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
+                                android:hint="@string/front_aadhaar"
+                                android:inputType="textPersonName"
+                                android:importantForAutofill="no"
+                                android:padding="15dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/aadhaar_back_card_image"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/select_back_aadhaar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
+                                android:hint="@string/back_aadhaar"
+                                android:inputType="textPersonName"
+                                android:importantForAutofill="no"
+                                android:padding="15dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
+        <Button
+            android:onClick="@{payoutViewModel::verifyPayoutDocuments}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20sp"
+            android:paddingHorizontal="5sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-8dp"
+            android:text="@string/verify"
+            android:backgroundTint="@color/iconColor"
+            android:id="@+id/sendCreditCardOtp"/>
+
+
+    </RelativeLayout>
+
+</layout>

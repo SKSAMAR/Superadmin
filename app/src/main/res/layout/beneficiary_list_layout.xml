@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="beneficiaryModel"
+            type="com.fintech.petoindia.data.network.responses.BeneficiaryBank" />
+    </data>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10sp"
+            android:layout_marginStart="12sp">
+
+            <ImageView
+                android:id="@+id/beneficiary_image"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:layout_margin="8sp"
+                android:src="@drawable/ic_bank"
+                android:contentDescription="@string/todo" />
+
+            <LinearLayout
+                android:id="@+id/beneficiary_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="12sp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/beneficiary_image"
+                >
+
+                <TextView
+                    android:text="@{beneficiaryModel.name}"
+                    android:id="@+id/beneficiary_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"
+                    />
+                <TextView
+                    android:text="@{beneficiaryModel.accno}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/beneficiary_account_no"
+                    android:textSize="12sp"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"/>
+
+                <TextView
+                    android:text="@{beneficiaryModel.bankname}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/beneficiary_bank_name"
+                    android:textSize="12sp"
+                    android:layout_marginVertical="1sp"
+                    android:fontFamily="@font/sagnika"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/deleteBeneficiary"
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_more"
+                android:contentDescription="@string/todo" />
+
+            <View
+                android:id="@+id/contactDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="?android:attr/listDivider"
+                android:layout_below="@id/beneficiary_image"
+                android:layout_marginStart="53sp"
+                tools:ignore="SmallSp" />
+
+
+
+        </RelativeLayout>
+
+
+</layout>

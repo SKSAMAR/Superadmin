@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fundViewModel"
+            type="com.fintech.petoindia.viewmodel.FundViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.addfunds.AddFundList">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/infoSection"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0.5dp"
+            app:contentPadding="2sp">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/upiPayment"
+                        android:onClick="@{fundViewModel::onOfflineAddFund}"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_offline"
+                        app:civ_border_width="1dp" />
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/offline"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/offlinePayment"
+                        android:onClick="@{fundViewModel::onRazorPayAddFund}"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_razorpay"
+                        app:civ_border_width="1dp" />
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/razorpay"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                        android:id="@+id/paytmFund"-->
+<!--                        android:onClick="@{fundViewModel::onPayTmAddFund}"-->
+<!--                        android:layout_width="55dp"-->
+<!--                        android:layout_height="55dp"-->
+<!--                        android:layout_margin="10dp"-->
+<!--                        android:src="@drawable/paytm_icon"-->
+<!--                        app:civ_border_width="1dp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="65dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/paytm"-->
+<!--                        android:textAlignment="center" />-->
+<!--                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/walletExchange"
+                        android:onClick="@{fundViewModel::onWalletExchange}"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/wallet_exchange"
+                        app:civ_border_width="1dp" />
+
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wallet_exchange"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</layout>
