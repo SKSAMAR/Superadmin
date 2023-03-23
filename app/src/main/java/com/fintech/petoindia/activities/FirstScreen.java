@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.fintech.petoindia.R;
 import com.fintech.petoindia.activities.common.BaseActivity;
+import com.fintech.petoindia.auth.AuthActivity;
 import com.fintech.petoindia.data.db.AppDatabase;
 import com.fintech.petoindia.data.db.entities.User;
 import com.fintech.petoindia.util.DisplayMessageUtil;
@@ -52,7 +53,7 @@ public class FirstScreen extends BaseActivity {
             intent = new Intent(FirstScreen.this, HomeActivity.class);
         }
         else{
-            intent = new Intent(FirstScreen.this, MainActivity.class);
+            intent = new Intent(FirstScreen.this, AuthActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

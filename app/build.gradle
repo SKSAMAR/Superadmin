@@ -252,6 +252,8 @@ dependencies {
 
     //SDP Compose
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
+    //OTPView
+    implementation 'com.yogeshpaliyal:speld:0.0.1-alpha03'
 
 
 }

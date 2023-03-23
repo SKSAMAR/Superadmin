@@ -87,5 +87,9 @@ fun<T> BasicScreenState(
             }
         }
 
+        if (state.value.baseDialogVisible.value) {
+            Column(content = state.value.content)
+        }
+
     }
 }

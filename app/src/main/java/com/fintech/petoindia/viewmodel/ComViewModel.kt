@@ -23,7 +23,7 @@ class ComViewModel
     fun  getComPlans(type: String = "AEPS_COMM", context: Context){
         if(Accessable.isAccessable()){
             adapter.resetAll()
-            NetworkUtil.getNetworkResult(apiServices.getComPlans(type),null){
+            NetworkUtil.getNetworkResult( apiServices.getComPlans(type), null){
                 DisplayMessageUtil.dismissDialog()
                 if(it.isEmpty()){
                     ViewUtils.showToast(context, "No Commission is set for you")

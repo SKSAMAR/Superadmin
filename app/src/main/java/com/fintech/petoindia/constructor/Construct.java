@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.fintech.petoindia.activities.HomeActivity;
-import com.fintech.petoindia.activities.MainActivity;
+//import com.fintech.petoindia.activities.MainActivity;
+import com.fintech.petoindia.auth.AuthActivity;
 import com.fintech.petoindia.data.db.AppDatabase;
 import com.fintech.petoindia.data.db.entities.AuthData;
 import com.fintech.petoindia.data.db.entities.Report;
@@ -35,7 +36,7 @@ public class Construct {
 
                     @Override
                     public void onComplete() {
-                        Intent intent = new Intent(context, MainActivity.class);
+                        Intent intent = new Intent(context, AuthActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

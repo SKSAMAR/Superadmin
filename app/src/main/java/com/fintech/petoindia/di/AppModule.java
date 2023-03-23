@@ -3,6 +3,7 @@ package com.fintech.petoindia.di;
 
 import android.content.Context;
 
+import com.fintech.petoindia.auth.data.AuthApi;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -161,6 +162,25 @@ public class AppModule {
                 .client(httpClient)
                 .build();
         return retrofit.create(APIServices.class);
+    }
+
+
+    @Singleton
+    @Provides
+    public static AuthApi getAuthApi(OkHttpClient httpClient) {
+
+        final Gson gson = new GsonBuilder()
+                .setLenient()
+                .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .baseUrl(Constant.BASE_URL)
+                .client(httpClient)
+                .build();
+        return retrofit.create(AuthApi.class);
     }
 
     @Singleton

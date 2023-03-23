@@ -3,6 +3,7 @@ package com.fintech.petoindia.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.fintech.petoindia.clean.common.BaseViewModel;
 import com.fintech.petoindia.deer_listener.Receiver;
 
 import java.io.File;
@@ -19,6 +20,26 @@ import okhttp3.RequestBody;
 
 public class NetworkUtil{
 
+
+    public static<T, W> void getNetworkResultCompose(Observable<T> apiCall, @Nullable BaseViewModel<W> viewModel, Receiver<T> receiver){
+        if(viewModel!=null) {
+            viewModel.dismissDialog();
+            viewModel.displayLoading("Please wait.");
+        }
+        apiCall.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res->{
+                    if(viewModel!=null) {
+                        viewModel.dismissDialog();
+                    }
+                    receiver.getData(res);
+                }, err->{
+                    if(viewModel!=null) {
+                        viewModel.displayFailureMessage(err.getMessage());
+                    }
+                });
+    }
+
     public static<T> void getNetworkResult(Observable<T> apiCall, @Nullable Context context, Receiver<T> receiver){
         if(context!=null) {
             DisplayMessageUtil.loading(context);
@@ -34,6 +55,8 @@ public class NetworkUtil{
                     }
                 });
     }
+
+
 
 
     public static MultipartBody.Part prepareFilePart(String partName, String fileUri) {
