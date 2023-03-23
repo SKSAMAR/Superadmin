@@ -9,7 +9,7 @@
     <data>
         <variable
             name="creationViewModel"
-            type="com.fintech.payware.viewmodel.CreationViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.CreationViewModel" />
     </data>
 
     <RelativeLayout

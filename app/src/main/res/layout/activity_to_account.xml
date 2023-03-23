@@ -9,7 +9,7 @@
 
         <variable
             name="MyBankViewModel"
-            type="com.fintech.payware.viewmodel.ToBankViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.ToBankViewModel" />
 
     </data>
 

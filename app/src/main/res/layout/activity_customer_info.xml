@@ -7,7 +7,7 @@
     <data>
         <variable
             name="customerInfoModel"
-            type="com.fintech.payware.data.network.responses.CustomerInfoModel" />
+            type="com.fintech.webspidysoftware.data.network.responses.CustomerInfoModel" />
     </data>
 
     <RelativeLayout

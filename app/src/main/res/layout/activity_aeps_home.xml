@@ -9,7 +9,7 @@
 
         <variable
             name="aeps_home_view_model"
-            type="com.fintech.payware.viewmodel.AepsViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.AepsViewModel" />
 
     </data>
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sliderItem"
-            type="com.fintech.payware.data.model.SliderItem" />
+            type="com.fintech.webspidysoftware.data.model.SliderItem" />
     </data>
 
 

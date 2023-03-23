@@ -7,7 +7,7 @@
     <data>
         <variable
             name="dmtUserData"
-            type="com.fintech.payware.data.network.responses.DmtUserData" />
+            type="com.fintech.webspidysoftware.data.network.responses.DmtUserData" />
     </data>
 
     <RelativeLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="billData"
-            type="com.fintech.payware.data.network.responses.LicFetchResponse" />
+            type="com.fintech.webspidysoftware.data.network.responses.LicFetchResponse" />
     </data>
 
     <RelativeLayout

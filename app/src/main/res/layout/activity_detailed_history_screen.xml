@@ -7,7 +7,7 @@
     <data>
         <variable
             name="wholeInfoModel"
-            type="com.fintech.payware.data.network.responses.BeneficiaryHistoryResponse" />
+            type="com.fintech.webspidysoftware.data.network.responses.BeneficiaryHistoryResponse" />
     </data>
 
     <ScrollView

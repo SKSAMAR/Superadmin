@@ -6,7 +6,7 @@
     <data>
         <variable
             name="selectOperatorViewModel"
-            type="com.fintech.payware.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

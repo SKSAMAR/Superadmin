@@ -7,14 +7,14 @@
     <data>
         <variable
             name="profileDetailsModel"
-            type="com.fintech.payware.viewmodel.ProfileViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.ProfileViewModel" />
         <variable
             name="userModel"
-            type="com.fintech.payware.data.db.entities.User" />
+            type="com.fintech.webspidysoftware.data.db.entities.User" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.payware.data.db.entities.UserProfile" />
+            type="com.fintech.webspidysoftware.data.db.entities.UserProfile" />
     </data>
 
     <RelativeLayout

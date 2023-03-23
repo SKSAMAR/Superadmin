@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sendMoneyViewModel"
-            type="com.fintech.payware.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.MobileNumberPayViewModel" />
     </data>
 
     <RelativeLayout

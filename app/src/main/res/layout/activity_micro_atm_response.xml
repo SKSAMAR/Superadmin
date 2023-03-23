@@ -5,7 +5,7 @@
     <data>
         <variable
             name="microAtmData"
-            type="com.fintech.payware.data.model.MicroAtmModel" />
+            type="com.fintech.webspidysoftware.data.model.MicroAtmModel" />
     </data>
 
     <ScrollView

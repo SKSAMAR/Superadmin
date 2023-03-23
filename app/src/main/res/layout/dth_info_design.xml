@@ -5,7 +5,7 @@
     <data>
         <variable
             name="dthInfo"
-            type="com.fintech.payware.data.dthinfo.DthInfoResponse.Info" />
+            type="com.fintech.webspidysoftware.data.dthinfo.DthInfoResponse.Info" />
     </data>
 
     <LinearLayout

@@ -8,7 +8,7 @@
 
         <variable
             name="operatorModel"
-            type="com.fintech.payware.data.model.OperatorModel" />
+            type="com.fintech.webspidysoftware.data.model.OperatorModel" />
 
     </data>
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="analyticViewModel"
-            type="com.fintech.payware.viewmodel.HomeViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.HomeViewModel" />
     </data>
 
     <RelativeLayout

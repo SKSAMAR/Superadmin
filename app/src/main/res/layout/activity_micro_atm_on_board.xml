@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onBoardingViewModel"
-            type="com.fintech.payware.viewmodel.OnBoardingViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.OnBoardingViewModel" />
     </data>
 
     <RelativeLayout

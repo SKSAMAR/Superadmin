@@ -7,7 +7,7 @@
 
         <variable
             name="circleModel"
-            type="com.fintech.payware.data.model.CircleModel" />
+            type="com.fintech.webspidysoftware.data.model.CircleModel" />
 
     </data>
 

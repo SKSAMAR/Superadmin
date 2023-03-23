@@ -6,7 +6,7 @@
     <data>
         <variable
             name="directToHomeViewModel"
-            type="com.fintech.payware.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.webspidysoftware.viewmodel.MobileRechargeViewModel" />
     </data>
 
 
