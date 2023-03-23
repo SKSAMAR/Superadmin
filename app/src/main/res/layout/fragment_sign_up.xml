@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myviewmodel"
-            type="com.fintech.petoindia.viewmodel.AuthViewModel" />
+            type="com.fintech.payware.viewmodel.AuthViewModel" />
     </data>
 
         <ScrollView

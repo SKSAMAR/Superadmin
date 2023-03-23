@@ -4,7 +4,7 @@
     <data>
         <variable
             name="ticketModel"
-            type="com.fintech.petoindia.data.model.TicketHistoryModel" />
+            type="com.fintech.payware.data.model.TicketHistoryModel" />
     </data>
 
     <LinearLayout

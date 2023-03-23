@@ -1,0 +1,118 @@
+package com.fintech.payware.activities.customersupport;
+
+import static com.fintech.payware.util.Constant.*;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.fintech.payware.R;
+import com.fintech.payware.databinding.ActivityNewTicketRiseBinding;
+import com.fintech.payware.listeners.ResetListener;
+import com.fintech.payware.util.PathsInformation;
+import com.fintech.payware.util.PermissionUtil;
+import com.fintech.payware.util.ViewUtils;
+import com.fintech.payware.viewmodel.CustomerSupportViewModel;
+
+import java.io.File;
+import java.util.Objects;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class NewTicketRise extends AppCompatActivity implements ResetListener {
+
+    CustomerSupportViewModel viewModel;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(CustomerSupportViewModel.class);
+        viewModel.binding = ActivityNewTicketRiseBinding.inflate(getLayoutInflater());
+        setContentView(viewModel.binding.getRoot());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Customer Support");
+        viewModel.resetListener = this;
+        viewModel.binding.setViewModel(viewModel);
+        setListeners();
+    }
+
+
+    private void setListeners(){
+
+        Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+        chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
+        chooseFile.setType("*/*");
+
+        viewModel.binding.selectProof.setOnClickListener(v-> PermissionUtil.givePermission(NewTicketRise.this, data -> {
+            if(data == 1){
+                startActivityForResult(
+                        Intent.createChooser(chooseFile, "Choose a file"),
+                        PROOF
+                );
+            }
+            else{
+                ViewUtils.showToast(getApplicationContext(), "No Permission");
+            }
+        }));
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PROOF && resultCode == Activity.RESULT_OK){
+            Uri content_describer = data.getData();
+            viewModel.binding.proofEdit.setText(PathsInformation.getNameFromURI(getApplicationContext(), content_describer));
+            String dest  = PathsInformation.getPathFromURI(getApplicationContext(), content_describer);
+            File destination = null;
+            if (dest != null) {
+                destination = new File(dest);
+            }
+            viewModel.setProof(destination);
+        }
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
+            onBackPressed();
+            return true;
+        }
+        else if(item.getItemId() == R.id.history_check){
+            Intent intent = new Intent(NewTicketRise.this, TicketRiseHistory.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.history_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void resetRequiredData(boolean result) {
+        if(result){
+            viewModel.proof = null;
+            viewModel.description = "";
+            viewModel.transactionId = "";
+            viewModel.transactionDate = "";
+            viewModel.department = "";
+            viewModel.binding.proofEdit.setText("");
+            viewModel.binding.setViewModel(viewModel);
+        }
+    }
+}

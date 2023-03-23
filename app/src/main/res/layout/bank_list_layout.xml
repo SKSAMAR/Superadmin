@@ -9,7 +9,7 @@
 
         <variable
             name="bankModel"
-            type="com.fintech.petoindia.data.model.BankModel"/>
+            type="com.fintech.payware.data.model.BankModel"/>
 
     </data>
 

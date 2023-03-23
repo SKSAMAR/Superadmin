@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onBoardingViewModel"
-            type="com.fintech.petoindia.viewmodel.OnBoardingViewModel" />
+            type="com.fintech.payware.viewmodel.OnBoardingViewModel" />
     </data>
 
     <RelativeLayout

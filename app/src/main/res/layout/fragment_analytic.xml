@@ -7,7 +7,7 @@
 
         <variable
             name="analyticsViewModel"
-            type="com.fintech.petoindia.viewmodel.HomeViewModel" />
+            type="com.fintech.payware.viewmodel.HomeViewModel" />
 
     </data>
 

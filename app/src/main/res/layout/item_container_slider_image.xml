@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sliderItem"
-            type="com.fintech.petoindia.data.model.SliderItem" />
+            type="com.fintech.payware.data.model.SliderItem" />
     </data>
 
 

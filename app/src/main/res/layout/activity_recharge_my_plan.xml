@@ -8,11 +8,11 @@
     <data>
         <variable
             name="rechargeViewModel"
-            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.payware.viewmodel.MobileRechargeViewModel" />
 
         <variable
             name="hlrModel"
-            type="com.fintech.petoindia.data.hlr.HLRResponse" />
+            type="com.fintech.payware.data.hlr.HLRResponse" />
     </data>
 
 
@@ -145,27 +145,32 @@
                                     android:background="@android:color/transparent"/>
                             </com.google.android.material.textfield.TextInputLayout>
 
-                            <com.google.android.material.textfield.TextInputLayout
+                            <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/circle"
-                                android:id="@+id/circleName"
+                                android:orientation="vertical"
                                 android:layout_weight="1"
-                                android:layout_marginStart="@dimen/_4sdp">
-
-                                <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/circleLayout">
+                                <com.google.android.material.textfield.TextInputLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:clickable="false"
-                                    android:cursorVisible="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:importantForAutofill="no"
-                                    android:inputType="textNoSuggestions"
-                                    android:maxLines="1"
-                                    android:text="@{hlrModel.Info.circle}"
-                                    android:background="@android:color/transparent"/>
-                            </com.google.android.material.textfield.TextInputLayout>
+                                    android:hint="@string/circle"
+                                    android:id="@+id/circleName"
+                                    android:layout_marginStart="@dimen/_4sdp">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/editCircleName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
+                                        android:importantForAutofill="no"
+                                        android:inputType="textNoSuggestions"
+                                        android:maxLines="1"
+                                        android:text="@{hlrModel.Info.circle}"
+                                        android:background="@android:color/transparent"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+                            </LinearLayout>
 
 
 
@@ -194,27 +199,27 @@
 
 
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="20dp"
-                            android:orientation="horizontal">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:text="@={rechargeViewModel.mPin}"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:ems="10"
-                                android:maxLength="5"
-                                android:background="@android:color/transparent"
-                                android:hint="@string/enter_m_pin"
-                                android:id="@+id/mPin"
-                                android:inputType="number"
-                                android:importantForAutofill="no"
-                                android:maxLines="1" />
+<!--                        <com.google.android.material.textfield.TextInputLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginBottom="20dp"-->
+<!--                            android:orientation="horizontal">-->
+<!--                            <com.google.android.material.textfield.TextInputEditText-->
+<!--                                android:text="@={rechargeViewModel.mPin}"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_centerHorizontal="true"-->
+<!--                                android:layout_centerVertical="true"-->
+<!--                                android:ems="10"-->
+<!--                                android:maxLength="5"-->
+<!--                                android:background="@android:color/transparent"-->
+<!--                                android:hint="@string/enter_m_pin"-->
+<!--                                android:id="@+id/mPin"-->
+<!--                                android:inputType="number"-->
+<!--                                android:importantForAutofill="no"-->
+<!--                                android:maxLines="1" />-->
 
-                        </com.google.android.material.textfield.TextInputLayout>
+<!--                        </com.google.android.material.textfield.TextInputLayout>-->
 
 
                     </LinearLayout>

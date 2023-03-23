@@ -7,7 +7,7 @@
     <data>
         <variable
             name="imageModel"
-            type="com.fintech.petoindia.data.model.ImageModel" />
+            type="com.fintech.payware.data.model.ImageModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

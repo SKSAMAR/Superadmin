@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sendMoneyViewModel"
-            type="com.fintech.petoindia.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.payware.viewmodel.MobileNumberPayViewModel" />
     </data>
 
     <RelativeLayout

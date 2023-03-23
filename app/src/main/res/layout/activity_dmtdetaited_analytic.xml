@@ -8,7 +8,7 @@
     <data>
         <variable
             name="regularDetailModel"
-            type="com.fintech.petoindia.data.network.responses.AnalyticsResponseModel" />
+            type="com.fintech.payware.data.network.responses.AnalyticsResponseModel" />
     </data>
 
     <ScrollView

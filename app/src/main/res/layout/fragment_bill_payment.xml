@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable
         name="viewModel"
-        type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+        type="com.fintech.payware.viewmodel.MobileRechargeViewModel" />
 </data>
 
 <ScrollView
@@ -141,6 +141,33 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:id="@+id/mPinBBPS"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="visible"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mode"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/iconColor"/>
+                    <EditText
+                        android:onClick="@{viewModel::selectModeBBPS}"
+                        android:text="@={viewModel.mode}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:cursorVisible="false"
+                        android:maxLines="1"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
+                        android:importantForAutofill="no"
+                        android:id="@+id/modeSelection"
                         />
                 </LinearLayout>
 

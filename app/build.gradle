@@ -6,11 +6,12 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
+
 android {
     compileSdk 33
     defaultConfig {
 
-        applicationId "com.fintech.petoindia"
+        applicationId "com.fintech.payware"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -47,7 +48,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.fintech.petoindia'
+    namespace 'com.fintech.payware'
 
     //enable view binding
     //noinspection DataBindingWithoutKapt
@@ -127,7 +128,7 @@ dependencies {
     implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
 
     //OnBoarding
-    implementation files('libs/finalonboardinglib-release_v1_0_9.aar')
+    implementation files('libs/onboardinglib_live.v-1.0.11.aar')
 
 
     //Micro-atm

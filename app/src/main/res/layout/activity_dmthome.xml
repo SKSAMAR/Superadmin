@@ -8,7 +8,7 @@
     <data>
         <variable
             name="toBankViewModel"
-            type="com.fintech.petoindia.viewmodel.ToBankViewModel" />
+            type="com.fintech.payware.viewmodel.ToBankViewModel" />
     </data>
 
     <RelativeLayout

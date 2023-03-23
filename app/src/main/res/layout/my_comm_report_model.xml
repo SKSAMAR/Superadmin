@@ -3,7 +3,7 @@
     <data>
         <variable
             name="commissionModelPack"
-            type="com.fintech.petoindia.data.model.ComPackageModel" />
+            type="com.fintech.payware.data.model.ComPackageModel" />
     </data>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

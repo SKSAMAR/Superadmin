@@ -5,7 +5,7 @@
     <data>
         <variable
             name="beneficiaryModel"
-            type="com.fintech.petoindia.data.network.responses.BeneficiaryBank" />
+            type="com.fintech.payware.data.network.responses.BeneficiaryBank" />
     </data>
 
         <RelativeLayout

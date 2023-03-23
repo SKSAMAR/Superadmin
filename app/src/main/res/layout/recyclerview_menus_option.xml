@@ -7,7 +7,7 @@
     <data>
         <variable
             name="myMenus"
-            type="com.fintech.petoindia.data.model.MenuModel" />
+            type="com.fintech.payware.data.model.MenuModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

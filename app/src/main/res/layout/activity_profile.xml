@@ -6,15 +6,15 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.petoindia.viewmodel.ProfileViewModel" />
+            type="com.fintech.payware.viewmodel.ProfileViewModel" />
 
         <variable
             name="nameNumber"
-            type="com.fintech.petoindia.data.db.entities.User" />
+            type="com.fintech.payware.data.db.entities.User" />
 
         <variable
             name="userProfile"
-            type="com.fintech.petoindia.data.db.entities.UserProfile" />
+            type="com.fintech.payware.data.db.entities.UserProfile" />
 
     </data>
 

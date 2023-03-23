@@ -6,7 +6,7 @@
     <data>
         <variable
             name="analyticViewModel"
-            type="com.fintech.petoindia.viewmodel.HomeViewModel" />
+            type="com.fintech.payware.viewmodel.HomeViewModel" />
     </data>
 
     <RelativeLayout

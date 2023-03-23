@@ -7,7 +7,7 @@
     <data>
         <variable
             name="rechargeViewModel"
-            type="com.fintech.petoindia.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.payware.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="payoutViewModel"
-            type="com.fintech.petoindia.viewmodel.PayoutViewModel" />
+            type="com.fintech.payware.viewmodel.PayoutViewModel" />
     </data>
 
     <RelativeLayout

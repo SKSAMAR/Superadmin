@@ -9,7 +9,7 @@
 
         <variable
             name="MyBankViewModel"
-            type="com.fintech.petoindia.viewmodel.ToBankViewModel" />
+            type="com.fintech.payware.viewmodel.ToBankViewModel" />
 
     </data>
 

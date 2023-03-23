@@ -8,7 +8,7 @@
 
         <variable
             name="historyViewModel"
-            type="com.fintech.petoindia.viewmodel.HomeViewModel" />
+            type="com.fintech.payware.viewmodel.HomeViewModel" />
 
     </data>
 

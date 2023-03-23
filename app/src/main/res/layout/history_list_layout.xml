@@ -9,7 +9,7 @@
 
         <variable
             name="myHistoryModel"
-            type="com.fintech.petoindia.data.model.HistoryModel" />
+            type="com.fintech.payware.data.model.HistoryModel" />
 
     </data>
 

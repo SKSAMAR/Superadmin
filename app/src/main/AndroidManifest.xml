@@ -22,10 +22,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="33"
-        tools:ignore="ScopedStorage"
         tools:node="merge"
-        tools:replace="android:maxSdkVersion" />
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.USB_PERMISSION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -53,7 +51,7 @@
 
 
     <application
-        android:name="com.fintech.petoindia.BaseApplication"
+        android:name="com.fintech.payware.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -69,7 +67,7 @@
         tools:targetApi="n">
 
         <activity
-            android:name="com.fintech.petoindia.activities.mahagrm_bc.BcRegistration"
+            android:name="com.fintech.payware.activities.mahagrm_bc.BcRegistration"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
@@ -77,18 +75,18 @@
 
 
         <activity
-            android:name="com.fintech.petoindia.activities.upi.PayWithUPI"
+            android:name="com.fintech.payware.activities.upi.PayWithUPI"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.fintech.petoindia.activities.qrscanner.QrActivity"
+            android:name="com.fintech.payware.activities.qrscanner.QrActivity"
             android:exported="false"
             android:label="@string/title_activity_qr"
             android:theme="@style/Theme.ProjectRC" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.MyCommissionActivity"
+            android:name="com.fintech.payware.activities.profile.MyCommissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -106,154 +104,154 @@
         </provider>
 
         <activity
-            android:name="com.fintech.petoindia.activities.customersupport.NewTicketRise"
+            android:name="com.fintech.payware.activities.customersupport.NewTicketRise"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.customersupport.TicketRiseHistory"
+            android:name="com.fintech.payware.activities.customersupport.TicketRiseHistory"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.lic.LICDetailedAnalytic"
+            android:name="com.fintech.payware.activities.lic.LICDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.lic.LicFetchBill"
+            android:name="com.fintech.payware.activities.lic.LicFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.RequestHistory"
+            android:name="com.fintech.payware.activities.addfunds.RequestHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.pins.PinActivity"
+            android:name="com.fintech.payware.activities.pins.PinActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.DTHActivity"
+            android:name="com.fintech.payware.activities.rechargeactivities.DTHActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.payoutpaysprint.PayoutDetailedAnalytic"
+            android:name="com.fintech.payware.activities.payoutpaysprint.PayoutDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.CustomerCare"
+            android:name="com.fintech.payware.activities.profile.CustomerCare"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.sectionhistory.RegularHistory"
+            android:name="com.fintech.payware.activities.sectionhistory.RegularHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.payoutpaysprint.VerifyAccounts"
+            android:name="com.fintech.payware.activities.payoutpaysprint.VerifyAccounts"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.payoutpaysprint.PayoutAddAccount"
+            android:name="com.fintech.payware.activities.payoutpaysprint.PayoutAddAccount"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.payoutpaysprint.PaysprintPayout"
+            android:name="com.fintech.payware.activities.payoutpaysprint.PaysprintPayout"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.microatm.MicroAtmDetailedAnalytic"
+            android:name="com.fintech.payware.activities.microatm.MicroAtmDetailedAnalytic"
             android:exported="true" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.ViewSlabData"
+            android:name="com.fintech.payware.activities.profile.ViewSlabData"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.RequestOffline"
+            android:name="com.fintech.payware.activities.addfunds.RequestOffline"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.FundExchange"
+            android:name="com.fintech.payware.activities.addfunds.FundExchange"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.pins.TPinRegister"
+            android:name="com.fintech.payware.pins.TPinRegister"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.CustomerInfoActivity"
+            android:name="com.fintech.payware.activities.rechargeactivities.CustomerInfoActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.BrowsePlan"
+            android:name="com.fintech.payware.activities.rechargeactivities.BrowsePlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.ROffer"
+            android:name="com.fintech.payware.activities.rechargeactivities.ROffer"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.FundDetailedAnalytic"
+            android:name="com.fintech.payware.activities.addfunds.FundDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.MiniStatementAnalytic"
+            android:name="com.fintech.payware.activities.aeps.MiniStatementAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.AepsDetailedAnalytic"
+            android:name="com.fintech.payware.activities.aeps.AepsDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.DMTDetailedAnalytic"
+            android:name="com.fintech.payware.activities.tobank.DMTDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.bbps.BBPSDetailedAnalytic"
+            android:name="com.fintech.payware.activities.bbps.BBPSDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.RechargeDetailedAnalytic"
+            android:name="com.fintech.payware.activities.rechargeactivities.RechargeDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.DMTHome"
+            android:name="com.fintech.payware.activities.tobank.DMTHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.creation.CreationActivity"
+            android:name="com.fintech.payware.activities.creation.CreationActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.microatm.MicroAtmResponse"
+            android:name="com.fintech.payware.activities.microatm.MicroAtmResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -268,32 +266,32 @@
             android:value="true" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.PayActivity"
+            android:name="com.fintech.payware.activities.addfunds.PayActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.addfunds.AddFundList"
+            android:name="com.fintech.payware.activities.addfunds.AddFundList"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.Settings"
+            android:name="com.fintech.payware.activities.profile.Settings"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.BankDetails"
+            android:name="com.fintech.payware.activities.profile.BankDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.SocialMedia"
+            android:name="com.fintech.payware.activities.profile.SocialMedia"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.ProfileDetails"
+            android:name="com.fintech.payware.activities.profile.ProfileDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" /> <!-- <service -->
@@ -319,147 +317,147 @@
             android:theme="@style/Theme.AppThemeAdditional"
             tools:replace="android:theme" />
         <activity
-            android:name="com.fintech.petoindia.activities.facilityresponses.AePSSuccessMiniStatementResponse"
+            android:name="com.fintech.payware.activities.facilityresponses.AePSSuccessMiniStatementResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.MiniStatement"
+            android:name="com.fintech.payware.activities.aeps.MiniStatement"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.facilityresponses.AepsFailureReponseScreen"
+            android:name="com.fintech.payware.activities.facilityresponses.AepsFailureReponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.facilityresponses.AePSSuccessResponseScreen"
+            android:name="com.fintech.payware.activities.facilityresponses.AePSSuccessResponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.DetailedHistoryScreen"
+            android:name="com.fintech.payware.activities.tobank.DetailedHistoryScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.SelectedBeneficiaryHistory"
+            android:name="com.fintech.payware.activities.tobank.SelectedBeneficiaryHistory"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.SendAmountDMT"
+            android:name="com.fintech.payware.activities.tobank.SendAmountDMT"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.RegisterRemitter"
+            android:name="com.fintech.payware.activities.tobank.RegisterRemitter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.microatm.MicroAtmHome"
+            android:name="com.fintech.payware.activities.microatm.MicroAtmHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.QueryRemitter"
+            android:name="com.fintech.payware.activities.tobank.QueryRemitter"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.profile.ProfileActivity"
+            android:name="com.fintech.payware.activities.profile.ProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.mobilenumber.SendMoney"
+            android:name="com.fintech.payware.activities.mobilenumber.SendMoney"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.mobilenumber.MobileNumberPay"
+            android:name="com.fintech.payware.activities.mobilenumber.MobileNumberPay"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.CashWithdrawal"
+            android:name="com.fintech.payware.activities.aeps.CashWithdrawal"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.BalanceEnquiry"
+            android:name="com.fintech.payware.activities.aeps.BalanceEnquiry"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.aeps.AepsHome"
+            android:name="com.fintech.payware.activities.aeps.AepsHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.bbps.BbpsEnter"
+            android:name="com.fintech.payware.activities.bbps.BbpsEnter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.AddBeneficiary"
+            android:name="com.fintech.payware.activities.tobank.AddBeneficiary"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.SelectBank"
+            android:name="com.fintech.payware.activities.tobank.SelectBank"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.tobank.ToAccount"
+            android:name="com.fintech.payware.activities.tobank.ToAccount"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.SelectOperator"
+            android:name="com.fintech.payware.activities.rechargeactivities.SelectOperator"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.RechargeMyPlan"
+            android:name="com.fintech.payware.activities.rechargeactivities.RechargeMyPlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.rechargeactivities.MobileRecharge"
+            android:name="com.fintech.payware.activities.rechargeactivities.MobileRecharge"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.fastag.FASTagDetailedAnalytic"
+            android:name="com.fintech.payware.activities.fastag.FASTagDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.fastag.FastagFetchBill"
+            android:name="com.fintech.payware.activities.fastag.FastagFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.petoindia.activities.fastag.OperatorList"
+            android:name="com.fintech.payware.activities.fastag.OperatorList"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.HomeActivity"
+            android:name="com.fintech.payware.activities.HomeActivity"
             android:configChanges="uiMode"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 <!--        /**-->
 <!--        <activity-->
-<!--            android:name="com.fintech.petoindia.activities.MainActivity"-->
+<!--            android:name="brindacreationsations.activities.MainActivity"-->
 <!--            android:configChanges="uiMode"-->
 <!--            android:launchMode="singleTask"-->
 <!--            android:screenOrientation="portrait"-->
@@ -467,42 +465,42 @@
 <!--        **/-->
 
         <activity
-            android:name="com.fintech.petoindia.activities.creditcard.CCFetchBill"
+            android:name="com.fintech.payware.activities.creditcard.CCFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.creditcard.CCFetchBillK"
+            android:name="com.fintech.payware.activities.creditcard.CCFetchBillK"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.creditcard.CCRefundActivity"
+            android:name="com.fintech.payware.activities.creditcard.CCRefundActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.creditcard.CCDetailedAnalytic"
+            android:name="com.fintech.payware.activities.creditcard.CCDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.clean.presentation.AuthActivity"
+            android:name="com.fintech.payware.clean.presentation.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.auth.AuthActivity"
+            android:name="com.fintech.payware.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -510,7 +508,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.petoindia.activities.FirstScreen"
+            android:name="com.fintech.payware.activities.FirstScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

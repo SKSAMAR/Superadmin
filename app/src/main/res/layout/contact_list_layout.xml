@@ -8,7 +8,7 @@
 
         <variable
             name="myContactList"
-            type="com.fintech.petoindia.data.model.ContactsModel" />
+            type="com.fintech.payware.data.model.ContactsModel" />
 
     </data>
 
