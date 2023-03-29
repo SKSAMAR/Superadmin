@@ -6,15 +6,15 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ProfileViewModel" />
+            type="com.fintech.prepe.viewmodel.ProfileViewModel" />
 
         <variable
             name="nameNumber"
-            type="com.fintech.webspidysoftware.data.db.entities.User" />
+            type="com.fintech.prepe.data.db.entities.User" />
 
         <variable
             name="userProfile"
-            type="com.fintech.webspidysoftware.data.db.entities.UserProfile" />
+            type="com.fintech.prepe.data.db.entities.UserProfile" />
 
     </data>
 

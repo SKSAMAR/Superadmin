@@ -4,7 +4,7 @@
     <data>
         <variable
             name="histData"
-            type="com.fintech.webspidysoftware.data.network.responses.RegularHistoryResponse.EveryDayData" />
+            type="com.fintech.prepe.data.network.responses.RegularHistoryResponse.EveryDayData" />
     </data>
 
     <RelativeLayout

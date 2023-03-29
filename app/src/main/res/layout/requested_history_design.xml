@@ -4,7 +4,7 @@
     <data>
         <variable
             name="requestHistoryModel"
-            type="com.fintech.webspidysoftware.data_model.request.RequestedHistoryModel" />
+            type="com.fintech.prepe.data_model.request.RequestedHistoryModel" />
     </data>
 
     <LinearLayout

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ToBankViewModel" />
+            type="com.fintech.prepe.viewmodel.ToBankViewModel" />
     </data>
 
     <RelativeLayout

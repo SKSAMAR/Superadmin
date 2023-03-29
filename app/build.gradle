@@ -11,7 +11,7 @@ android {
     compileSdk 33
     defaultConfig {
 
-        applicationId "com.fintech.webspidysoftware"
+        applicationId "com.fintech.prepe"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -48,7 +48,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.fintech.webspidysoftware'
+    namespace 'com.fintech.prepe'
 
     //enable view binding
     //noinspection DataBindingWithoutKapt
@@ -125,7 +125,7 @@ dependencies {
     //RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //Glide Svg
-    implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
+    implementation 'com.github.corouteam:GlideToVectorYou:2.0.0'
 
     //OnBoarding
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')

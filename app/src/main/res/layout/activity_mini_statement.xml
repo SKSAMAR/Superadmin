@@ -7,7 +7,7 @@
     <data>
         <variable
             name="miniStatementViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.AepsViewModel" />
+            type="com.fintech.prepe.viewmodel.AepsViewModel" />
 
     </data>
 

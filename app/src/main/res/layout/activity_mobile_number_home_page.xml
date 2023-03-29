@@ -5,7 +5,7 @@
 
         <variable
             name="mobileNumbersViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.prepe.viewmodel.MobileNumberPayViewModel" />
 
     </data>
 

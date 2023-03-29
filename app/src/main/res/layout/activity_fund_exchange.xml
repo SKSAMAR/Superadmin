@@ -7,10 +7,10 @@
     <data>
         <variable
             name="userDataModel"
-            type="com.fintech.webspidysoftware.data.db.entities.User" />
+            type="com.fintech.prepe.data.db.entities.User" />
         <variable
             name="fundViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.FundViewModel" />
+            type="com.fintech.prepe.viewmodel.FundViewModel" />
     </data>
 
 

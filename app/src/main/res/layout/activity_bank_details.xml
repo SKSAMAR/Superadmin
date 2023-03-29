@@ -8,11 +8,11 @@
 
         <variable
             name="bankDetailsViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ProfileViewModel" />
+            type="com.fintech.prepe.viewmodel.ProfileViewModel" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.webspidysoftware.data.db.entities.UserProfile" />
+            type="com.fintech.prepe.data.db.entities.UserProfile" />
 
     </data>
 <RelativeLayout

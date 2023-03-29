@@ -5,7 +5,7 @@
     <data>
         <variable
             name="beneficiaryModel"
-            type="com.fintech.webspidysoftware.data.deer_response.CFPDBeneficiary" />
+            type="com.fintech.prepe.data.deer_response.CFPDBeneficiary" />
     </data>
 
     <RelativeLayout

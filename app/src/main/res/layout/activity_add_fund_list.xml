@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fundViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.FundViewModel" />
+            type="com.fintech.prepe.viewmodel.FundViewModel" />
     </data>
 
     <RelativeLayout

@@ -9,7 +9,7 @@
 
         <variable
             name="myHistoryModel"
-            type="com.fintech.webspidysoftware.data.model.HistoryModel" />
+            type="com.fintech.prepe.data.model.HistoryModel" />
 
     </data>
 

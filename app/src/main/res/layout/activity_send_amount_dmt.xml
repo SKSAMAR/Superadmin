@@ -7,7 +7,7 @@
     <data>
         <variable
             name="sendAmountViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ToBankViewModel" />
+            type="com.fintech.prepe.viewmodel.ToBankViewModel" />
 
     </data>
 

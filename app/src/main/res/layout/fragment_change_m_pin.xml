@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ProfileViewModel" />
+            type="com.fintech.prepe.viewmodel.ProfileViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

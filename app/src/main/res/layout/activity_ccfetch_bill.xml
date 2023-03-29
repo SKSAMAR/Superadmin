@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ccViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.prepe.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout

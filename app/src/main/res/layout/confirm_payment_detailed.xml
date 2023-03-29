@@ -6,10 +6,10 @@
     <data>
         <variable
             name="dmtViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.ToBankViewModel"/>
+            type="com.fintech.prepe.viewmodel.ToBankViewModel"/>
         <variable
             name="commData"
-            type="com.fintech.webspidysoftware.data.network.responses.CommissionResponse" />
+            type="com.fintech.prepe.data.network.responses.CommissionResponse" />
     </data>
 
     <androidx.cardview.widget.CardView

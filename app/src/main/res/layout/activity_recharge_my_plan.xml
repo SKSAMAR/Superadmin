@@ -8,11 +8,11 @@
     <data>
         <variable
             name="rechargeViewModel"
-            type="com.fintech.webspidysoftware.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.prepe.viewmodel.MobileRechargeViewModel" />
 
         <variable
             name="hlrModel"
-            type="com.fintech.webspidysoftware.data.hlr.HLRResponse" />
+            type="com.fintech.prepe.data.hlr.HLRResponse" />
     </data>
 
 

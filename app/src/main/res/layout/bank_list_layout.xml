@@ -9,7 +9,7 @@
 
         <variable
             name="bankModel"
-            type="com.fintech.webspidysoftware.data.model.BankModel"/>
+            type="com.fintech.prepe.data.model.BankModel"/>
 
     </data>
 
