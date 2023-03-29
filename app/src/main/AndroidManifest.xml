@@ -51,7 +51,7 @@
 
 
     <application
-        android:name="com.fintech.prepe.BaseApplication"
+        android:name="com.fintech.kkpayments.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -67,7 +67,7 @@
         tools:targetApi="n">
 
         <activity
-            android:name="com.fintech.prepe.activities.mahagrm_bc.BcRegistration"
+            android:name="com.fintech.kkpayments.activities.mahagrm_bc.BcRegistration"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
@@ -75,18 +75,18 @@
 
 
         <activity
-            android:name="com.fintech.prepe.activities.upi.PayWithUPI"
+            android:name="com.fintech.kkpayments.activities.upi.PayWithUPI"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.fintech.prepe.activities.qrscanner.QrActivity"
+            android:name="com.fintech.kkpayments.activities.qrscanner.QrActivity"
             android:exported="false"
             android:label="@string/title_activity_qr"
             android:theme="@style/Theme.ProjectRC" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.MyCommissionActivity"
+            android:name="com.fintech.kkpayments.activities.profile.MyCommissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -104,154 +104,154 @@
         </provider>
 
         <activity
-            android:name="com.fintech.prepe.activities.customersupport.NewTicketRise"
+            android:name="com.fintech.kkpayments.activities.customersupport.NewTicketRise"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.customersupport.TicketRiseHistory"
+            android:name="com.fintech.kkpayments.activities.customersupport.TicketRiseHistory"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.lic.LICDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.lic.LICDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.lic.LicFetchBill"
+            android:name="com.fintech.kkpayments.activities.lic.LicFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.RequestHistory"
+            android:name="com.fintech.kkpayments.activities.addfunds.RequestHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.pins.PinActivity"
+            android:name="com.fintech.kkpayments.activities.pins.PinActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.DTHActivity"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.DTHActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.payoutpaysprint.PayoutDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.payoutpaysprint.PayoutDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.CustomerCare"
+            android:name="com.fintech.kkpayments.activities.profile.CustomerCare"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.sectionhistory.RegularHistory"
+            android:name="com.fintech.kkpayments.activities.sectionhistory.RegularHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.payoutpaysprint.VerifyAccounts"
+            android:name="com.fintech.kkpayments.activities.payoutpaysprint.VerifyAccounts"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.payoutpaysprint.PayoutAddAccount"
+            android:name="com.fintech.kkpayments.activities.payoutpaysprint.PayoutAddAccount"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.payoutpaysprint.PaysprintPayout"
+            android:name="com.fintech.kkpayments.activities.payoutpaysprint.PaysprintPayout"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.microatm.MicroAtmDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.microatm.MicroAtmDetailedAnalytic"
             android:exported="true" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.ViewSlabData"
+            android:name="com.fintech.kkpayments.activities.profile.ViewSlabData"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.RequestOffline"
+            android:name="com.fintech.kkpayments.activities.addfunds.RequestOffline"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.FundExchange"
+            android:name="com.fintech.kkpayments.activities.addfunds.FundExchange"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.pins.TPinRegister"
+            android:name="com.fintech.kkpayments.pins.TPinRegister"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.CustomerInfoActivity"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.CustomerInfoActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.BrowsePlan"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.BrowsePlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.ROffer"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.ROffer"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.FundDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.addfunds.FundDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.MiniStatementAnalytic"
+            android:name="com.fintech.kkpayments.activities.aeps.MiniStatementAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.AepsDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.aeps.AepsDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.DMTDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.tobank.DMTDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.bbps.BBPSDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.bbps.BBPSDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.RechargeDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.RechargeDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.DMTHome"
+            android:name="com.fintech.kkpayments.activities.tobank.DMTHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.creation.CreationActivity"
+            android:name="com.fintech.kkpayments.activities.creation.CreationActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.microatm.MicroAtmResponse"
+            android:name="com.fintech.kkpayments.activities.microatm.MicroAtmResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -266,32 +266,32 @@
             android:value="true" />
 
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.PayActivity"
+            android:name="com.fintech.kkpayments.activities.addfunds.PayActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.addfunds.AddFundList"
+            android:name="com.fintech.kkpayments.activities.addfunds.AddFundList"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.Settings"
+            android:name="com.fintech.kkpayments.activities.profile.Settings"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.BankDetails"
+            android:name="com.fintech.kkpayments.activities.profile.BankDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.SocialMedia"
+            android:name="com.fintech.kkpayments.activities.profile.SocialMedia"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.ProfileDetails"
+            android:name="com.fintech.kkpayments.activities.profile.ProfileDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" /> <!-- <service -->
@@ -317,140 +317,140 @@
             android:theme="@style/Theme.AppThemeAdditional"
             tools:replace="android:theme" />
         <activity
-            android:name="com.fintech.prepe.activities.facilityresponses.AePSSuccessMiniStatementResponse"
+            android:name="com.fintech.kkpayments.activities.facilityresponses.AePSSuccessMiniStatementResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.MiniStatement"
+            android:name="com.fintech.kkpayments.activities.aeps.MiniStatement"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.facilityresponses.AepsFailureReponseScreen"
+            android:name="com.fintech.kkpayments.activities.facilityresponses.AepsFailureReponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.facilityresponses.AePSSuccessResponseScreen"
+            android:name="com.fintech.kkpayments.activities.facilityresponses.AePSSuccessResponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.DetailedHistoryScreen"
+            android:name="com.fintech.kkpayments.activities.tobank.DetailedHistoryScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.SelectedBeneficiaryHistory"
+            android:name="com.fintech.kkpayments.activities.tobank.SelectedBeneficiaryHistory"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.SendAmountDMT"
+            android:name="com.fintech.kkpayments.activities.tobank.SendAmountDMT"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.RegisterRemitter"
+            android:name="com.fintech.kkpayments.activities.tobank.RegisterRemitter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.microatm.MicroAtmHome"
+            android:name="com.fintech.kkpayments.activities.microatm.MicroAtmHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.QueryRemitter"
+            android:name="com.fintech.kkpayments.activities.tobank.QueryRemitter"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.profile.ProfileActivity"
+            android:name="com.fintech.kkpayments.activities.profile.ProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.mobilenumber.SendMoney"
+            android:name="com.fintech.kkpayments.activities.mobilenumber.SendMoney"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.mobilenumber.MobileNumberPay"
+            android:name="com.fintech.kkpayments.activities.mobilenumber.MobileNumberPay"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.CashWithdrawal"
+            android:name="com.fintech.kkpayments.activities.aeps.CashWithdrawal"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.BalanceEnquiry"
+            android:name="com.fintech.kkpayments.activities.aeps.BalanceEnquiry"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.aeps.AepsHome"
+            android:name="com.fintech.kkpayments.activities.aeps.AepsHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.bbps.BbpsEnter"
+            android:name="com.fintech.kkpayments.activities.bbps.BbpsEnter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.AddBeneficiary"
+            android:name="com.fintech.kkpayments.activities.tobank.AddBeneficiary"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.SelectBank"
+            android:name="com.fintech.kkpayments.activities.tobank.SelectBank"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.tobank.ToAccount"
+            android:name="com.fintech.kkpayments.activities.tobank.ToAccount"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.SelectOperator"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.SelectOperator"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.RechargeMyPlan"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.RechargeMyPlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.rechargeactivities.MobileRecharge"
+            android:name="com.fintech.kkpayments.activities.rechargeactivities.MobileRecharge"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.fastag.FASTagDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.fastag.FASTagDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.fastag.FastagFetchBill"
+            android:name="com.fintech.kkpayments.activities.fastag.FastagFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.prepe.activities.fastag.OperatorList"
+            android:name="com.fintech.kkpayments.activities.fastag.OperatorList"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.HomeActivity"
+            android:name="com.fintech.kkpayments.activities.HomeActivity"
             android:configChanges="uiMode"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -465,42 +465,42 @@
 <!--        **/-->
 
         <activity
-            android:name="com.fintech.prepe.activities.creditcard.CCFetchBill"
+            android:name="com.fintech.kkpayments.activities.creditcard.CCFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.creditcard.CCFetchBillK"
+            android:name="com.fintech.kkpayments.activities.creditcard.CCFetchBillK"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.creditcard.CCRefundActivity"
+            android:name="com.fintech.kkpayments.activities.creditcard.CCRefundActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.creditcard.CCDetailedAnalytic"
+            android:name="com.fintech.kkpayments.activities.creditcard.CCDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.clean.presentation.AuthActivity"
+            android:name="com.fintech.kkpayments.clean.presentation.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.auth.AuthActivity"
+            android:name="com.fintech.kkpayments.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -508,7 +508,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.prepe.activities.FirstScreen"
+            android:name="com.fintech.kkpayments.activities.FirstScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

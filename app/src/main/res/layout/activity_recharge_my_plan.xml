@@ -8,11 +8,11 @@
     <data>
         <variable
             name="rechargeViewModel"
-            type="com.fintech.prepe.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.kkpayments.viewmodel.MobileRechargeViewModel" />
 
         <variable
             name="hlrModel"
-            type="com.fintech.prepe.data.hlr.HLRResponse" />
+            type="com.fintech.kkpayments.data.hlr.HLRResponse" />
     </data>
 
 

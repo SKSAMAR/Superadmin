@@ -8,7 +8,7 @@
 
         <variable
             name="myContactList"
-            type="com.fintech.prepe.data.model.ContactsModel" />
+            type="com.fintech.kkpayments.data.model.ContactsModel" />
 
     </data>
 

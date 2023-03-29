@@ -1,0 +1,12 @@
+package com.fintech.kkpayments.viewmodel;
+
+import androidx.lifecycle.ViewModel;
+
+public class RecyclerMenuViewModel extends ViewModel {
+
+    public String menuTitle = null;
+
+    public RecyclerMenuViewModel(){
+
+    }
+}

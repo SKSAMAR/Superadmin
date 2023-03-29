@@ -7,7 +7,7 @@
     <data>
         <variable
             name="registerRemitter"
-            type="com.fintech.prepe.viewmodel.ToBankViewModel" />
+            type="com.fintech.kkpayments.viewmodel.ToBankViewModel" />
     </data>
 
 

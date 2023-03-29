@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myviewmodel"
-            type="com.fintech.prepe.viewmodel.AuthViewModel" />
+            type="com.fintech.kkpayments.viewmodel.AuthViewModel" />
     </data>
 
         <ScrollView

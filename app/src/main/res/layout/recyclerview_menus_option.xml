@@ -7,7 +7,7 @@
     <data>
         <variable
             name="myMenus"
-            type="com.fintech.prepe.data.model.MenuModel" />
+            type="com.fintech.kkpayments.data.model.MenuModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@
 
         <variable
             name="mobileNumbersViewModel"
-            type="com.fintech.prepe.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.kkpayments.viewmodel.MobileNumberPayViewModel" />
 
     </data>
 

@@ -9,7 +9,7 @@
 
         <variable
             name="aeps_home_view_model"
-            type="com.fintech.prepe.viewmodel.AepsViewModel" />
+            type="com.fintech.kkpayments.viewmodel.AepsViewModel" />
 
     </data>
 

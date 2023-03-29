@@ -6,15 +6,15 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.prepe.viewmodel.ProfileViewModel" />
+            type="com.fintech.kkpayments.viewmodel.ProfileViewModel" />
 
         <variable
             name="nameNumber"
-            type="com.fintech.prepe.data.db.entities.User" />
+            type="com.fintech.kkpayments.data.db.entities.User" />
 
         <variable
             name="userProfile"
-            type="com.fintech.prepe.data.db.entities.UserProfile" />
+            type="com.fintech.kkpayments.data.db.entities.UserProfile" />
 
     </data>
 

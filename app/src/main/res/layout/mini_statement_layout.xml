@@ -6,7 +6,7 @@
     <data>
         <variable
             name="minSatementModel"
-            type="com.fintech.prepe.data.network.responses.MiniStatementData" />
+            type="com.fintech.kkpayments.data.network.responses.MiniStatementData" />
     </data>
 
     <LinearLayout

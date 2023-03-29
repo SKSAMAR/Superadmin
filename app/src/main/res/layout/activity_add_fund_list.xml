@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fundViewModel"
-            type="com.fintech.prepe.viewmodel.FundViewModel" />
+            type="com.fintech.kkpayments.viewmodel.FundViewModel" />
     </data>
 
     <RelativeLayout

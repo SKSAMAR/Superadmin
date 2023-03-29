@@ -7,7 +7,7 @@
 
         <variable
             name="circleModel"
-            type="com.fintech.prepe.data.model.CircleModel" />
+            type="com.fintech.kkpayments.data.model.CircleModel" />
 
     </data>
 

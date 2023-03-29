@@ -8,11 +8,11 @@
 
         <variable
             name="bankDetailsViewModel"
-            type="com.fintech.prepe.viewmodel.ProfileViewModel" />
+            type="com.fintech.kkpayments.viewmodel.ProfileViewModel" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.prepe.data.db.entities.UserProfile" />
+            type="com.fintech.kkpayments.data.db.entities.UserProfile" />
 
     </data>
 <RelativeLayout

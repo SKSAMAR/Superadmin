@@ -8,7 +8,7 @@
 
         <variable
             name="historyViewModel"
-            type="com.fintech.prepe.viewmodel.HomeViewModel" />
+            type="com.fintech.kkpayments.viewmodel.HomeViewModel" />
 
     </data>
 

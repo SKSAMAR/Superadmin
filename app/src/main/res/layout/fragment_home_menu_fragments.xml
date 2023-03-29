@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.prepe.viewmodel.HomeViewModel" />
+            type="com.fintech.kkpayments.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

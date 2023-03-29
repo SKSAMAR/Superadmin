@@ -9,7 +9,7 @@
 
         <variable
             name="myHistoryModel"
-            type="com.fintech.prepe.data.model.HistoryModel" />
+            type="com.fintech.kkpayments.data.model.HistoryModel" />
 
     </data>
 

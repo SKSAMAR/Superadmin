@@ -7,7 +7,7 @@
     <data>
         <variable
             name="licViewModel"
-            type="com.fintech.prepe.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.kkpayments.viewmodel.MobileRechargeViewModel" />
     </data>
     
     <RelativeLayout

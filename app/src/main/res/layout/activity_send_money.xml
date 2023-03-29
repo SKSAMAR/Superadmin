@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sendMoneyViewModel"
-            type="com.fintech.prepe.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.kkpayments.viewmodel.MobileNumberPayViewModel" />
     </data>
 
     <RelativeLayout

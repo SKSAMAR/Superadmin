@@ -9,7 +9,7 @@
 
         <variable
             name="bankModel"
-            type="com.fintech.prepe.data.model.BankModel"/>
+            type="com.fintech.kkpayments.data.model.BankModel"/>
 
     </data>
 

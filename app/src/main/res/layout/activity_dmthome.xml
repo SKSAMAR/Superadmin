@@ -8,7 +8,7 @@
     <data>
         <variable
             name="toBankViewModel"
-            type="com.fintech.prepe.viewmodel.ToBankViewModel" />
+            type="com.fintech.kkpayments.viewmodel.ToBankViewModel" />
     </data>
 
     <RelativeLayout

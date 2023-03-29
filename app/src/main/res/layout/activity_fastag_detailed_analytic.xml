@@ -7,7 +7,7 @@ xmlns:tools="http://schemas.android.com/tools">
 <data>
     <variable
         name="regularDetailModel"
-        type="com.fintech.prepe.data.network.responses.AnalyticsResponseModel" />
+        type="com.fintech.kkpayments.data.network.responses.AnalyticsResponseModel" />
 </data>
 
 <ScrollView
