@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fundViewModel"
-            type="com.fintech.kkpayments.viewmodel.FundViewModel" />
+            type="com.fintech.paytoindia.viewmodel.FundViewModel" />
     </data>
 
     <RelativeLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="models"
-            type="com.fintech.kkpayments.data.model.ProfileListModel" />
+            type="com.fintech.paytoindia.data.model.ProfileListModel" />
     </data>
 
     <LinearLayout

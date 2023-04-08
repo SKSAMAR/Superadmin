@@ -8,7 +8,7 @@
     <data>
         <variable
             name="balanceEnquiryViewModel"
-            type="com.fintech.kkpayments.viewmodel.AepsViewModel" />
+            type="com.fintech.paytoindia.viewmodel.AepsViewModel" />
     </data>
 
     <RelativeLayout

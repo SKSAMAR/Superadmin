@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ccViewModel"
-            type="com.fintech.kkpayments.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.paytoindia.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout

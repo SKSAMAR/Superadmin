@@ -7,10 +7,10 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.kkpayments.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytoindia.viewmodel.ProfileViewModel" />
         <variable
             name="userModel"
-            type="com.fintech.kkpayments.data.db.entities.User" />
+            type="com.fintech.paytoindia.data.db.entities.User" />
     </data>
 
     <RelativeLayout

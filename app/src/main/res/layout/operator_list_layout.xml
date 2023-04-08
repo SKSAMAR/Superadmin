@@ -8,7 +8,7 @@
 
         <variable
             name="operatorModel"
-            type="com.fintech.kkpayments.data.model.OperatorModel" />
+            type="com.fintech.paytoindia.data.model.OperatorModel" />
 
     </data>
 

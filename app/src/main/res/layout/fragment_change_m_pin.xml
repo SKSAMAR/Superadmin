@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.kkpayments.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytoindia.viewmodel.ProfileViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

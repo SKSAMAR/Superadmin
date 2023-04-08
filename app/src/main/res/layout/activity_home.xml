@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.kkpayments.viewmodel.HomeViewModel" />
+            type="com.fintech.paytoindia.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

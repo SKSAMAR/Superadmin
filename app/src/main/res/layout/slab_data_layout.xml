@@ -5,7 +5,7 @@
     <data>
         <variable
             name="slabInfoResponse"
-            type="com.fintech.kkpayments.data.network.responses.SlabInfoResponse" />
+            type="com.fintech.paytoindia.data.network.responses.SlabInfoResponse" />
     </data>
 
     <LinearLayout

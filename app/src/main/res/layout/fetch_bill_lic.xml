@@ -6,7 +6,7 @@
     <data>
         <variable
             name="billData"
-            type="com.fintech.kkpayments.data.network.responses.LicFetchResponse" />
+            type="com.fintech.paytoindia.data.network.responses.LicFetchResponse" />
     </data>
 
     <RelativeLayout

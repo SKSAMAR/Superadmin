@@ -7,7 +7,7 @@
     <data>
         <variable
             name="imageModel"
-            type="com.fintech.kkpayments.data.model.ImageModel" />
+            type="com.fintech.paytoindia.data.model.ImageModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

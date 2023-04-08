@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onBoardingViewModel"
-            type="com.fintech.kkpayments.viewmodel.OnBoardingViewModel" />
+            type="com.fintech.paytoindia.viewmodel.OnBoardingViewModel" />
     </data>
 
     <RelativeLayout

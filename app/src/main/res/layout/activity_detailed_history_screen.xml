@@ -7,7 +7,7 @@
     <data>
         <variable
             name="wholeInfoModel"
-            type="com.fintech.kkpayments.data.network.responses.BeneficiaryHistoryResponse" />
+            type="com.fintech.paytoindia.data.network.responses.BeneficiaryHistoryResponse" />
     </data>
 
     <ScrollView

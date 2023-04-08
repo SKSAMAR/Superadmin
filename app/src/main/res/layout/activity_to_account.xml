@@ -9,7 +9,7 @@
 
         <variable
             name="MyBankViewModel"
-            type="com.fintech.kkpayments.viewmodel.ToBankViewModel" />
+            type="com.fintech.paytoindia.viewmodel.ToBankViewModel" />
 
     </data>
 

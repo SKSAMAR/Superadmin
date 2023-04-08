@@ -6,7 +6,7 @@
     <data>
         <variable
             name="selectedBeneficiaryViewModel"
-            type="com.fintech.kkpayments.viewmodel.ToBankViewModel" />
+            type="com.fintech.paytoindia.viewmodel.ToBankViewModel" />
     </data>
 
     <RelativeLayout

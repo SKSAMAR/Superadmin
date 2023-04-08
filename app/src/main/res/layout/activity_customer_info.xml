@@ -7,7 +7,7 @@
     <data>
         <variable
             name="customerInfoModel"
-            type="com.fintech.kkpayments.data.network.responses.CustomerInfoModel" />
+            type="com.fintech.paytoindia.data.network.responses.CustomerInfoModel" />
     </data>
 
     <RelativeLayout
