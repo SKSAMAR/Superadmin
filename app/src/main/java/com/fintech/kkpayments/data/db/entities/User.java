@@ -26,8 +26,9 @@ public class User {
     public String address;
     public String us_status;
     public String partner_id;
+    public String image;
 
-    public User(String email, String mobile, String password, String name, String lastname, String ownerid, String ownerstatus, String userstatus, String token, String id, String mainbalance, String aepsbalance, String settlementbalance, String matmbalance, String userstatusname, String pin, String address, String us_status, String partner_id) {
+    public User(String email, String mobile, String password, String name, String lastname, String ownerid, String ownerstatus, String userstatus, String token, String id, String mainbalance, String aepsbalance, String settlementbalance, String matmbalance, String userstatusname, String pin, String address, String us_status, String partner_id, String image) {
         this.email = email;
         this.mobile = mobile;
         this.password = password;
@@ -47,6 +48,7 @@ public class User {
         this.address = address;
         this.us_status = us_status;
         this.partner_id = partner_id;
+        this.image = image;
     }
 
     public String getPartner_id() {
@@ -215,5 +217,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

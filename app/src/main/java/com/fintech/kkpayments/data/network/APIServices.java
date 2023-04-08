@@ -133,7 +133,7 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Login/update_data.php")
+    @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<RegularResponse> updateProfilePicture(@Field("profile_picture") String profile_picture);
 
 
@@ -301,7 +301,7 @@ public interface APIServices {
     Observable<PayoutResponse> payThroughPayouts(@Field("amount") String amount, @Field("bank") String bank, @Field("ifsc") String ifsc, @Field("trans") String trans, @Field("id") String id, @Field("usertype_id") String usertype_id, @Field("ip_address") String ip_address, @Field("device") String device);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Login/update_data.php")
+    @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<ConfirmationResponse> updateMyInformation(@Field("f_name") String f_name, @Field("l_name") String l_name, @Field("a_number") String a_number, @Field("dob") String dob, @Field("gender") String gender, @Field("country") String country, @Field("state") String state, @Field("pin") String pin, @Field("address") String address, @Field("token") String token, @Field("mobile") String mobile, @Field("update_profile_details") String update_profile_details);
 
     @FormUrlEncoded
@@ -776,5 +776,11 @@ public interface APIServices {
     Observable<SystemResponse<List<CreditCardHistory>>> ccHistory(@Field("historyCC") String historyCC);
 
     //Credit Card
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/mainfund.php")
+    Observable<RegularResponse> payFundAmount(
+            @Field("amount") String amount
+    );
 
 }

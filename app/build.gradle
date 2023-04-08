@@ -9,8 +9,8 @@ plugins {
 
 android {
     compileSdk 33
-    defaultConfig {
 
+    defaultConfig {
         applicationId "com.fintech.kkpayments"
         minSdk 21
         targetSdk 33
@@ -21,6 +21,14 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+//        packagingOptions {
+//            exclude 'META-INF/LICENSE.txt'
+//            exclude 'META-INF/NOTICE.txt'
+//            exclude 'META-INF/LICENSE'
+//            exclude 'META-INF/NOTICE'
+//            exclude 'META-INF/DEPENDENCIES'
+//        }
 
     }
 
@@ -130,12 +138,14 @@ dependencies {
     //OnBoarding
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')
 
+    implementation files('libs/fingpaymicroatm-release.aar')
+    implementation files('libs/microatmlib-release.aar')
 
     //Micro-atm
-    implementation files('libs/PS_MATM_2.0.2.aar')
-    implementation files('libs/FINO_PS_MATM.aar')
-    implementation 'de.greenrobot:greendao:2.1.0'
-    implementation 'org.greenrobot:eventbus:3.3.1'
+    //implementation files('libs/PS_MATM_2.0.2.aar')
+    //implementation files('libs/FINO_PS_MATM.aar')
+    //implementation 'de.greenrobot:greendao:2.1.0'
+    //implementation 'org.greenrobot:eventbus:3.3.1'
 
 
     implementation "com.squareup.retrofit2:retrofit:2.9.0"

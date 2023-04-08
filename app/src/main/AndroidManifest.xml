@@ -185,6 +185,13 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.kkpayments.activities.addfunds.PayActivityWebView"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="com.fintech.kkpayments.activities.addfunds.FundExchange"
             android:exported="true"

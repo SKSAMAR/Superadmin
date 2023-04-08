@@ -369,6 +369,8 @@ public class ProfileRepository {
                             MyAlertUtils.dismissAlertDialog();
                             if(response.getResponse_code().equals(1)){
                                 MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.success);
+                                refreshUserData(context);
+
                             }
                             else{
                                 MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.warning);
@@ -386,6 +388,21 @@ public class ProfileRepository {
                         }
                     });
 
+    }
+
+    public void refreshUserData(Context context){
+        if(Accessable.isAccessable()){
+            apiServices.getAllCredentials("fetch_all")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(c->{
+                        if(c.getStatus() && c.getResponse_code().equals(1)){
+                            Construct.refreshData(context, c.getReceivableData());
+                        }
+                    },error->{
+
+                    });
+        }
     }
 
 

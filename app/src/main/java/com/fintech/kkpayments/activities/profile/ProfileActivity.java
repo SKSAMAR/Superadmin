@@ -104,16 +104,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
             if(user!=null){
                 binding.setNameNumber(user);
                 binding.fullName.setText(user.getName()+" "+user.getLastname());
-            }
-        });
-        appDatabase.getUserProfileDao().getUserProfile().observe(this, userProfile -> {
-            if(userProfile!=null && userProfile.PROFILE_IMG!=null){
-                if(userProfile.PROFILE_IMG.isEmpty()){
-                    binding.profileImage.setImageResource(R.drawable.ic_profile_user);
-                }
-                else {
-                    Glide.with(ProfileActivity.this).load(userProfile.PROFILE_IMG.trim()).into(binding.profileImage);
-                }
+                Glide.with(ProfileActivity.this).load(""+user.image).into(binding.profileImage);
             }
             else{
                 binding.profileImage.setImageResource(R.drawable.ic_profile_user);

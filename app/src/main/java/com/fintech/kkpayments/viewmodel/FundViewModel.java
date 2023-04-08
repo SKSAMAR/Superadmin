@@ -1,6 +1,7 @@
 package com.fintech.kkpayments.viewmodel;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,7 @@ import com.fintech.kkpayments.R;
 import com.fintech.kkpayments.activities.addfunds.FundExchange;
 import com.fintech.kkpayments.activities.addfunds.PayActivity;
 //import com.fintech.paytoindia.activities.addfunds.PayActivityWithPayTm;
+import com.fintech.kkpayments.activities.addfunds.PayActivityWebView;
 import com.fintech.kkpayments.activities.addfunds.RequestOffline;
 import com.fintech.kkpayments.data.db.entities.User;
 import com.fintech.kkpayments.data.network.responses.RegularResponse;
@@ -27,6 +29,9 @@ import com.fintech.kkpayments.data_model.request.RequestedHistoryModel;
 import com.fintech.kkpayments.deer_listener.Receiver;
 import com.fintech.kkpayments.listeners.ChangerListener;
 import com.fintech.kkpayments.listeners.ResetListener;
+import com.fintech.kkpayments.listeners.WebViewPayment;
+import com.fintech.kkpayments.util.Accessable;
+import com.fintech.kkpayments.util.DisplayMessageUtil;
 import com.fintech.kkpayments.util.MyAlertUtils;
 import com.fintech.kkpayments.util.NetworkUtil;
 
@@ -67,6 +72,10 @@ public class FundViewModel extends ViewModel {
 
     public void onOfflineAddFund(View view){
         view.getContext().startActivity(new Intent(view.getContext(), RequestOffline.class));
+    }
+
+    public void onUPIPay(View view){
+        view.getContext().startActivity(new Intent(view.getContext(), PayActivityWebView.class));
     }
 
     public void onPayTmAddFund(View view){
@@ -216,4 +225,21 @@ public class FundViewModel extends ViewModel {
             receiver.getData(data.getReceivableData());
         });
     }
+
+
+    public void madeValidPayment(String amount, Context context, WebViewPayment viewPayment) {
+        if (Accessable.isAccessable()){
+            DisplayMessageUtil.loading(context);
+            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount), context, result->{
+                DisplayMessageUtil.dismissDialog();
+                if(result.status){
+                    viewPayment.webViewPage(result.message);
+                }else{
+                    DisplayMessageUtil.error(context, result.message);
+                }
+            });
+        }
+    }
+
+
 }

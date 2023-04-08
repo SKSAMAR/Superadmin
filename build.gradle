@@ -31,6 +31,18 @@ allprojects {
         jcenter() // Warning: this repository is going to shut down soon
 
 
+        exclusiveContent {
+            forRepository {
+                maven {
+                    url 'https://mlt.jfrog.io/artifactory/mlt-mvn-releases-local'
+                }
+            }
+            filter {
+                includeGroup 'de.dfki.lt.jtok'
+            }
+        }
+
+
         repositories {
             maven { url "https://oss.jfrog.org/libs-snapshot" }
         }
