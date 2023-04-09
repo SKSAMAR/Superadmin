@@ -41,7 +41,8 @@ import com.fintech.paytoindia.util.MyAlertUtils;
 import com.fintech.paytoindia.util.PermissionUtil;
 import com.fintech.paytoindia.util.ViewUtils;
 import com.fintech.paytoindia.viewmodel.AtmViewModel;
-import com.paysprint.microatmlib.activities.HostActivity;
+//import com.paysprint.microatmlib.activities.HostActivity;
+import com.service.finopayment.Hostnew;
 //import com.service.finopayment.Hostnew;
 
 import java.util.ArrayList;
@@ -175,7 +176,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         PaysprintApiCred api = (PaysprintApiCred) getIntent().getSerializableExtra("paySprintApi");
         PaysprintMerchantCred merchant = (PaysprintMerchantCred) getIntent().getSerializableExtra("paySprintMerchant");
 
-        Intent intent = new Intent(getApplicationContext(), HostActivity.class);
+        Intent intent = new Intent(getApplicationContext(), Hostnew.class);
         intent.putExtra("partnerId",merchant.getPARTNERID());
         intent.putExtra("apiKey", api.getJWTKEY());
         intent.putExtra("transactionType",txnType);   // ATMBE  or  ATMCW
@@ -187,7 +188,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         intent.putExtra("latitude", "22.572646");
         intent.putExtra("longitude", "88.363895");
         intent.putExtra("subMerchantId", merchant.getMERCHANTCODE());  //merchantCode
-        intent.putExtra("deviceManufacturerId", atm);//new one requires in string type string old one in int
+        intent.putExtra("deviceManufacturerId", atm.toString());//new one requires in string type string old one in int
         startActivityForResult(intent, 999);
 
     }
@@ -277,12 +278,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         ListView myOperatorListView = dialog.findViewById(R.id.MyOperatorListView);
         List<AtmDeviceModels> list = new ArrayList<>();
         head_title_section.setText("Micro ATM Device");
-        //for old
-        list.add(new AtmDeviceModels("AF60S",1));
-        list.add(new AtmDeviceModels("MP-63",2));
-//
-//        for new
-//        list.add(new AtmDeviceModels("AF60S",3));
+        list.add(new AtmDeviceModels("AF60S",3));
 //        list.add(new AtmDeviceModels("MP-63",2));
         ArrayAdapter<AtmDeviceModels> adapter = new ArrayAdapter<>(MicroAtmHome.this, android.R.layout.simple_list_item_1,list);
         myOperatorListView.setAdapter(adapter);
@@ -314,7 +310,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
     @Override
     protected void onResume() {
         super.onResume();
-        atm = 1;
+        atm = 3;
         binding.selectedBankName.setText("AF60S");
     }
 

@@ -138,14 +138,14 @@ dependencies {
     //OnBoarding
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')
 
-    implementation files('libs/fingpaymicroatm-release.aar')
-    implementation files('libs/microatmlib-release.aar')
+//    implementation files('libs/fingpaymicroatm-release.aar')
+//    implementation files('libs/microatmlib-release.aar')
 
     //Micro-atm
-    //implementation files('libs/PS_MATM_2.0.2.aar')
-    //implementation files('libs/FINO_PS_MATM.aar')
-    //implementation 'de.greenrobot:greendao:2.1.0'
-    //implementation 'org.greenrobot:eventbus:3.3.1'
+    implementation files('libs/PS_MATM_2.0.2.aar')
+    implementation files('libs/FINO_PS_MATM.aar')
+    implementation 'de.greenrobot:greendao:2.1.0'
+    implementation 'org.greenrobot:eventbus:3.3.1'
 
 
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
@@ -265,6 +265,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     //OTPView
     implementation 'com.yogeshpaliyal:speld:0.0.1-alpha03'
+
+    implementation 'phonepe.intentsdk.android.release:IntentSDK:1.7.1'
+
 
 
 }

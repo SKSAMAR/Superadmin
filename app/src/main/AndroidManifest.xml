@@ -19,11 +19,12 @@
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:node="merge"
         tools:ignore="ScopedStorage" />
+
     <uses-permission android:name="android.permission.USB_PERMISSION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -524,6 +525,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+
+        <meta-data
+            android:name="com.phonepe.android.sdk.Debuggable"
+            android:value="false"/>
+        <!-- Keep it false in production environment-->
+        <meta-data
+            android:name="com.phonepe.android.sdk.isUAT"
+            android:value="false"/>
+        <!-- Get the App Id from PhonePe-->
+        <meta-data
+            android:name="com.phonepe.android.sdk.AppId"
+            android:value="${applicationId}"/>
+
     </application>
 
     <queries>

@@ -227,13 +227,13 @@ public class FundViewModel extends ViewModel {
     }
 
 
-    public void madeValidPayment(String amount, Context context, WebViewPayment viewPayment) {
+    public void madeValidPayment(String amount, Context context, Receiver<Boolean> receiver) {
         if (Accessable.isAccessable()){
             DisplayMessageUtil.loading(context);
             NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount), context, result->{
                 DisplayMessageUtil.dismissDialog();
                 if(result.status){
-                    viewPayment.webViewPage(result.message);
+                    receiver.getData(true);
                 }else{
                     DisplayMessageUtil.error(context, result.message);
                 }

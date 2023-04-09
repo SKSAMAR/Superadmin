@@ -92,13 +92,13 @@
                         android:layout_width="55dp"
                         android:layout_height="55dp"
                         android:layout_margin="10dp"
-                        android:src="@drawable/my_upis"
+                        android:src="@drawable/phonepe"
                         app:civ_border_width="1dp" />
 
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/qr_upi"
+                        android:text="@string/phone_pe"
                         android:textAlignment="center" />
                 </LinearLayout>
 
