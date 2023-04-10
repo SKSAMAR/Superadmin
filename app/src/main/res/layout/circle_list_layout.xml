@@ -7,7 +7,7 @@
 
         <variable
             name="circleModel"
-            type="com.fintech.paytoindia.data.model.CircleModel" />
+            type="com.fintech.scnpay.data.model.CircleModel" />
 
     </data>
 

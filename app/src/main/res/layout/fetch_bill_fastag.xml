@@ -6,7 +6,7 @@
     <data>
         <variable
             name="billData"
-            type="com.fintech.paytoindia.data.fastag.FastagBillFetch" />
+            type="com.fintech.scnpay.data.fastag.FastagBillFetch" />
     </data>
 
     <RelativeLayout

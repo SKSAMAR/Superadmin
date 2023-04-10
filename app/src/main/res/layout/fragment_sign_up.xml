@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myviewmodel"
-            type="com.fintech.paytoindia.viewmodel.AuthViewModel" />
+            type="com.fintech.scnpay.viewmodel.AuthViewModel" />
     </data>
 
         <ScrollView

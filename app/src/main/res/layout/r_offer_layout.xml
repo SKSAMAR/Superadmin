@@ -6,7 +6,7 @@
     <data>
         <variable
             name="rOfferDataModel"
-            type="com.fintech.paytoindia.data.browseplan.Plan" />
+            type="com.fintech.scnpay.data.browseplan.Plan" />
     </data>
 
     <LinearLayout

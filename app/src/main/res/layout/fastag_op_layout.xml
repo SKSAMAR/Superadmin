@@ -4,7 +4,7 @@
     <data>
         <variable
             name="opData"
-            type="com.fintech.paytoindia.data.network.responses.OperatorResponse.OperatorData" />
+            type="com.fintech.scnpay.data.network.responses.OperatorResponse.OperatorData" />
     </data>
 
     <RelativeLayout

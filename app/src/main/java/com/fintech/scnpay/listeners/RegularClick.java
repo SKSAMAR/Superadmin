@@ -1,0 +1,7 @@
+package com.fintech.scnpay.listeners;
+
+import android.view.View;
+
+public interface RegularClick {
+    void onClickItem(View view, String data);
+}

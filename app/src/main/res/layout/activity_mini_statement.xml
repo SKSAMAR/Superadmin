@@ -7,7 +7,7 @@
     <data>
         <variable
             name="miniStatementViewModel"
-            type="com.fintech.paytoindia.viewmodel.AepsViewModel" />
+            type="com.fintech.scnpay.viewmodel.AepsViewModel" />
 
     </data>
 

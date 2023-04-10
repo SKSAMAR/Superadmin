@@ -52,7 +52,7 @@
 
 
     <application
-        android:name="com.fintech.paytoindia.BaseApplication"
+        android:name="com.fintech.scnpay.BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -68,7 +68,7 @@
         tools:targetApi="n">
 
         <activity
-            android:name="com.fintech.paytoindia.activities.mahagrm_bc.BcRegistration"
+            android:name="com.fintech.scnpay.activities.mahagrm_bc.BcRegistration"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
@@ -76,18 +76,18 @@
 
 
         <activity
-            android:name="com.fintech.paytoindia.activities.upi.PayWithUPI"
+            android:name="com.fintech.scnpay.activities.upi.PayWithUPI"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@style/Theme.ProjectRC"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.fintech.paytoindia.activities.qrscanner.QrActivity"
+            android:name="com.fintech.scnpay.activities.qrscanner.QrActivity"
             android:exported="false"
             android:label="@string/title_activity_qr"
             android:theme="@style/Theme.ProjectRC" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.MyCommissionActivity"
+            android:name="com.fintech.scnpay.activities.profile.MyCommissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -105,161 +105,161 @@
         </provider>
 
         <activity
-            android:name="com.fintech.paytoindia.activities.customersupport.NewTicketRise"
+            android:name="com.fintech.scnpay.activities.customersupport.NewTicketRise"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.customersupport.TicketRiseHistory"
+            android:name="com.fintech.scnpay.activities.customersupport.TicketRiseHistory"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.lic.LICDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.lic.LICDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.lic.LicFetchBill"
+            android:name="com.fintech.scnpay.activities.lic.LicFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.RequestHistory"
+            android:name="com.fintech.scnpay.activities.addfunds.RequestHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.pins.PinActivity"
+            android:name="com.fintech.scnpay.activities.pins.PinActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.DTHActivity"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.DTHActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.payoutpaysprint.PayoutDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.payoutpaysprint.PayoutDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.CustomerCare"
+            android:name="com.fintech.scnpay.activities.profile.CustomerCare"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.sectionhistory.RegularHistory"
+            android:name="com.fintech.scnpay.activities.sectionhistory.RegularHistory"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.payoutpaysprint.VerifyAccounts"
+            android:name="com.fintech.scnpay.activities.payoutpaysprint.VerifyAccounts"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.payoutpaysprint.PayoutAddAccount"
+            android:name="com.fintech.scnpay.activities.payoutpaysprint.PayoutAddAccount"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.payoutpaysprint.PaysprintPayout"
+            android:name="com.fintech.scnpay.activities.payoutpaysprint.PaysprintPayout"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.microatm.MicroAtmDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.microatm.MicroAtmDetailedAnalytic"
             android:exported="true" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.ViewSlabData"
+            android:name="com.fintech.scnpay.activities.profile.ViewSlabData"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.RequestOffline"
+            android:name="com.fintech.scnpay.activities.addfunds.RequestOffline"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.PayActivityWebView"
+            android:name="com.fintech.scnpay.activities.addfunds.PayActivityWebView"
             android:exported="true"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.FundExchange"
+            android:name="com.fintech.scnpay.activities.addfunds.FundExchange"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.pins.TPinRegister"
+            android:name="com.fintech.scnpay.pins.TPinRegister"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.CustomerInfoActivity"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.CustomerInfoActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.BrowsePlan"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.BrowsePlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.ROffer"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.ROffer"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.FundDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.addfunds.FundDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.MiniStatementAnalytic"
+            android:name="com.fintech.scnpay.activities.aeps.MiniStatementAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.AepsDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.aeps.AepsDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.DMTDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.tobank.DMTDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.bbps.BBPSDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.bbps.BBPSDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.RechargeDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.RechargeDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.DMTHome"
+            android:name="com.fintech.scnpay.activities.tobank.DMTHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.creation.CreationActivity"
+            android:name="com.fintech.scnpay.activities.creation.CreationActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.microatm.MicroAtmResponse"
+            android:name="com.fintech.scnpay.activities.microatm.MicroAtmResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -274,32 +274,32 @@
             android:value="true" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.PayActivity"
+            android:name="com.fintech.scnpay.activities.addfunds.PayActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.addfunds.AddFundList"
+            android:name="com.fintech.scnpay.activities.addfunds.AddFundList"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.Settings"
+            android:name="com.fintech.scnpay.activities.profile.Settings"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.BankDetails"
+            android:name="com.fintech.scnpay.activities.profile.BankDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.SocialMedia"
+            android:name="com.fintech.scnpay.activities.profile.SocialMedia"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.ProfileDetails"
+            android:name="com.fintech.scnpay.activities.profile.ProfileDetails"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" /> <!-- <service -->
@@ -325,140 +325,140 @@
             android:theme="@style/Theme.AppThemeAdditional"
             tools:replace="android:theme" />
         <activity
-            android:name="com.fintech.paytoindia.activities.facilityresponses.AePSSuccessMiniStatementResponse"
+            android:name="com.fintech.scnpay.activities.facilityresponses.AePSSuccessMiniStatementResponse"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.MiniStatement"
+            android:name="com.fintech.scnpay.activities.aeps.MiniStatement"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.facilityresponses.AepsFailureReponseScreen"
+            android:name="com.fintech.scnpay.activities.facilityresponses.AepsFailureReponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.facilityresponses.AePSSuccessResponseScreen"
+            android:name="com.fintech.scnpay.activities.facilityresponses.AePSSuccessResponseScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.DetailedHistoryScreen"
+            android:name="com.fintech.scnpay.activities.tobank.DetailedHistoryScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.SelectedBeneficiaryHistory"
+            android:name="com.fintech.scnpay.activities.tobank.SelectedBeneficiaryHistory"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.SendAmountDMT"
+            android:name="com.fintech.scnpay.activities.tobank.SendAmountDMT"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.RegisterRemitter"
+            android:name="com.fintech.scnpay.activities.tobank.RegisterRemitter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.microatm.MicroAtmHome"
+            android:name="com.fintech.scnpay.activities.microatm.MicroAtmHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.QueryRemitter"
+            android:name="com.fintech.scnpay.activities.tobank.QueryRemitter"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.profile.ProfileActivity"
+            android:name="com.fintech.scnpay.activities.profile.ProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.mobilenumber.SendMoney"
+            android:name="com.fintech.scnpay.activities.mobilenumber.SendMoney"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.mobilenumber.MobileNumberPay"
+            android:name="com.fintech.scnpay.activities.mobilenumber.MobileNumberPay"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.CashWithdrawal"
+            android:name="com.fintech.scnpay.activities.aeps.CashWithdrawal"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.BalanceEnquiry"
+            android:name="com.fintech.scnpay.activities.aeps.BalanceEnquiry"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.aeps.AepsHome"
+            android:name="com.fintech.scnpay.activities.aeps.AepsHome"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.bbps.BbpsEnter"
+            android:name="com.fintech.scnpay.activities.bbps.BbpsEnter"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.AddBeneficiary"
+            android:name="com.fintech.scnpay.activities.tobank.AddBeneficiary"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.SelectBank"
+            android:name="com.fintech.scnpay.activities.tobank.SelectBank"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.tobank.ToAccount"
+            android:name="com.fintech.scnpay.activities.tobank.ToAccount"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.SelectOperator"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.SelectOperator"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.RechargeMyPlan"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.RechargeMyPlan"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.rechargeactivities.MobileRecharge"
+            android:name="com.fintech.scnpay.activities.rechargeactivities.MobileRecharge"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.fastag.FASTagDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.fastag.FASTagDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.fastag.FastagFetchBill"
+            android:name="com.fintech.scnpay.activities.fastag.FastagFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name="com.fintech.paytoindia.activities.fastag.OperatorList"
+            android:name="com.fintech.scnpay.activities.fastag.OperatorList"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.HomeActivity"
+            android:name="com.fintech.scnpay.activities.HomeActivity"
             android:configChanges="uiMode"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -473,42 +473,42 @@
 <!--        **/-->
 
         <activity
-            android:name="com.fintech.paytoindia.activities.creditcard.CCFetchBill"
+            android:name="com.fintech.scnpay.activities.creditcard.CCFetchBill"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.creditcard.CCFetchBillK"
+            android:name="com.fintech.scnpay.activities.creditcard.CCFetchBillK"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.creditcard.CCRefundActivity"
+            android:name="com.fintech.scnpay.activities.creditcard.CCRefundActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.creditcard.CCDetailedAnalytic"
+            android:name="com.fintech.scnpay.activities.creditcard.CCDetailedAnalytic"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.clean.presentation.AuthActivity"
+            android:name="com.fintech.scnpay.clean.presentation.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.auth.AuthActivity"
+            android:name="com.fintech.scnpay.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
@@ -516,7 +516,7 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.paytoindia.activities.FirstScreen"
+            android:name="com.fintech.scnpay.activities.FirstScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

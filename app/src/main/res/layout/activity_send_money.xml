@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sendMoneyViewModel"
-            type="com.fintech.paytoindia.viewmodel.MobileNumberPayViewModel" />
+            type="com.fintech.scnpay.viewmodel.MobileNumberPayViewModel" />
     </data>
 
     <RelativeLayout

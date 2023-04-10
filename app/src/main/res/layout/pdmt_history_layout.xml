@@ -5,7 +5,7 @@
     <data>
         <variable
             name="pDmtHistory"
-            type="com.fintech.paytoindia.data.model.PDMTHistoryModel" />
+            type="com.fintech.scnpay.data.model.PDMTHistoryModel" />
     </data>
 
     <RelativeLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="minSatementModel"
-            type="com.fintech.paytoindia.data.network.responses.MiniStatementData" />
+            type="com.fintech.scnpay.data.network.responses.MiniStatementData" />
     </data>
 
     <LinearLayout

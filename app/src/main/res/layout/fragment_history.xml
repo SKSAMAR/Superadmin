@@ -8,7 +8,7 @@
 
         <variable
             name="historyViewModel"
-            type="com.fintech.paytoindia.viewmodel.HomeViewModel" />
+            type="com.fintech.scnpay.viewmodel.HomeViewModel" />
 
     </data>
 

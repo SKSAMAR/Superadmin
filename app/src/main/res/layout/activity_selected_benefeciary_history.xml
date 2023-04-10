@@ -6,7 +6,7 @@
     <data>
         <variable
             name="selectedBeneficiaryViewModel"
-            type="com.fintech.paytoindia.viewmodel.ToBankViewModel" />
+            type="com.fintech.scnpay.viewmodel.ToBankViewModel" />
     </data>
 
     <RelativeLayout

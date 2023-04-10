@@ -9,7 +9,7 @@
     <data>
         <variable
             name="creationViewModel"
-            type="com.fintech.paytoindia.viewmodel.CreationViewModel" />
+            type="com.fintech.scnpay.viewmodel.CreationViewModel" />
     </data>
 
     <RelativeLayout
