@@ -1,5 +1,4 @@
 package com.fintech.paytcash.activities.microatm;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -41,8 +41,7 @@ import com.fintech.paytcash.util.MyAlertUtils;
 import com.fintech.paytcash.util.PermissionUtil;
 import com.fintech.paytcash.util.ViewUtils;
 import com.fintech.paytcash.viewmodel.AtmViewModel;
-//import com.paysprint.microatmlib.activities.HostActivity;
-import com.service.finopayment.Hostnew;
+import com.paysprint.microatmlib.activities.HostActivity;
 //import com.service.finopayment.Hostnew;
 
 import java.util.ArrayList;
@@ -60,14 +59,10 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
 
     ActivityMicroAtmHomeBinding binding;
     User user;
-    PaySprintApi sprintApi;
     String txnType;
     String amount= "0";
     String referenceNo;
-    Integer atm = 3;
-    char[] chars = new char[]{ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+    Integer atm = 1;
 
     @Inject
     APIServices apiServices;
@@ -84,7 +79,6 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         actionBar.setTitle("Micro ATM");
         AppDatabase appDatabase = AppDatabase.getAppDatabase(MicroAtmHome.this);
         user = appDatabase.getUserDao().getRegularUser();
-        sprintApi = appDatabase.getPaySprint().getRegularPaySprint();
         viewModel = new ViewModelProvider(this).get(AtmViewModel.class);
         viewModel.listener = this;
         onClick();
@@ -96,7 +90,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
 
     private void checkPermission(TaskPerformer performer){
         String[] permissions;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             permissions = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.BLUETOOTH_SCAN,
@@ -137,9 +131,8 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
             }
             else{
-                referenceNo = "ETH"+getRandomString(15,chars);
-                txnType = "ATMBE";
-                binding.edAmount.setText("");
+                referenceNo = "PAYT"+generatedReferenceID()+user.getId();
+                txnType = "BE";
                 amount = "0";
                 checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType, referenceNo));
             }
@@ -161,13 +154,23 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
                     DisplayMessageUtil.error(MicroAtmHome.this, "Minimum withdraw amount is 100");
                     return;
                 }
-                referenceNo = "ATM"+getRandomString(15,chars);
-                txnType = "ATMCW";
+                referenceNo = "PAYT"+generatedReferenceID()+user.getId();
+                txnType = "CW";
                 amount = binding.edAmount.getText().toString();
                 checkPermission(()-> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType, referenceNo));
             }
         });
         binding.selectedBankName.setOnClickListener(v -> onSpinnerClick());
+    }
+
+    private static String generatedReferenceID(){
+        String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // 9
+        int n = alphabet.length(); // 10
+        StringBuilder result = new StringBuilder();
+        Random r = new Random(); // 11
+        for (int i = 0; i< 10; i++) // 12
+            result.append(alphabet.charAt(r.nextInt(n))); //13
+        return String.valueOf(result);
     }
 
 
@@ -176,20 +179,24 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         PaysprintApiCred api = (PaysprintApiCred) getIntent().getSerializableExtra("paySprintApi");
         PaysprintMerchantCred merchant = (PaysprintMerchantCred) getIntent().getSerializableExtra("paySprintMerchant");
 
-        Intent intent = new Intent(getApplicationContext(), Hostnew.class);
-        intent.putExtra("partnerId",merchant.getPARTNERID());
+        Intent intent = new Intent(MicroAtmHome.this, HostActivity.class);
+        intent.putExtra("partnerId", merchant.getPARTNERID());
         intent.putExtra("apiKey", api.getJWTKEY());
-        intent.putExtra("transactionType",txnType);   // ATMBE  or  ATMCW
-        intent.putExtra("amount",amount);
-        intent.putExtra("merchantCode",merchant.getMERCHANTCODE()); //merchantCode
-        intent.putExtra("remarks", "Test Transaction") ;
-        intent.putExtra("mobileNumber", user.getMobile()) ;  // customer mobile number
-        intent.putExtra("referenceNumber", referenceNo) ;  // txn unqiue referenceNumber number
-        intent.putExtra("latitude", "22.572646");
-        intent.putExtra("longitude", "88.363895");
-        intent.putExtra("subMerchantId", merchant.getMERCHANTCODE());  //merchantCode
-        intent.putExtra("deviceManufacturerId", atm.toString());//new one requires in string type string old one in int
+        intent.putExtra("merchantCode", merchant.getMERCHANTCODE());
+//                intent.putExtra("merchantCode", sprintApi.getMerchantcode()+user.getId());
+        intent.putExtra("transactionType", txnType); // BE for Balance Enquiry and CW for Cash Withdrawal
+        intent.putExtra("amount", amount); // 0 for Balance Enquiry and Amount for Cash Withdrawal
+        intent.putExtra("remarks", "Test Transaction"); // Transaction remarks
+        intent.putExtra("mobileNumber", user.getMobile()); // Customer Mobile Number
+        intent.putExtra("referenceNumber", referenceNo); // Reference Number
+        intent.putExtra("latitude", "22.572646"); // Latitude
+        intent.putExtra("longitude", "88.363895"); // Longitude
+        // intent.putExtra("subMerchantId", sprintApi.getMerchantcode()+user.getId()); // Sub Merchant Id
+        intent.putExtra("subMerchantId", merchant.getMERCHANTCODE());
+        intent.putExtra("deviceManufacturerId", atm);
+        intent.putExtra("email", user.getEmail());
         startActivityForResult(intent, 999);
+
 
     }
 
@@ -202,18 +209,6 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public String getRandomString(int length, char[] characterSet) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int loop = 0; loop < length; loop++) {
-            int index = new Random().nextInt(characterSet.length);
-            sb.append(characterSet[index]);
-        }
-        String nonce = sb.toString();
-        return nonce;
-    }
-
 
     private String revertMyData(String value){
         if(value==null){
@@ -278,8 +273,10 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
         ListView myOperatorListView = dialog.findViewById(R.id.MyOperatorListView);
         List<AtmDeviceModels> list = new ArrayList<>();
         head_title_section.setText("Micro ATM Device");
-        list.add(new AtmDeviceModels("AF60S",3));
-//        list.add(new AtmDeviceModels("MP-63",2));
+
+        list.add(new AtmDeviceModels("AF60S",1));
+        list.add(new AtmDeviceModels("MP-63",2));
+
         ArrayAdapter<AtmDeviceModels> adapter = new ArrayAdapter<>(MicroAtmHome.this, android.R.layout.simple_list_item_1,list);
         myOperatorListView.setAdapter(adapter);
         searchOperator.addTextChangedListener(new TextWatcher() {
@@ -310,7 +307,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener {
     @Override
     protected void onResume() {
         super.onResume();
-        atm = 3;
+        atm = 1;
         binding.selectedBankName.setText("AF60S");
     }
 
