@@ -6,6 +6,8 @@ import android.content.Context;
 
 //import com.finopaytech.finosdk.helpers.FinoApplication;
 
+import com.finopaytech.finosdk.helpers.FinoApplication;
+
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
@@ -13,7 +15,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //FinoApplication.init(this);
+        FinoApplication.init(this);
     }
 
     @Override

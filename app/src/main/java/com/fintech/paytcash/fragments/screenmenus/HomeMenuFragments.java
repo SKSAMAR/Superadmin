@@ -323,7 +323,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
     private void startPaysprintOnboard(PaysprintApiCred paysprintApiCred) {
-        ViewUtils.showToast(requireActivity(), "1");
         if (checkPermission()) {
             Intent intent = new Intent(requireActivity(), HostActivity.class);
             intent.putExtra("pId", paysprintApiCred.getPARTNERID());
