@@ -64,33 +64,33 @@ public class FundViewModel extends ViewModel {
     public ResetListener resetListener = null;
 
     @Inject
-    public FundViewModel(FundRepository fundRepository){
+    public FundViewModel(FundRepository fundRepository) {
         this.fundRepository = fundRepository;
     }
 
-    public void onRazorPayAddFund(View view){
+    public void onRazorPayAddFund(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), PayActivity.class));
     }
 
 
-    public void onOfflineAddFund(View view){
+    public void onOfflineAddFund(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), RequestOffline.class));
     }
 
-    public void onUPIPay(View view){
+    public void onUPIPay(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), PayActivityWebView.class));
     }
 
-    public void onPayTmAddFund(View view){
-       // view.getContext().startActivity(new Intent(view.getContext(), PayActivityWithPayTm.class));
+    public void onPayTmAddFund(View view) {
+        // view.getContext().startActivity(new Intent(view.getContext(), PayActivityWithPayTm.class));
     }
 
-    public void onWalletExchange(View view){
+    public void onWalletExchange(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), FundExchange.class));
     }
 
 
-    public void onSpinnerClick(View view){
+    public void onSpinnerClick(View view) {
 
         Dialog dialog = new Dialog(view.getContext());
         dialog.setContentView(R.layout.my_spinner_row);
@@ -102,7 +102,8 @@ public class FundViewModel extends ViewModel {
         List<String> list = new ArrayList<>();
         list.add("IMPS");
         list.add("NEFT");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1,list);
+        list.add("Offline");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, list);
         myOperatorListView.setAdapter(adapter);
         searchOperator.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,30 +129,26 @@ public class FundViewModel extends ViewModel {
         });
     }
 
-    public void onRequestOffline(View view){
+    public void onRequestOffline(View view) {
         //make the payment done..
-        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return;
-        }
-        else {
+        } else {
 
-        if(amount.isEmpty()){
-            MyAlertUtils.showServerAlertDialog(view.getContext(), "Enter valid amount");
-        }
-        else if(transaction_id.isEmpty()){
-            MyAlertUtils.showServerAlertDialog(view.getContext(), "Enter valid Transaction Id");
-        }
-        else if(payment_mode.isEmpty()){
-            MyAlertUtils.showServerAlertDialog(view.getContext(), "Select valid Payment Mode");
-        }
-        else{
+            if (amount.isEmpty()) {
+                MyAlertUtils.showServerAlertDialog(view.getContext(), "Enter valid amount");
+            } else if (transaction_id.isEmpty()) {
+                MyAlertUtils.showServerAlertDialog(view.getContext(), "Enter valid Transaction Id");
+            } else if (payment_mode.isEmpty()) {
+                MyAlertUtils.showServerAlertDialog(view.getContext(), "Select valid Payment Mode");
+            } else {
 
-            MyAlertUtils.showProgressAlertDialog(view.getContext());
-            fundRepository.apiServices.offlineWalletDemand(receipt, getTextPlain(amount), getTextPlain(payment_mode), getTextPlain(transaction_id), getTextPlain(remarks),  getTextPlain("requestOffline"))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(regularResponse-> {
-                            if(regularResponse.isStatus()){
+                MyAlertUtils.showProgressAlertDialog(view.getContext());
+                fundRepository.apiServices.offlineWalletDemand(receipt, getTextPlain(amount), getTextPlain(payment_mode), getTextPlain(transaction_id), getTextPlain(remarks), getTextPlain("requestOffline"))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(regularResponse -> {
+                            if (regularResponse.isStatus()) {
                                 MyAlertUtils.showAlertDialog(view.getContext(), "Result", regularResponse.getMessage(), R.drawable.success);
                                 listener.eraseAll();
                                 payment_mode = "";
@@ -159,44 +156,39 @@ public class FundViewModel extends ViewModel {
                                 remarks = "";
                                 amount = "";
                                 transaction_id = "";
-                            }
-                            else{
+                            } else {
                                 MyAlertUtils.showServerAlertDialog(view.getContext(), regularResponse.getMessage());
                             }
-                        },e-> {
+                        }, e -> {
                             MyAlertUtils.showServerAlertDialog(view.getContext(), e.getMessage());
                         });
-         }
+            }
 
         }
         mLastClickTime = SystemClock.elapsedRealtime();
     }
 
-    public void onFundExchangeClick(View view){
+    public void onFundExchangeClick(View view) {
         User user = fundRepository.appDatabase.getUserDao().getRegularUser();
-        if(user.getAepsbalance()!=null){
-            if(user.getAepsbalance().isEmpty()){
+        if (user.getAepsbalance() != null) {
+            if (user.getAepsbalance().isEmpty()) {
                 MyAlertUtils.showServerAlertDialog(view.getContext(), "Not Enough AePS Balance");
-            }
-            else if(amount.isEmpty()){
+            } else if (amount.isEmpty()) {
                 MyAlertUtils.showServerAlertDialog(view.getContext(), "Provide valid amount");
-            }
-            else{
+            } else {
 
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                     return;
-                }
-                else {
+                } else {
                     try {
                         double leftBal = Double.parseDouble(user.getAepsbalance());
                         double currAmount = Double.parseDouble(amount);
-                        if(leftBal<currAmount){
+                        if (leftBal < currAmount) {
                             MyAlertUtils.showServerAlertDialog(view.getContext(), "Not Enough AePS Balance");
-                        }
-                        else{
+                        } else {
                             fundRepository.exchangeWallet(view.getContext(), amount, resetListener);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         MyAlertUtils.showServerAlertDialog(view.getContext(), e.getLocalizedMessage());
                     }
@@ -207,21 +199,26 @@ public class FundViewModel extends ViewModel {
     }
 
 
-    public void getRequestedHistory(String transaction_id, Receiver<List<RequestedHistoryModel>> receiver){
-        NetworkUtil.getNetworkResult(fundRepository.apiServices.getRequestHistory(transaction_id, "requestedHistory"), null, data -> {
-            receiver.getData(data.getReceivableData());
-        });
+    public void getRequestedHistory(Context context, String transaction_id, Receiver<List<RequestedHistoryModel>> receiver) {
+        fundRepository.apiServices.getRequestHistory(transaction_id, "requestedHistory")
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    receiver.getData(result.getReceivableData());
+                }, error -> {
+                    DisplayMessageUtil.error(context, error.getLocalizedMessage());
+                });
     }
 
 
     public void madeValidPayment(String amount, Context context, Receiver<Boolean> receiver) {
-        if (Accessable.isAccessable()){
+        if (Accessable.isAccessable()) {
             DisplayMessageUtil.loading(context);
-            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount), context, result->{
+            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount), context, result -> {
                 DisplayMessageUtil.dismissDialog();
-                if(result.status){
+                if (result.status) {
                     receiver.getData(true);
-                }else{
+                } else {
                     DisplayMessageUtil.error(context, result.message);
                 }
             });
@@ -234,7 +231,7 @@ public class FundViewModel extends ViewModel {
         receipt = MultipartBody.Part.createFormData("receipt", file.getName(), requestFile);
     }
 
-    private RequestBody getTextPlain(String value){
+    private RequestBody getTextPlain(String value) {
         return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 }

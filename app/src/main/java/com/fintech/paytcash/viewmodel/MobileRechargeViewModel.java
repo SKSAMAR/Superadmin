@@ -227,7 +227,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     public void findCustomerInfoDth(Context context) {
         DisplayMessageUtil.loading(context);
         mobileRechargesRepository.apiServices
-                .dth_info(mobileNumber.getValue(), operatorModel.getName(), "dth_info")
+                .dth_info(mobileNumber.getValue(), operatorModel.getOperatorcode(), "dth_info")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(res -> {

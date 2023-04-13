@@ -28,7 +28,7 @@ public class RequestHistory extends UtilHistory {
         actionBar.setTitle("Request History");
         binding.searchView.setQueryHint("Search by transaction id");
         DisplayMessageUtil.loading(RequestHistory.this);
-        viewModel.getRequestedHistory( "", this::setRecycler);
+        viewModel.getRequestedHistory( RequestHistory.this,"", this::setRecycler);
         initialize();
     }
 
@@ -45,13 +45,13 @@ public class RequestHistory extends UtilHistory {
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                viewModel.getRequestedHistory( s, data -> setRecycler(data));
+                viewModel.getRequestedHistory(RequestHistory.this, s, data -> setRecycler(data));
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                viewModel.getRequestedHistory( s, data -> setRecycler(data));
+                viewModel.getRequestedHistory(RequestHistory.this, s, data -> setRecycler(data));
                 return false;
             }
         });
