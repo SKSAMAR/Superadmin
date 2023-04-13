@@ -8,11 +8,11 @@
     <data>
         <variable
             name="rechargeViewModel"
-            type="com.fintech.scnpay.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
 
         <variable
             name="hlrModel"
-            type="com.fintech.scnpay.data.hlr.HLRResponse" />
+            type="com.fintech.paytcash.data.hlr.HLRResponse" />
     </data>
 
 

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/selectionOfBiller"
-        android:name="com.fintech.scnpay.activities.bbps.fragments.SelectionOfBiller"
+        android:name="com.fintech.paytcash.activities.bbps.fragments.SelectionOfBiller"
         android:label="SelectionOfBiller" >
         <action
             android:id="@+id/action_selectionOfBiller_to_billFetch"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/billFetch"
-        android:name="com.fintech.scnpay.activities.bbps.fragments.BillFetch"
+        android:name="com.fintech.paytcash.activities.bbps.fragments.BillFetch"
         android:label="fragment_bill_fetch"
         tools:layout="@layout/fragment_bill_fetch" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/billPayment"
-        android:name="com.fintech.scnpay.activities.bbps.fragments.BillPayment"
+        android:name="com.fintech.paytcash.activities.bbps.fragments.BillPayment"
         android:label="fragment_bill_payment"
         tools:layout="@layout/fragment_bill_payment" >
         <action

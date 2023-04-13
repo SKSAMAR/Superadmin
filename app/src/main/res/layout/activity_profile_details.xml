@@ -7,14 +7,14 @@
     <data>
         <variable
             name="profileDetailsModel"
-            type="com.fintech.scnpay.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
         <variable
             name="userModel"
-            type="com.fintech.scnpay.data.db.entities.User" />
+            type="com.fintech.paytcash.data.db.entities.User" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.scnpay.data.db.entities.UserProfile" />
+            type="com.fintech.paytcash.data.db.entities.UserProfile" />
     </data>
 
     <RelativeLayout

@@ -7,10 +7,10 @@
     <data>
         <variable
             name="userDataModel"
-            type="com.fintech.scnpay.data.db.entities.User" />
+            type="com.fintech.paytcash.data.db.entities.User" />
         <variable
             name="fundViewModel"
-            type="com.fintech.scnpay.viewmodel.FundViewModel" />
+            type="com.fintech.paytcash.viewmodel.FundViewModel" />
     </data>
 
 

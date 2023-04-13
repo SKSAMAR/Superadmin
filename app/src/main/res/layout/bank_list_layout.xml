@@ -9,7 +9,7 @@
 
         <variable
             name="bankModel"
-            type="com.fintech.scnpay.data.model.BankModel"/>
+            type="com.fintech.paytcash.data.model.BankModel"/>
 
     </data>
 

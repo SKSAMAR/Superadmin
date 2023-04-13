@@ -5,7 +5,7 @@
     <data>
         <variable
             name="beneficiaryModel"
-            type="com.fintech.scnpay.data.network.responses.BeneficiaryBank" />
+            type="com.fintech.paytcash.data.network.responses.BeneficiaryBank" />
     </data>
 
         <RelativeLayout

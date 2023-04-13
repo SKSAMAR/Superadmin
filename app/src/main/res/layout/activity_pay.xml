@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fundViewModel"
-            type="com.fintech.scnpay.viewmodel.FundViewModel" />
+            type="com.fintech.paytcash.viewmodel.FundViewModel" />
     </data>
 
     <LinearLayout

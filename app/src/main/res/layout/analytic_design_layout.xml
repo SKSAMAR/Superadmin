@@ -8,7 +8,7 @@
 
         <variable
             name="analyticDataModel"
-            type="com.fintech.scnpay.data.network.responses.AnalyticsResponseModel" />
+            type="com.fintech.paytcash.data.network.responses.AnalyticsResponseModel" />
     </data>
 
     <LinearLayout

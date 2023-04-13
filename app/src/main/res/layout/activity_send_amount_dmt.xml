@@ -7,7 +7,7 @@
     <data>
         <variable
             name="sendAmountViewModel"
-            type="com.fintech.scnpay.viewmodel.ToBankViewModel" />
+            type="com.fintech.paytcash.viewmodel.ToBankViewModel" />
 
     </data>
 

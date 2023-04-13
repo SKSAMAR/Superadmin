@@ -6,15 +6,15 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.scnpay.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
 
         <variable
             name="nameNumber"
-            type="com.fintech.scnpay.data.db.entities.User" />
+            type="com.fintech.paytcash.data.db.entities.User" />
 
         <variable
             name="userProfile"
-            type="com.fintech.scnpay.data.db.entities.UserProfile" />
+            type="com.fintech.paytcash.data.db.entities.UserProfile" />
 
     </data>
 

@@ -8,11 +8,11 @@
 
         <variable
             name="bankDetailsViewModel"
-            type="com.fintech.scnpay.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.scnpay.data.db.entities.UserProfile" />
+            type="com.fintech.paytcash.data.db.entities.UserProfile" />
 
     </data>
 <RelativeLayout

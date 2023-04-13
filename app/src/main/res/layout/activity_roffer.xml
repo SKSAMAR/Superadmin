@@ -7,7 +7,7 @@
     <data>
         <variable
             name="rOfferViewModel"
-            type="com.fintech.scnpay.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout

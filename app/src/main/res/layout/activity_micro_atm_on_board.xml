@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onBoardingViewModel"
-            type="com.fintech.scnpay.viewmodel.OnBoardingViewModel" />
+            type="com.fintech.paytcash.viewmodel.OnBoardingViewModel" />
     </data>
 
     <RelativeLayout

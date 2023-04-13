@@ -6,7 +6,7 @@
     <data>
         <variable
             name="queueryRemitter"
-            type="com.fintech.scnpay.viewmodel.ToBankViewModel" />
+            type="com.fintech.paytcash.viewmodel.ToBankViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

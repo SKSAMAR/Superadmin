@@ -8,7 +8,7 @@
 
         <variable
             name="operatorModel"
-            type="com.fintech.scnpay.data.model.OperatorModel" />
+            type="com.fintech.paytcash.data.model.OperatorModel" />
 
     </data>
 

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.scnpay.viewmodel.CustomerSupportViewModel" />
+            type="com.fintech.paytcash.viewmodel.CustomerSupportViewModel" />
     </data>
 
     <RelativeLayout

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="beneficiaryModel"
-            type="com.fintech.scnpay.data.deer_response.CFPDBeneficiary" />
+            type="com.fintech.paytcash.data.deer_response.CFPDBeneficiary" />
     </data>
 
     <RelativeLayout

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.scnpay.viewmodel.ProfileViewModel" />
+            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"

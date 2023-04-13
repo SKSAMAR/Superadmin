@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.scnpay.viewmodel.HomeViewModel" />
+            type="com.fintech.paytcash.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
