@@ -456,7 +456,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
              }
              **/
 
-            if (consumer_number == null || consumer_number.trim().isEmpty() || consumer_number.trim().length() < 5) {
+            if (consumer_number == null || consumer_number.trim().isEmpty()) {
                 DisplayMessageUtil.error(view.getContext(), "Enter a valid " + selectedBBPS.getDisplayname());
                 return;
             }
@@ -490,39 +490,68 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
     public void proceedToPayBillBBPS(View view) {
-        if (Accessable.isAccessable()) {
-            if (myFetchedBill == null || op_name == null || op_category == null) {
+
+        if(Accessable.isAccessable()){
+            if (selectedBBPS.getViewbill().equals("1") && myFetchedBill==null) {
+                ViewUtils.showToast(view.getContext(), "Bill Fetch is Mandatory for this Operator");
+            }
+            else if( op_name == null || op_category == null){
                 ViewUtils.showToast(view.getContext(), "Select all information");
                 _bBBPs_state.setValue(BBPSState.SELECTION_OF_BILLER);
             }
             else if(mode==null || mode.trim().isEmpty()){
                 ViewUtils.showSnackBar(view, "Select a valid mode");
             }
-            else {
+            else{
+
+                if (!selectedBBPS.getViewbill().equals("1")) {
+                    if( consumer_number == null || consumer_number.trim().isEmpty()){
+                        ViewUtils.showToast(view.getContext(), "Enter a valid Payee Number");
+                        return;
+                    }
+                    if( plan == null || plan.trim().isEmpty()){
+                        ViewUtils.showToast(view.getContext(), "Enter a valid amount");
+                        return;
+                    }
+                    if(mode==null || mode.trim().isEmpty()){
+                        ViewUtils.showSnackBar(view, "Select a valid mode");
+                        return;
+                    }
+
+                }
+
+//                if( mPin == null || mPin.trim().isEmpty()){
+//                    ViewUtils.showToast(view.getContext(), "Enter a valid M-PIN");
+//                    return;
+//                }
+
 
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
                 String json = "";
                 try {
                     json = ow.writeValueAsString(myFetchedBill);
-                } catch (JsonProcessingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 DisplayMessageUtil.loading(view.getContext());
+                String type = "ONLINE";
                 mobileRechargesRepository.apiServices
-                        .payBBpsBill(myFetchedBill.bill_fetch.billnetamount, consumer_number, selectedBBPS.getId(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), mode)
+                        .payBBpsBill(plan.trim(), consumer_number, selectedBBPS.getId(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), type)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(res -> {
+                        .subscribe(res->{
                             DisplayMessageUtil.dismissDialog();
-                            if (res.getResponse_code().equals(1)) {
+                            if(res.getResponse_code().equals(1)){
                                 DisplayMessageUtil.success(view.getContext(), res.getMessage());
                                 consumer_number = "";
+                                plan = "";
                                 myFetchedBill = null;
                                 _bBBPs_state.setValue(BBPSState.SELECTION_OF_BILLER);
-                            } else {
+                            }
+                            else{
                                 DisplayMessageUtil.error(view.getContext(), res.getMessage());
                             }
-                        }, err -> DisplayMessageUtil.error(view.getContext(), err.getLocalizedMessage()));
+                        }, err-> DisplayMessageUtil.error(view.getContext(), err.getLocalizedMessage()));
             }
         }
     }
@@ -646,6 +675,42 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         }
     }
 
+    public void directFastagPay(View view){
+        if (Accessable.isAccessable()){
+            if (consumer_number == null || consumer_number.trim().length() < 3) {
+                MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Provide valid" + fastagOpperatorModel.getDisplayname());
+            }
+            else if (cc_amount == null || cc_amount.trim().isEmpty()) {
+                MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Provide valid amount");
+            }else {
+                try {
+                    float checkBalance = Float.parseFloat(cc_amount);
+                    if (checkBalance < 99 || checkBalance >= 1000) {
+                        DisplayMessageUtil.error(view.getContext(), "Please make transaction between 100 Rs & 1000");
+                        return;
+                    }
+                } catch (NumberFormatException exception) {
+                    DisplayMessageUtil.error(view.getContext(), "Provide a valid amount");
+                    return;
+                }
+
+                DisplayMessageUtil.loading(view.getContext());
+                mobileRechargesRepository.apiServices.payFastAgBill(cc_amount, consumer_number, fastagOpperatorModel.getId(), "", UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(res -> {
+                            if (res.getResponse_code().equals(1)) {
+                                DisplayMessageUtil.success(view.getContext(), res.getMessage());
+                                resetListener.resetRequiredData(true);
+                            } else {
+                                DisplayMessageUtil.error(view.getContext(), res.getMessage());
+                            }
+                        }, err -> DisplayMessageUtil.error(view.getContext(), err.getMessage()));
+
+            }
+        }
+    }
+
     //Fastag
 
     public void bring_fastAgList(Context context, FastAgListener listener) {
@@ -722,6 +787,8 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                     DisplayMessageUtil.error(context, "Please make transaction between 100 Rs & 1000");
                     return;
                 }
+                cc_amount = ""+checkBalance;
+
             } catch (NumberFormatException exception) {
                 DisplayMessageUtil.error(context, "Provide a valid amount");
                 return;
@@ -736,7 +803,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             }
             alertDialog.dismiss();
             DisplayMessageUtil.loading(context);
-            mobileRechargesRepository.apiServices.payFastAgBill(consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
+            mobileRechargesRepository.apiServices.payFastAgBill(cc_amount, consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {

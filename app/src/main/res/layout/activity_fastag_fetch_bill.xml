@@ -64,7 +64,6 @@
                         android:layout_margin="@dimen/_6sdp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
                         <com.google.android.material.textfield.TextInputEditText
                             android:text="@={fastagViewModel.consumer_number}"
                             android:layout_width="match_parent"
@@ -75,7 +74,26 @@
                             android:id="@+id/ca_number"
                             android:importantForAutofill="no"
                             android:padding="15dp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:visibility="gone"
+                        android:id="@+id/directPayAmount"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:text="@={fastagViewModel.cc_amount}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/amount"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:id="@+id/cc_amount"
+                            android:importantForAutofill="no"
+                            android:padding="15dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
@@ -98,6 +116,18 @@
             android:text="@string/fetch_bill"
             android:backgroundTint="@color/iconColor"
             android:id="@+id/fetch_lic_bill"/>
+
+        <Button
+            android:onClick="@{fastagViewModel::directFastagPay}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="20sp"
+            android:paddingHorizontal="5sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-8dp"
+            android:text="@string/pay_now"
+            android:backgroundTint="@color/iconColor"
+            android:id="@+id/directPayFasTag"/>
 
     </RelativeLayout>
 

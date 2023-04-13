@@ -25,7 +25,7 @@
                 android:id="@+id/top_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/second_top">
+                android:background="@color/iconColor">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package com.fintech.paytcash.activities.bbps.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class BillFetch extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bill_fetch, container, false);
+        selectModes();
         return binding.getRoot();
     }
 
@@ -37,19 +39,42 @@ public class BillFetch extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MobileRechargeViewModel.class);
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(requireActivity());
-
-        if(viewModel.selectedBBPS.getAd1_d_name() == null || viewModel.selectedBBPS.getAd1_d_name().trim().isEmpty()){
+        if (viewModel.selectedBBPS.getAd1_d_name() == null || viewModel.selectedBBPS.getAd1_d_name().trim().isEmpty()) {
             binding.ad1Layout.setVisibility(View.GONE);
         }
 
-        if(viewModel.selectedBBPS.getAd2_d_name() == null || viewModel.selectedBBPS.getAd2_d_name().trim().isEmpty()){
+        if (viewModel.selectedBBPS.getAd2_d_name() == null || viewModel.selectedBBPS.getAd2_d_name().trim().isEmpty()) {
             binding.ad2Layout.setVisibility(View.GONE);
         }
 
-        if(viewModel.selectedBBPS.getAd3_d_name() == null || viewModel.selectedBBPS.getAd3_d_name().trim().isEmpty()){
+        if (viewModel.selectedBBPS.getAd3_d_name() == null || viewModel.selectedBBPS.getAd3_d_name().trim().isEmpty()) {
             binding.ad3Layout.setVisibility(View.GONE);
         }
+        selectModes();
+    }
 
+    @SuppressLint("SetTextI18n")
+    private void selectModes() {
+        try {
+            if (viewModel.selectedBBPS.getViewbill().equals("1")) {
 
+                binding.payMyBBPS.setVisibility(View.GONE);
+                binding.directPayBBPS.setVisibility(View.GONE);
+                binding.getDetails.setVisibility(View.VISIBLE);
+                binding.fetchableConsumerLayout.setVisibility(View.VISIBLE);
+            } else {
+                binding.payMyBBPS.setVisibility(View.VISIBLE);
+                binding.directPayBBPS.setVisibility(View.VISIBLE);
+                binding.getDetails.setVisibility(View.GONE);
+                binding.fetchableConsumerLayout.setVisibility(View.GONE);
+                if (viewModel.selectedBBPS.getCategory()!=null){
+                    binding.directPayCaNum.setText(viewModel.selectedBBPS.getCategory()+" Number");
+                }else{
+                    binding.directPayCaNum.setText("Consumer Number");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

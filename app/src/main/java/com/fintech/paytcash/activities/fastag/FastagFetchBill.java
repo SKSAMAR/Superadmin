@@ -3,6 +3,7 @@ package com.fintech.paytcash.activities.fastag;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,8 +37,10 @@ public class FastagFetchBill extends BaseActivity implements ResetListener {
         viewModel.resetListener = this;
         viewModel.fastagOpperatorModel  = (OperatorResponse.OperatorData) getIntent().getSerializableExtra("fastAgOP");
         binding.setFastagViewModel(viewModel);
+        manageState();
         StartGettingLocation.setAllTheLocations(FastagFetchBill.this);
         binding.caNumber.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+
     }
 
     @Override
@@ -53,5 +56,17 @@ public class FastagFetchBill extends BaseActivity implements ResetListener {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void manageState(){
+        if (viewModel.fastagOpperatorModel.getViewbill().trim().equals("1")){
+            binding.fetchLicBill.setVisibility(View.VISIBLE);
+            binding.directPayFasTag.setVisibility(View.GONE);
+            binding.directPayAmount.setVisibility(View.GONE);
+        }else{
+            binding.fetchLicBill.setVisibility(View.GONE);
+            binding.directPayFasTag.setVisibility(View.VISIBLE);
+            binding.directPayAmount.setVisibility(View.VISIBLE);
+        }
     }
 }
