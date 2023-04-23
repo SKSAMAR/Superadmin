@@ -7,7 +7,7 @@
 
         <variable
             name="historyModelResponse"
-            type="com.fintech.paytcash.data.network.responses.BeneficiaryHistoryResponse" />
+            type="com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse" />
     </data>
 
     <LinearLayout

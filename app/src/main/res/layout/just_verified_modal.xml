@@ -77,7 +77,7 @@
                     app:contentPaddingBottom="15dp"
                     app:contentPaddingLeft="12dp"
                     app:contentPaddingRight="12dp"
-                    app:cardBackgroundColor="@color/iconColor">
+                    app:cardBackgroundColor="?android:colorPrimary">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                     app:contentPaddingBottom="15dp"
                     app:contentPaddingLeft="12dp"
                     app:contentPaddingRight="12dp"
-                    app:cardBackgroundColor="@color/iconColor">
+                    app:cardBackgroundColor="?android:colorPrimary">
 
                     <TextView
                         android:layout_width="wrap_content"

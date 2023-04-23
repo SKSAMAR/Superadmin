@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <ScrollView
@@ -35,7 +35,7 @@
                         android:text="@string/biller_coverage"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
@@ -62,7 +62,7 @@
                         android:text="@string/biller_category"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
 
                     <EditText
                         android:id="@+id/biller_category"
@@ -96,7 +96,7 @@
                         android:text="@{viewModel.selectedBBPS.ad1_d_name}"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
@@ -122,7 +122,7 @@
                         android:text="@{viewModel.selectedBBPS.displayname}"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
 
                     <EditText
                         android:id="@+id/consumer_number"
@@ -152,7 +152,7 @@
                         android:text="@{viewModel.selectedBBPS.ad2_d_name}"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
@@ -180,7 +180,7 @@
                         android:text="@{viewModel.selectedBBPS.ad3_d_name}"
                         android:layout_marginStart="3dp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
@@ -211,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:textStyle="bold"
-                            android:textColor="@color/iconColor"/>
+                            android:textColor="?android:colorPrimary"/>
                         <EditText
                             android:text="@={viewModel.consumer_number}"
                             android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                             android:text="@string/amount"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:textStyle="bold"
-                            android:textColor="@color/iconColor"/>
+                            android:textColor="?android:colorPrimary"/>
                         <EditText
                             android:text="@={viewModel.plan}"
                             android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                             android:text="@string/enter_m_pin_"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:textStyle="bold"
-                            android:textColor="@color/iconColor"/>
+                            android:textColor="?android:colorPrimary"/>
                         <EditText
                             android:text="@={viewModel.mPin}"
                             android:layout_width="match_parent"
@@ -278,7 +278,7 @@
                             android:text="@string/mode"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:textStyle="bold"
-                            android:textColor="@color/iconColor"/>
+                            android:textColor="?android:colorPrimary"/>
                         <EditText
                             android:onClick="@{viewModel::selectModeBBPS}"
                             android:text="@={viewModel.mode}"
@@ -310,7 +310,7 @@
                     app:contentPaddingTop="12dp"
                     app:contentPaddingBottom="12dp"
                     app:cardCornerRadius="@dimen/_25sdp"
-                    app:cardBackgroundColor="@color/iconColor">
+                    app:cardBackgroundColor="?android:colorPrimary">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -341,7 +341,7 @@
                     app:contentPaddingTop="12dp"
                     app:contentPaddingBottom="12dp"
                     app:cardCornerRadius="@dimen/_25sdp"
-                    app:cardBackgroundColor="@color/iconColor">
+                    app:cardBackgroundColor="?android:colorPrimary">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

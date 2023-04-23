@@ -7,7 +7,7 @@
     <data>
         <variable
             name="payoutViewModel"
-            type="com.fintech.paytcash.viewmodel.PayoutViewModel" />
+            type="com.fintech.superadmin.viewmodel.PayoutViewModel" />
     </data>
 
     <RelativeLayout
@@ -135,7 +135,7 @@
             android:text="@string/add"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-7sp"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/addAccountButton"/>
 
     </RelativeLayout>

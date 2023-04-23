@@ -7,7 +7,7 @@
 
         <variable
             name="circleModel"
-            type="com.fintech.paytcash.data.model.CircleModel" />
+            type="com.fintech.superadmin.data.model.CircleModel" />
 
     </data>
 

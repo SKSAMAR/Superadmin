@@ -6,7 +6,7 @@
     <data>
         <variable
             name="rOfferDataModel"
-            type="com.fintech.paytcash.data.browseplan.Plan" />
+            type="com.fintech.superadmin.data.browseplan.Plan" />
     </data>
 
     <LinearLayout

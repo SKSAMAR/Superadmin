@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fundViewModel"
-            type="com.fintech.paytcash.viewmodel.FundViewModel" />
+            type="com.fintech.superadmin.viewmodel.FundViewModel" />
     </data>
 
 <RelativeLayout
@@ -164,7 +164,7 @@
         android:text="@string/request"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-7sp"
-        android:backgroundTint="@color/iconColor"
+        android:backgroundTint="?android:colorPrimary"
         android:id="@+id/onRequestOfflineAmount"/>
 
 </RelativeLayout>

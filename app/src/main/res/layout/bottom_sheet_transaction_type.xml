@@ -43,7 +43,7 @@
             android:textSize="18sp"
             android:padding="5dp"
             android:layout_marginEnd="8dp"
-            android:textColor="@color/iconColor"
+            android:textColor="?android:colorPrimary"
             android:layout_centerVertical="true"
             tools:ignore="RelativeOverlap" />
 

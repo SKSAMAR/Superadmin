@@ -5,7 +5,7 @@
     <data>
         <variable
             name="onBoardingViewModel"
-            type="com.fintech.paytcash.viewmodel.OnBoardingViewModel" />
+            type="com.fintech.superadmin.viewmodel.OnBoardingViewModel" />
     </data>
 
     <RelativeLayout
@@ -325,7 +325,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:onClick="@{onBoardingViewModel::startOnBoardMicroAtm}"
             android:paddingHorizontal="5dp"
             android:paddingVertical="20dp"

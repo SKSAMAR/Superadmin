@@ -7,10 +7,10 @@
     <data>
         <variable
             name="userDataModel"
-            type="com.fintech.paytcash.data.db.entities.User" />
+            type="com.fintech.superadmin.data.db.entities.User" />
         <variable
             name="fundViewModel"
-            type="com.fintech.paytcash.viewmodel.FundViewModel" />
+            type="com.fintech.superadmin.viewmodel.FundViewModel" />
     </data>
 
 
@@ -187,7 +187,7 @@
                             app:contentPaddingBottom="4dp"
                             app:contentPaddingLeft="12dp"
                             app:contentPaddingRight="12dp"
-                            app:cardBackgroundColor="@color/iconColor"
+                            app:cardBackgroundColor="?android:colorPrimary"
                             android:layout_alignParentEnd="true"
                             tools:ignore="RelativeOverlap">
 

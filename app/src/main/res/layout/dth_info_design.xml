@@ -5,7 +5,7 @@
     <data>
         <variable
             name="dthInfo"
-            type="com.fintech.paytcash.data.dthinfo.DthInfoResponse.Info" />
+            type="com.fintech.superadmin.data.dthinfo.DthInfoResponse.Info" />
     </data>
 
     <LinearLayout

@@ -8,7 +8,7 @@
 
         <variable
             name="myContactList"
-            type="com.fintech.paytcash.data.model.ContactsModel" />
+            type="com.fintech.superadmin.data.model.ContactsModel" />
 
     </data>
 

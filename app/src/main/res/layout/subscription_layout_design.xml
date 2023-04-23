@@ -6,7 +6,7 @@
     <data>
         <variable
             name="plans"
-            type="com.fintech.paytcash.data_model.plan.CFPlanModel" />
+            type="com.fintech.superadmin.data_model.plan.CFPlanModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:clickable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:minHeight="48dp"
-                    app:cardBackgroundColor="@color/iconColor"
+                    app:cardBackgroundColor="?android:colorPrimary"
                     app:contentPaddingBottom="5dp"
                     app:contentPaddingLeft="20dp"
                     app:contentPaddingRight="20dp"

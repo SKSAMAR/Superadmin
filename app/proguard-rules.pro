@@ -90,3 +90,8 @@
 -dontwarn org.apache.**
 
 -keep public class com.mantra.mfs100regdvcsample.model.**{ *; }
+# Shading the BluetoothLeService package
+-keep class com.anfu.pos.library.bluetooth4.** { *; }
+-dontwarn com.anfu.pos.library.bluetooth4.**
+-dontnote com.anfu.pos.library.bluetooth4.**
+-repackageclasses com.example.shaded.bluetooth4

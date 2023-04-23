@@ -4,7 +4,7 @@
     <data>
         <variable
             name="opData"
-            type="com.fintech.paytcash.data.network.responses.OperatorResponse.OperatorData" />
+            type="com.fintech.superadmin.data.network.responses.OperatorResponse.OperatorData" />
     </data>
 
     <RelativeLayout

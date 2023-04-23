@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.paytcash.viewmodel.HomeViewModel" />
+            type="com.fintech.superadmin.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -65,7 +65,7 @@
 <!--            android:foregroundGravity="center"-->
 <!--            android:background="@android:color/transparent"-->
 <!--            android:backgroundTint="@color/white"-->
-<!--            android:tint="@color/iconColor"-->
+<!--            android:tint="?android:colorPrimary"-->
 
 <!--            app:layout_anchor="@id/bottomAppBar"-->
 <!--            />-->

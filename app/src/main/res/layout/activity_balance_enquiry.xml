@@ -8,7 +8,7 @@
     <data>
         <variable
             name="balanceEnquiryViewModel"
-            type="com.fintech.paytcash.viewmodel.AepsViewModel" />
+            type="com.fintech.superadmin.viewmodel.AepsViewModel" />
     </data>
 
     <RelativeLayout
@@ -137,7 +137,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="-8dp"
                 android:text="@string/balance_enquiry"
-                android:backgroundTint="@color/iconColor"
+                android:backgroundTint="?android:colorPrimary"
                 android:id="@+id/captureFingerPrintButton"/>
 
 

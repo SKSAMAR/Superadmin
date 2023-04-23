@@ -6,7 +6,7 @@
     <data>
         <variable
             name="myviewmodel"
-            type="com.fintech.paytcash.viewmodel.AuthViewModel" />
+            type="com.fintech.superadmin.viewmodel.AuthViewModel" />
     </data>
 
         <ScrollView
@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_90sdp"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/logo"
+                app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
                 app:layout_constraintBottom_toTopOf="@+id/edit_names"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
                 android:onClick="@{myviewmodel::onSignupButtonClick}"
                 android:text="@string/register"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/iconColor"
+                app:backgroundTint="?android:colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_email" />

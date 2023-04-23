@@ -20,14 +20,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_90sdp"
                     android:contentDescription="@string/todo"
-                    android:src="@drawable/logo"/>
+                    app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
                     android:text="@string/enter_m_pin_"
                     android:textAlignment="center"
-                    android:textColor="@color/iconColor"
+                    android:textColor="?android:colorPrimary"
                     android:textStyle="bold"
                     android:textSize="24sp"/>
                 <LinearLayout
@@ -50,7 +50,7 @@
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"/>
                         <EditText
@@ -62,7 +62,7 @@
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"/>
                         <EditText
@@ -74,7 +74,7 @@
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"/>
                         <EditText
@@ -86,7 +86,7 @@
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:maxLength="1"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:textSize="24sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
@@ -108,7 +108,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:text="@string/login_again"/>
                     </LinearLayout>
                 </LinearLayout>

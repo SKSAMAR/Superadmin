@@ -4,7 +4,7 @@
     <data>
         <variable
             name="histData"
-            type="com.fintech.paytcash.data.network.responses.RegularHistoryResponse.EveryDayData" />
+            type="com.fintech.superadmin.data.network.responses.RegularHistoryResponse.EveryDayData" />
     </data>
 
     <RelativeLayout

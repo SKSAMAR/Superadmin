@@ -9,7 +9,7 @@
 
         <variable
             name="myHistoryModel"
-            type="com.fintech.paytcash.data.model.HistoryModel" />
+            type="com.fintech.superadmin.data.model.HistoryModel" />
 
     </data>
 

@@ -9,7 +9,7 @@
 
         <variable
             name="aeps_home_view_model"
-            type="com.fintech.paytcash.viewmodel.AepsViewModel" />
+            type="com.fintech.superadmin.viewmodel.AepsViewModel" />
 
     </data>
 

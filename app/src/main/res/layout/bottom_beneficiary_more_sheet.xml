@@ -37,7 +37,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="@string/view_history"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:fontFamily="@font/sagnika"
                         android:id="@+id/view_history"/>
@@ -65,7 +65,7 @@
                         android:fontFamily="@font/sagnika"
                         android:text="@string/verify_account"
                         android:textAlignment="center"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"/>
 
                     <View
@@ -126,7 +126,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:text="@string/cancel"
-                    android:textColor="@color/iconColor"
+                    android:textColor="?android:colorPrimary"
                     android:textStyle="bold"
                     android:textSize="24sp"
                     android:fontFamily="@font/sagnika"

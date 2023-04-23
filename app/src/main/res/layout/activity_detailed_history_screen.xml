@@ -7,7 +7,7 @@
     <data>
         <variable
             name="wholeInfoModel"
-            type="com.fintech.paytcash.data.network.responses.BeneficiaryHistoryResponse" />
+            type="com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse" />
     </data>
 
     <ScrollView
@@ -71,7 +71,7 @@
                             android:fontFamily="@font/sagnika"
                             android:padding="10dp"
                             android:text="@string/copy"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             tools:ignore="RelativeOverlap" />
@@ -157,7 +157,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/rupee_sign"
-                                android:textColor="@color/iconColor"
+                                android:textColor="?android:colorPrimary"
                                 android:textSize="12sp"
                                 android:layout_centerVertical="true"
                                 android:layout_toStartOf="@+id/amount"
@@ -185,7 +185,7 @@
 <!--                            android:layout_alignParentEnd="true"-->
 <!--                            android:text="@string/send_again"-->
 <!--                            android:layout_margin="10dp"-->
-<!--                            android:textColor="@color/iconColor" />-->
+<!--                            android:textColor="?android:colorPrimary" />-->
 
 
 

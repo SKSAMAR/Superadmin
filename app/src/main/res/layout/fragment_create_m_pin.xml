@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
+            type="com.fintech.superadmin.viewmodel.ProfileViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -21,14 +21,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_90sdp"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/logo"/>
+                app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
                 android:text="@string/set_m_pin"
                 android:textAlignment="center"
-                android:textColor="@color/iconColor"
+                android:textColor="?android:colorPrimary"
                 android:textStyle="bold"
                 android:textSize="24sp"/>
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_margin="@dimen/_5sdp"
                 android:text="@string/set_your_secret_m_pin_for_all_the_transaction"
                 android:textAlignment="center"
-                android:textColor="@color/iconColor"
+                android:textColor="?android:colorPrimary"
                 android:textSize="16sp"/>
             <LinearLayout
                 android:id="@+id/pin_section"
@@ -49,7 +49,7 @@
                     android:layout_margin="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/iconColor"
+                    android:textColor="?android:colorPrimary"
                     android:textAlignment="center"
                     android:text="@string/new_m_pin"/>
                 <LinearLayout
@@ -66,7 +66,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                     <EditText
@@ -78,7 +78,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                     <EditText
@@ -90,7 +90,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                     <EditText
@@ -102,14 +102,14 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/iconColor"
+                    android:textColor="?android:colorPrimary"
                     android:textAlignment="center"
                     android:text="@string/confirm_m_pin"/>
                 <LinearLayout
@@ -128,7 +128,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                     <EditText
@@ -140,7 +140,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
 
@@ -153,7 +153,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
 
@@ -166,7 +166,7 @@
                         android:importantForAutofill="no"
                         android:inputType="number"
                         android:maxLength="1"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -214,7 +214,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:layout_alignParentEnd="true"
                         android:text="@string/resend_otp"/>
                 </RelativeLayout>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="analyticViewModel"
-            type="com.fintech.paytcash.viewmodel.HomeViewModel" />
+            type="com.fintech.superadmin.viewmodel.HomeViewModel" />
     </data>
 
     <RelativeLayout
@@ -173,7 +173,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_weight="1"
-                app:cardBackgroundColor="@color/iconColor"
+                app:cardBackgroundColor="?android:colorPrimary"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="8dp"
                 app:contentPadding="2sp">

@@ -5,7 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable
         name="viewModel"
-        type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
+        type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
 </data>
 
 <ScrollView
@@ -40,7 +40,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@string/category"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:text="@{viewModel.op_category}"
                         android:layout_width="match_parent"
@@ -63,7 +63,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@string/biller"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:text="@{viewModel.myFetchedBill.bill_fetch.userName}"
                         android:layout_width="match_parent"
@@ -85,7 +85,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@{viewModel.selectedBBPS.displayname}"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:text="@{viewModel.consumer_number}"
                         android:layout_width="match_parent"
@@ -108,7 +108,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@string/amount"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:text="@{viewModel.myFetchedBill.bill_fetch.billnetamount}"
                         android:layout_width="match_parent"
@@ -132,7 +132,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@string/enter_m_pin_"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:text="@={viewModel.mPin}"
                         android:layout_width="match_parent"
@@ -155,7 +155,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:text="@string/mode"
                         android:layout_marginStart="@dimen/_3sdp"
                         android:textStyle="bold"
-                        android:textColor="@color/iconColor"/>
+                        android:textColor="?android:colorPrimary"/>
                     <EditText
                         android:onClick="@{viewModel::selectModeBBPS}"
                         android:text="@={viewModel.mode}"
@@ -200,7 +200,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_5sdp"
                             android:backgroundTint="@color/white"
-                            android:textColor="@color/iconColor"
+                            android:textColor="?android:colorPrimary"
                             android:text="@string/edit"/>
 
                     </LinearLayout>

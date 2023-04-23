@@ -7,7 +7,7 @@
     <data>
         <variable
             name="customerInfoModel"
-            type="com.fintech.paytcash.data.network.responses.CustomerInfoModel" />
+            type="com.fintech.superadmin.data.network.responses.CustomerInfoModel" />
     </data>
 
     <RelativeLayout

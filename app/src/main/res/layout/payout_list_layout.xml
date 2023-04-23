@@ -5,7 +5,7 @@
     <data>
         <variable
             name="paySprintList"
-            type="com.fintech.paytcash.data.network.responses.PayoutList" />
+            type="com.fintech.superadmin.data.network.responses.PayoutList" />
     </data>
 
     <RelativeLayout

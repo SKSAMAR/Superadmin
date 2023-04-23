@@ -5,7 +5,7 @@
     <data>
         <variable
             name="sliderItem"
-            type="com.fintech.paytcash.data.model.SliderItem" />
+            type="com.fintech.superadmin.data.model.SliderItem" />
     </data>
 
 

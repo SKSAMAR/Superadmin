@@ -6,15 +6,15 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
+            type="com.fintech.superadmin.viewmodel.ProfileViewModel" />
 
         <variable
             name="nameNumber"
-            type="com.fintech.paytcash.data.db.entities.User" />
+            type="com.fintech.superadmin.data.db.entities.User" />
 
         <variable
             name="userProfile"
-            type="com.fintech.paytcash.data.db.entities.UserProfile" />
+            type="com.fintech.superadmin.data.db.entities.UserProfile" />
 
     </data>
 
@@ -48,7 +48,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/ic_baseline_camera_alt_24"
-                app:cb_color="@color/iconColor" />
+                app:cb_color="?android:colorPrimary" />
 
         </RelativeLayout>
 
@@ -88,7 +88,7 @@
 <!--                android:paddingEnd="8dp"-->
 <!--                android:paddingBottom="8dp"-->
 <!--                android:text="@string/edit_details"-->
-<!--                android:textColor="@color/iconColor"-->
+<!--                android:textColor="?android:colorPrimary"-->
 <!--                android:textSize="10sp"-->
 <!--                tools:ignore="RtlSymmetry,SmallSp" />-->
 

@@ -9,7 +9,7 @@
 
         <variable
             name="MyBankViewModel"
-            type="com.fintech.paytcash.viewmodel.ToBankViewModel" />
+            type="com.fintech.superadmin.viewmodel.ToBankViewModel" />
 
     </data>
 
@@ -166,7 +166,7 @@
             app:contentPaddingBottom="10sp"
             app:contentPaddingLeft="25sp"
             app:contentPaddingRight="25sp"
-            app:cardBackgroundColor="@color/iconColor"
+            app:cardBackgroundColor="?android:colorPrimary"
             android:id="@+id/AddBeneficiary"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"

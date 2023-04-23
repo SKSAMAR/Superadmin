@@ -8,11 +8,11 @@
 
         <variable
             name="bankDetailsViewModel"
-            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
+            type="com.fintech.superadmin.viewmodel.ProfileViewModel" />
 
         <variable
             name="userProfileModel"
-            type="com.fintech.paytcash.data.db.entities.UserProfile" />
+            type="com.fintech.superadmin.data.db.entities.UserProfile" />
 
     </data>
 <RelativeLayout
@@ -264,7 +264,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/iconColor"
+        android:backgroundTint="?android:colorPrimary"
         android:onClick="@{bankDetailsViewModel::updateBankDetailsData}"
         android:paddingHorizontal="5dp"
         android:paddingVertical="20dp"

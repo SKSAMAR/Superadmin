@@ -7,7 +7,7 @@
 
         <variable
             name="analyticsViewModel"
-            type="com.fintech.paytcash.viewmodel.HomeViewModel" />
+            type="com.fintech.superadmin.viewmodel.HomeViewModel" />
 
     </data>
 

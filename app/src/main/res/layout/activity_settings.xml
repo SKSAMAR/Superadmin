@@ -7,10 +7,10 @@
     <data>
         <variable
             name="profileViewModel"
-            type="com.fintech.paytcash.viewmodel.ProfileViewModel" />
+            type="com.fintech.superadmin.viewmodel.ProfileViewModel" />
         <variable
             name="userModel"
-            type="com.fintech.paytcash.data.db.entities.User" />
+            type="com.fintech.superadmin.data.db.entities.User" />
     </data>
 
     <RelativeLayout
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-6dp"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:onClick="@{profileViewModel::updateSettingsDetailsData}"
             android:paddingVertical="15dp"
             android:text="@string/update"

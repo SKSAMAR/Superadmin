@@ -105,7 +105,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="@dimen/_1sdp"
                 android:paddingVertical="8dp"
-                android:backgroundTint="@color/iconColor"
+                android:backgroundTint="?android:colorPrimary"
                 android:text="@string/my_balance_nenquiry" />
 
             <Button
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="@dimen/_1sdp"
                 android:paddingVertical="8dp"
-                android:backgroundTint="@color/iconColor"
+                android:backgroundTint="?android:colorPrimary"
                 android:text="@string/my_cash_nwithdrawal" />
 
         </LinearLayout>

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="fastagViewModel"
-            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout
@@ -114,7 +114,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-8dp"
             android:text="@string/fetch_bill"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/fetch_lic_bill"/>
 
         <Button
@@ -126,7 +126,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-8dp"
             android:text="@string/pay_now"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/directPayFasTag"/>
 
     </RelativeLayout>

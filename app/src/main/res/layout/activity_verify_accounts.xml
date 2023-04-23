@@ -7,7 +7,7 @@
     <data>
         <variable
             name="payoutViewModel"
-            type="com.fintech.paytcash.viewmodel.PayoutViewModel" />
+            type="com.fintech.superadmin.viewmodel.PayoutViewModel" />
     </data>
 
     <RelativeLayout
@@ -183,7 +183,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-8dp"
             android:text="@string/verify"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/sendCreditCardOtp"/>
 
 

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="sendAmountViewModel"
-            type="com.fintech.paytcash.viewmodel.ToBankViewModel" />
+            type="com.fintech.superadmin.viewmodel.ToBankViewModel" />
 
     </data>
 
@@ -93,7 +93,7 @@
                     android:fontFamily="@font/sagnika"
                     android:onClick="@{sendAmountViewModel::onHistoryCheckOfBeneficiary}"
                     android:text="@string/view_history"
-                    android:textColor="@color/iconColor"
+                    android:textColor="?android:colorPrimary"
                     android:textSize="10sp"
                     tools:ignore="SmallSp" />
 

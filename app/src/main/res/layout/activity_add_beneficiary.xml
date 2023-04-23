@@ -7,7 +7,7 @@
     <data>
         <variable
             name="beneficiaryViewModel"
-            type="com.fintech.paytcash.viewmodel.ToBankViewModel"/>
+            type="com.fintech.superadmin.viewmodel.ToBankViewModel"/>
     </data>
 
     <RelativeLayout
@@ -289,7 +289,7 @@
             android:text="@string/confirm"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-7sp"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/mobileRechargeButton"/>
 
     </RelativeLayout>

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ccViewModel"
-            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <RelativeLayout
@@ -174,7 +174,7 @@
                 android:paddingVertical="20sp"
                 android:paddingHorizontal="5sp"
                 android:text="@string/send_otp"
-                android:backgroundTint="@color/iconColor"
+                android:backgroundTint="?android:colorPrimary"
                 android:id="@+id/sendOtp"/>
 
 
@@ -187,7 +187,7 @@
                 android:paddingVertical="20sp"
                 android:paddingHorizontal="5sp"
                 android:text="@string/pay_bill"
-                android:backgroundTint="@color/iconColor"
+                android:backgroundTint="?android:colorPrimary"
                 android:id="@+id/payMoney"/>
 
         </RelativeLayout>

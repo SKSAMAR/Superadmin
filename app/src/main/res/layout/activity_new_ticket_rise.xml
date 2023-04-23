@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.paytcash.viewmodel.CustomerSupportViewModel" />
+            type="com.fintech.superadmin.viewmodel.CustomerSupportViewModel" />
     </data>
 
     <RelativeLayout
@@ -31,7 +31,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/iconColor"
+                    app:cardBackgroundColor="?android:colorPrimary"
                     app:contentPadding="@dimen/_5sdp">
 
                     <LinearLayout
@@ -256,7 +256,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-8dp"
             android:text="Submit"
-            android:backgroundTint="@color/iconColor"
+            android:backgroundTint="?android:colorPrimary"
             android:id="@+id/submit"
             android:onClick="@{viewModel::raiseNewTicket}"/>
 

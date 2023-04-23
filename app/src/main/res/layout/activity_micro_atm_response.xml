@@ -5,7 +5,7 @@
     <data>
         <variable
             name="microAtmData"
-            type="com.fintech.paytcash.data.model.MicroAtmModel" />
+            type="com.fintech.superadmin.data.model.MicroAtmModel" />
     </data>
 
     <ScrollView

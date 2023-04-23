@@ -6,7 +6,7 @@
     <data>
         <variable
             name="homeViewModel"
-            type="com.fintech.paytcash.viewmodel.HomeViewModel" />
+            type="com.fintech.superadmin.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardCornerRadius="8dp"
-                        app:cardBackgroundColor="@color/iconColor"
+                        app:cardBackgroundColor="?android:colorPrimary"
                         app:cardElevation="0.5dp"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_20sdp">
@@ -66,7 +66,7 @@
                         android:marqueeRepeatLimit="marquee_forever"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/iconColor"
+                        android:textColor="?android:colorPrimary"
                         android:textSize="15sp"
                         android:layout_marginStart="@dimen/_3sdp"/>
                 </LinearLayout>
@@ -124,7 +124,7 @@
                             app:contentPaddingBottom="4dp"
                             app:contentPaddingLeft="12dp"
                             app:contentPaddingRight="12dp"
-                            app:cardBackgroundColor="@color/iconColor"
+                            app:cardBackgroundColor="?android:colorPrimary"
                             tools:ignore="RelativeOverlap">
 
                             <TextView
@@ -157,7 +157,7 @@
                             app:contentPaddingBottom="4dp"
                             app:contentPaddingLeft="12dp"
                             app:contentPaddingRight="12dp"
-                            app:cardBackgroundColor="@color/iconColor"
+                            app:cardBackgroundColor="?android:colorPrimary"
                             tools:ignore="RelativeOverlap">
 
                             <TextView
@@ -217,7 +217,7 @@
                         app:contentPaddingBottom="4dp"
                         app:contentPaddingLeft="12dp"
                         app:contentPaddingRight="12dp"
-                        app:cardBackgroundColor="@color/iconColor">
+                        app:cardBackgroundColor="?android:colorPrimary">
 
 
                         <LinearLayout
@@ -258,7 +258,7 @@
                         app:contentPaddingBottom="4dp"
                         app:contentPaddingLeft="12dp"
                         app:contentPaddingRight="12dp"
-                        app:cardBackgroundColor="@color/iconColor">
+                        app:cardBackgroundColor="?android:colorPrimary">
 
                         <TextView
                             android:layout_width="wrap_content"

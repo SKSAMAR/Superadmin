@@ -11,8 +11,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.fintech.paytcash"
+
+        manifestPlaceholders = [appName:"KK Payments"]
+        applicationId "kkpayments.co.in"
         minSdk 21
+        //noinspection OldTargetApi
         targetSdk 31
         versionCode 1
         versionName "0.0.1"
@@ -48,7 +51,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.fintech.paytcash'
+    namespace 'com.fintech.superadmin'
 
     //enable view binding
     //noinspection DataBindingWithoutKapt
@@ -130,14 +133,22 @@ dependencies {
     //OnBoarding
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')
 
-    //implementation files('libs/fingpaymicroatm-release.aar')
-    //implementation files('libs/microatmlib-release.aar')
+    implementation files('libs/microatmlib-release.aar')
+
+    implementation (name: 'fingpaymicroatm-release', ext: 'aar') {
+        exclude group: 'com.anfu.pos.library.bluetooth4', module: 'BluetoothLeService'
+    }
+    implementation (name: 'FINO_PS_MATM', ext: 'aar')
+
 
     //Micro-atm
     implementation files('libs/PS_MATM_2.0.2.aar')
-    implementation files('libs/FINO_PS_MATM.aar')
+
+
     implementation 'de.greenrobot:greendao:2.1.0'
     implementation 'org.greenrobot:eventbus:3.3.1'
+
+
 
 
     implementation "com.squareup.retrofit2:retrofit:2.9.0"

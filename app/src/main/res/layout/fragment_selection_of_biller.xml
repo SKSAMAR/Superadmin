@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.fintech.paytcash.viewmodel.MobileRechargeViewModel" />
+            type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
     </data>
 
     <ScrollView
@@ -41,7 +41,7 @@
                             android:text="@string/category"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:textStyle="bold"
-                            android:textColor="@color/iconColor"/>
+                            android:textColor="?android:colorPrimary"/>
                         <EditText
                             android:onClick="@{viewModel::fetchBbpsCategory}"
                             android:id="@+id/category_bbps"
@@ -117,7 +117,7 @@
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_5sdp"
                                 android:backgroundTint="@color/white"
-                                android:textColor="@color/iconColor"
+                                android:textColor="?android:colorPrimary"
                                 android:text="@string/cancel_"/>
 
                         </LinearLayout>
