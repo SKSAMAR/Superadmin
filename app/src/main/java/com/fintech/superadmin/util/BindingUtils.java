@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.fintech.superadmin.auth.component.Logos;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYouListener;
 import com.fintech.superadmin.R;
@@ -185,6 +186,7 @@ public class BindingUtils {
                     finalUrl = url.toString();
                     //Constants.LogoUrl = finalUrl;
                 }
+                Logos.INSTANCE.changeLogo(finalUrl);
                 Log.d("URL_INFO", "FINAL == "+url);
                 // Download the image and save it to internal storage
                 Bitmap bitmap = Glide.with(imageView).asBitmap().load(finalUrl).submit().get();

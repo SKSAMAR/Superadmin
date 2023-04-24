@@ -134,15 +134,11 @@ dependencies {
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')
 
     implementation files('libs/microatmlib-release.aar')
-
-    implementation (name: 'fingpaymicroatm-release', ext: 'aar') {
-        exclude group: 'com.anfu.pos.library.bluetooth4', module: 'BluetoothLeService'
-    }
-    implementation (name: 'FINO_PS_MATM', ext: 'aar')
-
+    implementation files('libs/fingpaymicroatm-release.aar')
 
     //Micro-atm
     implementation files('libs/PS_MATM_2.0.2.aar')
+    implementation files('libs/FINO_PS_MATM.aar')
 
 
     implementation 'de.greenrobot:greendao:2.1.0'

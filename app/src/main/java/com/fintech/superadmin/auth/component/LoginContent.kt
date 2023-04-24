@@ -48,8 +48,12 @@ object Logos {
     fun setLogoMods(): Modifier {
         //LocalConfiguration.current.screenWidthDp.sdp
         return Modifier
-            .fillMaxSize(.45f)
+            .fillMaxSize(.55f)
             .padding(2.sdp)
+    }
+
+    fun changeLogo(finalUrl: String){
+        logo = finalUrl
     }
 }
 
@@ -197,7 +201,6 @@ fun ForgotPasswordPage(
     viewModel: AuthViewModel = viewModel(),
     context: Context = LocalContext.current
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -205,6 +208,19 @@ fun ForgotPasswordPage(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
+        Column {
+            Spacer(modifier = Modifier.height(15.sdp))
+            AsyncImage(
+                model = Logos.logo,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Logos
+                    .setLogoMods()
+                    .align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(15.sdp))
+        }
 
         Card(
             modifier = Modifier
@@ -218,22 +234,6 @@ fun ForgotPasswordPage(
                     .fillMaxWidth()
                     .padding(top = 12.sdp, bottom = 12.sdp, start = 14.sdp, end = 14.sdp)
             ) {
-
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(15.sdp))
-                    AsyncImage(
-                        model = Logos.logo,
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                        modifier = Logos
-                            .setLogoMods()
-                            .align(Alignment.CenterHorizontally)
-                    )
-                    Spacer(modifier = Modifier.height(15.sdp))
-                }
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
