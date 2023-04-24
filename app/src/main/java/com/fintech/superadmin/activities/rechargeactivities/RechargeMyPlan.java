@@ -19,10 +19,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
+import com.fintech.superadmin.data.db.AppDatabase;
+import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.model.OperatorModel;
 import com.fintech.superadmin.data.network.responses.CustomerInfoResponse;
 import com.fintech.superadmin.data.network.responses.MyOfferResponse;
@@ -100,20 +103,31 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
             onBackPressed();
             finish();
             return true;
-        }
-        else if(item.getItemId() == R.id.homePage){
+        } else if (item.getItemId() == R.id.homePage) {
             ExecuteUtil.ThrowOut(this);
         }
-
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.response_menu, menu);
-        menu.getItem(0).setVisible(false);
+        menu.getItem(0).setVisible(true);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(true);
+        LiveData<User> userLiveData = AppDatabase.getAppDatabase(RechargeMyPlan.this).getUserDao().getUser();
+        userLiveData.observe(this, user -> {
+            try {
+                menu.getItem(0).setTitle("Main Bal: "+user.mainbalance+"\nAePS Bal: "+user.aepsbalance);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
+
+
     @Override
     public void paymentResult(PaymentResponse paymentResponse) {
         if(paymentResponse.responsecode.equals(100)){

@@ -369,5 +369,6 @@
     <string name="qr_upi">QR / UPI</string>
     <string name="phone_pe">Phone Pe</string>
     <string name="exchange">Exchange</string>
+    <string name="main_bal">Main Bal</string>
 
 </resources>

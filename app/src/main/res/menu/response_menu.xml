@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/mainBal"
+        android:title="@string/main_bal"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
     <item android:id="@+id/share"
         android:title="@string/share"
         android:icon="@drawable/ic_baseline_share_24"
@@ -11,5 +18,6 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_icon"
         app:showAsAction="always"/>
+
 
 </menu>
