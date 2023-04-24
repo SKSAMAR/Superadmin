@@ -228,7 +228,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                         DisplayMessageUtil.error(context, resp.message);
                     }
                     data.setValue(resp);
-                }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+                }, Throwable::printStackTrace);
         return data;
     }
 

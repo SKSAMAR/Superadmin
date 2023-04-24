@@ -3,6 +3,8 @@ package com.fintech.superadmin.activities.rechargeactivities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -85,6 +87,8 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
                 rechargeViewModel.changeCircle(v);
             });
         }
+
+        initNames();
     }
 
 
@@ -342,7 +346,7 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
                     binding.operatorImage.setVisibility(View.VISIBLE);
                     binding.mobileRechargeButton.setVisibility(View.VISIBLE);
                     binding.browsePlan.setVisibility(View.VISIBLE);
-                    binding.ROffer.setVisibility(View.GONE);
+                    binding.ROffer.setVisibility(View.VISIBLE);
                     binding.dthInfoCard.setVisibility(View.VISIBLE);
                     break;
                 }
@@ -368,5 +372,17 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
         binding.browsePlan.setVisibility(View.VISIBLE);
         binding.ROffer.setVisibility(View.GONE);
         binding.dthInfoCard.setVisibility(View.VISIBLE);
+    }
+
+    private void initNames(){
+        try {
+            PackageManager packageManager = getApplicationContext().getPackageManager();
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getApplicationContext().getPackageName(), 0);
+            String appName = (String) packageManager.getApplicationLabel(applicationInfo);
+            String warning = "Note: Kindly check all information before doing recharge. After recharge "+ appName +" will not be responsible for any loss.";
+            binding.warningRechText.setText(warning);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

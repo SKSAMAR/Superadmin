@@ -1,6 +1,7 @@
 package com.fintech.superadmin.data.network;
 
 import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
+import com.fintech.superadmin.data.DynamicROfferResponse;
 import com.fintech.superadmin.data.accountop.AccountOPeningResponse;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPResponse;
 import com.fintech.superadmin.data.bc_response.BcDistrictDto;
@@ -173,7 +174,7 @@ public interface APIServices {
     //Changing Password
 
 
-    @FormUrlEncoded 
+    @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<List<OperatorModel>> getOperatorsList(@Field("operator") String operator);
 
@@ -270,7 +271,6 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/getBankList.php")
     Observable<List<AEPSBanksModel>> getBankList(@Field("id") String id);
-
 
 
     @FormUrlEncoded
@@ -449,8 +449,8 @@ public interface APIServices {
     Observable<DetailedHistoryResponse> getMyAnalyticDetailed(@Field("report_id") String report_id, @Field("user_id") String user_id);
 
     @FormUrlEncoded
-    @POST("mobile_phone/recharge/roffer.php")
-    Observable<MyOfferResponse> getMeROffers(@Field("op") String op, @Field("num") String num, @Field("user_id") String user_id, @Field("password") String password, @Field("mobile_r") String mobile_r);
+    @POST("Backend/Merchant/API/Recharge/PaySprint/recharge.php")
+    Observable<DynamicROfferResponse> getMeROffers(@Field("service_type") String service_type, @Field("op") String op, @Field("mobile") String mobile, @Field("getRoffer") String getRoffer);
 
     @FormUrlEncoded
     @POST("mobile_phone/recharge/browseplan.php")
@@ -491,7 +491,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
-    Observable<RegularResponse> exchangeWallet(@Field("walletExchange") String walletExchange ,@Field("amount") String amount);
+    Observable<RegularResponse> exchangeWallet(@Field("walletExchange") String walletExchange, @Field("amount") String amount);
 
 
     @Multipart
@@ -672,7 +672,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/FasTag/PaySprint/pay_bill.php")
-    Observable<RegularResponse> payFastAgBill(@Field("amount") String amount ,@Field("canumber") String num, @Field("operator") String operator,
+    Observable<RegularResponse> payFastAgBill(@Field("amount") String amount, @Field("canumber") String num, @Field("operator") String operator,
                                               @Field("billDetails") String billDetails, @Field("long") String longi,
                                               @Field("lati") String lati, @Field("pay_fastag") String pay_fastag);
     //FASTAG
@@ -784,7 +784,6 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Agent/Backend/creditcard/main.php")
     Observable<RegularResponse> resendOtpForRefund(@Field("ref_id") String ref_id, @Field("resendOTP") String resendOTP);
-
 
 
     @FormUrlEncoded

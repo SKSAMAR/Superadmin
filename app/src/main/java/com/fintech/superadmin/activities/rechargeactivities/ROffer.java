@@ -8,15 +8,22 @@ import android.view.View;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.ActionBar;
-import com.fintech.superadmin.activities.common.BaseActivity;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.fintech.superadmin.activities.common.BaseActivity;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.fintech.superadmin.adapters.DynamicROfferAdapter;
 import com.fintech.superadmin.adapters.ROfferAdapter;
+import com.fintech.superadmin.data.ROfferPlan;
 import com.fintech.superadmin.data.model.OperatorModel;
 import com.fintech.superadmin.data.network.responses.CustomerInfoResponse;
 import com.fintech.superadmin.data.network.responses.MyOfferResponse;
 import com.fintech.superadmin.data.network.responses.ROfferModel;
 import com.fintech.superadmin.databinding.ActivityRofferBinding;
+import com.fintech.superadmin.listeners.BrowsePlanListener;
+import com.fintech.superadmin.listeners.DynamicROfferListener;
 import com.fintech.superadmin.listeners.ROfferListener;
 import com.fintech.superadmin.listeners.RegularClick;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -28,10 +35,10 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ROffer extends BaseActivity implements ROfferListener, RegularClick {
+public class ROffer extends BaseActivity implements DynamicROfferListener, RegularClick, BrowsePlanListener {
 
     ActivityRofferBinding binding;
-    ROfferAdapter adapter;
+    DynamicROfferAdapter adapter;
     MobileRechargeViewModel viewModel;
 
     ActionBar actionBar;
@@ -44,28 +51,23 @@ public class ROffer extends BaseActivity implements ROfferListener, RegularClick
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         actionBar = getSupportActionBar();
         actionBar.setTitle("R Offer");
-        viewModel= new ViewModelProvider(this).get(MobileRechargeViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MobileRechargeViewModel.class);
         binding.setROfferViewModel(viewModel);
         viewModel.operatorModel = (OperatorModel) getIntent().getSerializableExtra("operatorModel");
         String num = getIntent().getStringExtra("num");
-        viewModel.mode = getIntent().getStringExtra("mode");
         String type = getIntent().getStringExtra("type");
-        bringROffer(viewModel.operatorModel.getOperatorcode(), num, type);
+        bringROffer(viewModel.operatorModel.getOperatorcode(), num);
         searchAble();
     }
 
 
-    private void bringROffer(String op, String num, String type){
-            if(type.equals("mobile_r")){
-
-
-//                viewModel.mobileRechargesRepository.getMeMyROffer(ROffer.this, op, num, ROffer.this, type);
-            }
-            else if(type.equals("dth_rOffer")){
-
-
-//                viewModel.mobileRechargesRepository.getMeMyDthROffer(ROffer.this, op, num, ROffer.this, type);
-            }
+    private void bringROffer(String op, String num) {
+        viewModel.mode = getIntent().getStringExtra("mode");
+        String service_type = "1";
+        if (viewModel.mode.equals("dth")) {
+            service_type = "2";
+        }
+        viewModel.mobileRechargesRepository.getMeMyROffer(service_type, ROffer.this, op, num, ROffer.this);
     }
 
     @Override
@@ -73,18 +75,11 @@ public class ROffer extends BaseActivity implements ROfferListener, RegularClick
         MyAlertUtils.showProgressAlertDialog(ROffer.this);
     }
 
+
     @Override
-    public void getMeROffer(MyOfferResponse response) {
-        if(response!=null){
-            if(response.getCode()!=0){
-                //set
-                MyAlertUtils.dismissAlertDialog();
-                setAdapter(response.getOffers());
-            }
-            else{
-                MyAlertUtils.showServerAlertDialog(ROffer.this, response.getMessage());
-            }
-        }
+    public void getMeROffer(List<ROfferPlan> response) {
+        MyAlertUtils.dismissAlertDialog();
+        setAdapter(response);
     }
 
     @Override
@@ -97,7 +92,7 @@ public class ROffer extends BaseActivity implements ROfferListener, RegularClick
 
     }
 
-    public void searchAble(){
+    public void searchAble() {
         binding.planSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -123,16 +118,16 @@ public class ROffer extends BaseActivity implements ROfferListener, RegularClick
         return super.onOptionsItemSelected(item);
     }
 
-    private void setAdapter(List<ROfferModel> list){
-//        adapter = new ROfferAdapter(list, this);
-//        binding.allContactsRecycler.setLayoutManager(new GridLayoutManager(ROffer.this, 1, GridLayoutManager.VERTICAL, false));
-//        binding.allContactsRecycler.setAdapter(adapter);
+    private void setAdapter(List<ROfferPlan> list) {
+        adapter = new DynamicROfferAdapter(list, this, this);
+        binding.allContactsRecycler.setLayoutManager(new GridLayoutManager(ROffer.this, 1, GridLayoutManager.VERTICAL, false));
+        binding.allContactsRecycler.setAdapter(adapter);
     }
 
     @Override
     public void onClickItem(View view, String data) {
         Intent intentData = new Intent();
-        intentData.putExtra("Price",data);
+        intentData.putExtra("Price", data);
         setResult(Activity.RESULT_OK, intentData);
         finish();
     }
@@ -143,5 +138,10 @@ public class ROffer extends BaseActivity implements ROfferListener, RegularClick
         // as Activity.RESULT_CANCELED to indicate a failure
         setResult(Activity.RESULT_CANCELED);
         super.onBackPressed();
+    }
+
+    @Override
+    public void notFoundListener(boolean result) {
+
     }
 }

@@ -220,8 +220,6 @@
 <!--                                android:maxLines="1" />-->
 
 <!--                        </com.google.android.material.textfield.TextInputLayout>-->
-
-
                     </LinearLayout>
 
 
@@ -234,9 +232,7 @@
                         android:textSize="12sp"
                         android:layout_margin="3sp"
                         android:fontFamily="@font/sagnika"
-                        android:layout_below="@id/numberInputSection"
-                        />
-
+                        android:layout_below="@id/numberInputSection" />
 
                 </RelativeLayout>
 
@@ -267,7 +263,6 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/ROffer"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -289,6 +284,17 @@
                         android:textAllCaps="false"
                         android:textSize="@dimen/_8sdp"
                         tools:ignore="RelativeOverlap" />
+
+
+                    <TextView
+                        android:id="@+id/warningRechText"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/browsePlan"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/holo_red_dark"
+                        />
+
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

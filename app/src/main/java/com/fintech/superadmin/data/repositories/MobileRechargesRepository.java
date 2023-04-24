@@ -17,6 +17,7 @@ import com.fintech.superadmin.data.network.responses.MyOfferResponse;
 import com.fintech.superadmin.data.network.responses.RegularHistoryResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.databinding.OtpScreenLayoutBinding;
+import com.fintech.superadmin.listeners.DynamicROfferListener;
 import com.fintech.superadmin.listeners.ROfferListener;
 import com.fintech.superadmin.listeners.RegularHistoryListener;
 import com.fintech.superadmin.listeners.ResetListener;
@@ -25,6 +26,7 @@ import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -123,34 +125,18 @@ public class MobileRechargesRepository {
             return list;
         }
 
-    public void getMeMyROffer(Context context, String op, String num, ROfferListener listener, String type){
-        User user = appDatabase.getUserDao().getRegularUser();
-        apiServices.getMeROffers(op, num,user.getId(), user.getPassword(),type)
+    public void getMeMyROffer(String sertvice_type, Context context, String op, String num, DynamicROfferListener listener){
+
+        listener.onStartLooking();
+        apiServices.getMeROffers(sertvice_type ,op, num,"getRoffer")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MyOfferResponse>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        listener.onStartLooking();
+                .subscribe(response->{
+                    if (Objects.equals(response.getResponseCode(), 1)){
+                        listener.getMeROffer(response.component2());
                     }
-
-                    @Override
-                    public void onNext(@NonNull MyOfferResponse response) {
-                        listener.getMeROffer(response);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context,e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                }, Throwable::printStackTrace);
     }
-
 
     public void getMeMyDthROffer(Context context, String op, String num, ROfferListener listener, String type){
         User user = appDatabase.getUserDao().getRegularUser();
