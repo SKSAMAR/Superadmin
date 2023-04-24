@@ -173,6 +173,29 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:text="@={sendAmountViewModel.mPin}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/enter_m_pin"
+                        android:id="@+id/em"
+                        android:maxLines="1"
+                        android:maxLength="5"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -399,7 +399,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/MoneyTransfer/PaySprint/Main.php")
-    Observable<DMTSendAmountResponse> sendAmountDMT(@Field("bene_id") String bene_id, @Field("send_amount") String send_amount, @Field("send_am_acc") String send_am_acc, @Field("txn_type") String txn_type, @Field("ifsc") String ifsc, @Field("senderMobile") String senderMobile);
+    Observable<DMTSendAmountResponse> sendAmountDMT(@Field("tpin") String tpin, @Field("bene_id") String bene_id, @Field("send_amount") String send_amount, @Field("send_am_acc") String send_am_acc, @Field("txn_type") String txn_type, @Field("ifsc") String ifsc, @Field("senderMobile") String senderMobile);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/MoneyTransfer/PaySprint/Main.php")
@@ -639,24 +639,24 @@ public interface APIServices {
             @Field("initiate_atm_txn") String initiate_atm_txn);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Operations/Operation.php")
+    @POST("Backend/Merchant/MemberOperation/temp/onboard.php?tPin=yes")
     Observable<SystemResponse<TPinResponse>> checkMpinStatus(@Field("check_mpin") String check_mpin);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Operations/Operation.php")
+    @POST("Backend/Merchant/MemberOperation/temp/onboard.php?tPin=yes")
     Observable<SystemResponse<TPinResponse>> verifyMPINStatus(@Field("mpin") String mpin, @Field("verify_mpin") String check_mpin);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Operations/Operation.php")
+    @POST("Backend/Merchant/MemberOperation/temp/onboard.php?tPin=yes")
     Observable<SystemResponse<CFPOTPResponse>> sendOTPForMpin(@Field("times") String times, @Field("otp_mpin") String otp_mpin);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Operations/Operation.php")
+    @POST("Backend/Merchant/MemberOperation/temp/onboard.php?tPin=yes")
     Observable<RegularResponse> setAllMpin(@Field("m_pin") String m_pin, @Field("otp") String otp, @Field("hash_code") String hash,
                                            @Field("set_mpin") String set_mpin);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/Operations/Operation.php")
+    @POST("Backend/Merchant/MemberOperation/temp/onboard.php?tPin=yes")
     Observable<RegularResponse> changeMyMpin(@Field("otp") String otp, @Field("hash_code") String hash, @Field("old_m_pin") String old_m_pin, @Field("new_m_pin") String new_m_pin,
                                              @Field("change_mpin") String change_mpin);
 

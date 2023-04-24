@@ -39,7 +39,7 @@ public class CreateMPinFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
         binding.setViewModel(viewModel);
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             onViewStateRestored(savedInstanceState);
         }
         manageState();
@@ -47,7 +47,7 @@ public class CreateMPinFragment extends Fragment {
     }
 
 
-    private void setClick(){
+    private void setClick() {
 
         binding.mPin1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -57,7 +57,7 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin2.requestFocus();
                 }
             }
@@ -75,14 +75,14 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin3.requestFocus();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin1.requestFocus();
                 }
             }
@@ -95,14 +95,14 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin4.requestFocus();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin2.requestFocus();
                 }
             }
@@ -120,7 +120,7 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin3.requestFocus();
                 }
             }
@@ -135,7 +135,7 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin6.requestFocus();
                 }
             }
@@ -153,14 +153,14 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin7.requestFocus();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin5.requestFocus();
                 }
             }
@@ -173,14 +173,14 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().trim().isEmpty()){
+                if (!s.toString().trim().isEmpty()) {
                     binding.mPin8.requestFocus();
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin6.requestFocus();
                 }
             }
@@ -198,51 +198,42 @@ public class CreateMPinFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.mPin7.requestFocus();
                 }
             }
         });
-        binding.continueButton.setOnClickListener(view->{
-            if(binding.mPin1.getText().toString().trim().isEmpty()){
+        binding.continueButton.setOnClickListener(view -> {
+            if (binding.mPin1.getText().toString().trim().isEmpty()) {
                 binding.mPin1.requestFocus();
-            }
-            else if(binding.mPin2.getText().toString().trim().isEmpty()){
+            } else if (binding.mPin2.getText().toString().trim().isEmpty()) {
                 binding.mPin2.requestFocus();
-            }
-            else if(binding.mPin3.getText().toString().trim().isEmpty()){
+            } else if (binding.mPin3.getText().toString().trim().isEmpty()) {
                 binding.mPin3.requestFocus();
-            }
-            else if(binding.mPin4.getText().toString().trim().isEmpty()){
+            } else if (binding.mPin4.getText().toString().trim().isEmpty()) {
                 binding.mPin4.requestFocus();
-            }
-            else{
-                String m_pin = binding.mPin1.getText().toString().trim()+binding.mPin2.getText().toString().trim()+binding.mPin3.getText().toString().trim()+binding.mPin4.getText().toString().trim();
-                String c_m_pin = binding.mPin5.getText().toString().trim()+binding.mPin6.getText().toString().trim()+binding.mPin7.getText().toString().trim()+binding.mPin8.getText().toString().trim();
-                if(Accessable.isAccessable()){
-                    if(!c_m_pin.equals(m_pin)){
+            } else {
+                String m_pin = binding.mPin1.getText().toString().trim() + binding.mPin2.getText().toString().trim() + binding.mPin3.getText().toString().trim() + binding.mPin4.getText().toString().trim();
+                String c_m_pin = binding.mPin5.getText().toString().trim() + binding.mPin6.getText().toString().trim() + binding.mPin7.getText().toString().trim() + binding.mPin8.getText().toString().trim();
+                if (Accessable.isAccessable()) {
+                    if (!c_m_pin.equals(m_pin)) {
                         DisplayMessageUtil.error(requireActivity(), "M-Pin Doesn't match with confirm M-Pin");
-                    }
-                    else{
+                    } else {
                         viewModel.m_pin = m_pin;
                         viewModel.sendOtpFor(view);
                     }
                 }
             }
-
         });
-
-
     }
 
-    private void manageState(){
+    private void manageState() {
 
-        viewModel.pinState.observe(getViewLifecycleOwner(), state->{
-            if(state == ProfileViewModel.M_PIN_STATE.CREATION){
+        viewModel.pinState.observe(getViewLifecycleOwner(), state -> {
+            if (state == ProfileViewModel.M_PIN_STATE.CREATION) {
                 binding.pinSection.setVisibility(View.VISIBLE);
                 binding.otpSection.setVisibility(View.GONE);
-            }
-            else if(state == ProfileViewModel.M_PIN_STATE.VERIFICATION){
+            } else if (state == ProfileViewModel.M_PIN_STATE.VERIFICATION) {
                 binding.pinSection.setVisibility(View.GONE);
                 binding.otpSection.setVisibility(View.VISIBLE);
             }

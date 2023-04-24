@@ -16,13 +16,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/_20sdp"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/top_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_90sdp"
-                android:contentDescription="@string/todo"
-                app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
-                />
+<!--            <ImageView-->
+<!--                android:id="@+id/top_logo"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/_50sdp"-->
+<!--                android:contentDescription="@string/todo"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"-->
+<!--                />-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

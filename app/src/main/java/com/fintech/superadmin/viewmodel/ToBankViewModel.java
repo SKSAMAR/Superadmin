@@ -102,6 +102,7 @@ public class ToBankViewModel extends ViewModel {
     public String nick_name = null;
     public BankModel selectedBank = null;
     //add_beneficiary
+    public String mPin = "";
 
 
     public BeneficiaryAdapter adapter;
@@ -345,13 +346,18 @@ public class ToBankViewModel extends ViewModel {
                 DisplayMessageUtil.error(view.getContext(), "Select a valid Transaction type");
                 return;
             }
+            else if (mPin == null || mPin.trim().isEmpty()) {
+                DisplayMessageUtil.error(view.getContext(), "Select a valid Transaction type");
+                return;
+            }
             NetworkUtil.getNetworkResult(
-                    toBankRepository.apiServices.sendAmountDMT(selectedBeneficiaryModel.getBene_id(), amount, selectedBeneficiaryModel.getAccno(), transType, selectedBeneficiaryModel.getIfsc(), globalSelectedMobile),
+                    toBankRepository.apiServices.sendAmountDMT(mPin, selectedBeneficiaryModel.getBene_id(), amount, selectedBeneficiaryModel.getAccno(), transType, selectedBeneficiaryModel.getIfsc(), globalSelectedMobile),
                     view.getContext(),
                     result -> {
                         sendAmountViewsListener.eraseAmountText();
                         amount = null;
                         transType = null;
+                        mPin = "";
                         DisplayMessageUtil.dmtShow(view.getContext(), result.getDmtTransactions());
                     }
             );

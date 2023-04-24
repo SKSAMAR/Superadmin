@@ -88,7 +88,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
 //        list.add(new ProfileListModel(R.drawable.ic_profile_socialmedia,"Social Media"));
         list.add(new ProfileListModel(R.drawable.ic_account,"My Profile"));
         list.add(new ProfileListModel(R.drawable.ic_profile_bank,"KYC REGISTRATION"));
-//        list.add(new ProfileListModel(R.drawable.ic_profile_settings,"M-PIN"));
+        list.add(new ProfileListModel(R.drawable.ic_profile_settings,"M-PIN"));
         list.add(new ProfileListModel(R.drawable.ic_profile_settings,"Change Password"));
 //        list.add(new ProfileListModel(R.drawable.ic_account,"AePS Package"));
 //        list.add(new ProfileListModel(R.drawable.ic_account,"My Commission"));
@@ -127,9 +127,9 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
                 intent = new Intent(ProfileActivity.this, BankDetails.class);
                 startActivity(intent);
                 break;
-//            case "M-PIN":
-//                    m_pin_execution();
-//                break;
+            case "M-PIN":
+                    m_pin_execution();
+                break;
             case "My Commission":
                 intent = new Intent(ProfileActivity.this, MyCommissionActivity.class);
                 startActivity(intent);

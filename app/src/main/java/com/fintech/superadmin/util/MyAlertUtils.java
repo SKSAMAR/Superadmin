@@ -40,6 +40,7 @@ public class MyAlertUtils {
     }
 
 
+    @SuppressLint("SetTextI18n")
     public static void showDMTDialog(Context context, String message, int gifIcon){
         if(alertDialog!=null){
             alertDialog.dismiss();
@@ -53,6 +54,7 @@ public class MyAlertUtils {
         alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
+        binding.alertTitle.setText("Result");
         binding.alertMessage.setText(message);
         binding.centerLogo.setImageResource(gifIcon);
         binding.centerLogo.setVisibility(View.GONE);
