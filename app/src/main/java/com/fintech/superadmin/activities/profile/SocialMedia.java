@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.databinding.ActivitySocialMediaBinding;
 import com.fintech.superadmin.viewmodel.ProfileViewModel;
@@ -15,7 +16,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SocialMedia extends AppCompatActivity {
+public class SocialMedia extends BaseActivity {
 
 
     ActivitySocialMediaBinding binding;

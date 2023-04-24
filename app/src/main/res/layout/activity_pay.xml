@@ -53,7 +53,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <!--                android:onClick="@{fundViewModel::requestMoneyAmount}"-->
 
                         <Button
                             android:layout_width="match_parent"
@@ -251,6 +250,11 @@
                 </RelativeLayout>
             </ScrollView>
         </RelativeLayout>
+        <WebView
+            android:visibility="gone"
+            android:id="@+id/webViewScreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </layout>

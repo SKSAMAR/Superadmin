@@ -1,47 +1,47 @@
 package com.fintech.superadmin.activities.addfunds;
 
-//import static com.morpho.android.usb.USBManager.context;
-
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.R;
-import com.fintech.superadmin.data.db.AppDatabase;
-import com.fintech.superadmin.data.db.entities.User;
-import com.fintech.superadmin.data.network.responses.DeviceContext;
-import com.fintech.superadmin.data.network.responses.PaymentInstrument;
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.databinding.ActivityPayBinding;
+import com.fintech.superadmin.listeners.WebViewPayment;
+import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.FundViewModel;
-import com.google.gson.Gson;
-import com.phonepe.intent.sdk.api.PhonePe;
-import com.phonepe.intent.sdk.api.PhonePeInitException;
-import com.phonepe.intent.sdk.api.UPIApplicationInfo;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PayActivityWebView extends AppCompatActivity {
+public class PayActivityWebView extends BaseActivity implements WebViewPayment {
 
     ActivityPayBinding binding;
     FundViewModel viewModel;
     TextToSpeech tts;
-
-    private static final int REQUEST_CODE_PHONEPE_PAYMENT = 1001;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,13 @@ public class PayActivityWebView extends AppCompatActivity {
         binding = ActivityPayBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add Fund");
         viewModel = new ViewModelProvider(this).get(FundViewModel.class);
         binding.setFundViewModel(viewModel);
         binding.amountbalance.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_rupee, 0, 0, 0);
         binding.amountbalance.setCompoundDrawablePadding(20);
         setListeners();
         makeThePayment();
-        PhonePe.init(this);
         tts = new TextToSpeech(PayActivityWebView.this, status -> {
             if (status == TextToSpeech.SUCCESS) {
                 int result = tts.setLanguage(Locale.forLanguageTag("hi-IN"));
@@ -64,6 +64,12 @@ public class PayActivityWebView extends AppCompatActivity {
                 }
             }
         });
+        if (savedInstanceState == null) {
+            binding.payScreen.setVisibility(View.VISIBLE);
+            binding.webViewScreen.setVisibility(View.GONE);
+        }
+        WebView.setWebContentsDebuggingEnabled(true);
+        initWebView();
     }
 
 
@@ -148,51 +154,121 @@ public class PayActivityWebView extends AppCompatActivity {
                 MyAlertUtils.showAlertDialog(PayActivityWebView.this, "Warning", "Provide Valid Amount", R.drawable.warning);
             } else {
                 String audioAmount = binding.amountbalance.getText().toString();
-                initiateTransaction();
-                /**viewModel.madeValidPayment(audioAmount, PayActivityWebView.this, receiver->{
-                    initiateTransaction();
-                });**/
+                viewModel.madeValidPayment(audioAmount, PayActivityWebView.this, PayActivityWebView.this);
             }
 
         });
     }
 
-
-    private void initiateTransaction(){
-        try {
-            List<UPIApplicationInfo> upiApps = PhonePe.getUpiApps();
-        } catch (PhonePeInitException exception) {
-            exception.printStackTrace();
+    @Override
+    public void homeScreen(String message, boolean result) {
+        if (result) {
+            DisplayMessageUtil.success(this, message);
+        } else {
+            DisplayMessageUtil.error(this, message);
         }
-        User user = AppDatabase.getAppDatabase(this).getUserDao().getRegularUser();
-        String apiEndPoint = "/pg/v1/pay";
-        HashMap data = new HashMap();
-        data.put("merchantTransactionId", "PHONEPE"+SystemClock.currentThreadTimeMillis());        //String. Mandatory
-        data.put("merchantId", "M43O1HRNE");             //String. Mandatory
-        data.put("merchantUserId", "M43O1HRNE");             //String. Conditional
-        // merchantUserId - Mandatory if paymentInstrument.type is: PAY_PAGE, CARD, SAVED_CARD, TOKEN.
-        // merchantUserId - Optional if paymentInstrument.type is: UPI_INTENT, UPI_COLLECT, UPI_QR.
-        data.put("amount",200);                         //Long. Mandatory
-        data.put("mobileNumber", user.getMobile());          //String. Optional
-        data.put("callbackUrl","https://webhook.site/callback-url");    //String. Mandatory
-        PaymentInstrument mPaymentInstrument = new PaymentInstrument("com.phonepe.app", "UPI_INTENT");//String. Mandatory
-        data.put("paymentInstrument",mPaymentInstrument);   //OBJECT. Mandatory
-        DeviceContext mDeviceContext = new DeviceContext("ANDROID");
-        data.put("deviceContext",mDeviceContext);
-        String base64Body = encodeToBase64(new Gson().toJson(data));
-
-        ViewUtils.showToast(PayActivityWebView.this, new Gson().toJson(data));
+        binding.payScreen.setVisibility(View.VISIBLE);
+        binding.webViewScreen.setVisibility(View.GONE);
     }
 
-    public static String encodeToBase64(String input) {
-        byte[] bytes = input.getBytes(StandardCharsets.UTF_8); // Convert input string to bytes
-        byte[] encodedBytes = new byte[0]; // Encode bytes to Base64
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            encodedBytes = Base64.getEncoder().encode(bytes);
-        }else{
-            encodedBytes = android.util.Base64.encode(bytes, android.util.Base64.DEFAULT);
+    @Override
+    public void webViewPage(String message) {
+        binding.webViewScreen.loadUrl(message);
+        binding.payScreen.setVisibility(View.GONE);
+        binding.webViewScreen.setVisibility(View.VISIBLE);
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled"})
+    private void initWebView() {
+        binding.webViewScreen.getSettings().setJavaScriptEnabled(true);
+        binding.webViewScreen.setWebViewClient(new MyClient());
+        binding.webViewScreen.setWebChromeClient(new WebChromeClient());
+        binding.webViewScreen.addJavascriptInterface(new WebviewInterface(), "Interface");
+    }
+
+    public class MyClient extends WebViewClient {
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            DisplayMessageUtil.loading(PayActivityWebView.this);
         }
-        return new String(encodedBytes, StandardCharsets.UTF_8); // Convert encoded bytes to string
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            DisplayMessageUtil.dismissDialog();
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url = request.getUrl().toString();
+            if (url.contains("upi://pay?")) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+                return true;
+            }
+            if (url.toLowerCase().contains(BuildConfig.APPLICATION_ID)) {
+                homeScreen("Success", true);
+                audio(binding.amountbalance.getText().toString());
+                return true;
+            }
+            return super.shouldOverrideUrlLoading(view, request);
+        }
+    }
+
+
+    public class WebviewInterface {
+
+        @JavascriptInterface
+        public void errorResponse() {
+            DisplayMessageUtil.error(PayActivityWebView.this, "Transaction Error.");
+        }
+
+        @JavascriptInterface
+        public void paymentResponse(String client_txn_id, String txn_id) {
+            audio(binding.amountbalance.getText().toString());
+            Toast.makeText(PayActivityWebView.this, "Payment has been Done.", Toast.LENGTH_SHORT).show();
+        }
+
+        @JavascriptInterface
+        public void onDialogShown(String dialogType, String dialogMessage) {
+            try {
+                String dialogMessageLower = dialogMessage.toLowerCase();
+                Log.d("DIALOG_DATA", "TYPE == " + dialogType);
+                Log.d("DIALOG_DATA", "MESSAGE == " + dialogMessage);
+                if (dialogMessageLower.contains("got it") || dialogMessageLower.contains("we got your payment")) {
+                    audio(binding.amountbalance.getText().toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    public void audio(String text) {
+
+        AudioManager audioManager;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            float volume = (float) currentVolume / maxVolume; // Calculate the current volume as a fraction of the maximum volume
+        }
+        if (!tts.isSpeaking()) {
+            tts.setSpeechRate(.9f);
+            tts.speak("केके पेमेंट्स बिजनेस पर अभी अभी " + text + " रूपए  प्राप्त हुए है।", TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
     @Override

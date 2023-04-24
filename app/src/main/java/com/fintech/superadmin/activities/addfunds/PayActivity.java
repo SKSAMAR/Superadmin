@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.RazorpayData;
 import com.fintech.superadmin.data.db.entities.User;
@@ -25,7 +26,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PayActivity extends AppCompatActivity implements PaymentResultListener {
+public class PayActivity extends BaseActivity implements PaymentResultListener {
 
     ActivityPayBinding binding;
     User user;

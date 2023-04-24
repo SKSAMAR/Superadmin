@@ -33,6 +33,7 @@
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:scaleType="centerInside"
+                    android:background="@color/white"
                     app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
                     />
 

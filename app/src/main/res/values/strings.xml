@@ -368,5 +368,6 @@
     <string name="razorpay">Razorpay</string>
     <string name="qr_upi">QR / UPI</string>
     <string name="phone_pe">Phone Pe</string>
+    <string name="exchange">Exchange</string>
 
 </resources>

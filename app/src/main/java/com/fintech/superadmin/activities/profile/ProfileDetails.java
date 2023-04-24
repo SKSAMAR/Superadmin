@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.databinding.ActivityProfileDetailsBinding;
 import com.fintech.superadmin.viewmodel.ProfileViewModel;
@@ -17,7 +18,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ProfileDetails extends AppCompatActivity {
+public class ProfileDetails extends BaseActivity {
 
 
     ProfileViewModel viewModel;

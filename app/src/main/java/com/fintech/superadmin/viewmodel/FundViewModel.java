@@ -28,6 +28,7 @@ import com.fintech.superadmin.data_model.request.RequestedHistoryModel;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.ChangerListener;
 import com.fintech.superadmin.listeners.ResetListener;
+import com.fintech.superadmin.listeners.WebViewPayment;
 import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -207,14 +208,14 @@ public class FundViewModel extends ViewModel {
     }
 
 
-    public void madeValidPayment(String amount, Context context, Receiver<Boolean> receiver) {
-        if (Accessable.isAccessable()) {
+    public void madeValidPayment(String amount, Context context, WebViewPayment viewPayment) {
+        if (Accessable.isAccessable()){
             DisplayMessageUtil.loading(context);
-            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount), context, result -> {
+            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount, "gatewayType"), context, result->{
                 DisplayMessageUtil.dismissDialog();
-                if (result.status) {
-                    receiver.getData(true);
-                } else {
+                if(result.status){
+                    viewPayment.webViewPage(result.message);
+                }else{
                     DisplayMessageUtil.error(context, result.message);
                 }
             });

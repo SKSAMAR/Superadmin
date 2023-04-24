@@ -57,72 +57,29 @@
                         android:textAlignment="center" />
                 </LinearLayout>
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical">-->
+                <LinearLayout
+                    android:id="@+id/upiGatewayApi"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                        android:id="@+id/offlinePayment"-->
-<!--                        android:onClick="@{fundViewModel::onRazorPayAddFund}"-->
-<!--                        android:layout_width="55dp"-->
-<!--                        android:layout_height="55dp"-->
-<!--                        android:layout_margin="10dp"-->
-<!--                        android:src="@drawable/ic_razorpay"-->
-<!--                        app:civ_border_width="1dp" />-->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/upiGateway"
+                        android:onClick="@{fundViewModel::onUPIPay}"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/upiadd_fund"
+                        app:civ_border_width="1dp" />
 
-<!--                    <TextView-->
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/razorpay"-->
-<!--                        android:textAlignment="center" />-->
-<!--                </LinearLayout>-->
-
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                        android:id="@+id/upiPaymentGateway"-->
-<!--                        android:onClick="@{fundViewModel::onUPIPay}"-->
-<!--                        android:layout_width="55dp"-->
-<!--                        android:layout_height="55dp"-->
-<!--                        android:layout_margin="10dp"-->
-<!--                        android:src="@drawable/phonepe"-->
-<!--                        app:civ_border_width="1dp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/phone_pe"-->
-<!--                        android:textAlignment="center" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                        android:id="@+id/paytmFund"-->
-<!--                        android:onClick="@{fundViewModel::onPayTmAddFund}"-->
-<!--                        android:layout_width="55dp"-->
-<!--                        android:layout_height="55dp"-->
-<!--                        android:layout_margin="10dp"-->
-<!--                        android:src="@drawable/paytm_icon"-->
-<!--                        app:civ_border_width="1dp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="65dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/paytm"-->
-<!--                        android:textAlignment="center" />-->
-<!--                </LinearLayout>-->
+                    <TextView
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/qr_upi"
+                        android:textAlignment="center" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -142,7 +99,7 @@
                     <TextView
                         android:layout_width="65dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/wallet_exchange"
+                        android:text="@string/exchange"
                         android:textAlignment="center" />
                 </LinearLayout>
 

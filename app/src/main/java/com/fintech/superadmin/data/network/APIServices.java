@@ -12,6 +12,7 @@ import com.fintech.superadmin.data.deer_response.CFPStatusCheck;
 import com.fintech.superadmin.data.deer_response.CFPTransaction;
 import com.fintech.superadmin.data.deer_response.RechargeResponse;
 import com.fintech.superadmin.data.dthinfo.DthInfoResponse;
+import com.fintech.superadmin.data.dto.AtmProceedableDto;
 import com.fintech.superadmin.data.dto.CreditCardHistory;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
@@ -617,11 +618,25 @@ public interface APIServices {
 
 
     //report micro_atm txn
+
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
-    Observable<RegularResponse> reportMicroAtmTxn(
+    Observable<RegularResponse> getATMType(
+            @Field("getAtMType") String getAtMType
+    );
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<ArrayList<String>> getGatewayLists(
+            @Field("getGatewayLists") String getGatewayLists
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<AtmProceedableDto> reportMicroAtmTxn(
             @Field("amount") String amount, @Field("txnType") String txnType,
-            @Field("reference") String reference, @Field("initiate_atm_txn") String initiate_atm_txn);
+            @Field("initiate_atm_txn") String initiate_atm_txn);
 
     @FormUrlEncoded
     @POST("Agent/Backend/Operations/Operation.php")
@@ -788,7 +803,8 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/mainfund.php")
     Observable<RegularResponse> payFundAmount(
-            @Field("amount") String amount
+            @Field("amount") String amount,
+            @Field("gatewayType") String gatewayType
     );
 
     @FormUrlEncoded

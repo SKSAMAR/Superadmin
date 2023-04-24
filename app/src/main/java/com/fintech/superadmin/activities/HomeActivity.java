@@ -55,10 +55,6 @@ public class HomeActivity extends BaseActivity {
     private long mLastClickTime = 0;
 
 
-    private void someTaskFunc(Function<String, Integer> task) {
-
-    }
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

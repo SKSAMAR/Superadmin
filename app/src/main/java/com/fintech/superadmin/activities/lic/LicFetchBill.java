@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.activities.sectionhistory.RegularHistory;
 import com.fintech.superadmin.databinding.ActivityLicFetchBillBinding;
 import com.fintech.superadmin.listeners.ResetListener;
@@ -20,7 +21,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class LicFetchBill extends AppCompatActivity implements ResetListener {
+public class LicFetchBill extends BaseActivity implements ResetListener {
 
     MobileRechargeViewModel viewModel;
     ActivityLicFetchBillBinding binding;

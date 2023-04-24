@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.databinding.ActivityBankDetailsBinding;
 import com.fintech.superadmin.util.PathsInformation;
@@ -27,7 +28,7 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class BankDetails extends AppCompatActivity {
+public class BankDetails extends BaseActivity {
 
 
     ActivityBankDetailsBinding binding;
