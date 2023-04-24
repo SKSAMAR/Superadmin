@@ -9,11 +9,10 @@ plugins {
 
 android {
     compileSdk 33
-
     defaultConfig {
 
-        manifestPlaceholders = [appName:"KK Payments"]
-        applicationId "kkpayments.co.in"
+        manifestPlaceholders = [appName:"Paytcash"]
+        applicationId "paytcash.net"
         minSdk 21
         //noinspection OldTargetApi
         targetSdk 31
@@ -273,4 +272,20 @@ dependencies {
 
 repositories {
     mavenCentral()
+}
+
+def downloadImage(String url, String filename) {
+    def drawableDir = new File(projectDir, "src/main/res/drawable")
+    if (!drawableDir.exists()) {
+        drawableDir.mkdirs()
+    }
+    def file = new File(projectDir, "src/main/res/drawable/${filename}")
+    new URL(url).withInputStream { i ->
+        file.withOutputStream { it << i }
+    }
+}
+
+afterEvaluate {
+    def appId = android.defaultConfig.applicationId
+    downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php", "logo.png")
 }
