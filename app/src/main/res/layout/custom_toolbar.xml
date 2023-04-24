@@ -34,7 +34,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:scaleType="centerInside"
                     android:background="@color/white"
-                    app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
+                    android:src="@drawable/logo"
                     />
 
                 <LinearLayout

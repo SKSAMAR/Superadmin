@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_90sdp"
                 android:contentDescription="@string/todo"
-                app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
+                android:src="@drawable/logo"
                 app:layout_constraintBottom_toTopOf="@+id/edit_names"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

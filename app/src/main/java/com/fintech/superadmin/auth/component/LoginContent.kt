@@ -43,7 +43,7 @@ import kotlinx.coroutines.delay
 
 object Logos {
 
-    var logo by mutableStateOf(com.fintech.superadmin.util.Constants.LogoUrl)
+    var logo by mutableStateOf(com.fintech.superadmin.R.drawable.logo)
     @Composable
     fun setLogoMods(): Modifier {
         //LocalConfiguration.current.screenWidthDp.sdp
@@ -52,9 +52,6 @@ object Logos {
             .padding(2.sdp)
     }
 
-    fun changeLogo(finalUrl: String){
-        logo = finalUrl
-    }
 }
 
 @Composable

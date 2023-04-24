@@ -20,7 +20,7 @@
             android:layout_height="60dp"
             android:layout_below="@+id/closeImage"
             android:layout_centerHorizontal="true"
-            app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
+            android:src="@drawable/logo"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:contentDescription="@string/todo" />

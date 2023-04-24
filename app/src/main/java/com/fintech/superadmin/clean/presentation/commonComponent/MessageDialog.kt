@@ -18,6 +18,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
 import coil.compose.AsyncImage
 import com.fintech.superadmin.R
+import com.fintech.superadmin.auth.component.Logos
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
 import com.fintech.superadmin.ui.theme.DesGreen
@@ -129,7 +130,7 @@ fun DialogSuccessDialog(
                 Spacer(modifier = Modifier.height(30.sdp))
                 AsyncImage(
                     modifier = Modifier.size(130.sdp),
-                    model = com.fintech.superadmin.util.Constants.LogoUrl,
+                    model = Logos.logo,
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.height(10.sdp))
@@ -199,7 +200,7 @@ fun DialogLoadingDialog(
                 Spacer(modifier = Modifier.height(30.sdp))
                 AsyncImage(
                     modifier = Modifier.size(130.sdp),
-                    model = com.fintech.superadmin.util.Constants.LogoUrl,
+                    model = Logos.logo,
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.height(10.sdp))
@@ -269,7 +270,7 @@ fun DialogFailureDialog(
                 Spacer(modifier = Modifier.height(30.sdp))
                 AsyncImage(
                     modifier = Modifier.size(130.sdp),
-                    model = com.fintech.superadmin.util.Constants.LogoUrl,
+                    model = Logos.logo,
                     contentDescription = ""
                 )
                 Spacer(modifier = Modifier.height(10.sdp))

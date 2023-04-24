@@ -20,7 +20,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_90sdp"
                     android:contentDescription="@string/todo"
-                    app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"/>
+                    android:src="@drawable/logo"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

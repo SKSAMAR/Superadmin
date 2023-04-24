@@ -92,7 +92,8 @@
                             android:layout_width="55sp"
                             android:layout_height="55sp"
                             android:contentDescription="@string/todo"
-                            app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}" />
+                            android:src="@drawable/logo"
+                            />
 
 
                         <!--                        <ImageView-->

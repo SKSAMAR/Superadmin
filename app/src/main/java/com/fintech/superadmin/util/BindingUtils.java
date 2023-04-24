@@ -186,8 +186,6 @@ public class BindingUtils {
                     finalUrl = url.toString();
                     //Constants.LogoUrl = finalUrl;
                 }
-                Logos.INSTANCE.changeLogo(finalUrl);
-                Log.d("URL_INFO", "FINAL == "+url);
                 // Download the image and save it to internal storage
                 Bitmap bitmap = Glide.with(imageView).asBitmap().load(finalUrl).submit().get();
                 saveImage(bitmap, "logo.png", imageView.getContext());

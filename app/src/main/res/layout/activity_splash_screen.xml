@@ -8,15 +8,16 @@
         android:layout_height="match_parent"
         tools:context=".activities.FirstScreen">
 
+<!--        app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"-->
 
         <ImageView
             android:id="@+id/LogoSplash"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:loadLogoImage="@{com.fintech.superadmin.util.Constants.LogoUrl}"
             android:layout_centerInParent="true"
             android:contentDescription="@string/todo"
             android:scaleType="fitCenter"
+            android:src="@drawable/logo"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
