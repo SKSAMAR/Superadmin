@@ -168,7 +168,12 @@ public class SliderFragment extends Fragment {
                     @Override
                     public void onNext(@io.reactivex.rxjava3.annotations.NonNull List<SliderItem> list) {
                         SliderFragment.this.list = list;
-                        setSliders(SliderFragment.this.list);
+                        if(list == null || list.isEmpty()){
+                            binding.sliderViewPager.setVisibility(View.GONE);
+                        }else{
+                            binding.sliderViewPager.setVisibility(View.VISIBLE);
+                            setSliders(SliderFragment.this.list);
+                        }
                     }
 
                     @Override

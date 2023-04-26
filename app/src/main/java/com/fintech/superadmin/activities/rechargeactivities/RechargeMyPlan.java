@@ -345,7 +345,6 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
                 case FETCH:{
                     binding.hlrLayout.setVisibility(View.GONE);
                     binding.operatorImage.setVisibility(View.GONE);
-                    binding.mobileRechargeButton.setVisibility(View.GONE);
                     binding.browsePlan.setVisibility(View.GONE);
                     binding.ROffer.setVisibility(View.GONE);
                     binding.dthInfoCard.setVisibility(View.GONE);

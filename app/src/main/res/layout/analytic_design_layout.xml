@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:visibility="visible">
-
     <data>
-
         <variable
             name="analyticDataModel"
             type="com.fintech.superadmin.data.network.responses.AnalyticsResponseModel" />
@@ -139,17 +137,17 @@
                             android:textSize="12sp" />
 
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/updateButton"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:text="@string/update"
-                            android:textAllCaps="false"
-                            android:textSize="@dimen/_8sdp"
-                            android:visibility="gone" />
+<!--                        <com.google.android.material.button.MaterialButton-->
+<!--                            android:id="@+id/updateButton"-->
+<!--                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:minWidth="0dp"-->
+<!--                            android:minHeight="0dp"-->
+<!--                            android:text="@string/update"-->
+<!--                            android:textAllCaps="false"-->
+<!--                            android:textSize="@dimen/_8sdp"-->
+<!--                            android:visibility="gone" />-->
 
                     </LinearLayout>
                 </RelativeLayout>

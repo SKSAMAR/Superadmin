@@ -11,8 +11,8 @@ android {
     compileSdk 33
     defaultConfig {
 
-        manifestPlaceholders = [appName:"KK Payments"]
-        applicationId "kkpayments.co.in"
+        manifestPlaceholders = [appName: "Harshpay"]
+        applicationId "harshpay.net"
         minSdk 21
         //noinspection OldTargetApi
         targetSdk 31
@@ -23,7 +23,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
     }
 
     buildTypes {
@@ -142,8 +141,6 @@ dependencies {
 
     implementation 'de.greenrobot:greendao:2.1.0'
     implementation 'org.greenrobot:eventbus:3.3.1'
-
-
 
 
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
@@ -265,7 +262,6 @@ dependencies {
     implementation 'com.yogeshpaliyal:speld:0.0.1-alpha03'
 
     implementation 'phonepe.intentsdk.android.release:IntentSDK:1.7.1'
-
 
 
 }

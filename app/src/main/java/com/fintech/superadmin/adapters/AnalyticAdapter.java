@@ -43,6 +43,7 @@ public class AnalyticAdapter extends RecyclerView.Adapter<AnalyticAdapter.Analyt
         holder.binding.setAnalyticDataModel(analyticsList.get(position));
         holder.binding.checkDetails.setOnClickListener(v -> listener.checkMyDetailsOf(v, analyticsList.get(position)));
         //holder.binding.updateButton.setOnClickListener(v -> listener.updateMyDetailsOf(v, analyticsList.get(position)));
+        /**
         holder.binding.updateButton.setVisibility(View.GONE);
         listener.observerData(holder.binding.updateButton, analyticsList.get(position));
 
@@ -55,7 +56,7 @@ public class AnalyticAdapter extends RecyclerView.Adapter<AnalyticAdapter.Analyt
         }catch (Exception e){
             e.printStackTrace();
             holder.binding.updateButton.setVisibility(View.GONE);
-        }
+        }**/
 
 
     }

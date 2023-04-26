@@ -167,7 +167,10 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     public void onRechargeButtonClick(View view) {
         if (Accessable.isAccessable()) {
             if (PopupUtil.access) {
-                if (mobileNumber.getValue() == null || mobileNumber.getValue().isEmpty()) {
+                if (operatorModel == null) {
+                    MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Select a Provide a Operator", R.drawable.warning);
+                }
+                else if (mobileNumber.getValue() == null || mobileNumber.getValue().isEmpty()) {
                     MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid number", R.drawable.warning);
                 } else if (plan == null || plan.isEmpty()) {
                     MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid plan", R.drawable.warning);
