@@ -434,6 +434,7 @@ public class PayoutViewModel extends ViewModel {
 
         binding.sendAmountUser.setOnClickListener(v -> {
             String amount = Objects.requireNonNull(binding.amount.getText()).toString();
+            String mpin = Objects.requireNonNull(binding.mpin.getText()).toString();
             if(mode.isEmpty()){
                 ViewUtils.showToast(context, "Select payment mode");
             }
@@ -441,11 +442,15 @@ public class PayoutViewModel extends ViewModel {
                 binding.amount.setError("Enter amount");
                 binding.amount.requestFocus();
             }
+            else if(mpin.trim().isEmpty()){
+                binding.mpin.setError("Enter M-PIN");
+                binding.mpin.requestFocus();
+            }
             else{
                 try{
                     long checkBalance = Long.parseLong(amount);
                     if(checkBalance>0 && checkBalance<=200000){
-                        repository.sendMoneyPayouts(context, dialog, bene_id, mode, amount, data.getAccount(), data.getIfsc());
+                        repository.sendMoneyPayouts(context, dialog, mpin, bene_id, mode, amount, data.getAccount(), data.getIfsc());
                     }
                     else{
                         MyAlertUtils.showWarningAlertDialog(context, "Please make transaction between 100 Rs & 200000");

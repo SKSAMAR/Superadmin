@@ -125,7 +125,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
         bklist.add(new MenuModel(R.drawable.ic_money_transfer, "Mobile Payments"));
         bklist.add(new MenuModel(R.drawable.ic_aeps, "AePS"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "AePS 2"));
-        bklist.add(new MenuModel(R.drawable.dmt, "DMT"));
+        bklist.add(new MenuModel(R.drawable.ic_bank, "DMT"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM 2"));
         bklist.add(new MenuModel(R.drawable.payout, "Payout"));
@@ -214,6 +214,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
         //financesList.add(new MenuModel(R.drawable.ic_credit_card_bill, "UTI PAN"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
 
 
     }

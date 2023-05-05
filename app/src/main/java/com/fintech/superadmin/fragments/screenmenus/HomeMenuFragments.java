@@ -32,6 +32,7 @@ import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.aeps.AepsHome;
 import com.fintech.superadmin.activities.aeps.BalanceEnquiry;
+import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
 import com.fintech.superadmin.activities.aeps.CashWithdrawal;
 import com.fintech.superadmin.activities.aeps.MiniStatement;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
@@ -124,9 +125,9 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
         //Money Transfer
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
-        moneyTransferList.add(new MenuModel(R.drawable.ic_money_transfer, "Mobile Payments"));
+//        moneyTransferList.add(new MenuModel(R.drawable.ic_money_transfer, "Mobile Payments"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "AePS"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_bank, "DMT"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
@@ -177,10 +178,16 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
         //Finances and Taxes
-        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false));
+        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> financesList = new ArrayList<>();
-        financesList.add(new MenuModel(R.drawable.ic_credit_card_bill, "Credit Card"));
+        financesList.add(new MenuModel(R.drawable.emi, "EMI"));
+        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance", "Insurance"));
         financesList.add(new MenuModel(R.drawable.ic_lic_bill, "LIC", "LIC"));
+        financesList.add(new MenuModel(R.drawable.ic_municipal, "Municipal", "MUNICIPALITY"));
+//        financesList.add(new MenuModel(R.drawable.loan_repayment, "Loan\nRepayment", "EMI PAYMENT"));
+//        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance Application"));
+//        financesList.add(new MenuModel(R.drawable.loan, "Loan Application"));
+
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -608,25 +615,29 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
     private void startAEPS() {
-        startActivity(new Intent(requireActivity(), AepsHome.class));
+        startActivity(new Intent(requireActivity(), BrandedAePSHome.class));
     }
 
     private void startAePSBE() {
-        startActivity(new Intent(requireActivity(), BalanceEnquiry.class));
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+        intent.putExtra("aepsType", "BE");
+        startActivity(intent);
     }
 
     private void startAePSMS() {
-        startActivity(new Intent(requireActivity(), MiniStatement.class));
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+        intent.putExtra("aepsType", "MS");
+        startActivity(intent);
     }
 
     private void startAePSCW() {
-        Intent intent = new Intent(requireActivity(), CashWithdrawal.class);
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "CW");
         startActivity(intent);
     }
 
     private void startAePSM() {
-        Intent intent = new Intent(requireActivity(), CashWithdrawal.class);
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "M");
         startActivity(intent);
     }

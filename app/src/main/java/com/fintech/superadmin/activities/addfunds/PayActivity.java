@@ -140,7 +140,7 @@ public class PayActivity extends BaseActivity implements PaymentResultListener {
         final Activity activity = this;
         final Checkout co = new Checkout();
         co.setKeyID(data.getKeyid());
-        co.setImage(R.mipmap.ic_launcher);
+        co.setImage(R.drawable.logo);
         try {
             JSONObject options = new JSONObject();
             options.put("name", user.getName()+" "+user.getLastname());

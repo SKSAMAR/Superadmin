@@ -578,7 +578,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/Payout/PaySprint/main.php")
-    Observable<RegularResponse> sendMoneyOnPayAmount(@Field("accID") String bene_id, @Field("amount") String amount,
+    Observable<RegularResponse> sendMoneyOnPayAmount(@Field("tpin") String tpin, @Field("accID") String bene_id, @Field("amount") String amount,
                                                      @Field("mode") String mode, @Field("Account") String Account, @Field("IFSC") String IFSC);
 
     //Pay_sprint_payout

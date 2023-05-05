@@ -25,10 +25,12 @@ import com.fintech.superadmin.data.network.responses.AePSBalanceEnquiryResponse;
 import com.fintech.superadmin.data.network.responses.MiniStatementResponse;
 import com.fintech.superadmin.data.repositories.AepsRepository;
 import com.fintech.superadmin.databinding.MyRecyclerSpinnerBinding;
+import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.AepsBankListener;
 import com.fintech.superadmin.listeners.BankNameListener;
 import com.fintech.superadmin.listeners.ResetListener;
 import com.fintech.superadmin.util.MyAlertUtils;
+import com.fintech.superadmin.util.ViewUtils;
 
 import java.util.List;
 
@@ -66,6 +68,43 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
         this.aepsRepository = aepsRepository;
     }
 
+
+    public void selectBankList(View view, Receiver<AEPSBanksModel> receiver) {
+        if (aepsBanksList == null) {
+            ProgressDialog dialog = new ProgressDialog(view.getContext());
+            dialog.setTitle("Loading");
+            dialog.setMessage("Getting banks.");
+            aepsRepository.apiServices.getBankList("123")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<AEPSBanksModel>>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            dialog.show();
+                        }
+
+                        @Override
+                        public void onNext(@NonNull List<AEPSBanksModel> aepsBanksModels) {
+                            aepsBanksList = aepsBanksModels;
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            dialog.setTitle("Error");
+                            dialog.setMessage("Failed due to: " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            dialog.dismiss();
+                            ViewUtils.onSpinnerViewBring("Select Bank", view.getContext(), aepsBanksList, receiver::getData);
+                        }
+                    });
+        } else {
+            ViewUtils.onSpinnerViewBring("Select Bank", view.getContext(), aepsBanksList, receiver::getData);
+        }
+
+    }
 
     public void selectBankList(View view) {
 

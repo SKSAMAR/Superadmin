@@ -370,5 +370,6 @@
     <string name="phone_pe">Phone Pe</string>
     <string name="exchange">Exchange</string>
     <string name="main_bal">Main Bal</string>
+    <string name="m_pin">M-PIN</string>
 
 </resources>

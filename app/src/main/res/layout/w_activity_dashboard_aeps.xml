@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activities.aeps.BrandedAePSHome">
+            <ScrollView
+                android:id="@+id/scroolView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgDevice"
+                            android:layout_width="113dp"
+                            android:layout_height="71dp"
+                            android:src="@drawable/w_startekimage" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textDeviceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:text="Startek"
+                                android:textColor="@color/black"
+                                android:textSize="25dp" />
+
+                            <TextView
+                                android:id="@+id/textChangeDeviceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:text="Change device"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="18dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:weightSum="4.6">
+
+                        <LinearLayout
+                            android:id="@+id/linearBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/w_curve_rect_gray"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/w_wallet_balnce" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text="Enquiry"
+                                android:textColor="@color/black"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_weight=".2" />
+
+                        <LinearLayout
+                            android:id="@+id/linearCashWith"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/w_curve_rect_gray"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/w_withdrawallimit" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text="Withdrawl"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_weight=".2" />
+
+
+                        <LinearLayout
+                            android:id="@+id/linearAadhaar"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/w_curve_rect_gray"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/w_aadhaarpaypay" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text="Aadhaar Pay"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_weight=".2" />
+
+                        <LinearLayout
+                            android:id="@+id/linearMiniState"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/w_curve_rect_gray"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/w_ministatementpay" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text="Mini Statement"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="55dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/w_curve_rect_gray"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/w_withdrawallimit" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text="Deposit"
+                                android:textColor="@color/black"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/sagnika"
+                        android:text="Select Bank"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="18dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/linearAllBank"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/w_layout_bank_notselected"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:textAlignment="center">
+
+                        <TextView
+                            android:id="@+id/BankNameTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sagnika"
+                            android:maxLines="2"
+                            android:text="VIEW ALL BANK"
+                            android:textAlignment="center"
+                            android:textColor="?android:colorPrimary"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/w_rightcross"
+                            android:tint="?android:colorPrimary"
+                            tools:ignore="UseAppTint" />
+                    </LinearLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_5sdp"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/MobileNoEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:ems="10"
+                            android:hint="@string/mobile_number"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/aadharNoEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:hint="@string/aadhaar_number"
+                                android:importantForAutofill="no"
+                                android:inputType="number"
+                                android:maxLength="14"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearCheckBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="2dp"
+                            android:background="@drawable/w_lauout_bank_background"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/textBalance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/sagnika"
+                                android:padding="@dimen/_5sdp"
+                                android:text="Check Balance"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="@dimen/_9sdp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearCashAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/amountEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:ems="10"
+                                android:hint="@string/amount"
+                                android:importantForAutofill="no"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:maxLines="1" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lineaAmountButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="4">
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_color1"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".8"
+                                android:background="@drawable/w_layout_bank_notselected"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text=" \u20B9500"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="16sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".25" />
+
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_color2"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".8"
+                                android:background="@drawable/w_layout_bank_notselected"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text=" \u20B91000"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="16sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".25" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_color3"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".8"
+                                android:background="@drawable/w_layout_bank_notselected"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text=" \u20B92000"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="16sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".25" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/btn_color4"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight=".8"
+                                android:background="@drawable/w_layout_bank_notselected"
+                                android:fontFamily="@font/sagnika"
+                                android:gravity="center"
+                                android:text=" \u20B93000"
+                                android:textColor="?android:colorPrimary"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="152dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-2dp" />
+
+                </LinearLayout>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/linearDeviceButton"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/w_lauout_bank_background"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textLinearDevice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/sagnika"
+                    android:text="Withdraw from startek"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|right"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/w_rightlongcross"
+                    android:tint="?android:colorPrimary"
+                    tools:ignore="UseAppTint" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

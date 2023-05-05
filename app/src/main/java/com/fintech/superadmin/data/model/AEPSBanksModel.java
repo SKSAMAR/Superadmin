@@ -1,15 +1,23 @@
 package com.fintech.superadmin.data.model;
-
 public class AEPSBanksModel {
 
     public String id;
-
     public String bankname;
-
     public String iinno;
-
     public String activeflag;
+    public int temp_image;
 
+    public AEPSBanksModel() {
+
+    }
+
+    public AEPSBanksModel(String id, String bankname, String iinno, String activeflag, int temp_image) {
+        this.id = id;
+        this.bankname = bankname;
+        this.iinno = iinno;
+        this.activeflag = activeflag;
+        this.temp_image = temp_image;
+    }
 
     public AEPSBanksModel(String id, String bankname, String iinno, String activeflag) {
         this.id = id;
@@ -48,5 +56,10 @@ public class AEPSBanksModel {
 
     public void setActiveflag(String activeflag) {
         this.activeflag = activeflag;
+    }
+
+    @Override
+    public String toString() {
+        return "" + bankname;
     }
 }

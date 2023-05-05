@@ -1,16 +1,22 @@
 package com.fintech.superadmin.viewmodel;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModel;
 
 import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.addfunds.FundExchange;
+import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
 import com.fintech.superadmin.data.network.APIServices;
@@ -71,6 +77,14 @@ public class HomeViewModel extends ViewModel {
                             DisplayMessageUtil.error(context, data.getMessage());
                         }
                     });
+        }
+    }
+
+
+    public void displayMobilePay(Activity activity) {
+        if (Accessable.isAccessable()) {
+            User user = homeRepository.appDatabase.getUserDao().getRegularUser();
+            DisplayQrUtilKt.displayMobilePayQr(user, activity);
         }
     }
 
@@ -183,16 +197,4 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
-    public void clickedOnQR(View view) {
-//        String[] permission = {Manifest.permission.CAMERA};
-        if (Accessable.isAccessable()) {
-            ViewUtils.showToast(view.getContext(), "This service is unavailable, contact admin");
-            return;
-//            PermissionUtil.givePermissions(view.getContext(), permission, result -> {
-//                if (result == 1) {
-//                    view.getContext().startActivity(new Intent(view.getContext(), QrActivity.class));
-//                }
-//            });
-        }
-    }
 }

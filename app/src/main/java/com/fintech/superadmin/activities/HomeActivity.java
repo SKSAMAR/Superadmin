@@ -19,6 +19,7 @@ import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.activities.customersupport.NewTicketRise;
 import com.fintech.superadmin.activities.profile.ProfileActivity;
+import com.fintech.superadmin.activities.qrscanner.QrMobilePayActivity;
 import com.fintech.superadmin.data.repositories.UserRepository;
 import com.fintech.superadmin.databinding.ActivityHomeBinding;
 import com.fintech.superadmin.fragments.AnalyticFragment;
@@ -91,8 +92,12 @@ public class HomeActivity extends BaseActivity {
             startActivity(intent);
         });
         StartGettingLocation.setAllTheLocations(HomeActivity.this);
-        homeBinding.toolbar.customerSupport.setOnClickListener(
-                view -> startActivity(new Intent(HomeActivity.this, NewTicketRise.class)));
+        homeBinding.toolbar.customerSupport.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, NewTicketRise.class)));
+        homeBinding.fab.setOnClickListener(view -> {
+            startActivity(new Intent(HomeActivity.this, QrMobilePayActivity.class));
+        });
+        homeBinding.toolbar.qrCode.setOnClickListener(v-> homeViewModel.displayMobilePay(HomeActivity.this));
+
     }
 
 

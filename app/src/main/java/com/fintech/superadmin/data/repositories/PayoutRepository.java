@@ -315,9 +315,9 @@ public class PayoutRepository {
      **/
 
 
-    public void sendMoneyPayouts(Context context, Dialog dialog, String bene_id, String mode, String amount, String acc, String ifsc) {
+    public void sendMoneyPayouts(Context context, Dialog dialog, String mpin, String bene_id, String mode, String amount, String acc, String ifsc) {
         MyAlertUtils.showProgressAlertDialog(context);
-        apiServices.sendMoneyOnPayAmount(bene_id, amount, mode, acc, ifsc)
+        apiServices.sendMoneyOnPayAmount(mpin, bene_id, amount, mode, acc, ifsc)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegularResponse>() {

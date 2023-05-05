@@ -103,7 +103,7 @@ public class RechargeDetailedAnalytic extends ShareActivity {
             }
 
         }catch (NullPointerException e){
-
+            e.printStackTrace();
         }
 
         shareValue = shareOfNormal();

@@ -11,13 +11,13 @@ android {
     compileSdk 33
     defaultConfig {
 
-        manifestPlaceholders = [appName: "Harshpay"]
-        applicationId "harshpay.net"
-        minSdk 21
+        manifestPlaceholders = [appName: "Ethhub"]
+        applicationId "ethhub.in"
+        minSdk 26
         //noinspection OldTargetApi
         targetSdk 31
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 2
+        versionName "0.0.1.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -270,7 +270,39 @@ repositories {
     mavenCentral()
 }
 
+
+task downloadAndExtract(type: Exec) {
+    // Set the URL to download the ZIP file from
+    def appId = android.defaultConfig.applicationId
+    def url = "https://${appId}/Backend/Merchant/temp/appIcon/main.php"
+    def drawableDir = new File(projectDir, "zips")
+    if (!drawableDir.exists()) {
+        drawableDir.mkdirs()
+    }
+
+    def drawableDirectory = new File(projectDir, "src/main/res/drawable")
+    File[] existingFiles = drawableDirectory.listFiles()
+    if (existingFiles != null && existingFiles.length > 0) {
+        for (File file : existingFiles) {
+            file.delete()
+        }
+    }
+    def file = new File(projectDir, "zips/logos.zip")
+    def directoryPath = new File(projectDir, "src/main/res/drawable")
+    new URL(url).withInputStream { i ->
+        file.withOutputStream { it << i }
+    }
+    commandLine 'tar', '-xvf', file.path, '-C', directoryPath
+    def processBuilder = new ProcessBuilder(commandLine)
+    processBuilder.directory(projectDir)
+    def process = processBuilder.start()
+    process.waitFor()
+}
+assemble.dependsOn downloadAndExtract
+
+
 def downloadImage(String url, String filename) {
+
     def drawableDir = new File(projectDir, "src/main/res/drawable")
     if (!drawableDir.exists()) {
         drawableDir.mkdirs()
@@ -283,5 +315,5 @@ def downloadImage(String url, String filename) {
 
 afterEvaluate {
     def appId = android.defaultConfig.applicationId
-    downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php", "logo.png")
+    downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php?mode=download", "logo.png")
 }

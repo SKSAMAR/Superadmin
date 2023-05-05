@@ -53,18 +53,25 @@ public class MicroAtmDetailedAnalytic extends ShareActivity {
 
     private void setJsonData() {
         String success = "Success";
+        String pending = "Pending";
         String failed = "Failed";
         try {
-            JSONObject object = new JSONObject(historyResponse.getData_response());
-            if(object.getString("STATUS").equals("1")){
+            String sm = model.getStatus().toLowerCase();
+            if(sm.equals("success")){
                 binding.gifStatus.setImageResource(R.drawable.success);
                 binding.textStatus.setText(success);
                 myStatus = success;
+            }
+            else if(sm.equals("pending")){
+                binding.gifStatus.setImageResource(R.drawable.warning);
+                binding.textStatus.setText(pending);
+                myStatus = pending;
             }else{
                 binding.gifStatus.setImageResource(R.drawable.failed);
                 binding.textStatus.setText(failed);
                 myStatus = failed;
             }
+            JSONObject object = new JSONObject(historyResponse.getData_response());
             acc_rem_bal = object.getString("BALAMOUNT");
             cardType = object.getString("CARDTYPE");
             transactionType = object.getString("TRANSTYPE");

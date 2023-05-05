@@ -29,15 +29,8 @@ public class BindingUtils {
 
 
     @BindingAdapter("loadLogoImage")
-    public static void loadLogoImage(ImageView imageView, String url){
-        try {
-            Log.d("URL_INFO", "INITIAL == "+url);
-            DownloadImageTask task = new DownloadImageTask(imageView);
-            task.execute(url);
-        }
-        catch (NullPointerException e){
-            e.fillInStackTrace();
-        }
+    public static void loadLogoImage(ImageView imageView, int logo){
+
     }
 
 
