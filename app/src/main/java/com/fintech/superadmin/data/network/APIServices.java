@@ -119,7 +119,7 @@ public interface APIServices {
     //Bank Details
 
     @Multipart
-    @POST("Agent/Backend/Login/updateDetails.php?apicall=upload")
+    @POST("Backend/Merchant/API/app/temp/main.php?apicall=upload")
     Observable<RegularResponse> updateBankDetails(@Part MultipartBody.Part aadhaar,
                                                   @Part MultipartBody.Part pan,
                                                   @Part MultipartBody.Part passbook,

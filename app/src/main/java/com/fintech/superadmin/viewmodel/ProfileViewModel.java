@@ -142,57 +142,58 @@ public class ProfileViewModel extends ViewModel {
     public void updateBankDetailsData(View view){
         if(Accessable.isAccessable()){
             if(userProfile != null){
-                if(userProfile.AADHAAR == null || userProfile.AADHAAR.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Select a valid Aadhaar");
+                /**
+                 if(userProfile.AADHAAR == null || userProfile.AADHAAR.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Select a valid Aadhaar");
+                 }
+                 else if(userProfile.AADHAR_CARD_NO == null || userProfile.AADHAR_CARD_NO.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid Aadhaar number");
+                 }
+                 else if(userProfile.PAN == null || userProfile.PAN.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Select a valid Pan");
+                 }
+                 else if(userProfile.PAN_CARD_NO == null || userProfile.PAN_CARD_NO.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid Pan number");
+                 }
+                 else if(userProfile.BANK == null || userProfile.BANK.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid Bank Name");
+                 }
+                 else if(userProfile.B_NAME == null || userProfile.B_NAME.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid Branch Name");
+                 }
+                 else if(userProfile.AC_HOLDER_NAME == null || userProfile.AC_HOLDER_NAME.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid Account Holder Name");
+                 }
+                 else if(userProfile.AC_NUM == null || userProfile.AC_NUM.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid account number");
+                 }
+                 else if(userProfile.IFSC_CODE == null || userProfile.IFSC_CODE.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Enter a valid IFSC Code");
+                 }
+                 else if(userProfile.PASSBOOK == null || userProfile.PASSBOOK.trim().isEmpty()){
+                 DisplayMessageUtil.error(view.getContext(), "Select a valid Passbook");
+                 }
+                 else{
+                 }**/
+                DisplayMessageUtil.loading(view.getContext());
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String json = "";
+                try {
+                    json = ow.writeValueAsString(userProfile);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
                 }
-                else if(userProfile.AADHAR_CARD_NO == null || userProfile.AADHAR_CARD_NO.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid Aadhaar number");
-                }
-                else if(userProfile.PAN == null || userProfile.PAN.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Select a valid Pan");
-                }
-                else if(userProfile.PAN_CARD_NO == null || userProfile.PAN_CARD_NO.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid Pan number");
-                }
-                else if(userProfile.BANK == null || userProfile.BANK.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid Bank Name");
-                }
-                else if(userProfile.B_NAME == null || userProfile.B_NAME.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid Branch Name");
-                }
-                else if(userProfile.AC_HOLDER_NAME == null || userProfile.AC_HOLDER_NAME.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid Account Holder Name");
-                }
-                else if(userProfile.AC_NUM == null || userProfile.AC_NUM.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid account number");
-                }
-                else if(userProfile.IFSC_CODE == null || userProfile.IFSC_CODE.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Enter a valid IFSC Code");
-                }
-                else if(userProfile.PASSBOOK == null || userProfile.PASSBOOK.trim().isEmpty()){
-                    DisplayMessageUtil.error(view.getContext(), "Select a valid Passbook");
-                }
-                else{
-                    DisplayMessageUtil.loading(view.getContext());
-                    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                    String json = "";
-                    try {
-                        json = ow.writeValueAsString(userProfile);
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    profileRepository.apiServices.updateBankDetails(aadhaar, pan, passbook, getTextPlain(json))
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(res->{
-                                if(res.getResponse_code().equals(1)){
-                                    DisplayMessageUtil.success(view.getContext(), res.getMessage());
-                                }
-                                else{
-                                    DisplayMessageUtil.error(view.getContext(), res.getMessage());
-                                }
-                            }, err->DisplayMessageUtil.error(view.getContext(), err.getMessage()));
-                }
+                profileRepository.apiServices.updateBankDetails(aadhaar, pan, passbook, getTextPlain(json))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(res->{
+                            if(res.getResponse_code().equals(1)){
+                                DisplayMessageUtil.success(view.getContext(), res.getMessage());
+                            }
+                            else{
+                                DisplayMessageUtil.error(view.getContext(), res.getMessage());
+                            }
+                        }, err->DisplayMessageUtil.error(view.getContext(), err.getMessage()));
             }
         }
     }
