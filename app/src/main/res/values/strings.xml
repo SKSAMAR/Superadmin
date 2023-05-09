@@ -371,5 +371,6 @@
     <string name="exchange">Exchange</string>
     <string name="main_bal">Main Bal</string>
     <string name="m_pin">M-PIN</string>
+    <string name="payu">PayU</string>
 
 </resources>

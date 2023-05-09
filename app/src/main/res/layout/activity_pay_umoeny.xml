@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="fundViewModel"
+        type="com.fintech.superadmin.viewmodel.FundViewModel" />
+</data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.addfunds.PayUMoeny">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/amountbalance"
+                android:layout_width="wrap_content"
+                android:layout_height="90sp"
+                android:layout_marginTop="35sp"
+                android:layout_marginBottom="35sp"
+
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/sagnika"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:maxLength="10"
+                android:textSize="65sp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                />
+
+            <LinearLayout
+                android:id="@+id/payLayouts"
+                android:layout_below="@id/amountbalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--                android:onClick="@{fundViewModel::requestMoneyAmount}"-->
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="14sp"
+                    android:text="@string/add"
+                    android:layout_margin="5sp"
+                    android:backgroundTint="@color/iconColor"
+                    android:id="@+id/onRequestMoneyButton"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonsLayout"
+                android:layout_below="@id/payLayouts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="12sp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/one"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:layout_weight="1"
+                        android:text="@string/one_"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/two"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:layout_weight="1"
+                        android:text="@string/two_"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/three"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:layout_weight="1"
+                        android:text="@string/three_"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/four_" />
+
+                    <TextView
+                        android:id="@+id/five"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/five_" />
+
+                    <TextView
+                        android:id="@+id/six"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/_6" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/seven"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/seven_" />
+
+                    <TextView
+                        android:id="@+id/eight"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/eight_" />
+
+                    <TextView
+                        android:id="@+id/nine"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/nine_" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/point"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/point_" />
+
+
+                    <TextView
+                        android:id="@+id/zeo"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sagnika"
+                        android:textSize="35sp"
+                        android:layout_weight="1"
+                        android:text="@string/zero_" />
+
+
+                    <ImageButton
+                        android:id="@+id/erase"
+                        android:layout_width="55sp"
+                        android:layout_height="55sp"
+                        android:gravity="center"
+                        android:src="@drawable/ic_eraser"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
+
+</layout>

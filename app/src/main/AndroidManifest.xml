@@ -65,7 +65,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectRC"
         android:usesCleartextTraffic="true"
-        tools:replace="android:name,android:theme,android:label,android:allowBackup,android:icon,android:roundIcon"
+        tools:replace="android:name,android:theme,android:label,android:allowBackup,android:icon,android:roundIcon,android:usesCleartextTraffic"
         tools:targetApi="n">
 
         <activity
@@ -461,6 +461,13 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.addfunds.PayUMoney"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name="com.fintech.superadmin.activities.rechargeactivities.MobileRecharge"
             android:exported="true"

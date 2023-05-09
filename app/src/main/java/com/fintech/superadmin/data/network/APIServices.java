@@ -73,6 +73,7 @@ import com.fintech.superadmin.data.network.responses.UserTypeResponse;
 import com.fintech.superadmin.data.sys.TPinResponse;
 import com.fintech.superadmin.data_model.LoginModel;
 import com.fintech.superadmin.data_model.request.RequestedHistoryModel;
+import com.fintech.superadmin.model.PayuResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -812,4 +813,20 @@ public interface APIServices {
             @Field("appColor") String appColor
     );
 
+
+    //PAYU
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/sdkGateway/Payu/main.php")
+    Observable<PayuResponse> getPayuCall(
+            @Field("txnid") String txnid,
+            @Field("amount") String amount
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/sdkGateway/Payu/main.php")
+    Observable<SystemResponse<String>> getHashCallHashify(@Field("hashData") String hashData);
+
+
+    //PAYU
 }

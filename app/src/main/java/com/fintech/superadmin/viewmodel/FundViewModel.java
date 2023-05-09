@@ -21,6 +21,7 @@ import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.addfunds.PayActivity;
 //import com.fintech.superadmin.activities.addfunds.PayActivityWithPayTm;
 import com.fintech.superadmin.activities.addfunds.PayActivityWebView;
+import com.fintech.superadmin.activities.addfunds.PayUMoney;
 import com.fintech.superadmin.activities.addfunds.RequestOffline;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.repositories.FundRepository;
@@ -29,6 +30,7 @@ import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.ChangerListener;
 import com.fintech.superadmin.listeners.ResetListener;
 import com.fintech.superadmin.listeners.WebViewPayment;
+import com.fintech.superadmin.model.PayuResponse;
 import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -76,6 +78,10 @@ public class FundViewModel extends ViewModel {
 
     public void onUPIPay(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), PayActivityWebView.class));
+    }
+
+    public void onPayU(View view) {
+        view.getContext().startActivity(new Intent(view.getContext(), PayUMoney.class));
     }
 
     public void onPayTmAddFund(View view) {
@@ -195,6 +201,38 @@ public class FundViewModel extends ViewModel {
         }
     }
 
+
+    public void getPayuCredential(Context context, Receiver<PayuResponse> responsiveListener, String txn_id, String amount){
+        DisplayMessageUtil.loading(context);
+        fundRepository.apiServices.getPayuCall(txn_id, amount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res->{
+                    DisplayMessageUtil.dismissDialog();
+                    if(res.getStatus() && res.getResponse_code().equals(1)){
+                        responsiveListener.getData(res);
+                    }
+                    else{
+                        DisplayMessageUtil.error(context, res.getMessage());
+                    }
+                }, err-> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+    }
+
+    public void getPayuHashify(Context context, Receiver<String> responsiveListener, String hashData){
+        DisplayMessageUtil.loading(context);
+        fundRepository.apiServices.getHashCallHashify(hashData)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(res->{
+                    DisplayMessageUtil.dismissDialog();
+                    if(res.getStatus() && res.getResponse_code().equals(1)){
+                        responsiveListener.getData(res.getReceivableData());
+                    }
+                    else{
+                        DisplayMessageUtil.error(context, res.getMessage());
+                    }
+                }, err-> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+    }
 
     public void getRequestedHistory(Context context, String transaction_id, Receiver<List<RequestedHistoryModel>> receiver) {
         fundRepository.apiServices.getRequestHistory(transaction_id, "requestedHistory")

@@ -11,8 +11,8 @@ android {
     compileSdk 33
     defaultConfig {
 
-        manifestPlaceholders = [appName: "Ubi Payment"]
-        applicationId "b2b.ubipayment.com"
+        manifestPlaceholders = [appName: "PaytCash"]
+        applicationId "paytcash.net"
         minSdk 26
         //noinspection OldTargetApi
         targetSdk 31
@@ -260,9 +260,14 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     //OTPView
     implementation 'com.yogeshpaliyal:speld:0.0.1-alpha03'
-
     implementation 'phonepe.intentsdk.android.release:IntentSDK:1.7.1'
 
+    //payumoney
+    implementation 'in.payu:payu-checkout-pro:1.8.5'
+    implementation 'in.payu:olamoney:1.1.0'
+    implementation 'in.payu:phonepe-intent:1.6.2'
+    implementation 'in.payu:payu-gpay:2.4.0'
+    implementation 'in.payu:native-otp-assist:1.2.2'
 
 }
 
