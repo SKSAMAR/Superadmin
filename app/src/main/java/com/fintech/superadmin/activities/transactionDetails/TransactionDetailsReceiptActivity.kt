@@ -1,4 +1,4 @@
-package com.fintech.superadmin.activities.aeps
+package com.fintech.superadmin.activities.transactionDetails
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -39,7 +39,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class AepsReceiptActivity : ComponentActivity() {
+class TransactionDetailsReceiptActivity : ComponentActivity() {
 
     var response: AePSDto? = null
     lateinit var transactionType: String
@@ -58,7 +58,7 @@ class AepsReceiptActivity : ComponentActivity() {
     }
 
     private fun initializers() {
-        user = AppDatabase.getAppDatabase(this@AepsReceiptActivity).userDao.regularUser
+        user = AppDatabase.getAppDatabase(this@TransactionDetailsReceiptActivity).userDao.regularUser
         response = intent.getSerializableExtra("response") as AePSDto?
         transactionType = intent.getStringExtra("transactionType") ?: ""
     }
@@ -581,7 +581,7 @@ class AepsReceiptActivity : ComponentActivity() {
                                 shape = RoundedCornerShape(topEnd = 85.sdp)
                             )
                             .clickable {
-                                scrollView.rootView.toBitmap(this@AepsReceiptActivity) {
+                                scrollView.rootView.toBitmap(this@TransactionDetailsReceiptActivity) {
                                     captureScreen(it)
                                 }
                             }
@@ -617,7 +617,7 @@ class AepsReceiptActivity : ComponentActivity() {
                                 shape = RoundedCornerShape(topStart = 85.sdp)
                             )
                             .clickable {
-                                scrollView.rootView.toBitmap(this@AepsReceiptActivity) {
+                                scrollView.rootView.toBitmap(this@TransactionDetailsReceiptActivity) {
                                     shareScreen(it)
                                 }
                             }

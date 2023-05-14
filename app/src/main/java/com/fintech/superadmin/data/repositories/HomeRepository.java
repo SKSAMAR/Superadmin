@@ -11,6 +11,9 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 
+import com.fintech.superadmin.activities.aeps.AepsReceiptActivity;
+import com.fintech.superadmin.data.network.AePSDto;
+import com.google.gson.Gson;
 import com.google.zxing.WriterException;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.FundDetailedAnalytic;
@@ -62,33 +65,32 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomeRepository {
 
-    APIServices  apiServices;
+    APIServices apiServices;
     public AppDatabase appDatabase;
 
     @Inject
-    public HomeRepository(@ApplicationContext Context context, APIServices  apiServices){
+    public HomeRepository(@ApplicationContext Context context, APIServices apiServices) {
         appDatabase = AppDatabase.getAppDatabase(context);
         this.apiServices = apiServices;
     }
 
 
-    public void checkOnBoardStatus(Context context, String merchant_code){
+    public void checkOnBoardStatus(Context context, String merchant_code) {
         DisplayMessageUtil.loading(context);
         apiServices.onBoardingStatus(merchant_code, "onboard_status")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res->{
-                    if(res.isStatus() && res.getResponse_code().equals(1)){
-                        DisplayMessageUtil.success(context,"OnBoarding Status\n"+res.getMessage());
+                .subscribe(res -> {
+                    if (res.isStatus() && res.getResponse_code().equals(1)) {
+                        DisplayMessageUtil.success(context, "OnBoarding Status\n" + res.getMessage());
+                    } else {
+                        DisplayMessageUtil.error(context, "OnBoarding Status\n" + res.getMessage());
                     }
-                    else{
-                        DisplayMessageUtil.error(context, "OnBoarding Status\n"+res.getMessage());
-                    }
-                }, err-> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+                }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
     }
 
 
-    public void getMyHistories(BringHistoryListener listener, String indexing, String fromDate, String toDate, String transType, String result, String id){
+    public void getMyHistories(BringHistoryListener listener, String indexing, String fromDate, String toDate, String transType, String result, String id) {
         User user = appDatabase.getUserDao().getRegularUser();
         apiServices.getHistory(user.getId(), user.getUserstatus(), indexing, fromDate, toDate, transType, result, id)
                 .subscribeOn(Schedulers.io())
@@ -116,7 +118,7 @@ public class HomeRepository {
                 });
     }
 
-    public void getOnBoardingStore(OnBoardingListeners listeners, String mobile, String owner, String owner_id, String partner_id, String merchant_code, String code){
+    public void getOnBoardingStore(OnBoardingListeners listeners, String mobile, String owner, String owner_id, String partner_id, String merchant_code, String code) {
 
         apiServices.onSuccessOnBoarding(mobile, owner, owner_id, partner_id, merchant_code, code)
                 .subscribeOn(Schedulers.io())
@@ -131,6 +133,7 @@ public class HomeRepository {
                     public void onNext(@NonNull String result) {
                         listeners.onBoardingResponse(result, "insertion");
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         listeners.onFailure(e.getMessage());
@@ -143,9 +146,9 @@ public class HomeRepository {
                 });
     }
 
-    public void getAnalyticsData(BringHistoryListener listener, String indexing, String fromDate, String toDate, String transType, String result, String id){
+    public void getAnalyticsData(BringHistoryListener listener, String indexing, String fromDate, String toDate, String transType, String result, String id) {
         User user = appDatabase.getUserDao().getRegularUser();
-        if(user != null){
+        if (user != null) {
             apiServices.getAllAnalytics(user.getId(), user.getUserstatus(), indexing, fromDate, toDate, transType, result, id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -157,7 +160,7 @@ public class HomeRepository {
 
                         @Override
                         public void onNext(@NonNull List<AnalyticsResponseModel> analyticsResponseModels) {
-                                listener.onAnalyticsBrought(analyticsResponseModels);
+                            listener.onAnalyticsBrought(analyticsResponseModels);
                         }
 
                         @Override
@@ -174,10 +177,9 @@ public class HomeRepository {
     }
 
 
-
-    public void fullDetailsOfAnalytics(Context context, String report_id, AnalyticsResponseModel model){
-        String user_id =  appDatabase.getUserDao().getRegularUser().getId();
-        if(report_id!=null && user_id!=null){
+    public void fullDetailsOfAnalytics(Context context, String report_id, AnalyticsResponseModel model) {
+        String user_id = appDatabase.getUserDao().getRegularUser().getId();
+        if (report_id != null && user_id != null) {
             MyAlertUtils.showProgressAlertDialog(context);
             apiServices.getMyAnalyticDetailed(report_id, user_id)
                     .subscribeOn(Schedulers.io())
@@ -191,81 +193,85 @@ public class HomeRepository {
                         @Override
                         public void onNext(@NonNull DetailedHistoryResponse detailedHistoryResponse) {
                             MyAlertUtils.dismissAlertDialog();
-                                if(detailedHistoryResponse.isStatus() && !detailedHistoryResponse.getResponse_code().equals(999)){
-                                    if(detailedHistoryResponse.getTrans_type()!=null){
-                                        if(detailedHistoryResponse.getTrans_type().equals("recharge")){
-                                            Intent intent = new Intent(context, RechargeDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("bbps")){
-                                            Intent intent = new Intent(context, BBPSDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("atm")){
-                                            Intent intent = new Intent(context, MicroAtmDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("dmt")){
-                                            Intent intent = new Intent(context, DMTDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("payout")){
-                                            Intent intent = new Intent(context, PayoutDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("fund")){
-                                            Intent intent = new Intent(context, FundDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("lic")){
-                                            Intent intent = new Intent(context, LICDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("2")){ //2 is for FASTag
-                                            Intent intent = new Intent(context, FASTagDetailedAnalytic.class);
-                                            intent.putExtra("detailed",detailedHistoryResponse);
-                                            intent.putExtra("regular",model);
-                                            context.startActivity(intent);
-                                        }
-                                        else if(detailedHistoryResponse.getTrans_type().equals("aeps")){
+                            if (detailedHistoryResponse.isStatus() && !detailedHistoryResponse.getResponse_code().equals(999)) {
+                                if (detailedHistoryResponse.getTrans_type() != null) {
+                                    if (detailedHistoryResponse.getTrans_type().equals("recharge")) {
+                                        Intent intent = new Intent(context, RechargeDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("bbps")) {
+                                        Intent intent = new Intent(context, BBPSDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("atm")) {
+                                        Intent intent = new Intent(context, MicroAtmDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("dmt")) {
+                                        Intent intent = new Intent(context, DMTDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("payout")) {
+                                        Intent intent = new Intent(context, PayoutDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("fund")) {
+                                        Intent intent = new Intent(context, FundDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("lic")) {
+                                        Intent intent = new Intent(context, LICDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("2")) { //2 is for FASTag
+                                        Intent intent = new Intent(context, FASTagDetailedAnalytic.class);
+                                        intent.putExtra("detailed", detailedHistoryResponse);
+                                        intent.putExtra("regular", model);
+                                        context.startActivity(intent);
+                                    } else if (detailedHistoryResponse.getTrans_type().equals("aeps")) {
+                                        if (detailedHistoryResponse.getType_response() != null) {
+                                            String res = detailedHistoryResponse.getData_response();
+                                            try {
 
-                                            if(detailedHistoryResponse.getType_response()!=null){
-                                                    Intent intent;
-                                                if(detailedHistoryResponse.getType_response().equals("ms")){
-                                                    intent = new Intent(context, MiniStatementAnalytic.class);
-                                                }else{
-                                                    intent = new Intent(context, AepsDetailedAnalytic.class);
-                                                }
-                                                intent.putExtra("detailed",detailedHistoryResponse);
-                                                intent.putExtra("regular",model);
+                                                Intent intent = new Intent(context, AepsReceiptActivity.class);
+                                                intent.putExtra("transactionType", detailedHistoryResponse.getType_response().trim());
+                                                intent.putExtra("response", new Gson().fromJson(res, AePSDto.class));
                                                 context.startActivity(intent);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
                                             }
+
+                                            /**
+                                             Intent intent;
+                                             if (detailedHistoryResponse.getType_response().equals("ms")) {
+                                             intent = new Intent(context, MiniStatementAnalytic.class);
+                                             } else {
+                                             intent = new Intent(context, AepsDetailedAnalytic.class);
+                                             }
+                                             intent.putExtra("detailed", detailedHistoryResponse);
+                                             intent.putExtra("regular", model);
+                                             context.startActivity(intent);
+                                             **/
                                         }
                                     }
-
-                                }else{
-                                     MyAlertUtils.showServerAlertDialog(context, detailedHistoryResponse.getMessage());
                                 }
+
+                            } else {
+                                MyAlertUtils.showServerAlertDialog(context, detailedHistoryResponse.getMessage());
+                            }
 
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                            MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                         }
 
                         @Override
@@ -277,91 +283,83 @@ public class HomeRepository {
         }
     }
 
-    public void updatePayDeerStatus(AnalyticsResponseModel model ,Context context, AnalyticOperationListener listener){
+    public void updatePayDeerStatus(AnalyticsResponseModel model, Context context, AnalyticOperationListener listener) {
         try {
 
-            if(model.getOp_id().equals("Recharge")) {
-                rechargePrepaidStatus(result ->  listener.resetAllData(), context, model.getTxn_id());
-            }
-            else if(model.getOperator_name().equals("DMT")){
+            if (model.getOp_id().equals("Recharge")) {
+                rechargePrepaidStatus(result -> listener.resetAllData(), context, model.getTxn_id());
+            } else if (model.getOperator_name().equals("DMT")) {
                 checkStatusCFPDHistory(result -> listener.resetAllData(), context, model.getTxn_id());
-            }
-            else if(model.getOperator_name().equals("Payout")){
-                cfPayoutCheckStatus(result ->  listener.resetAllData(), context, model.getTxn_id());
-            }
-            else if(model.getOperator_name().equals("AEPS")){
-                aEPSCheckStatus(result ->  listener.resetAllData(), context, model.getTxn_id());
-            }
-            else{
+            } else if (model.getOperator_name().equals("Payout")) {
+                cfPayoutCheckStatus(result -> listener.resetAllData(), context, model.getTxn_id());
+            } else if (model.getOperator_name().equals("AEPS")) {
+                aEPSCheckStatus(result -> listener.resetAllData(), context, model.getTxn_id());
+            } else {
                 updatePendingStatus(model.getTxn_id(), model.getPayment_type(), context, listener);
             }
 
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
     }
 
 
-    public void rechargePrepaidStatus(ResetListener listener, Context context, String reference){
+    public void rechargePrepaidStatus(ResetListener listener, Context context, String reference) {
         DisplayMessageUtil.loading(context);
         apiServices.prepaidRecharge_Status(reference, "check_status")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resp->{
+                .subscribe(resp -> {
                     DisplayMessageUtil.dismissDialog();
-                    if(resp.getResponse_code().equals(1)){
+                    if (resp.getResponse_code().equals(1)) {
                         DisplayMessageUtil.anotherDialogSuccess(context, resp.getMessage());
                         listener.resetRequiredData(true);
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(context, resp.getMessage());
                     }
-                }, error-> DisplayMessageUtil.error(context,error.getLocalizedMessage()));
+                }, error -> DisplayMessageUtil.error(context, error.getLocalizedMessage()));
     }
 
 
-
-    public void aEPSCheckStatus(ResetListener listener, Context context, String reference){
+    public void aEPSCheckStatus(ResetListener listener, Context context, String reference) {
         DisplayMessageUtil.loading(context);
         apiServices.aEPS_Status(reference, "check_aeps_status")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resp->{
+                .subscribe(resp -> {
                     DisplayMessageUtil.dismissDialog();
-                    if(resp.isStatus() && resp.getResponse_code().equals(1)){
+                    if (resp.isStatus() && resp.getResponse_code().equals(1)) {
                         DisplayMessageUtil.anotherDialogSuccess(context, resp.getMessage());
                         listener.resetRequiredData(true);
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(context, resp.getMessage());
                     }
-                }, error-> DisplayMessageUtil.error(context,error.getLocalizedMessage()));
+                }, error -> DisplayMessageUtil.error(context, error.getLocalizedMessage()));
     }
 
 
-    public void cfPayoutCheckStatus(ResetListener listener, Context context, String reference){
+    public void cfPayoutCheckStatus(ResetListener listener, Context context, String reference) {
         DisplayMessageUtil.loading(context);
         apiServices.cfPayoutStatus(reference, "check_status")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(resp->{
+                .subscribe(resp -> {
                     DisplayMessageUtil.dismissDialog();
-                    if(resp.getStatus() && resp.getResponse_code().equals(1)){
+                    if (resp.getStatus() && resp.getResponse_code().equals(1)) {
                         DisplayMessageUtil.anotherDialogSuccess(context, resp.getMessage());
                         listener.resetRequiredData(true);
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(context, resp.getMessage());
                     }
-                }, error-> DisplayMessageUtil.error(context,error.getLocalizedMessage()));
+                }, error -> DisplayMessageUtil.error(context, error.getLocalizedMessage()));
     }
 
 
-    public void checkStatusCFPDHistory(ResetListener my_reset, Context context, String reference_id){
-        if(Accessable.isAccessable()) {
+    public void checkStatusCFPDHistory(ResetListener my_reset, Context context, String reference_id) {
+        if (Accessable.isAccessable()) {
             DisplayMessageUtil.loading(context);
-            apiServices.cfpfmtCheckStatus(reference_id,"check_dmt_status")
+            apiServices.cfpfmtCheckStatus(reference_id, "check_dmt_status")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(resp -> {
@@ -377,8 +375,7 @@ public class HomeRepository {
     }
 
 
-
-    public void updatePendingStatus(String reference_id, String type, Context context, AnalyticOperationListener listener){
+    public void updatePendingStatus(String reference_id, String type, Context context, AnalyticOperationListener listener) {
         apiServices.getUpdatesOnTransaction(type, reference_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -391,18 +388,17 @@ public class HomeRepository {
                     @Override
                     public void onNext(@NonNull RegularResponse response) {
                         DisplayMessageUtil.dismissDialog();
-                        if(response.isStatus() && response.getResponse_code().equals(1)){
+                        if (response.isStatus() && response.getResponse_code().equals(1)) {
                             DisplayMessageUtil.anotherDialogSuccess(context, response.getMessage());
                             listener.resetAllData();
-                        }
-                        else{
+                        } else {
                             DisplayMessageUtil.error(context, response.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to "+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to " + e.getMessage());
                     }
 
                     @Override
@@ -412,12 +408,12 @@ public class HomeRepository {
                 });
     }
 
-    public LiveData<UserProfile> getUserProfileLiveData(){
+    public LiveData<UserProfile> getUserProfileLiveData() {
         return appDatabase.getUserProfileDao().getUserProfile();
     }
 
 
-    public void bringCardInfo(Context context, String type, String onDay, String fromDate, String toDate, BaseAnalyticListener listener){
+    public void bringCardInfo(Context context, String type, String onDay, String fromDate, String toDate, BaseAnalyticListener listener) {
         User user = appDatabase.getUserDao().getRegularUser();
         apiServices.getAnalyticCardData(user.getId(), user.getUserstatus(), user.getToken(), type, onDay)
                 .subscribeOn(Schedulers.io())
@@ -432,18 +428,17 @@ public class HomeRepository {
                     @Override
                     public void onNext(@NonNull AnalCardReport report) {
                         MyAlertUtils.dismissAlertDialog();
-                        if(report.isStatus() && report.getResponse_code()==1){
+                        if (report.isStatus() && report.getResponse_code() == 1) {
                             listener.getCardReport(report);
-                            bringGraphInfo(context, type, onDay,fromDate,toDate,listener);
-                        }
-                        else{
+                            bringGraphInfo(context, type, onDay, fromDate, toDate, listener);
+                        } else {
                             MyAlertUtils.showServerAlertDialog(context, report.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                     }
 
                     @Override
@@ -453,7 +448,7 @@ public class HomeRepository {
                 });
     }
 
-    public void bringGraphInfo(Context context, String type, String onDay, String fromDate, String toDate, BaseAnalyticListener listener){
+    public void bringGraphInfo(Context context, String type, String onDay, String fromDate, String toDate, BaseAnalyticListener listener) {
         User user = appDatabase.getUserDao().getRegularUser();
         apiServices.getAnalyticGraphData(user.getId(), user.getUserstatus(), user.getToken(), type, onDay, fromDate, toDate)
                 .subscribeOn(Schedulers.io())
@@ -473,7 +468,7 @@ public class HomeRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                     }
 
                     @Override
@@ -483,7 +478,7 @@ public class HomeRepository {
                 });
     }
 
-    public void getQRCodeResponse(Context context){
+    public void getQRCodeResponse(Context context) {
         apiServices.getQrCode("showqr")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -495,7 +490,7 @@ public class HomeRepository {
 
                     @Override
                     public void onNext(@NonNull SystemResponse<QRResponse> response) {
-                        if(response.getResponse_code().equals(1)){
+                        if (response.getResponse_code().equals(1)) {
                             MyAlertUtils.dismissAlertDialog();
                             QrScreenDesignBinding qrScreenDesignBinding = QrScreenDesignBinding.inflate(LayoutInflater.from(context));
                             AlertDialog alert = new AlertDialog.Builder(context).create();
@@ -526,7 +521,7 @@ public class HomeRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                     }
 
                     @Override

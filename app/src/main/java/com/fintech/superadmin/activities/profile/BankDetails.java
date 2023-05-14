@@ -36,7 +36,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class BankDetails extends AppCompatActivity {
+public class BankDetails extends BaseActivity {
 
     ActivityBankDetailsBinding binding;
     ProfileViewModel viewModel;
@@ -157,9 +157,9 @@ public class BankDetails extends AppCompatActivity {
 
         UserProfile userProfile = AppDatabase.getAppDatabase(BankDetails.this).getUserProfileDao().getRegularUserProfile();
         try {
-            binding.selectAadhar.setText(""+userProfile.AADHAAR);
-            binding.selectPan.setText(""+userProfile.PAN);
-            binding.selectPassbook.setText(""+userProfile.PASSBOOK);
+            binding.selectAadhar.setText(""+userProfile.ADHAAR_FRONT);
+            binding.selectPan.setText(""+userProfile.PAN_CARD);
+            binding.selectPassbook.setText(""+userProfile.BANKPASSBOOK_PIC);
         }catch (Exception e){
             e.printStackTrace();
         }

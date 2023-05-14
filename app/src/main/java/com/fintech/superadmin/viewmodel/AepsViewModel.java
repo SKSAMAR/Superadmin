@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.aeps.AepsReceiptActivity;
 import com.fintech.superadmin.activities.facilityresponses.AePSSuccessMiniStatementResponse;
 import com.fintech.superadmin.activities.facilityresponses.AePSSuccessResponseScreen;
 import com.fintech.superadmin.activities.facilityresponses.AepsFailureReponseScreen;
@@ -29,6 +30,7 @@ import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.AepsBankListener;
 import com.fintech.superadmin.listeners.BankNameListener;
 import com.fintech.superadmin.listeners.ResetListener;
+import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.ViewUtils;
 
@@ -181,6 +183,25 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
     }
 
 
+
+    public void startAEPSServices(Context context, String aadhar, String fingerData, String mobile, String transType, String longitude, String latitude, String amount, ResetListener listener) {
+        MyAlertUtils.showProgressAlertDialog(context);
+        aepsRepository.apiServices.AEPSResponse("APP", aadhar, fingerData.trim(), mobile, transType, selectedAepsBankModel.getIinno(), longitude, latitude, amount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        result -> {
+                            DisplayMessageUtil.dismissDialog();
+                            Intent intent = new Intent(context, AepsReceiptActivity.class);
+                            intent.putExtra("response", result);
+                            intent.putExtra("transactionType", transType.trim());
+                            listener.resetRequiredData(true);
+                            context.startActivity(intent);
+                        }, error -> DisplayMessageUtil.error(context, error.getLocalizedMessage())
+                );
+    }
+
+    /**
     public void startAEPSServices(Context context, String aadhar, String fingerData, String mobile, String transType, String longitude, String latitude, String amount, ResetListener listener) {
         MyAlertUtils.showProgressAlertDialog(context);
         aepsRepository.apiServices.AEPSResponse("APP", aadhar, fingerData.trim(), mobile, transType, selectedAepsBankModel.getIinno(), longitude, latitude, amount).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<AePSBalanceEnquiryResponse>() {
@@ -215,8 +236,6 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
             }
         });
     }
-
-
     public void startAepsResponseStatement(Context context, String aadhar, String fingerData, String mobile, String transType, String longitude, String latitude, String amount, ResetListener listener) {
         MyAlertUtils.showProgressAlertDialog(context);
         aepsRepository.apiServices.startAepsResponseMiniStatement("APP", aadhar, fingerData.trim(), mobile, transType, selectedAepsBankModel.getIinno(), longitude, latitude, amount).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<MiniStatementResponse>() {
@@ -250,6 +269,6 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
             }
         });
     }
-
+    **/
 
 }

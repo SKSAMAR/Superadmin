@@ -38,9 +38,9 @@ public class UserProfile {
     public String AC_HOLDER_NAME;
     public String AC_NUM;
     public String IFSC_CODE;
-    public String PASSBOOK;
-    public String AADHAAR;
-    public String PAN;
+    public String BANKPASSBOOK_PIC;
+    public String ADHAAR_FRONT;
+    public String PAN_CARD;
     public String DATE;
 
 
@@ -48,7 +48,7 @@ public class UserProfile {
 
     }
 
-    public UserProfile(String PROFILE_IMG, String MAIN_OWNER, String MAIN_OWNER_ID, String OWNER_ID, String USER_ID, String ALTERNATE_PHONE_NO, String DOB, String GENDER, String COUNTRY, String STATE, String FACEBOOK_URL, String TWITTER_URL, String LINKEDIN_URL, String INSTAGRAM_URL, String DRIBBLE_BOX_URL, String DROPBOX_URL, String GOOGLE_PLUS_URL, String PINTEREST_URL, String SKYPE_URL, String VINE_URL, String AADHAR_CARD_NO, String PAN_CARD_NO, String BANK, String b_NAME, String AC_HOLDER_NAME, String AC_NUM, String IFSC_CODE, String PASSBOOK, String AADHAAR, String PAN, String DATE) {
+    public UserProfile(String PROFILE_IMG, String MAIN_OWNER, String MAIN_OWNER_ID, String OWNER_ID, String USER_ID, String ALTERNATE_PHONE_NO, String DOB, String GENDER, String COUNTRY, String STATE, String FACEBOOK_URL, String TWITTER_URL, String LINKEDIN_URL, String INSTAGRAM_URL, String DRIBBLE_BOX_URL, String DROPBOX_URL, String GOOGLE_PLUS_URL, String PINTEREST_URL, String SKYPE_URL, String VINE_URL, String AADHAR_CARD_NO, String PAN_CARD_NO, String BANK, String b_NAME, String AC_HOLDER_NAME, String AC_NUM, String IFSC_CODE, String BANKPASSBOOK_PIC, String ADHAAR_FRONT, String PAN_CARD, String DATE) {
         this.PROFILE_IMG = PROFILE_IMG;
         this.MAIN_OWNER = MAIN_OWNER;
         this.MAIN_OWNER_ID = MAIN_OWNER_ID;
@@ -76,26 +76,26 @@ public class UserProfile {
         this.AC_HOLDER_NAME = AC_HOLDER_NAME;
         this.AC_NUM = AC_NUM;
         this.IFSC_CODE = IFSC_CODE;
-        this.PASSBOOK = PASSBOOK;
-        this.AADHAAR = AADHAAR;
-        this.PAN = PAN;
+        this.BANKPASSBOOK_PIC = BANKPASSBOOK_PIC;
+        this.ADHAAR_FRONT = ADHAAR_FRONT;
+        this.PAN_CARD = PAN_CARD;
         this.DATE = DATE;
     }
 
     public String getAADHAAR() {
-        return AADHAAR;
+        return ADHAAR_FRONT;
     }
 
-    public void setAADHAAR(String AADHAAR) {
-        this.AADHAAR = AADHAAR;
+    public void setAADHAAR(String ADHAAR_FRONT) {
+        this.ADHAAR_FRONT = ADHAAR_FRONT;
     }
 
     public String getPAN() {
-        return PAN;
+        return PAN_CARD;
     }
 
     public void setPAN(String PAN) {
-        this.PAN = PAN;
+        this.PAN_CARD = PAN;
     }
 
     public int getCURRENT_USER_ID() {
@@ -331,11 +331,11 @@ public class UserProfile {
     }
 
     public String getPASSBOOK() {
-        return PASSBOOK;
+        return BANKPASSBOOK_PIC;
     }
 
-    public void setPASSBOOK(String PASSBOOK) {
-        this.PASSBOOK = PASSBOOK;
+    public void setPASSBOOK(String BANKPASSBOOK_PIC) {
+        this.BANKPASSBOOK_PIC = BANKPASSBOOK_PIC;
     }
 
     public String getDATE() {

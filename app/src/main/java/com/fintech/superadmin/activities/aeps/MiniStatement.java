@@ -108,7 +108,7 @@ public class MiniStatement extends BaseFingerActivity implements BankNameListene
 
     private void startService(String fingerprint){
         if (Accessable.isAccessable()){
-            viewModel.startAepsResponseStatement(MiniStatement.this, Objects.requireNonNull(binding.aadhaarNumber.getText()).toString(),fingerprint, Objects.requireNonNull(binding.mobileNumber.getText()).toString(), "MS", UtilHolder.getLongitude(), UtilHolder.getLatitude(), "", MiniStatement.this);
+            //viewModel.startAepsResponseStatement(MiniStatement.this, Objects.requireNonNull(binding.aadhaarNumber.getText()).toString(),fingerprint, Objects.requireNonNull(binding.mobileNumber.getText()).toString(), "MS", UtilHolder.getLongitude(), UtilHolder.getLatitude(), "", MiniStatement.this);
         }
     }
 

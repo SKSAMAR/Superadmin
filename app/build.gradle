@@ -11,9 +11,9 @@ android {
     compileSdk 33
     defaultConfig {
 
-        manifestPlaceholders = [appName: "PaytCash"]
-        applicationId "paytcash.net"
-        minSdk 26
+        manifestPlaceholders = [appName: "UBI Payment"]
+        applicationId "b2b.ubipayment.com"
+        minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
         versionCode 2
