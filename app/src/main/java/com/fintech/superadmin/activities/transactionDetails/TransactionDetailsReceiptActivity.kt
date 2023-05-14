@@ -27,23 +27,27 @@ import coil.compose.AsyncImage
 import com.fintech.superadmin.R
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
+import com.fintech.superadmin.data.DetailedDto
 import com.fintech.superadmin.data.db.AppDatabase
 import com.fintech.superadmin.data.db.entities.User
-import com.fintech.superadmin.data.network.AePSDto
 import com.fintech.superadmin.data.network.MinistatementItem
+import com.fintech.superadmin.data.network.responses.AnalyticsResponseModel
+import com.fintech.superadmin.data_model.DynamicData
 import com.fintech.superadmin.ui.theme.YespayTheme
 import com.fintech.superadmin.util.captureScreen
 import com.fintech.superadmin.util.shareScreen
 import com.fintech.superadmin.util.toBitmap
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
+import org.json.JSONException
+import org.json.JSONObject
 
 class TransactionDetailsReceiptActivity : ComponentActivity() {
 
-    var response: AePSDto? = null
+    var response: DetailedDto? = null
     lateinit var transactionType: String
+    var regular: AnalyticsResponseModel? = null
     var user: User? = null
+    var dynamicList = ArrayList<DynamicData>()
+    var dynamicMap: HashMap<String, Any?> = HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +62,11 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
     }
 
     private fun initializers() {
-        user = AppDatabase.getAppDatabase(this@TransactionDetailsReceiptActivity).userDao.regularUser
-        response = intent.getSerializableExtra("response") as AePSDto?
-        transactionType = intent.getStringExtra("transactionType") ?: ""
+        user =
+            AppDatabase.getAppDatabase(this@TransactionDetailsReceiptActivity).userDao.regularUser
+        response = intent.getSerializableExtra("response") as DetailedDto?
+        regular = intent.getSerializableExtra("regular") as AnalyticsResponseModel?
+        initiateResponses()
     }
 
 
@@ -68,12 +74,12 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
     @Composable
     private fun Receipt() {
         var scrollView = LocalView.current
-        val currentTime = LocalTime.now()
-        val formatter = DateTimeFormatter.ofPattern("hh:mm:ss a")
-        val formattedTime = currentTime.format(formatter)
+//        val currentTime = LocalTime.now()
+//        val formatter = DateTimeFormatter.ofPattern("hh:mm:ss a")
+//        val formattedTime = currentTime.format(formatter)
         Column {
             TopAppBar(title = {
-                Text(text = "AePS Receipt")
+                Text(text = "${response?.reportTitle ?: regular?.transactionType ?: ""} ")
             }, navigationIcon = {
                 IconButton(onClick = {
                     onBackPressedDispatcher.onBackPressed()
@@ -105,7 +111,7 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = typeToName(),
+                                    text = response.reportTitle,
                                     fontWeight = FontWeight.SemiBold,
                                     fontSize = 16.textSdp,
                                     color = MaterialTheme.colors.onSurface.copy(.45f)
@@ -122,82 +128,40 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
                             ) {
                                 AsyncImage(
                                     modifier = Modifier.size(65.sdp),
-                                    model = if (response.status == true && response.responseCode == 1) R.drawable.aeps_check else R.drawable.aeps_cancel,
+                                    model = if (regular?.status?.contains(
+                                            "success",
+                                            true
+                                        ) == true
+                                    ) {
+                                        R.drawable.aeps_check
+                                    } else if (regular?.status?.contains(
+                                            "pending",
+                                            true
+                                        ) == true || regular?.status?.contains(
+                                            "process",
+                                            true
+                                        ) == true
+                                    ) {
+                                        R.drawable.clock
+                                    } else {
+                                        R.drawable.aeps_cancel
+                                    },
                                     contentDescription = "response"
                                 )
                             }
                         }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Text(
-                                    text = "Don't pay any charges for this transaction",
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontSize = 11.textSdp,
-                                    color = MaterialTheme.colors.primaryVariant
-                                )
-                            }
-                        }
 
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
+                        items(dynamicList) {
 
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.Top
+                            if (it.value != null && !it.value?.toString()
+                                    .isNullOrEmpty() && it.value?.toString()
+                                    ?.equals("") == false && it.value?.toString()
+                                    ?.equals("null") == false
                             ) {
-                                Text(
-                                    modifier = Modifier.weight(1f),
-                                    text = "Date: ",
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 10.textSdp
-                                )
-                                Text(
-                                    modifier = Modifier.weight(1f),
-                                    text = response.datetime?.toString()?.substringBefore(" ")
-                                        ?: LocalDate.now().toString(),
-                                    textAlign = TextAlign.End,
-                                    fontSize = 10.textSdp
-                                )
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        item {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.Top
-                            ) {
-                                Text(
-                                    modifier = Modifier.weight(1f),
-                                    text = "Time: ",
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 10.textSdp
-                                )
-                                Text(
-                                    modifier = Modifier.weight(1f),
-                                    text = response.datetime?.toString()?.substringAfter(" ")
-                                        ?: formattedTime,
-                                    textAlign = TextAlign.End,
-                                    fontSize = 10.textSdp
-                                )
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.name?.let {
-                            item {
+
+
+                                Spacer(modifier = Modifier.height(5.sdp))
+
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.Center,
@@ -205,19 +169,23 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
                                 ) {
                                     Text(
                                         modifier = Modifier.weight(1f),
-                                        text = "BC Name: ",
+                                        text = "${it.key ?: ""}: ",
                                         textAlign = TextAlign.Start,
                                         fontSize = 10.textSdp
                                     )
                                     Text(
                                         modifier = Modifier.weight(1f),
-                                        text = it.toString(),
+                                        text = it.value?.toString() ?: "",
                                         textAlign = TextAlign.End,
                                         fontSize = 10.textSdp
+
                                     )
                                 }
+
+                                Spacer(modifier = Modifier.height(5.sdp))
                             }
                         }
+
                         item {
                             Spacer(modifier = Modifier.height(5.sdp))
                         }
@@ -270,274 +238,6 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
 
                             }
 
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.mobile?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Mobile: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-                                    )
-                                }
-
-                            }
-
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.clientrefno?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Client Ref: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-
-                                    )
-                                }
-
-                            }
-
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.lastAadhar?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Aadhaar Number: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "**** **** $it",
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-
-                                    )
-                                }
-
-                            }
-
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.ackno?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Acknowledge Number: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-
-                                    )
-                                }
-
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.bankrrn?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Bank RRN: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-
-                                    )
-                                }
-
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.bankiin?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Bank IIN: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-
-                                    )
-                                }
-
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.amount?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Transaction Amount: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = stringResource(id = R.string.rupee_sign) + it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-                                    )
-                                }
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.balanceamount?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Account Balance",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = stringResource(id = R.string.rupee_sign) +it.toString(),
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-                                    )
-                                }
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.message?.let {
-                            item {
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.Center,
-                                    verticalAlignment = Alignment.Top
-                                ) {
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = "Transaction Status: ",
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 10.textSdp
-                                    )
-                                    Text(
-                                        modifier = Modifier.weight(1f),
-                                        text = it,
-                                        textAlign = TextAlign.End,
-                                        fontSize = 10.textSdp
-                                    )
-                                }
-                            }
-                        }
-                        item {
-                            Spacer(modifier = Modifier.height(5.sdp))
-                        }
-                        response.ministatement?.let { it ->
-                            if (it.isNotEmpty()) {
-                                item {
-                                    Spacer(modifier = Modifier.height(20.sdp))
-                                }
-                                item {
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.Center
-                                    ) {
-                                        Text(
-                                            text = "Mini Statement",
-                                            fontWeight = FontWeight.SemiBold,
-                                            fontSize = 11.textSdp,
-                                            color = MaterialTheme.colors.primaryVariant
-                                        )
-                                    }
-                                }
-                                item {
-                                    Spacer(modifier = Modifier.height(5.sdp))
-                                }
-                                items(it) { data ->
-                                    MiniStatementInfo(data)
-                                }
-                            }
                         }
 
                     }
@@ -648,137 +348,65 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun MiniStatementInfo(data: MinistatementItem?) {
-        data?.let {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Row(
-                    Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    Row(
-                        modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = "Date: ",
-                            textAlign = TextAlign.Start,
-                            fontSize = 10.textSdp
-                        )
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = it.date?.toString() ?: "",
-                            textAlign = TextAlign.End,
-                            fontSize = 10.textSdp
-                        )
+
+    private fun initiateResponses() {
+        response?.let { response ->
+
+            response.transData?.let { transData ->
+                try {
+                    val json = JSONObject(response.transData)
+                    val keys: Iterator<String> = json.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value: Any? = json.get(key)
+                        val setKey = key.trim().replace("_", " ").uppercase()
+                        if (!dynamicMap.contains(setKey) && !value?.toString().isNullOrEmpty()) {
+                            dynamicMap[setKey] = value
+                            dynamicList.add(DynamicData(setKey, value))
+                        }
+                        println("$key: $value")
                     }
-
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
+            }
 
-
-                Row(
-                    Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                ) {
-
-                    Row(
-                        modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = "Amount: ",
-                            textAlign = TextAlign.Start,
-                            fontSize = 10.textSdp
-                        )
-                        Text(
-
-                            modifier = Modifier.weight(1f),
-                            text = (stringResource(id = R.string.rupee_sign) + it.amount?.toString()),
-                            textAlign = TextAlign.End,
-                            fontSize = 10.textSdp
-                        )
+            response.reportData?.let { reportData ->
+                try {
+                    val json = JSONObject(response.reportData)
+                    val keys: Iterator<String> = json.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value: Any? = json.get(key)
+                        val setKey = key.trim().replace("_", " ").uppercase()
+                        if (!dynamicMap.contains(setKey) && !value?.toString().isNullOrEmpty()) {
+                            dynamicMap[setKey] = value
+                            dynamicList.add(DynamicData(setKey, value))
+                        }
+                        println("$key: $value")
                     }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
+            }
 
-
-
-                Row(
-                    Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    Row(
-                        modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = "Transaction Type: ",
-                            textAlign = TextAlign.Start,
-                            fontSize = 10.textSdp
-                        )
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = it.txnType?.toString() ?: "",
-                            textAlign = TextAlign.End,
-                            fontSize = 10.textSdp
-                        )
+            response.commData?.let { commData ->
+                try {
+                    val json = JSONObject(response.commData)
+                    val keys: Iterator<String> = json.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val value: Any? = json.get(key)
+                        val setKey = key.trim().replace("_", " ").uppercase()
+                        if (!dynamicMap.contains(setKey) && !value?.toString().isNullOrEmpty()) {
+                            dynamicMap[setKey] = value
+                            dynamicList.add(DynamicData(setKey, value))
+                        }
+                        println("$key: $value")
                     }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-
-                Row(
-                    Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                ) {
-                    Row(
-                        modifier = Modifier.weight(1f),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = "Narration: ",
-                            textAlign = TextAlign.Start,
-                            fontSize = 10.textSdp
-                        )
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = it.narration?.toString() ?: "",
-                            textAlign = TextAlign.End,
-                            fontSize = 10.textSdp
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.padding(vertical = 10.sdp))
-
-            }
-        }
-    }
-
-
-    private fun typeToName(): String {
-        when (transactionType.trim().lowercase()) {
-            "cw" -> {
-                return "CASH WITHDRAWAL"
-            }
-            "be" -> {
-                return "BALANCE ENQUIRY"
-            }
-            "m" -> {
-                return "AADHAAR PAY"
-            }
-            "ms" -> {
-                return "MINI STATEMENT"
-            }
-            else -> {
-                return ""
             }
         }
     }

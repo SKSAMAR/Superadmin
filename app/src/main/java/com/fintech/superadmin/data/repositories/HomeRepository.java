@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
@@ -12,7 +13,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
 
 import com.fintech.superadmin.activities.aeps.AepsReceiptActivity;
+import com.fintech.superadmin.activities.transactionDetails.TransactionDetailsReceiptActivity;
 import com.fintech.superadmin.data.network.AePSDto;
+import com.fintech.superadmin.util.NetworkUtil;
 import com.google.gson.Gson;
 import com.google.zxing.WriterException;
 import com.fintech.superadmin.R;
@@ -48,6 +51,8 @@ import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.ViewUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,108 +184,138 @@ public class HomeRepository {
 
     public void fullDetailsOfAnalytics(Context context, String report_id, AnalyticsResponseModel model) {
         String user_id = appDatabase.getUserDao().getRegularUser().getId();
-        if (report_id != null && user_id != null) {
-            MyAlertUtils.showProgressAlertDialog(context);
-            apiServices.getMyAnalyticDetailed(report_id, user_id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<DetailedHistoryResponse>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
 
-                        }
+        NetworkUtil.getNetworkResult(apiServices.getDetailedReport(report_id, user_id), context, result -> {
+            DisplayMessageUtil.dismissDialog();
+            String type = result.getReceivableData().getReportTitle().trim().toLowerCase();
+            if (type.equalsIgnoreCase("aeps") || type.equalsIgnoreCase("cw") || type.equalsIgnoreCase("be") || type.equalsIgnoreCase("ms") || type.equalsIgnoreCase("m")) {
+                try {
+                    Object res = result.getReceivableData().getApiResponse();
+                    Intent intent = new Intent(context, AepsReceiptActivity.class);
+                    intent.putExtra("transactionType", type.trim());
+                    intent.putExtra("response", new Gson().fromJson(res.toString(), AePSDto.class));
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                try {
+                    Intent intent = new Intent(context, TransactionDetailsReceiptActivity.class);
+                    intent.putExtra("transactionType", type.trim());
+                    intent.putExtra("response", result.getReceivableData());
+                    intent.putExtra("regular", model);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
-                        @Override
-                        public void onNext(@NonNull DetailedHistoryResponse detailedHistoryResponse) {
-                            MyAlertUtils.dismissAlertDialog();
-                            if (detailedHistoryResponse.isStatus() && !detailedHistoryResponse.getResponse_code().equals(999)) {
-                                if (detailedHistoryResponse.getTrans_type() != null) {
-                                    if (detailedHistoryResponse.getTrans_type().equals("recharge")) {
-                                        Intent intent = new Intent(context, RechargeDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("bbps")) {
-                                        Intent intent = new Intent(context, BBPSDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("atm")) {
-                                        Intent intent = new Intent(context, MicroAtmDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("dmt")) {
-                                        Intent intent = new Intent(context, DMTDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("payout")) {
-                                        Intent intent = new Intent(context, PayoutDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("fund")) {
-                                        Intent intent = new Intent(context, FundDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("lic")) {
-                                        Intent intent = new Intent(context, LICDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("2")) { //2 is for FASTag
-                                        Intent intent = new Intent(context, FASTagDetailedAnalytic.class);
-                                        intent.putExtra("detailed", detailedHistoryResponse);
-                                        intent.putExtra("regular", model);
-                                        context.startActivity(intent);
-                                    } else if (detailedHistoryResponse.getTrans_type().equals("aeps")) {
-                                        if (detailedHistoryResponse.getType_response() != null) {
-                                            String res = detailedHistoryResponse.getData_response();
-                                            try {
+        });
 
-                                                Intent intent = new Intent(context, AepsReceiptActivity.class);
-                                                intent.putExtra("transactionType", detailedHistoryResponse.getType_response().trim());
-                                                intent.putExtra("response", new Gson().fromJson(res, AePSDto.class));
-                                                context.startActivity(intent);
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-                                            /**
-                                             Intent intent;
-                                             if (detailedHistoryResponse.getType_response().equals("ms")) {
-                                             intent = new Intent(context, MiniStatementAnalytic.class);
-                                             } else {
-                                             intent = new Intent(context, AepsDetailedAnalytic.class);
-                                             }
-                                             intent.putExtra("detailed", detailedHistoryResponse);
-                                             intent.putExtra("regular", model);
-                                             context.startActivity(intent);
-                                             **/
-                                        }
-                                    }
-                                }
-
-                            } else {
-                                MyAlertUtils.showServerAlertDialog(context, detailedHistoryResponse.getMessage());
-                            }
-
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
-        }
+//        if (report_id != null && user_id != null) {
+//
+//            MyAlertUtils.showProgressAlertDialog(context);
+//            apiServices.getMyAnalyticDetailed(report_id, user_id)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new Observer<DetailedHistoryResponse>() {
+//                        @Override
+//                        public void onSubscribe(@NonNull Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onNext(@NonNull DetailedHistoryResponse detailedHistoryResponse) {
+//                            MyAlertUtils.dismissAlertDialog();
+//                            if (detailedHistoryResponse.isStatus() && !detailedHistoryResponse.getResponse_code().equals(999)) {
+//                                if (detailedHistoryResponse.getTrans_type() != null) {
+//                                    if (detailedHistoryResponse.getTrans_type().equals("recharge")) {
+//                                        Intent intent = new Intent(context, RechargeDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("bbps")) {
+//                                        Intent intent = new Intent(context, BBPSDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("atm")) {
+//                                        Intent intent = new Intent(context, MicroAtmDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("dmt")) {
+//                                        Intent intent = new Intent(context, DMTDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("payout")) {
+//                                        Intent intent = new Intent(context, PayoutDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("fund")) {
+//                                        Intent intent = new Intent(context, FundDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("lic")) {
+//                                        Intent intent = new Intent(context, LICDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("2")) { //2 is for FASTag
+//                                        Intent intent = new Intent(context, FASTagDetailedAnalytic.class);
+//                                        intent.putExtra("detailed", detailedHistoryResponse);
+//                                        intent.putExtra("regular", model);
+//                                        context.startActivity(intent);
+//                                    } else if (detailedHistoryResponse.getTrans_type().equals("aeps")) {
+//                                        if (detailedHistoryResponse.getType_response() != null) {
+//                                            String res = detailedHistoryResponse.getData_response();
+//                                            try {
+//
+//                                                Intent intent = new Intent(context, AepsReceiptActivity.class);
+//                                                intent.putExtra("transactionType", detailedHistoryResponse.getType_response().trim());
+//                                                intent.putExtra("response", new Gson().fromJson(res, AePSDto.class));
+//                                                context.startActivity(intent);
+//                                            } catch (Exception e) {
+//                                                e.printStackTrace();
+//                                            }
+//
+//                                            /**
+//                                             Intent intent;
+//                                             if (detailedHistoryResponse.getType_response().equals("ms")) {
+//                                             intent = new Intent(context, MiniStatementAnalytic.class);
+//                                             } else {
+//                                             intent = new Intent(context, AepsDetailedAnalytic.class);
+//                                             }
+//                                             intent.putExtra("detailed", detailedHistoryResponse);
+//                                             intent.putExtra("regular", model);
+//                                             context.startActivity(intent);
+//                                             **/
+//                                        }
+//                                    }
+//                                }
+//
+//                            } else {
+//                                MyAlertUtils.showServerAlertDialog(context, detailedHistoryResponse.getMessage());
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(@NonNull Throwable e) {
+//                            MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                    });
+//
+//        }
     }
 
     public void updatePayDeerStatus(AnalyticsResponseModel model, Context context, AnalyticOperationListener listener) {

@@ -1,6 +1,7 @@
 package com.fintech.superadmin.data.network;
 
 import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
+import com.fintech.superadmin.data.DetailedDto;
 import com.fintech.superadmin.data.DynamicROfferResponse;
 import com.fintech.superadmin.data.accountop.AccountOPeningResponse;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPResponse;
@@ -448,6 +449,12 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/complete_hist_detail.php")
     Observable<DetailedHistoryResponse> getMyAnalyticDetailed(@Field("report_id") String report_id, @Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/transactionDetails.php")
+    Observable<SystemResponse<DetailedDto>> getDetailedReport(@Field("report_id") String report_id, @Field("user_id") String user_id);
+
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/Recharge/PaySprint/recharge.php")
