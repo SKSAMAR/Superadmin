@@ -115,7 +115,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         appDatabase.getUserDao().getUser().observe(requireActivity(), currentUser -> {
             user = currentUser;
             try {
-                if (!user.getUserstatus().trim().equals("1")){
+                if (!currentUser.getUserstatus().trim().equals("5")){
                     setBToBMenus();
                 }else{
                     setBuToCMenus();
