@@ -217,7 +217,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         PaysprintApiCred api = (PaysprintApiCred) getIntent().getSerializableExtra("paySprintApi");
         PaysprintMerchantCred merchant = (PaysprintMerchantCred) getIntent().getSerializableExtra("paySprintMerchant");
 
-        Intent intent = new Intent(MicroAtmHome.this, HostActivity.class);
+        Intent intent = new Intent(MicroAtmHome.this, com.paysprint.microatmlib.activities.HostActivity.class);
         intent.putExtra("partnerId", merchant.getPARTNERID());
         intent.putExtra("apiKey", api.getJWTKEY());
         intent.putExtra("merchantCode", merchant.getMERCHANTCODE());
@@ -350,10 +350,16 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
             try {
                 list = new ArrayList<>();
                 if (result.trim().toLowerCase().contains("old")){
+                    if (atm == 0){
+                        atm = 1;
+                    }
                     list.add(new AtmDeviceModels("AF60S",1));
                     list.add(new AtmDeviceModels("MP-63",2));
                     onOldClick();
                 }else{
+                    if (atm == 0){
+                        atm = 3;
+                    }
                     list.add(new AtmDeviceModels("AF60S",3));
                     onNewClick();
                 }
