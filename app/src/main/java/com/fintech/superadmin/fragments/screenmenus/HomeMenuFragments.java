@@ -102,9 +102,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding.setHomeViewModel(viewModel);
         dialog = new ProgressDialog(requireActivity());
-        AppDatabase appDatabase = AppDatabase.getAppDatabase(requireActivity());
-
-        appDatabase.getUserDao().getUser().observe(requireActivity(), currentUser -> user = currentUser);
         return binding.getRoot();
     }
 
@@ -113,15 +110,27 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState == null) {
             setFragment(new SliderFragment(), binding.HomeSliderFragment);
-            setMenus();
         }
+        AppDatabase appDatabase = AppDatabase.getAppDatabase(requireActivity());
+        appDatabase.getUserDao().getUser().observe(requireActivity(), currentUser -> {
+            user = currentUser;
+            try {
+                if (!user.getUserstatus().trim().equals("1")){
+                    setBToBMenus();
+                }else{
+                    setBuToCMenus();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
         viewModel.bringTheNews(binding.everynews, binding.newsSection);
         binding.everynews.setSelected(true);
         newsModal();
     }
 
 
-    private void setMenus() {
+    private void setBToBMenus() {
 
 
         //Money Transfer
@@ -155,6 +164,68 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         aePSTransferList.add(new MenuModel(R.drawable.ic_aadharpay_new, "Aadhaar\nPay"));
         binding.aepsHomeMenu.setAdapter(new MenuAdapter(aePSTransferList, this));
         binding.aepsHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+        //Utilities
+        binding.utilitiesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> utilitiesList = new ArrayList<>();
+        utilitiesList.add(new MenuModel(R.drawable.bbps_menu, "BBPS", "BBPS"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "Book A\nCylinder", "Gas"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_water, "Water"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_electricity, "Electricity"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_postpaid, "Postpaid"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_boardband, "Broadband"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
+
+
+        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
+
+        binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
+        binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+        //Finances and Taxes
+        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> financesList = new ArrayList<>();
+        financesList.add(new MenuModel(R.drawable.emi, "EMI"));
+        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance", "Insurance"));
+        financesList.add(new MenuModel(R.drawable.ic_lic_bill, "LIC", "LIC"));
+        financesList.add(new MenuModel(R.drawable.ic_municipal, "Municipal", "MUNICIPALITY"));
+//        financesList.add(new MenuModel(R.drawable.loan_repayment, "Loan\nRepayment", "EMI PAYMENT"));
+//        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance Application"));
+//        financesList.add(new MenuModel(R.drawable.loan, "Loan Application"));
+
+        binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
+        binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+        binding.clickPayout.setOnClickListener(v -> {
+            viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
+        });
+
+    }
+
+    private void setBuToCMenus() {
+
+
+        //Money Transfer
+        binding.moneyTransferCard.setVisibility(View.GONE);
+
+        //Recharge
+        binding.firstHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> rechargeList = new ArrayList<>();
+        rechargeList.add(new MenuModel(R.drawable.ic_mobile_recharge, "Mobile\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.ic_fastag_recharge, "FASTag\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.ic_dth, "DTH"));
+        rechargeList.add(new MenuModel(R.drawable.ic_cable_tv, "Cable Tv", "Cable"));
+        binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
+        binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+        //AEPS Services
+        binding.aepsBannerImage.setVisibility(View.GONE);
 
 
         //Utilities
