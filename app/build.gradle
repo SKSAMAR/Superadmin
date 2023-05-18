@@ -6,13 +6,14 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
-
+def appType
 android {
     compileSdk 33
     defaultConfig {
 
-        manifestPlaceholders = [appName: "Paytoindia"]
-        applicationId "paytoindia.in"
+        manifestPlaceholders = [appName: "Metavisionpay"]
+        appType = "B2C"
+        applicationId "panel.metavisionpay.com"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
@@ -322,3 +323,26 @@ afterEvaluate {
     def appId = android.defaultConfig.applicationId
     downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php?mode=download", "logo.png")
 }
+
+def createInfoXml(String appType) {
+    def appId = android.defaultConfig.applicationId
+    def xmlContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+            "<resources>\n" +
+            "    <string name=\"app_type\">${appType}</string>\n" +
+            "    <string name=\"base_url_data\">${appId}</string>\n" +
+            "</resources>"
+
+    print(xmlContent)
+
+    def file = new File(projectDir, "src/main/res/values/info.xml")
+    if (file.exists()) {
+        file.delete()
+    }
+    file.withWriter { writer ->
+        writer.write(xmlContent)
+    }
+
+    return file
+}
+
+def infoFile = createInfoXml(appType)

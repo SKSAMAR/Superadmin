@@ -74,9 +74,6 @@ public class HomeActivity extends BaseActivity {
             if (user != null) {
                 homeBinding.toolbar.userFirstName.setText(user.getName() + "");
                 homeBinding.toolbar.partnerId.setText("" + user.getPartner_id());
-
-                homeMenuFragments.getAepsBalance().setText("AePS: " + user.getAepsbalance());
-                homeMenuFragments.getMainBalance().setText("Main: " + user.getMainbalance());
                 HomeViewModel.aepsBalance = "AePS: " + user.getAepsbalance();
                 HomeViewModel.mainBalance = "Main: " + user.getMainbalance();
 

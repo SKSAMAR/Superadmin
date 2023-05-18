@@ -105,6 +105,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         return binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -117,8 +118,11 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             try {
                 if (!currentUser.getUserstatus().trim().equals("5")){
                     setBToBMenus();
+                    binding.b2baepsBalText.setText("AePS: " + user.getAepsbalance());
+                    binding.b2bmainBalText.setText("Main: " + user.getMainbalance());
                 }else{
                     setBuToCMenus();
+                    binding.b2cmainBalText.setText("Main: " + user.getMainbalance());
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -201,9 +205,12 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
-        binding.clickPayout.setOnClickListener(v -> {
+        binding.b2bclickPayout.setOnClickListener(v -> {
             viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
         });
+
+        binding.b2BContainer.setVisibility(View.VISIBLE);
+        binding.b2cContainer.setVisibility(View.GONE);
 
     }
 
@@ -263,20 +270,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
-        binding.clickPayout.setOnClickListener(v -> {
-            viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
-        });
-
+        binding.b2BContainer.setVisibility(View.GONE);
+        binding.b2cContainer.setVisibility(View.VISIBLE);
     }
 
-
-    public TextView getMainBalance() {
-        return binding.mainBalText;
-    }
-
-    public TextView getAepsBalance() {
-        return binding.aepsBalText;
-    }
 
 
     //Should be not use this but the one which has been commented

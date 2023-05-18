@@ -2,9 +2,13 @@ package com.fintech.superadmin.di;
 
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.auth.data.AuthApi;
+import com.fintech.superadmin.data_model.AppType;
+import com.fintech.superadmin.util.Info;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -79,7 +83,6 @@ public class AppModule {
         return httpLoggingInterceptor;
     }
 
-
     @Singleton
     @Provides
     public static OkHttpClient getOkHttpClient(
@@ -127,6 +130,7 @@ public class AppModule {
                 token = Constant.getRegistrationToken();
             }
             Request request = chain.request().newBuilder()
+                    .addHeader("Apptype", context.getResources().getString(R.string.app_type))
                     .addHeader("token", token)
                     .addHeader("Device", Provider.getDeviceModel())
                     .addHeader("Ip", Provider.getLocalIpAddress())

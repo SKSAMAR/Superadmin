@@ -221,7 +221,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
 
 
     public TextView getAepsBalance() {
-        return binding.aepsBalText;
+        return binding.b2baepsBalText;
     }
 
 
@@ -250,7 +250,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
 
             }
             case "LIC": {
-                Snackbar.make(binding.aepsBalText, "Comming Soon", Snackbar.LENGTH_LONG).show();
+//                Snackbar.make(binding.aepsBalText, "Comming Soon", Snackbar.LENGTH_LONG).show();
 //                Intent intent = new Intent(requireActivity(), LicFetchBill.class);
 //                startActivity(intent);
                 break;
@@ -259,7 +259,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
             case "Train":
             case "Bus":
             case "Hotel": {
-                Snackbar.make(binding.aepsBalText, "Comming Soon", Snackbar.LENGTH_LONG).show();
+//                Snackbar.make(binding.aepsBalText, "Comming Soon", Snackbar.LENGTH_LONG).show();
                 break;
             }
 

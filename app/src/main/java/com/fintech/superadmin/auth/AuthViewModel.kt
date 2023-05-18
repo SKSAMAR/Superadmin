@@ -124,8 +124,9 @@ class  AuthViewModel
                 ), this
             ) {
                 if (it.status) {
+                    navController.popBackStack(AuthNav.LoginPage.route, false)
                     displaySuccessMessage("" + it.message)
-                    loginMerchant(context = navController.context)
+                    //loginMerchant(context = navController.context)
                 } else if (it.response_code == 202) {
                     navController.popBackStack(AuthNav.OTP.route, false)
                     displayFailureMessage("" + it.message)

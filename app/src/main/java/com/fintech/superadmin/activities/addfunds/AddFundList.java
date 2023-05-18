@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.activities.common.BaseActivity;
+import com.fintech.superadmin.data.db.AppDatabase;
+import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.databinding.ActivityAddFundListBinding;
 import com.fintech.superadmin.util.NetworkUtil;
@@ -56,15 +58,27 @@ public class AddFundList extends BaseActivity {
     }
 
     private void checkAvailability() {
+        User user = AppDatabase.getAppDatabase(this).getUserDao().getRegularUser();
+        if (user != null) {
+            try {
+                if (!user.getUserstatus().trim().equals("5")) {
+                    binding.walletExchangeLayout.setVisibility(View.VISIBLE);
+                } else {
+                    binding.walletExchangeLayout.setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         NetworkUtil.getNetworkResult(apiServices.getGatewayLists("getGatewayLists"), this, additionalGatewaysList::setValue);
         additionalGatewaysList.observe(this, result -> {
             try {
                 if (result != null && !result.isEmpty()) {
-                    for (String name: result) {
-                        if (name!=null && name.trim().equalsIgnoreCase("UPIGATEWAY")){
+                    for (String name : result) {
+                        if (name != null && name.trim().equalsIgnoreCase("UPIGATEWAY")) {
                             binding.upiGatewayApi.setVisibility(View.VISIBLE);
                         }
-                        if (name!=null && name.trim().equalsIgnoreCase("PAYU")){
+                        if (name != null && name.trim().equalsIgnoreCase("PAYU")) {
                             binding.payuGatewayApi.setVisibility(View.VISIBLE);
                         }
                     }
