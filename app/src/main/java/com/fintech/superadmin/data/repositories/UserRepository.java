@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.lifecycle.LiveData;
 
 import com.fintech.superadmin.activities.HomeActivity;
+import com.fintech.superadmin.activities.rebranded.RebrandedHome;
 import com.fintech.superadmin.constructor.Construct;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.AuthData;

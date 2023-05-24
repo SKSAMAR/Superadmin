@@ -18,7 +18,7 @@ open class BaseViewModel<T>: ViewModel() {
     var baseDialogVisible by mutableStateOf(false)
     var somethingChanged by mutableStateOf(false)
 
-    fun displayAnimation(anim: Int, message: String, time: Long){
+    fun displayAnimation(anim: Int, message: String, time: Long = 1000L){
         viewModelScope.launch(Dispatchers.IO){
             animationState.value = AnimationModel(anim, message)
             delay(time)

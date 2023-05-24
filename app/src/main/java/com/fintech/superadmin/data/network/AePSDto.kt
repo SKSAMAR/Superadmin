@@ -47,11 +47,15 @@ data class AePSDto(
     @field:SerializedName("amount")
     val amount: Any? = null,
 
-
     @field:SerializedName("mobile")
     val mobile: Any? = null,
 
-    ) : java.io.Serializable
+    val infoList: List<String?>? = emptyList(),
+) : java.io.Serializable {
+    override fun toString(): String {
+        return "AePSDto(responseCode=$responseCode, clientrefno=$clientrefno, balanceamount=$balanceamount, message=$message, ackno=$ackno, lastAadhar=$lastAadhar, datetime=$datetime, name=$name, ministatement=$ministatement, bankrrn=$bankrrn, bankiin=$bankiin, errorcode=$errorcode, status=$status, amount=$amount, mobile=$mobile)"
+    }
+}
 
 data class MinistatementItem(
 
@@ -66,4 +70,8 @@ data class MinistatementItem(
 
     @field:SerializedName("txnType")
     val txnType: Any? = null
-) : java.io.Serializable
+) : java.io.Serializable {
+    override fun toString(): String {
+        return "MinistatementItem(date=$date, amount=$amount, narration=$narration, txnType=$txnType)"
+    }
+}

@@ -127,4 +127,21 @@ public class MicroAtmModel implements Serializable {
         BankName = bankName;
     }
 
+    @Override
+    public String toString() {
+        return "MicroAtmModel{" +
+                "message='" + message + '\'' +
+                ", Response='" + Response + '\'' +
+                ", TransAmount='" + TransAmount + '\'' +
+                ", BalAmount='" + BalAmount + '\'' +
+                ", BalRrn='" + BalRrn + '\'' +
+                ", TxnId='" + TxnId + '\'' +
+                ", TransType='" + TransType + '\'' +
+                ", Type='" + Type + '\'' +
+                ", CardNumber='" + CardNumber + '\'' +
+                ", CardType='" + CardType + '\'' +
+                ", TerminalId='" + TerminalId + '\'' +
+                ", BankName='" + BankName + '\'' +
+                '}';
+    }
 }

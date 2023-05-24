@@ -7,13 +7,13 @@ plugins {
     id 'kotlin-parcelize'
 }
 def appType
+def sdkname
 android {
     compileSdk 33
     defaultConfig {
-
-        manifestPlaceholders = [appName: "Metavisionpay"]
+        manifestPlaceholders = [appName: "Paytoindia"]
         appType = "B2C"
-        applicationId "panel.metavisionpay.com"
+        applicationId "paytoindia.in"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
@@ -24,6 +24,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+
     }
 
     buildTypes {
@@ -50,8 +52,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.fintech.superadmin'
 
+    namespace 'com.fintech.superadmin'
     //enable view binding
     //noinspection DataBindingWithoutKapt
     android.buildFeatures.dataBinding = true
@@ -131,13 +133,6 @@ dependencies {
 
     //OnBoarding
     implementation files('libs/onboardinglib_live.v-1.0.11.aar')
-
-    implementation files('libs/microatmlib-release.aar')
-    implementation files('libs/fingpaymicroatm-release.aar')
-
-    //Micro-atm
-    implementation files('libs/PS_MATM_2.0.2.aar')
-    implementation files('libs/FINO_PS_MATM.aar')
 
 
     implementation 'de.greenrobot:greendao:2.1.0'
@@ -270,6 +265,16 @@ dependencies {
     implementation 'in.payu:payu-gpay:2.4.0'
     implementation 'in.payu:native-otp-assist:1.2.2'
 
+    //Cashfree
+    implementation 'com.cashfree.pg:api:2.0.6'
+
+    implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.2'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.1'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.7'
+    implementation 'com.squareup.okio:okio:3.2.0'
+
+    //implementation 'com.stripe:stripe-android:20.25.3'
+
 }
 
 repositories {
@@ -277,6 +282,54 @@ repositories {
 }
 
 
+static def fetchAarFileNames(appId) {
+    String responseString = ""
+    try {
+        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=ATM")
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
+        connection.setRequestMethod("GET")
+        connection.connect()
+
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
+            responseString = reader.readLine()
+            reader.close()
+        } else {
+            // Handle error response
+        }
+        connection.disconnect()
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+    return responseString
+}
+
+afterEvaluate {
+    def appId = android.defaultConfig.applicationId
+    def apiName = fetchAarFileNames(appId)
+    sdkname = apiName.trim().toLowerCase()
+    createInfoXml(appType, sdkname)
+
+    project.dependencies {
+        fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
+            print "file : ${file.name}\n"
+            implementation files(file)
+        }
+        fileTree(dir: "atms/${sdkname}", include: '*.jar').each { File file ->
+            print "file : ${file.name}\n"
+            implementation files(file)
+        }
+
+        fileTree(dir: "atms/${sdkname}", include: '*.txt').each { File file ->
+            implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
+            print("Bouncy Included")
+        }
+
+
+    }
+}
+
+/**
 task downloadAndExtract(type: Exec) {
     // Set the URL to download the ZIP file from
     def appId = android.defaultConfig.applicationId
@@ -305,7 +358,7 @@ task downloadAndExtract(type: Exec) {
     process.waitFor()
 }
 assemble.dependsOn downloadAndExtract
-
+**/
 
 def downloadImage(String url, String filename) {
 
@@ -323,17 +376,17 @@ afterEvaluate {
     def appId = android.defaultConfig.applicationId
     downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php?mode=download", "logo.png")
 }
+/****/
 
-def createInfoXml(String appType) {
+def createInfoXml(String appType, String sdkname) {
     def appId = android.defaultConfig.applicationId
     def xmlContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
             "<resources>\n" +
             "    <string name=\"app_type\">${appType}</string>\n" +
             "    <string name=\"base_url_data\">${appId}</string>\n" +
+            "    <string name=\"atmType\">${sdkname}</string>\n" +
             "</resources>"
-
     print(xmlContent)
-
     def file = new File(projectDir, "src/main/res/values/info.xml")
     if (file.exists()) {
         file.delete()
@@ -341,8 +394,5 @@ def createInfoXml(String appType) {
     file.withWriter { writer ->
         writer.write(xmlContent)
     }
-
     return file
 }
-
-def infoFile = createInfoXml(appType)

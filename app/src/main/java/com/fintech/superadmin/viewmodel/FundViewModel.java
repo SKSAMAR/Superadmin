@@ -17,6 +17,7 @@ import android.widget.ListView;
 import androidx.lifecycle.ViewModel;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.addfunds.CashFreeAddWalletActivity;
 import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.addfunds.PayActivity;
 //import com.fintech.superadmin.activities.addfunds.PayActivityWithPayTm;
@@ -82,6 +83,10 @@ public class FundViewModel extends ViewModel {
 
     public void onPayU(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), PayUMoney.class));
+    }
+
+    public void onWalletCashFree(View view){
+        view.getContext().startActivity(new Intent(view.getContext(), CashFreeAddWalletActivity.class));
     }
 
     public void onPayTmAddFund(View view) {

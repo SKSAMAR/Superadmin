@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
+import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.dto.AtmProceedableDto;
@@ -33,6 +35,7 @@ import com.fintech.superadmin.data.model.MicroAtmModel;
 import com.fintech.superadmin.databinding.ActivityMicroAtmHomeBinding;
 import com.fintech.superadmin.deer_listener.master_listener.BetterListener;
 import com.fintech.superadmin.listeners.TaskPerformer;
+import com.fintech.superadmin.util.Constants;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.LocationUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -40,8 +43,9 @@ import com.fintech.superadmin.util.PermissionUtil;
 import com.fintech.superadmin.util.UtilHolder;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.AtmViewModel;
-import com.paysprint.microatmlib.activities.HostActivity;
-import com.service.finopayment.Hostnew;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +60,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
     ActivityMicroAtmHomeBinding binding;
     User user;
     String txnType;
-    String amount= "0";
+    String amount = "0";
     Integer atm = 0;
     AtmViewModel viewModel;
     List<AtmDeviceModels> list = new ArrayList<>();
@@ -81,7 +85,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
     }
 
 
-    private void checkPermission(TaskPerformer performer){
+    private void checkPermission(TaskPerformer performer) {
         String[] permissions;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             permissions = new String[]{
@@ -91,39 +95,37 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
-        }
-        else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+        } else if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.R) {
+            permissions = new String[]{
+                    Manifest.permission.BLUETOOTH,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+            };
+        } else {
             permissions = new String[]{
                     Manifest.permission.BLUETOOTH,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
             };
         }
-        else{
-            permissions = new String[]{
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-            };
-        }
-        PermissionUtil.givePermissions(MicroAtmHome.this, permissions, res->{
-            if (res.equals(1)){
+
+
+        PermissionUtil.givePermissions(MicroAtmHome.this, permissions, res -> {
+            if (res.equals(1)) {
                 performer.yes();
-            }
-            else{
+            } else {
                 ViewUtils.showToast(getApplicationContext(), "Permission Denied for Bluetooth to use Micro ATM");
             }
         });
     }
 
 
-    private void onNewClick(){
+    private void onNewClick() {
 
         binding.btnSubmit.setOnClickListener(v -> {
-            if(atm==0){
+            if (atm == 0) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
-            }
-            else{
+            } else {
                 txnType = "ATMBE";
                 binding.edAmount.setText("");
                 amount = "0";
@@ -132,36 +134,33 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         });
 
         binding.btnWithdraw.setOnClickListener(v -> {
-            if(Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()){
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
             }
-            if(Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()){
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
-            }
-            else if(atm==0){
+            } else if (atm == 0) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
-            }
-            else{
+            } else {
                 double amountBal = Double.parseDouble(binding.edAmount.getText().toString());
-                if(amountBal<100){
+                if (amountBal < 100) {
                     DisplayMessageUtil.error(MicroAtmHome.this, "Minimum withdraw amount is 100");
                     return;
                 }
                 txnType = "ATMCW";
                 amount = binding.edAmount.getText().toString();
-                checkPermission(()-> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
+                checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
             }
         });
         binding.selectedBankName.setOnClickListener(v -> onSpinnerClick());
     }
 
-    private void onOldClick(){
+    private void onOldClick() {
 
         binding.btnSubmit.setOnClickListener(v -> {
-            if(atm==0){
+            if (atm == 0) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
-            }
-            else{
+            } else {
                 txnType = "BE";
                 amount = "0";
                 checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
@@ -169,55 +168,114 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         });
 
         binding.btnWithdraw.setOnClickListener(v -> {
-            if(Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()){
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
             }
-            if(Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()){
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
-            }
-            else if(atm==0){
+            } else if (atm == 0) {
                 DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
-            }
-            else{
+            } else {
                 double amountBal = Double.parseDouble(binding.edAmount.getText().toString());
-                if(amountBal<100){
+                if (amountBal < 100) {
                     DisplayMessageUtil.error(MicroAtmHome.this, "Minimum withdraw amount is 100");
                     return;
                 }
                 txnType = "CW";
                 amount = binding.edAmount.getText().toString();
-                checkPermission(()-> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
+                checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
             }
         });
         binding.selectedBankName.setOnClickListener(v -> onSpinnerClick());
     }
 
-    private void initiateNewAtmTransaction(AtmProceedableDto dto){
+    private void onFingPayClick() {
+
+        binding.btnSubmit.setOnClickListener(v -> {
+            if (atm == 0) {
+                DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
+            } else {
+                txnType = "ATMBE";
+                binding.edAmount.setText("");
+                amount = "0";
+                checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
+            }
+        });
+
+        binding.btnWithdraw.setOnClickListener(v -> {
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
+                DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
+            }
+            if (Objects.requireNonNull(binding.edAmount.getText()).toString().isEmpty()) {
+                DisplayMessageUtil.error(MicroAtmHome.this, "Enter a valid amount");
+            } else if (atm == 0) {
+                DisplayMessageUtil.error(MicroAtmHome.this, "Select your ATM Device");
+            } else {
+                double amountBal = Double.parseDouble(binding.edAmount.getText().toString());
+                if (amountBal < 100) {
+                    DisplayMessageUtil.error(MicroAtmHome.this, "Minimum withdraw amount is 100");
+                    return;
+                }
+                txnType = "ATMCW";
+                amount = binding.edAmount.getText().toString();
+                checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
+            }
+        });
+        binding.selectedBankName.setOnClickListener(v -> onSpinnerClick());
+    }
+
+    private void initiateNewAtmTransaction(AtmProceedableDto dto) {
 
         PaysprintMerchantCred merchant = (PaysprintMerchantCred) getIntent().getSerializableExtra("paySprintMerchant");
         PaysprintApiCred paysprintApiCred = (PaysprintApiCred) getIntent().getSerializableExtra("paySprintApi");
-        Intent intent = new Intent(getApplicationContext(), Hostnew.class);
-        intent.putExtra("partnerId",paysprintApiCred.getPARTNERID());
-        intent.putExtra("apiKey",paysprintApiCred.getJWTKEY());
-        intent.putExtra("transactionType",txnType);   // ATMBE  or  ATMCW
-        intent.putExtra("amount",amount);
-        intent.putExtra("merchantCode",merchant.getMERCHANTCODE()); //merchantCode
-        intent.putExtra("remarks", "Test Transaction") ;
-        intent.putExtra("mobileNumber", user.getMobile()) ;  // customer mobile number
-        intent.putExtra("referenceNumber", dto.getReference()) ;  // txn unqiue referenceNumber number
+        Intent intent;
+        try {
+            intent = new Intent(getApplicationContext(), Class.forName("com.service.finopayment.Hostnew"));
+        } catch (ClassNotFoundException e) {
+            DisplayMessageUtil.error(MicroAtmHome.this, "" + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        intent.putExtra("partnerId", paysprintApiCred.getPARTNERID());
+        intent.putExtra("apiKey", paysprintApiCred.getJWTKEY());
+        intent.putExtra("transactionType", txnType);   // ATMBE  or  ATMCW
+        intent.putExtra("amount", amount);
+        intent.putExtra("merchantCode", merchant.getMERCHANTCODE()); //merchantCode
+        intent.putExtra("remarks", "Test Transaction");
+        intent.putExtra("mobileNumber", user.getMobile());  // customer mobile number
+        intent.putExtra("referenceNumber", dto.getReference());  // txn unqiue referenceNumber number
         intent.putExtra("latitude", UtilHolder.getLatitude());
         intent.putExtra("longitude", UtilHolder.getLongitude());
         intent.putExtra("subMerchantId", merchant.getMERCHANTCODE());  //merchantCode
         intent.putExtra("deviceManufacturerId", atm.toString());
+
+        Bundle extras = intent.getExtras();
+        JSONObject jsonObject = new JSONObject();
+        if (extras != null) {
+            for (String key : extras.keySet()) {
+                try {
+                    jsonObject.put(key, extras.get(key));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println(jsonObject.toString());
+        Log.d("SEND_RESPONSE", jsonObject.toString());
         startActivityForResult(intent, 999);
     }
 
-    private void initiateOldTransaction(AtmProceedableDto dto){
+    private void initiateOldTransaction(AtmProceedableDto dto) {
 
         PaysprintApiCred api = (PaysprintApiCred) getIntent().getSerializableExtra("paySprintApi");
         PaysprintMerchantCred merchant = (PaysprintMerchantCred) getIntent().getSerializableExtra("paySprintMerchant");
 
-        Intent intent = new Intent(MicroAtmHome.this, com.paysprint.microatmlib.activities.HostActivity.class);
+        Intent intent;
+        try {
+            intent = new Intent(MicroAtmHome.this, Class.forName("com.paysprint.microatmlib.activities.HostActivity"));
+        } catch (ClassNotFoundException e) {
+            DisplayMessageUtil.anotherDialogFailure(this, "" + e.getMessage());
+            throw new RuntimeException(e);
+        }
         intent.putExtra("partnerId", merchant.getPARTNERID());
         intent.putExtra("apiKey", api.getJWTKEY());
         intent.putExtra("merchantCode", merchant.getMERCHANTCODE());
@@ -247,16 +305,15 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode ==999){
-            if(resultCode == Activity.RESULT_OK){
-                if(data != null){
+        if (requestCode == 999) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
 
                     boolean status = data.getBooleanExtra("status", false);
                     int response = data.getIntExtra("response", 0);
                     String message = data.getStringExtra("message");
-                    if(status){
+                    if (status) {
 
                         String dataResponse = data.getStringExtra("data:response");
                         String dataTransAmount = data.getStringExtra("data:transAmount");
@@ -269,21 +326,45 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
                         String dataCardType = data.getStringExtra("data:cardType");
                         String dataTerminalId = data.getStringExtra("data:terminalId");
                         String dataBankName = data.getStringExtra("data:bankName");
-                        MicroAtmModel microAtmModel = new MicroAtmModel(message, String.valueOf(dataResponse),dataTransAmount,dataBalAmount,dataBalRrn,dataTxnId,dataTransType,dataType,dataCardNumber,dataCardType,dataTerminalId,dataBankName);
+                        MicroAtmModel microAtmModel = new MicroAtmModel(message, String.valueOf(dataResponse), dataTransAmount, dataBalAmount, dataBalRrn, dataTxnId, dataTransType, dataType, dataCardNumber, dataCardType, dataTerminalId, dataBankName);
                         Intent intent = new Intent(MicroAtmHome.this, MicroAtmResponse.class);
                         intent.putExtra("atmResponse", microAtmModel);
+
+                        Log.d("ATM_RESPONSE", microAtmModel.toString());
+
                         startActivity(intent);
-                    }else{
-                        DisplayMessageUtil.anotherDialogFailure(MicroAtmHome.this, ""+message);
+                    } else {
+                        DisplayMessageUtil.anotherDialogFailure(MicroAtmHome.this, "" + message);
                     }
-                }
-                else {
-                    DisplayMessageUtil.anotherDialogFailure(MicroAtmHome.this, ""+data.toString());
+                } else {
+                    DisplayMessageUtil.anotherDialogFailure(MicroAtmHome.this, "" + data.toString());
                 }
             }
 
 
+        }
+        if (requestCode == 998) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean status = data.getBooleanExtra(Constants.TRANS_STATUS, false);
+                String response = data.getStringExtra(Constants.MESSAGE);
+                double transAmount = data.getDoubleExtra(Constants.TRANS_AMOUNT, 0.0);
+                double balAmount = data.getDoubleExtra(Constants.BALANCE_AMOUNT, 0.0);
+                String bankRrn = data.getStringExtra(Constants.RRN);
+                String transType = data.getStringExtra(Constants.TRANS_TYPE);
+                int type = data.getIntExtra(Constants.TYPE, Constants.CASH_WITHDRAWAL);
+                String cardNum = data.getStringExtra(Constants.CARD_NUM);
+                String rrn = data.getStringExtra(Constants.RRN);
+                String Ttype = data.getStringExtra(Constants.TRANS_TYPE);
+                String bankName = data.getStringExtra(Constants.BANK_NAME);
+                String cardType = data.getStringExtra(Constants.CARD_TYPE);
+                String terminalId = data.getStringExtra(Constants.TERMINAL_ID);
+                String fpId = data.getStringExtra(Constants.FP_TRANS_ID);
+                String transId = data.getStringExtra(Constants.TXN_ID);
 
+                MicroAtmModel microAtmModel = new MicroAtmModel(response, String.valueOf(response), String.valueOf(transAmount), String.valueOf(balAmount), bankRrn, transId, transType, Ttype, cardNum, cardType, terminalId, bankName);
+                Intent intent = new Intent(MicroAtmHome.this, MicroAtmResponse.class);
+                intent.putExtra("atmResponse", microAtmModel);
+            }
         }
 
 
@@ -291,7 +372,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
 
 
     @SuppressLint("SetTextI18n")
-    public void onSpinnerClick(){
+    public void onSpinnerClick() {
         Dialog dialog = new Dialog(MicroAtmHome.this);
         dialog.setContentView(R.layout.my_spinner_row);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -301,7 +382,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         EditText searchOperator = dialog.findViewById(R.id.SearchOperator);
         ListView myOperatorListView = dialog.findViewById(R.id.MyOperatorListView);
         head_title_section.setText("Micro ATM Device");
-        ArrayAdapter<AtmDeviceModels> adapter = new ArrayAdapter<>(MicroAtmHome.this, android.R.layout.simple_list_item_1,list);
+        ArrayAdapter<AtmDeviceModels> adapter = new ArrayAdapter<>(MicroAtmHome.this, android.R.layout.simple_list_item_1, list);
         myOperatorListView.setAdapter(adapter);
         searchOperator.addTextChangedListener(new TextWatcher() {
             @Override
@@ -327,15 +408,66 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         });
     }
 
+    void initiateFingpayTransaction(AtmProceedableDto data){
+        MerchantCred merchantCred = (MerchantCred) getIntent().getParcelableExtra("merchantCred");
+        int tType;
+        if (txnType.trim().equals("ATMBE")) {
+            tType = 4;
+        } else {
+            tType = 2;
+        }
+
+        Intent intent;
+        try {
+            intent = new Intent(MicroAtmHome.this, Class.forName("com.fingpay.microatmsdk.MicroAtmLoginScreen"));
+            intent.putExtra(Constants.MERCHANT_USERID, merchantCred.getMERCHANTCODE());
+            // this MERCHANT_USERID be given by FingPay depending on the merchant, only that value need to sent from App to SDK
+
+            // this MERCHANT_USERID be given by FingPay depending on the merchant, only that value need to sent from App to SDK
+            intent.putExtra(Constants.MERCHANT_PASSWORD, merchantCred.getMERCHANTCODE());
+            // this MERCHANT_PASSWORD be given by FingPay depending on the merchant, only that value need to sent from App to SDK
+
+            // this MERCHANT_PASSWORD be given by FingPay depending on the merchant, only that value need to sent from App to SDK
+            intent.putExtra(Constants.AMOUNT, amount);
+            intent.putExtra(Constants.REMARKS, "transaction");
+            intent.putExtra(Constants.MOBILE_NUMBER, merchantCred.getMOBILE());
+            // send a valid 10 digit mobile number from the app to SDK
+            // send a valid 10 digit mobile number from the app to SDK
+            intent.putExtra(Constants.AMOUNT_EDITABLE, false);
+            // send true if Amount can be edited in the SDK or send false then Amount cant be edited in the SDK
+            intent.putExtra(Constants.TXN_ID, data.getReference());
+            // this SUPER_MERCHANT_ID be given by FingPay to you, only that value need to sent from App to SDK
+            intent.putExtra(Constants.IMEI, viewModel.getImei(MicroAtmHome.this));
+            // some dummy value is given in TXN_ID for now but some proper value should come from App to SDK
+            intent.putExtra(Constants.SUPER_MERCHANTID, merchantCred.getSUPERMERCHANT());
+            intent.putExtra(Constants.LATITUDE, Double.valueOf(UtilHolder.getLatitude()));
+            intent.putExtra(Constants.LONGITUDE, Double.valueOf(UtilHolder.getLongitude()));
+            intent.putExtra(Constants.TYPE, tType);
+            intent.putExtra(Constants.MICROATM_MANUFACTURER, Constants.MoreFun);
+
+            Log.d("FINGMATM", "Send Response " + intent.getExtras().toString());
+            startActivityForResult(intent, 998);
+        } catch (ClassNotFoundException e) {
+            DisplayMessageUtil.error(this, e.getLocalizedMessage());
+        }
+
+    }
 
 
     @Override
     public void onAchieved(AtmProceedableDto data) {
-        if (data.getAtmType() !=null && data.getAtmType().trim().equalsIgnoreCase("new")){
-            initiateNewAtmTransaction(data);
-        }
-        else if (data.getAtmType() !=null && data.getAtmType().trim().equalsIgnoreCase("old")){
-            initiateOldTransaction(data);
+
+        String atmType = getResources().getString(R.string.atmType).trim().toLowerCase();
+        switch (atmType) {
+            case "paysprintnew":
+                initiateNewAtmTransaction(data);
+                break;
+            case "paysprintold":
+                initiateOldTransaction(data);
+                break;
+            case "fingpay":
+                initiateFingpayTransaction(data);
+              break;
         }
     }
 
@@ -345,33 +477,39 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
     }
 
 
-    private void observeAtmState(){
-        viewModel.atmType.observe(this, result->{
-            try {
-                list = new ArrayList<>();
-                if (result.trim().toLowerCase().contains("old")){
-                    if (atm == 0){
-                        atm = 1;
-                    }
-                    list.add(new AtmDeviceModels("AF60S",1));
-                    list.add(new AtmDeviceModels("MP-63",2));
-                    onOldClick();
-                }else{
-                    if (atm == 0){
-                        atm = 3;
-                    }
-                    list.add(new AtmDeviceModels("AF60S",3));
-                    onNewClick();
+    private void observeAtmState() {
+
+        try {
+            String result = getString(R.string.atmType).trim().toLowerCase();
+            list = new ArrayList<>();
+            if (result.trim().toLowerCase().contains("paysprintold")) {
+                if (atm == 0) {
+                    atm = 1;
                 }
-            }catch (Exception e){
-                e.printStackTrace();
+                list.add(new AtmDeviceModels("AF60S", 1));
+                list.add(new AtmDeviceModels("MP-63", 2));
+                onOldClick();
+            } else if (result.trim().toLowerCase().contains("paysprintnew")) {
+                if (atm == 0) {
+                    atm = 3;
+                }
+                list.add(new AtmDeviceModels("AF60S", 3));
+                onNewClick();
+            } else if (result.trim().toLowerCase().contains("fingpay")) {
+                if (atm == 0) {
+                    atm = 2;
+                }
+                list.add(new AtmDeviceModels("ATM-Device", 2));
+                onFingPayClick();
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
 
-class AtmDeviceModels{
+class AtmDeviceModels {
     String name;
     Integer id;
 

@@ -21,7 +21,7 @@ import com.fintech.superadmin.clean.presentation.auth.component.AuthScreen
 import com.fintech.superadmin.clean.presentation.auth.AuthViewModel
 import com.fintech.superadmin.clean.presentation.auth.component.AuthPassword
 import com.fintech.superadmin.clean.presentation.navigation.AuthNavigation
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +32,7 @@ class AuthActivity : BaseComponentAct() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            YespayTheme(darkTheme = false) {
+            SuperAdminTheme(darkTheme = false) {
                 AuthHomeScreen()
             }
         }

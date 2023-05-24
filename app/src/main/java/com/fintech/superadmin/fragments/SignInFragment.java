@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.HomeActivity;
+import com.fintech.superadmin.activities.rebranded.RebrandedHome;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.databinding.FragmentSignInBinding;

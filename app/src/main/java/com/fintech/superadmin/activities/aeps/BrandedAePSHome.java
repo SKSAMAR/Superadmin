@@ -38,6 +38,7 @@ import com.fintech.superadmin.databinding.WActivityDashboardAepsBinding;
 import com.fintech.superadmin.listeners.ResetListener;
 import com.fintech.superadmin.util.AadhaarVerify;
 import com.fintech.superadmin.util.AuthorizedSingleton;
+import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.StartGettingLocation;
 import com.fintech.superadmin.util.UtilHolder;
 import com.fintech.superadmin.viewmodel.AepsViewModel;
@@ -50,6 +51,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class BrandedAePSHome extends BaseActivity implements View.OnClickListener, RecyclerViewClickListener, ResetListener {
 
+    String apiType = "";
     private String txnType = "BE";
     private String IciciPidData;
     private Context context = this;
@@ -63,16 +65,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
     WActivityDashboardAepsBinding binding;
 
     public BrandedAePSHome() {
-
-        topBankList = new ArrayList<>();
-        topBankList.add(new AEPSBanksModel("85", "State Bank of India", "607094", "1", R.drawable.sbi));
-        topBankList.add(new AEPSBanksModel("14", "Bank of India", "508505", "1", R.drawable.boi));
-        topBankList.add(new AEPSBanksModel("94", "Union Bank of India", "607161", "1", R.drawable.unionbank));
-        topBankList.add(new AEPSBanksModel("65", "Punjab National Bank", "607027", "1", R.drawable.punjabnationalbank));
-        topBankList.add(new AEPSBanksModel("40", "India Post Payment Bank", "608314", "1", R.drawable.indiapostpaymentbank));
-        topBankList.add(new AEPSBanksModel("35", "HDFC Bank", "607152", "1", R.drawable.hdfc));
-        topBankList.add(new AEPSBanksModel("41", "Indian bank", "607105", "1", R.drawable.indianbank));
-        topBankList.add(new AEPSBanksModel("18", "Baroda Uttar Pradesh Gramin Bank", "606993", "1", R.drawable.barodaup));
+        Constant.toReset = false;
         setPidData();
     }
 
@@ -83,6 +76,36 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     void inIt() {
+
+        try {
+            apiType = getIntent().getStringExtra("apiName");
+            if (apiType.trim().equalsIgnoreCase("fingPay")) {
+                topBankList = new ArrayList<>();
+                topBankList.add(new AEPSBanksModel("5", "State Bank of India", "607094", "1", R.drawable.sbi));
+                topBankList.add(new AEPSBanksModel("2", "Bank of India", "508505", "1", R.drawable.boi));
+                topBankList.add(new AEPSBanksModel("27", "Union Bank of India", "607161", "1", R.drawable.unionbank));
+                topBankList.add(new AEPSBanksModel("10", "Punjab National Bank", "607027", "1", R.drawable.punjabnationalbank));
+                topBankList.add(new AEPSBanksModel("40", "India Post Payment Bank", "608314", "1", R.drawable.indiapostpaymentbank));
+                topBankList.add(new AEPSBanksModel("28", "HDFC Bank", "607152", "1", R.drawable.hdfc));
+                topBankList.add(new AEPSBanksModel("8", "Indian bank", "607105", "1", R.drawable.indianbank));
+                topBankList.add(new AEPSBanksModel("34", "Baroda Uttar Pradesh Gramin Bank", "606993", "1", R.drawable.barodaup));
+
+            } else {
+                topBankList = new ArrayList<>();
+                topBankList.add(new AEPSBanksModel("85", "State Bank of India", "607094", "1", R.drawable.sbi));
+                topBankList.add(new AEPSBanksModel("14", "Bank of India", "508505", "1", R.drawable.boi));
+                topBankList.add(new AEPSBanksModel("94", "Union Bank of India", "607161", "1", R.drawable.unionbank));
+                topBankList.add(new AEPSBanksModel("65", "Punjab National Bank", "607027", "1", R.drawable.punjabnationalbank));
+                topBankList.add(new AEPSBanksModel("40", "India Post Payment Bank", "608314", "1", R.drawable.indiapostpaymentbank));
+                topBankList.add(new AEPSBanksModel("35", "HDFC Bank", "607152", "1", R.drawable.hdfc));
+                topBankList.add(new AEPSBanksModel("41", "Indian bank", "607105", "1", R.drawable.indianbank));
+                topBankList.add(new AEPSBanksModel("18", "Baroda Uttar Pradesh Gramin Bank", "606993", "1", R.drawable.barodaup));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         binding.btnColor1.setOnClickListener(this);
         binding.btnColor2.setOnClickListener(this);
         binding.btnColor3.setOnClickListener(this);
@@ -134,7 +157,6 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("AePS");
-
         StartGettingLocation.setAllTheLocations(BrandedAePSHome.this);
         this.inIt();
         this.setOnClick();
@@ -338,7 +360,6 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
     }
 
 
-
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     private void deviceSelection() {
         String[] deviceType = new String[]{"Mantra", "Morpho", "Tatvik", "Startek", "Secugen", "Evolute", "NextBio"};
@@ -355,6 +376,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
                 binding.imgDevice.setImageResource(R.drawable.w_moprhoimages);
             } else if (deviceType[which].equalsIgnoreCase("Tatvik")) {
                 binding.imgDevice.setImageResource(R.drawable.w_tatvikimagesl);
+                //w_tatvikimagesl
             } else if (deviceType[which].equalsIgnoreCase("Startek")) {
                 binding.imgDevice.setImageResource(R.drawable.w_startekimage);
             } else if (deviceType[which].equalsIgnoreCase("Secugen")) {
@@ -640,13 +662,12 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
     }
 
 
-
-
     private void balanceInquiryApi(String fingerData) {
         String mobileNumber = binding.MobileNoEditText.getText().toString().trim();
         String aadhaarNumber = binding.aadharNoEditText.getText().toString().trim();
         aadhaarNumber = aadhaarNumber.replaceAll("-", "");
-        viewModel.startAEPSServices(BrandedAePSHome.this, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "0", BrandedAePSHome.this);
+
+        viewModel.startAEPSServices(BrandedAePSHome.this, apiType, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "0", BrandedAePSHome.this);
 
     }
 
@@ -655,7 +676,9 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         String mobileNumber = binding.MobileNoEditText.getText().toString().trim();
         String aadhaarNumber = binding.aadharNoEditText.getText().toString().trim();
         aadhaarNumber = aadhaarNumber.replaceAll("-", "");
-        viewModel.startAEPSServices(BrandedAePSHome.this, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "0", BrandedAePSHome.this);
+
+        viewModel.startAEPSServices(BrandedAePSHome.this, apiType, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "0", BrandedAePSHome.this);
+
 
     }
 
@@ -664,7 +687,8 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         String aadhaarNumber = binding.aadharNoEditText.getText().toString().trim();
         aadhaarNumber = aadhaarNumber.replaceAll("-", "");
         String amount = binding.amountEditText.getText().toString().trim();
-        viewModel.startAEPSServices(BrandedAePSHome.this, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), amount, BrandedAePSHome.this);
+
+        viewModel.startAEPSServices(BrandedAePSHome.this, apiType, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), amount, BrandedAePSHome.this);
 
     }
 
@@ -673,7 +697,8 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         String aadhaarNumber = binding.aadharNoEditText.getText().toString().trim();
         aadhaarNumber = aadhaarNumber.replaceAll("-", "");
         String amount = binding.amountEditText.getText().toString().trim();
-        viewModel.startAEPSServices(BrandedAePSHome.this, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), amount, BrandedAePSHome.this);
+
+        viewModel.startAEPSServices(BrandedAePSHome.this, apiType, aadhaarNumber, fingerData, mobileNumber, txnType, UtilHolder.getLongitude(), UtilHolder.getLatitude(), amount, BrandedAePSHome.this);
 
     }
 
@@ -713,7 +738,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
 
     private void BankList() {
         binding.linearAllBank.setOnClickListener((v) -> {
-            viewModel.selectBankList(v, selected -> {
+            viewModel.selectBankList(v, apiType, selected -> {
                 AepsViewModel.selectedAepsBankModel = selected;
                 binding.BankNameTextView.setText(selected.getBankname());
             });
@@ -944,10 +969,22 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
 
     @Override
     public void resetRequiredData(boolean result) {
-        if (!txnType.trim().equals("BE")) {
+//        if (!txnType.trim().equals("BE")) {
+//            //binding.aadharNoEditText.setText("");
+//            //binding.amountEditText.setText("");
+//            //binding.MobileNoEditText.setText("");
+//        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Constant.toReset) {
             binding.aadharNoEditText.setText("");
             binding.amountEditText.setText("");
             binding.MobileNoEditText.setText("");
+            Constant.toReset = false;
         }
     }
+
 }

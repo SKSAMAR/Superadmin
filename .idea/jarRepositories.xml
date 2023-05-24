@@ -56,5 +56,10 @@
       <option name="name" value="maven6" />
       <option name="url" value="https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven7" />
+      <option name="name" value="maven7" />
+      <option name="url" value="https://maven.cashfree.com/release" />
+    </remote-repository>
   </component>
 </project>

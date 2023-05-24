@@ -11,7 +11,7 @@ import com.fintech.superadmin.activities.HomeActivity
 import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.auth.component.LoginScreen
 import com.fintech.superadmin.deer_listener.Receiver
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
         super.onCreate(savedInstanceState)
         viewModel.receiver = this
         setContent {
-            YespayTheme {
+            SuperAdminTheme {
                 Surface(color = MaterialTheme.colors.surface) {
                     SetUpScreen()
                 }

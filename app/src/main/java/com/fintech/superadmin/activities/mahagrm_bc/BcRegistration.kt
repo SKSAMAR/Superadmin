@@ -31,7 +31,7 @@ import com.fintech.superadmin.clean.util.common.BasicTextView
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.ui.theme.MyGreen
 import com.fintech.superadmin.ui.theme.MyRed
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.Base64Encoder
 import com.fintech.superadmin.util.DisplayMessageUtil
 import com.fintech.superadmin.util.PathsInformation
@@ -46,7 +46,7 @@ class BcRegistration : BaseComponentAct() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            YespayTheme(darkTheme = false) {
+            SuperAdminTheme(darkTheme = false) {
                 BcRegistrationScreen()
             }
         }

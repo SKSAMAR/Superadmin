@@ -1,5 +1,7 @@
 package com.fintech.superadmin.activities.aeps
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,31 +27,37 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.fintech.superadmin.R
+import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
 import com.fintech.superadmin.data.db.AppDatabase
 import com.fintech.superadmin.data.db.entities.User
 import com.fintech.superadmin.data.network.AePSDto
 import com.fintech.superadmin.data.network.MinistatementItem
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
+import com.fintech.superadmin.util.Constant
 import com.fintech.superadmin.util.captureScreen
 import com.fintech.superadmin.util.shareScreen
 import com.fintech.superadmin.util.toBitmap
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-class AepsReceiptActivity : ComponentActivity() {
+class AepsReceiptActivity : BaseComponentAct() {
 
     var response: AePSDto? = null
     lateinit var transactionType: String
     var user: User? = null
+    var bankName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializers()
         setContent {
-            YespayTheme {
+            SuperAdminTheme {
                 Surface(color = MaterialTheme.colors.surface) {
                     Receipt()
                 }
@@ -61,6 +69,7 @@ class AepsReceiptActivity : ComponentActivity() {
         user = AppDatabase.getAppDatabase(this@AepsReceiptActivity).userDao.regularUser
         response = intent.getSerializableExtra("response") as AePSDto?
         transactionType = intent.getStringExtra("transactionType") ?: ""
+        bankName = intent.getStringExtra("bankName")
     }
 
 
@@ -68,8 +77,19 @@ class AepsReceiptActivity : ComponentActivity() {
     @Composable
     private fun Receipt() {
         var scrollView = LocalView.current
-        val currentTime = LocalTime.now()
-        val formatter = DateTimeFormatter.ofPattern("hh:mm:ss a")
+        val currentTime: String
+        val formatter: Any
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val time = LocalTime.now()
+            currentTime = time.format(DateTimeFormatter.ofPattern("hh:mm:ss a"))
+            formatter = DateTimeFormatter.ofPattern("hh:mm:ss a")
+        } else {
+            val time = Date()
+            val dateFormat = SimpleDateFormat("hh:mm:ss a")
+            currentTime = dateFormat.format(time)
+            formatter = dateFormat
+        }
         val formattedTime = currentTime.format(formatter)
         Column {
             TopAppBar(title = {
@@ -160,18 +180,37 @@ class AepsReceiptActivity : ComponentActivity() {
                                     textAlign = TextAlign.Start,
                                     fontSize = 10.textSdp
                                 )
-                                Text(
-                                    modifier = Modifier.weight(1f),
-                                    text = response.datetime?.toString()?.substringBefore(" ")
-                                        ?: LocalDate.now().toString(),
-                                    textAlign = TextAlign.End,
-                                    fontSize = 10.textSdp
-                                )
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    Text(
+                                        modifier = Modifier.weight(1f),
+                                        text = response.datetime?.toString()?.substringBefore(" ")
+                                            ?: LocalDate.now().toString(),
+                                        textAlign = TextAlign.End,
+                                        fontSize = 10.textSdp
+                                    )
+                                } else {
+                                    val calendar = Calendar.getInstance()
+                                    val year = calendar.get(Calendar.YEAR)
+                                    val month =
+                                        calendar.get(Calendar.MONTH) + 1  // Note: Calendar.MONTH is zero-based
+                                    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                                    val currentDate = "$year-$month-$day"
+
+                                    Text(
+                                        modifier = Modifier.weight(1f),
+                                        text = response.datetime?.toString()?.substringBefore(" ")
+                                            ?: currentDate,
+                                        textAlign = TextAlign.End,
+                                        fontSize = 10.textSdp
+                                    )
+                                }
                             }
                         }
                         item {
                             Spacer(modifier = Modifier.height(5.sdp))
                         }
+
                         item {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -196,6 +235,33 @@ class AepsReceiptActivity : ComponentActivity() {
                         item {
                             Spacer(modifier = Modifier.height(5.sdp))
                         }
+
+                        bankName?.let {
+                            item {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.Top
+                                ) {
+                                    Text(
+                                        modifier = Modifier.weight(1f),
+                                        text = "Bank Name: ",
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 10.textSdp
+                                    )
+                                    Text(
+                                        modifier = Modifier.weight(1f),
+                                        text = bankName?:"",
+                                        textAlign = TextAlign.End,
+                                        fontSize = 10.textSdp
+                                    )
+                                }
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(5.sdp))
+                            }
+                        }
+
                         response.name?.let {
                             item {
                                 Row(
@@ -478,7 +544,7 @@ class AepsReceiptActivity : ComponentActivity() {
                                     )
                                     Text(
                                         modifier = Modifier.weight(1f),
-                                        text = stringResource(id = R.string.rupee_sign) +it.toString(),
+                                        text = stringResource(id = R.string.rupee_sign) + it.toString(),
                                         textAlign = TextAlign.End,
                                         fontSize = 10.textSdp
                                     )
@@ -540,6 +606,33 @@ class AepsReceiptActivity : ComponentActivity() {
                             }
                         }
 
+                        response.infoList?.let { it ->
+                            if (it.isNotEmpty()) {
+                                item {
+                                    Spacer(modifier = Modifier.height(20.sdp))
+                                }
+                                item {
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.Center
+                                    ) {
+                                        Text(
+                                            text = "Mini Statement",
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontSize = 11.textSdp,
+                                            color = MaterialTheme.colors.primaryVariant
+                                        )
+                                    }
+                                }
+                                item {
+                                    Spacer(modifier = Modifier.height(5.sdp))
+                                }
+                                items(it) { data ->
+                                    MiniStatementInfoAdditional(data)
+                                }
+                            }
+                        }
+
                     }
 
                     item {
@@ -552,6 +645,7 @@ class AepsReceiptActivity : ComponentActivity() {
                             OutlinedButton(
                                 shape = RoundedCornerShape(12.sdp),
                                 onClick = {
+                                    Constant.toReset = true
                                     onBackPressedDispatcher.onBackPressed()
                                 }
                             ) {
@@ -763,20 +857,57 @@ class AepsReceiptActivity : ComponentActivity() {
     }
 
 
+    @Composable
+    private fun MiniStatementInfoAdditional(data: String?) {
+        data?.let {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Row(
+                    Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    Row(
+                        modifier = Modifier.weight(1f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = data,
+                            textAlign = TextAlign.Center,
+                            fontSize = 10.textSdp
+                        )
+                    }
+
+                }
+
+                Spacer(modifier = Modifier.padding(vertical = 4.sdp))
+
+            }
+        }
+    }
+
+
     private fun typeToName(): String {
         when (transactionType.trim().lowercase()) {
             "cw" -> {
                 return "CASH WITHDRAWAL"
             }
+
             "be" -> {
                 return "BALANCE ENQUIRY"
             }
+
             "m" -> {
                 return "AADHAAR PAY"
             }
+
             "ms" -> {
                 return "MINI STATEMENT"
             }
+
             else -> {
                 return ""
             }

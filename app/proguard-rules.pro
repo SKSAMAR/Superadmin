@@ -95,3 +95,4 @@
 -dontwarn com.anfu.pos.library.bluetooth4.**
 -dontnote com.anfu.pos.library.bluetooth4.**
 -repackageclasses com.example.shaded.bluetooth4
+#-keep class com.stripe.android.** { *; }

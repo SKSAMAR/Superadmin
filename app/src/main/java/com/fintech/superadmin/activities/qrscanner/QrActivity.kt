@@ -26,7 +26,7 @@ import androidx.core.content.ContextCompat
 import com.fintech.superadmin.activities.qrscanner.util.QrCodeAnalyzer
 import com.fintech.superadmin.activities.upi.PayWithUPI
 import com.fintech.superadmin.data.qrPayement.UPICredential
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.Accessable
 import com.fintech.superadmin.util.Constant
 import com.fintech.superadmin.util.ViewUtils
@@ -35,7 +35,7 @@ class QrActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            YespayTheme(darkTheme = false) {
+            SuperAdminTheme(darkTheme = false) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

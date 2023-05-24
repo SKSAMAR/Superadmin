@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -107,6 +109,7 @@ public class ViewUtils {
     }
 
 
+    /*
     public static<T> void onSpinnerViewBring(String title, Context context, List<T> list, Receiver<T> receiver){
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.my_spinner_row);
@@ -126,7 +129,44 @@ public class ViewUtils {
             dialog.dismiss();
         });
     }
+    */
 
+    public static<T> void onSpinnerViewBring(String title, Context context, List<T> list, Receiver<T> receiver){
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.my_spinner_row);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        EditText searchOperator = dialog.findViewById(R.id.SearchOperator);
+        ListView myOperatorListView = dialog.findViewById(R.id.MyOperatorListView);
+        TextView head_title_section = dialog.findViewById(R.id.head_title_section);
+        head_title_section.setText(title);
+        ArrayAdapter<T> adapter = new ArrayAdapter<T>(context, android.R.layout.simple_list_item_1,list);
+        myOperatorListView.setAdapter(adapter);
+        searchOperator.setVisibility(View.VISIBLE);
+        myOperatorListView.setAdapter(adapter);
+        searchOperator.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        myOperatorListView.setOnItemClickListener((parent, view1, position, id) -> {
+            receiver.getData(adapter.getItem(position));
+            dialog.dismiss();
+        });
+    }
 
     public static Map<String, String> splitQuery(String query) throws UnsupportedEncodingException {
         Map<String, String> query_pairs = new LinkedHashMap<String, String>();

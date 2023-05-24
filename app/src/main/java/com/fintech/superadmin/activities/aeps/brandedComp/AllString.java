@@ -26,8 +26,8 @@ public class AllString {
     public static final String ConnectStartek = "Please connect your Startek device!";
     public static final String ConnectEvolute = "Please connect your Evolute device!";
     public static final String ConnectNextBio = "Please connect your NextBioMetric device!";
-    public static final int SnackBarBackGroundColor = R.color.red;
-    public static final int SnackBarBackGroundColorGreen = R.color.green;
+    public static final int SnackBarBackGroundColor = android.R.color.holo_red_dark;
+    public static final int SnackBarBackGroundColorGreen = android.R.color.holo_green_dark;
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     public static final int LongLocationInterval = 3000;
     public static final int FastestLocationInterval = 1000;

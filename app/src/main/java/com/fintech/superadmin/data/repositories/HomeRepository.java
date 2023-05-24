@@ -193,6 +193,7 @@ public class HomeRepository {
                     Object res = result.getReceivableData().getApiResponse();
                     Intent intent = new Intent(context, AepsReceiptActivity.class);
                     intent.putExtra("transactionType", type.trim());
+                    intent.putExtra("bankName", model.getBankName().trim());
                     intent.putExtra("response", new Gson().fromJson(res.toString(), AePSDto.class));
                     context.startActivity(intent);
                 } catch (Exception e) {
@@ -200,6 +201,7 @@ public class HomeRepository {
                 }
             }
             else{
+
                 try {
                     Intent intent = new Intent(context, TransactionDetailsReceiptActivity.class);
                     intent.putExtra("transactionType", type.trim());

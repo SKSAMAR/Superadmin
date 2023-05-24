@@ -56,7 +56,7 @@ xmlns:tools="http://schemas.android.com/tools">
                     android:paddingVertical="14sp"
                     android:text="@string/add"
                     android:layout_margin="5sp"
-                    android:backgroundTint="@color/iconColor"
+                    android:backgroundTint="?android:colorPrimary"
                     android:id="@+id/onRequestMoneyButton"/>
 
             </LinearLayout>

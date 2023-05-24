@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.fintech.superadmin.R
+import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
 import com.fintech.superadmin.data.DetailedDto
@@ -33,14 +34,14 @@ import com.fintech.superadmin.data.db.entities.User
 import com.fintech.superadmin.data.network.MinistatementItem
 import com.fintech.superadmin.data.network.responses.AnalyticsResponseModel
 import com.fintech.superadmin.data_model.DynamicData
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.captureScreen
 import com.fintech.superadmin.util.shareScreen
 import com.fintech.superadmin.util.toBitmap
 import org.json.JSONException
 import org.json.JSONObject
 
-class TransactionDetailsReceiptActivity : ComponentActivity() {
+class TransactionDetailsReceiptActivity : BaseComponentAct() {
 
     var response: DetailedDto? = null
     lateinit var transactionType: String
@@ -53,7 +54,7 @@ class TransactionDetailsReceiptActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         initializers()
         setContent {
-            YespayTheme {
+            SuperAdminTheme {
                 Surface(color = MaterialTheme.colors.surface) {
                     Receipt()
                 }

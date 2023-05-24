@@ -55,7 +55,17 @@ allprojects {
         }
 
         maven {
-            url  "https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android"
+            url "https://phonepe.mycloudrepo.io/public/repositories/phonepe-intentsdk-android"
+        }
+        maven {
+            url 'https://maven.cashfree.com/release'
+        }
+
+        maven {
+            url 'https://maven.cashfree.com/release'
+            content {
+                includeGroup "com.cashfree.pg"
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ public class Constant {
 
     public static final int PICKFILE_RESULT_CODE = 123213;
     public static final int GALLERY_IMAGE = 2;
+    public static boolean toReset = false;
     public static final int CAMERA_IMAGE = 3;
     public static final String IMAGE_PARAMETER = "IMAGE_PARAMETER";
     //public static final String BASE_URL_DATA = "superadmin.in";

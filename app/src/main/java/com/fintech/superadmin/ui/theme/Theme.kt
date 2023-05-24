@@ -42,7 +42,7 @@ var LightColorPalette = lightColors(
 )
 
 @Composable
-fun YespayTheme(darkTheme: Boolean = false, content: @Composable () -> Unit) {
+fun SuperAdminTheme(darkTheme: Boolean = false, content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {

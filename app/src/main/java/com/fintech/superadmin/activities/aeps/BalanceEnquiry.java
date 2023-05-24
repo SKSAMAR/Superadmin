@@ -108,7 +108,7 @@ public class BalanceEnquiry extends BaseFingerActivity implements BankNameListen
 
     private void startService(String fingerprint){
          if(Accessable.isAccessable()){
-            viewModel.startAEPSServices(BalanceEnquiry.this, Objects.requireNonNull(binding.aadhaarNumber.getText()).toString(),fingerprint, Objects.requireNonNull(binding.mobileNumber.getText()).toString(), "BE", UtilHolder.getLongitude(), UtilHolder.getLatitude(),"0", BalanceEnquiry.this);
+            viewModel.startAEPSServices(BalanceEnquiry.this,"", Objects.requireNonNull(binding.aadhaarNumber.getText()).toString(),fingerprint, Objects.requireNonNull(binding.mobileNumber.getText()).toString(), "BE", UtilHolder.getLongitude(), UtilHolder.getLatitude(),"0", BalanceEnquiry.this);
         }
     }
 

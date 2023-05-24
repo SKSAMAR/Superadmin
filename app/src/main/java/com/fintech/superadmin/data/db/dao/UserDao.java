@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.fintech.superadmin.data.db.entities.User;
+import com.fintech.superadmin.data.db.entities.UserProfile;
 
 @Dao
 public interface UserDao {
@@ -23,5 +24,8 @@ public interface UserDao {
 
     @Query("DELETE FROM user")
     void loggedOutUser();
+
+    @Query("SELECT * FROM user_profile WHERE uId = CURRENT_USER_ID")
+    LiveData<UserProfile> getUserProfile();
 
 }

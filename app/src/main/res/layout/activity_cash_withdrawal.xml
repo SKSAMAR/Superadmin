@@ -125,7 +125,6 @@
                             android:id="@+id/bank_list_layout"
                             android:orientation="vertical">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:onClick="@{cashWithdrawalViewModel::selectBankList}"
                                 android:text="@={cashWithdrawalViewModel.selectedBank}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

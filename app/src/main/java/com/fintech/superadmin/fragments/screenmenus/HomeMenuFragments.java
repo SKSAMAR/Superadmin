@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,11 +29,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.AddFundList;
-import com.fintech.superadmin.activities.aeps.AepsHome;
-import com.fintech.superadmin.activities.aeps.BalanceEnquiry;
 import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
-import com.fintech.superadmin.activities.aeps.CashWithdrawal;
-import com.fintech.superadmin.activities.aeps.MiniStatement;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
 import com.fintech.superadmin.activities.creditcard.CCFetchBillK;
 import com.fintech.superadmin.activities.fastag.OperatorList;
@@ -47,6 +42,7 @@ import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
+import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.dto.MahagramApiCred;
@@ -57,10 +53,12 @@ import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.databinding.FragmentHomeMenuFragmentsBinding;
 import com.fintech.superadmin.fragments.sliders.SliderFragment;
+import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
 import com.fintech.superadmin.listeners.NumberPayListener;
 import com.fintech.superadmin.listeners.RecyclerViewClickListener;
 import com.fintech.superadmin.log.MahaDashActReturnResp;
 import com.fintech.superadmin.util.Accessable;
+import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.UtilHolder;
@@ -116,15 +114,15 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         appDatabase.getUserDao().getUser().observe(requireActivity(), currentUser -> {
             user = currentUser;
             try {
-                if (!currentUser.getUserstatus().trim().equals("5")){
+                if (!currentUser.getUserstatus().trim().equals("5")) {
                     setBToBMenus();
                     binding.b2baepsBalText.setText("AePS: " + user.getAepsbalance());
                     binding.b2bmainBalText.setText("Main: " + user.getMainbalance());
-                }else{
+                } else {
                     setBuToCMenus();
                     binding.b2cmainBalText.setText("Main: " + user.getMainbalance());
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -138,11 +136,12 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
         //Money Transfer
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
-//        moneyTransferList.add(new MenuModel(R.drawable.ic_money_transfer, "Mobile Payments"));
-        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "AePS"));
-        moneyTransferList.add(new MenuModel(R.drawable.ic_bank, "DMT"));
+        moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
+        moneyTransferList.add(new MenuModel(R.drawable.fingerprint, "AePS"));
+//        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "Fing AePS"));
+        moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -151,10 +150,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         //Recharge
         binding.firstHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> rechargeList = new ArrayList<>();
-        rechargeList.add(new MenuModel(R.drawable.ic_mobile_recharge, "Mobile\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.mobilerecharge, "Mobile\nRecharge"));
         rechargeList.add(new MenuModel(R.drawable.ic_fastag_recharge, "FASTag\nRecharge"));
-        rechargeList.add(new MenuModel(R.drawable.ic_dth, "DTH"));
-        rechargeList.add(new MenuModel(R.drawable.ic_cable_tv, "Cable Tv", "Cable"));
+        rechargeList.add(new MenuModel(R.drawable.dth, "DTH"));
+        rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
         binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
         binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -164,7 +163,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         List<MenuModel> aePSTransferList = new ArrayList<>();
         aePSTransferList.add(new MenuModel(R.drawable.ic_balance_enquiry_new, "Balance\nEnquiry"));
         aePSTransferList.add(new MenuModel(R.drawable.ic_mini_statment_new, "Mini\nStatement"));
-        aePSTransferList.add(new MenuModel(R.drawable.ic_withdrawal_new, "Cash\nWithdrawal"));
+        aePSTransferList.add(new MenuModel(R.drawable.cashwithdraw, "Cash\nWithdrawal"));
         aePSTransferList.add(new MenuModel(R.drawable.ic_aadharpay_new, "Aadhaar\nPay"));
         binding.aepsHomeMenu.setAdapter(new MenuAdapter(aePSTransferList, this));
         binding.aepsHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -174,18 +173,15 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.utilitiesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> utilitiesList = new ArrayList<>();
         utilitiesList.add(new MenuModel(R.drawable.bbps_menu, "BBPS", "BBPS"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "Book A\nCylinder", "Gas"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_water, "Water"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_electricity, "Electricity"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_postpaid, "Postpaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_boardband, "Broadband"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
-
-
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
-
+        utilitiesList.add(new MenuModel(R.drawable.gas_cylinder, "Book A\nCylinder", "Gas"));
+        utilitiesList.add(new MenuModel(R.drawable.water, "Water"));
+        utilitiesList.add(new MenuModel(R.drawable.electricity, "Electricity"));
+        utilitiesList.add(new MenuModel(R.drawable.postpaid, "Postpaid"));
+//        utilitiesList.add(new MenuModel(R.drawable.broadband, "Broadband"));
+        utilitiesList.add(new MenuModel(R.drawable.gas_cylinder, "LPG"));
+//        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
+//        utilitiesList.add(new MenuModel(R.drawable.c_landline, "Landline"));
+//        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
         binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -194,21 +190,26 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> financesList = new ArrayList<>();
         financesList.add(new MenuModel(R.drawable.emi, "EMI"));
-        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance", "Insurance"));
-        financesList.add(new MenuModel(R.drawable.ic_lic_bill, "LIC", "LIC"));
-        financesList.add(new MenuModel(R.drawable.ic_municipal, "Municipal", "MUNICIPALITY"));
-//        financesList.add(new MenuModel(R.drawable.loan_repayment, "Loan\nRepayment", "EMI PAYMENT"));
-//        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance Application"));
-//        financesList.add(new MenuModel(R.drawable.loan, "Loan Application"));
-
+        financesList.add(new MenuModel(R.drawable.insurance, "Insurance", "Insurance"));
+        financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
+        financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
-        binding.b2bclickPayout.setOnClickListener(v -> {
-            viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
-        });
+        //Account Opening
+        binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> accountOpening = new ArrayList<>();
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
+        binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
+        binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
+
+        binding.b2bclickPayout.setOnClickListener(v -> viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout()));
+
+        binding.accountOpeningContainer.setVisibility(View.VISIBLE);
         binding.b2BContainer.setVisibility(View.VISIBLE);
         binding.b2cContainer.setVisibility(View.GONE);
 
@@ -245,8 +246,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         utilitiesList.add(new MenuModel(R.drawable.ic_postpaid, "Postpaid"));
         utilitiesList.add(new MenuModel(R.drawable.ic_boardband, "Broadband"));
         utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
-
-
         utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
         utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
         utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
@@ -275,7 +274,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     }
 
 
-
     //Should be not use this but the one which has been commented
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -299,6 +297,20 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
 
             }
+
+            case "Current Properitor": {
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(3));
+                break;
+            }
+            case "Current Account": {
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(2));
+                break;
+            }
+            case "Saving Account": {
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(1));
+                break;
+            }
+
             case "LIC": {
                 Intent intent = new Intent(requireActivity(), LicFetchBill.class);
                 startActivity(intent);
@@ -307,12 +319,21 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             case "Credit Card":
                 viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startCreditCard());
                 break;
+            case "Fing AePS":
+                viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingAEPS());
+                break;
             case "AePS":
                 viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAEPS());
                 break;
-            case "Micro ATM":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startMicroAtm(start.getPaysprintMerchantCred(), start.getPaysprintApiCred()));
+            case "Micro ATM": {
+                String atm = getString(R.string.atmType).trim().toLowerCase();
+                if (atm.equals("fingpay")) {
+                    viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingPayMicroAtm(start.getMerchantCred()));
+                } else {
+                    viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startMicroAtm(start.getPaysprintMerchantCred(), start.getPaysprintApiCred()));
+                }
                 break;
+            }
             case "DMT": {
                 Intent intent = new Intent(requireActivity(), QueryRemitter.class);
                 startActivity(intent);
@@ -347,18 +368,12 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             }
 
             case "Apply PAN": {
-                String panPage = "https://"+ BuildConfig.APPLICATION_ID + "/Dashboard/User/ApplyPanAgent";
+                String panPage = "https://" + BuildConfig.APPLICATION_ID + "/Dashboard/User/ApplyPanAgent";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(panPage));
                 startActivity(browserIntent);
                 break;
             }
 
-            case "Current Account":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSBE());
-                break;
-            case "Saving Account":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSBE());
-                break;
             case "Balance\nEnquiry":
                 viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSBE());
                 break;
@@ -378,8 +393,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             default:
                 break;
         }
+    }
 
-
+    public void startFingPayMicroAtm(MerchantCred merchantCred) {
+        DisplayMessageUtil.dismissDialog();
+        Intent intent = new Intent(requireActivity(), MicroAtmHome.class);
+        intent.putExtra("merchantCred", merchantCred);
+        startActivity(intent);
     }
 
     public void setFragment(Fragment fragment, View view) {
@@ -415,6 +435,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         } else {
             ViewUtils.showToast(requireActivity(), "Location Permissions are not granted");
         }
+    }
+
+    private void startAccountOpening(int i) {
+        viewModel.openAnAccount(requireActivity(), i, data -> {
+            SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(requireActivity());
+            simple.openUrlForResult(data, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
+        });
     }
 
     public void proceedToSeekMobileNumber() {
@@ -682,31 +709,44 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     }
 
 
+    private void startFingAEPS() {
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+        intent.putExtra("apiName", "fingPay");
+        startActivity(intent);
+    }
+
     private void startAEPS() {
-        startActivity(new Intent(requireActivity(), BrandedAePSHome.class));
+        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+        intent.putExtra("apiName", "paysprint");
+        startActivity(intent);
     }
 
     private void startAePSBE() {
         Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "BE");
+        intent.putExtra("apiName", "paysprint");
         startActivity(intent);
     }
 
     private void startAePSMS() {
         Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "MS");
+        intent.putExtra("apiName", "paysprint");
         startActivity(intent);
     }
 
     private void startAePSCW() {
         Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "CW");
+        intent.putExtra("apiName", "paysprint");
+
         startActivity(intent);
     }
 
     private void startAePSM() {
         Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
         intent.putExtra("aepsType", "M");
+        intent.putExtra("apiName", "paysprint");
         startActivity(intent);
     }
 

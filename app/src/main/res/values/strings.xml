@@ -372,5 +372,8 @@
     <string name="main_bal">Main Bal</string>
     <string name="m_pin">M-PIN</string>
     <string name="payu">PayU</string>
+    <string name="cashfree">Cashfree</string>
+    <string name="recharge_amp_pay_bills"><![CDATA[Recharge & Pay Bills]]></string>
+    <string name="transfer_money">Transfer Money</string>
 
 </resources>

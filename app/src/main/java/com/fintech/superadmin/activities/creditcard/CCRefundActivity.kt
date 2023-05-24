@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
 import com.fintech.superadmin.data.dto.CreditCardHistory
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.viewmodel.CCRefundViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +32,7 @@ class CCRefundActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            YespayTheme(darkTheme = false) {
+            SuperAdminTheme(darkTheme = false) {
                 RefundScreenSystem()
             }
         }

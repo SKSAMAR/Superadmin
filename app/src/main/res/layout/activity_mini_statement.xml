@@ -116,7 +116,6 @@
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/select_your_bank"
                                 android:maxLines="1"
-                                android:onClick="@{miniStatementViewModel::selectBankList}"
                                 android:text="@={miniStatementViewModel.selectedBank}" />
                         </com.google.android.material.textfield.TextInputLayout>
 

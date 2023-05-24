@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.fintech.superadmin.activities.HomeActivity;
 //import webspidysoftwareysoftware.activities.MainActivity;
+import com.fintech.superadmin.activities.rebranded.RebrandedHome;
 import com.fintech.superadmin.auth.AuthActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.AuthData;

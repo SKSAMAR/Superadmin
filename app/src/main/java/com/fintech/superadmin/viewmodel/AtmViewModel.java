@@ -1,8 +1,9 @@
 package com.fintech.superadmin.viewmodel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.provider.Settings;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,7 +11,6 @@ import com.fintech.superadmin.data.dto.AtmProceedableDto;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.deer_listener.master_listener.BetterListener;
 import com.fintech.superadmin.util.MyAlertUtils;
-import com.fintech.superadmin.util.NetworkUtil;
 
 import javax.inject.Inject;
 
@@ -31,6 +31,7 @@ public class AtmViewModel extends ViewModel {
         getATMType();
     }
 
+    @SuppressLint("CheckResult")
     public void getATMType() {
         apiServices.getATMType("getATMType")
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -39,6 +40,7 @@ public class AtmViewModel extends ViewModel {
     }
 
 
+    @SuppressLint("CheckResult")
     public void recordTransaction(Context context, String amount, String txnType) {
         MyAlertUtils.showProgressAlertDialog(context);
         apiServices.reportMicroAtmTxn(amount, txnType, "initiate_atm_txn")
@@ -54,5 +56,22 @@ public class AtmViewModel extends ViewModel {
                 }, e -> {
                     listener.onFailure(e.getLocalizedMessage());
                 });
+    }
+
+    public String getImei(Context context) {
+        String imei = "";
+//        try {
+//
+//            if (!Utils.isValidString(imei)) {
+//                imei = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+//            }
+//        } catch (Exception e) {
+//            Utils.logE(e.toString());
+//            if (!Utils.isValidString(imei)) {
+//                imei = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+//            }
+//        }
+        imei = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return imei;
     }
 }

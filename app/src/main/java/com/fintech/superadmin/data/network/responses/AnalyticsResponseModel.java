@@ -4,49 +4,27 @@ import java.io.Serializable;
 
 public class AnalyticsResponseModel implements Serializable {
 
-    String amount_in_word;
-    String transactionType;
-    String cause;
-    String id;//taken
-    String status;//taken for recharge
-    String amount_earlier;//taken
-    String amount_left;//taken
-    String logo;//taken for recharges
-    String onMobile; //taken for recharges
-    String txn_id; //taken from reference id
-    String operator_name;//taken for recharge
-    String op_id;//taken for recharge
-    String user_mobile;//taken for all
-    String commission_amount;//taken for all
-    String date;//taken from timestamp
-    String payment_type;//taken for all
-    String json_response;//taken for mobile
-    String amount;//taken
-    String tds;
-    String gst;
-
-    public AnalyticsResponseModel(String amount_in_word, String transactionType, String cause, String id, String status, String amount_earlier, String amount_left, String logo, String onMobile, String txn_id, String operator_name, String op_id, String user_mobile, String commission_amount, String date, String payment_type, String json_response, String amount, String tds, String gst) {
-        this.amount_in_word = amount_in_word;
-        this.transactionType = transactionType;
-        this.cause = cause;
-        this.id = id;
-        this.status = status;
-        this.amount_earlier = amount_earlier;
-        this.amount_left = amount_left;
-        this.logo = logo;
-        this.onMobile = onMobile;
-        this.txn_id = txn_id;
-        this.operator_name = operator_name;
-        this.op_id = op_id;
-        this.user_mobile = user_mobile;
-        this.commission_amount = commission_amount;
-        this.date = date;
-        this.payment_type = payment_type;
-        this.json_response = json_response;
-        this.amount = amount;
-        this.tds = tds;
-        this.gst = gst;
-    }
+    public String amount_in_word;
+    public String transactionType;
+    public String cause;
+    public String id;//taken
+    public String status;//taken for recharge
+    public String amount_earlier;//taken
+    public String amount_left;//taken
+    public String logo;//taken for recharges
+    public String onMobile; //taken for recharges
+    public String txn_id; //taken from reference id
+    public String operator_name;//taken for recharge
+    public String op_id;//taken for recharge
+    public String user_mobile;//taken for all
+    public String commission_amount;//taken for all
+    public String date;//taken from timestamp
+    public String payment_type;//taken for all
+    public String json_response;//taken for mobile
+    public String amount;//taken
+    public String tds;
+    public String gst;
+    public String bankName;
 
     public String getTransactionType() {
         return transactionType;
@@ -206,5 +184,13 @@ public class AnalyticsResponseModel implements Serializable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

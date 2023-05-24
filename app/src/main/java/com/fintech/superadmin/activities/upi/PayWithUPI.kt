@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fintech.superadmin.data.qrPayement.UPICredential
 import com.fintech.superadmin.ui.theme.LightestRed
-import com.fintech.superadmin.ui.theme.YespayTheme
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.Constant
 import com.fintech.superadmin.util.ExecuteUtil
 import com.fintech.superadmin.viewmodel.UPIViewModel
@@ -49,7 +49,7 @@ class PayWithUPI: ComponentActivity() {
         viewModel.upiCredential = intent.getSerializableExtra(Constant.UPI_CREDENTIALS) as UPICredential
         viewModel.amount.value =  viewModel.upiCredential?.amount?:""
         setContent {
-            YespayTheme(darkTheme = false) {
+            SuperAdminTheme(darkTheme = false) {
                 PaymentScreenUPI(onBack = { onBackPressed() }, viewModel = viewModel)
             }
         }

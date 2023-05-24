@@ -4,10 +4,15 @@ import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
 import com.fintech.superadmin.data.DetailedDto;
 import com.fintech.superadmin.data.DynamicROfferResponse;
 import com.fintech.superadmin.data.accountop.AccountOPeningResponse;
+import com.fintech.superadmin.data.apiResponse.fingpay.aadharOTP.SendOtpResp;
+import com.fintech.superadmin.data.apiResponse.fingpay.aeps.AePsResponse;
+import com.fintech.superadmin.data.apiResponse.fingpay.boad.OnboardPanResponse;
+import com.fintech.superadmin.data.apiResponse.merchant.FingPayBoardCred;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPResponse;
 import com.fintech.superadmin.data.bc_response.BcDistrictDto;
 import com.fintech.superadmin.data.bc_response.BcStateDto;
 import com.fintech.superadmin.data.browseplan.BrowsePlanResponse;
+import com.fintech.superadmin.data.cashfree.CashFreeLatestGateway;
 import com.fintech.superadmin.data.db.entities.AuthData;
 import com.fintech.superadmin.data.deer_response.CFPOTPResponse;
 import com.fintech.superadmin.data.deer_response.CFPStatusCheck;
@@ -268,11 +273,25 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<FingPayBoardCred> fingpayExistence(@Field("fingpay") String fingpay);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<MahagramResponse> mahagramTypeExistence(@Field("mahagram") String mahagram);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/getBankList.php")
-    Observable<List<AEPSBanksModel>> getBankList(@Field("id") String id);
+    Observable<List<AEPSBanksModel>> getPaysprintBankList(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/Txns.php")
+    Observable<List<AEPSBanksModel>> getFingPayBankList(@Field("getMappedBanks") String getMappedBanks);
+
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/Txns.php")
+    Observable<AePsResponse> AEPSFingPayResponse(@Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("mobile") String mobile, @Field("transType") String transType, @Field("bankName") String bankName, @Field("long") String longitude, @Field("lat") String latitude, @Field("amount") String amount);
 
 
     @FormUrlEncoded
@@ -694,8 +713,8 @@ public interface APIServices {
 
     //
 
-    @POST("Agent/Backend/AccountOpen/main_app.php")
-    Observable<AccountOPeningResponse> openAccount(@Query("acctype") String acctype);
+    @POST("Backend/Merchant/API/AccontOpen/main.php")
+    Observable<AccountOPeningResponse> openAccount(@Query("acctype") int acctype);
 
 
     //help Support
@@ -836,4 +855,35 @@ public interface APIServices {
 
 
     //PAYU
+
+    //CASHFREE
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/sdkGateway/Cashfree/main.php")
+    Observable<SystemResponse<CashFreeLatestGateway>> addWallet(@Field("amount") String amount, @Field("addWallet") String addWallet);
+
+
+    //FingpayBoard
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/main.php")
+    Observable<OnboardPanResponse> getPanSubmitResponse(@Field("pan") String pan, @Field("long") String longi, @Field("lat") String lat);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/main.php")
+    Observable<SendOtpResp> sendFingOTP(@Field("adhar") String adhar, @Field("long") String longi, @Field("lat") String lat, @Field("ekycotp") String ekycotp);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/main.php")
+    Observable<SendOtpResp> resendFingOTP(@Field("adhar") String adhar, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat, @Field("reekycotp") String reekycotp);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/main.php")
+    Observable<SendOtpResp> validateFingOTP(@Field("aadhar") String adhar, @Field("otp") String otp, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat, @Field("validateOTP") String validateOTP);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/FingPay/main.php")
+    Observable<SendOtpResp> completeFingKyc(@Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("otp") String otp, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat);
+    //FingpayBoard
+
 }

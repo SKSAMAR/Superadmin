@@ -23,6 +23,7 @@ import com.fintech.superadmin.activities.qrscanner.QrMobilePayActivity;
 import com.fintech.superadmin.data.repositories.UserRepository;
 import com.fintech.superadmin.databinding.ActivityHomeBinding;
 import com.fintech.superadmin.fragments.AnalyticFragment;
+import com.fintech.superadmin.fragments.screenmenus.CustomerMenuFragments;
 import com.fintech.superadmin.fragments.screenmenus.HomeMenuFragments;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.StartGettingLocation;
@@ -50,7 +51,7 @@ public class HomeActivity extends BaseActivity {
     UserRepository userRepository;
 
 
-    HomeMenuFragments homeMenuFragments;
+    //HomeMenuFragments homeMenuFragments;
     HomeViewModel homeViewModel;
 
     private long mLastClickTime = 0;
@@ -65,11 +66,7 @@ public class HomeActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeBinding.setHomeViewModel(homeViewModel);
-        homeMenuFragments = new HomeMenuFragments();
-        setFragment(homeMenuFragments, homeBinding.HomeMenuFragment);
-        setNavigationClick();
         checkPermission();
-
         userRepository.getSignedInUser().observe(this, user -> {
             if (user != null) {
                 homeBinding.toolbar.userFirstName.setText(user.getName() + "");
@@ -93,8 +90,18 @@ public class HomeActivity extends BaseActivity {
         homeBinding.fab.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, QrMobilePayActivity.class));
         });
-        homeBinding.toolbar.qrCode.setOnClickListener(v-> homeViewModel.displayMobilePay(HomeActivity.this));
+        homeBinding.toolbar.qrCode.setOnClickListener(v -> homeViewModel.displayMobilePay(HomeActivity.this));
 
+        String appType = getString(R.string.app_type);
+        if (appType.trim().equalsIgnoreCase("b2c")) {
+            CustomerMenuFragments homeMenuFragments = new CustomerMenuFragments();
+            setFragment(homeMenuFragments, homeBinding.HomeMenuFragment);
+            setNavigationClick(homeMenuFragments);
+        } else {
+            HomeMenuFragments homeMenuFragments = new HomeMenuFragments();
+            setFragment(homeMenuFragments, homeBinding.HomeMenuFragment);
+            setNavigationClick(homeMenuFragments);
+        }
     }
 
 
@@ -105,7 +112,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void setNavigationClick() {
+    private <T extends Fragment> void setNavigationClick(T homeMenuFragments) {
         homeBinding.bottomNavigation.setBackground(null);
 //        homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(false);
         homeBinding.bottomNavigation.setOnItemSelectedListener(item -> {
@@ -148,6 +155,7 @@ public class HomeActivity extends BaseActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
+
             ActivityCompat.requestPermissions(HomeActivity.this,
                     new String[]{Manifest.permission.READ_CONTACTS,
                             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -164,7 +172,7 @@ public class HomeActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == STORAGE_PERMISSION && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED
-                && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+                && grantResults[3] == PackageManager.PERMISSION_GRANTED && grantResults[4] == PackageManager.PERMISSION_GRANTED) {
             StartGettingLocation.setAllTheLocations(HomeActivity.this);
         }
     }

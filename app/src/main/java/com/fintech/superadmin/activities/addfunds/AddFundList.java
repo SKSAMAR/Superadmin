@@ -81,6 +81,9 @@ public class AddFundList extends BaseActivity {
                         if (name != null && name.trim().equalsIgnoreCase("PAYU")) {
                             binding.payuGatewayApi.setVisibility(View.VISIBLE);
                         }
+                        if (name != null && name.trim().equalsIgnoreCase("CASHFREE")) {
+                            binding.cashFreeContainer.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             } catch (Exception e) {

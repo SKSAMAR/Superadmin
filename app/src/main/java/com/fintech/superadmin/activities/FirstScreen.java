@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
+import com.fintech.superadmin.activities.rebranded.RebrandedHome;
 import com.fintech.superadmin.auth.AuthActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;

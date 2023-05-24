@@ -2,6 +2,7 @@ package com.fintech.superadmin.data.model;
 public class AEPSBanksModel {
 
     public String id;
+
     public String bankname;
     public String iinno;
     public String activeflag;
@@ -10,6 +11,8 @@ public class AEPSBanksModel {
     public AEPSBanksModel() {
 
     }
+
+
 
     public AEPSBanksModel(String id, String bankname, String iinno, String activeflag, int temp_image) {
         this.id = id;
