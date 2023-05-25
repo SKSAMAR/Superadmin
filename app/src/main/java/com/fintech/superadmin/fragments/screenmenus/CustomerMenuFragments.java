@@ -140,7 +140,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         rechargeList.add(new MenuModel(R.drawable.dth, "DTH"));
         rechargeList.add(new MenuModel(R.drawable.electricity, "Electricity"));
         rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
-        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag"));
         rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
         rechargeList.add(new MenuModel(R.drawable.subtract, "broadband"));
         rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
@@ -269,7 +269,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
                 startActivity(intent);
                 break;
             }
-            case "FASTag\nRecharge":
+            case "FASTag":
                 startActivity(new Intent(requireActivity(), OperatorList.class));
                 break;
             case "Mobile Payments": {

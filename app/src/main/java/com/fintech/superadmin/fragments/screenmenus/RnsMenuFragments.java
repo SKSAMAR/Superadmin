@@ -279,7 +279,7 @@ public class RnsMenuFragments extends Fragment implements RecyclerViewClickListe
                 startActivity(intent);
                 break;
             }
-            case "FASTag\nRecharge":
+            case "FASTag":
                 startActivity(new Intent(requireActivity(), FastagFetchBill.class));
                 break;
             case "Mobile Payments": {

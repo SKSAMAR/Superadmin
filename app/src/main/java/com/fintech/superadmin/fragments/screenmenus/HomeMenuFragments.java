@@ -165,7 +165,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         rechargeList.add(new MenuModel(R.drawable.dth, "DTH"));
         rechargeList.add(new MenuModel(R.drawable.electricity, "Electricity"));
         rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
-        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag"));
         rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
         rechargeList.add(new MenuModel(R.drawable.subtract, "broadband"));
         rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
@@ -238,7 +238,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.firstHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> rechargeList = new ArrayList<>();
         rechargeList.add(new MenuModel(R.drawable.ic_mobile_recharge, "Mobile\nRecharge"));
-        rechargeList.add(new MenuModel(R.drawable.ic_fastag_recharge, "FASTag\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.ic_fastag_recharge, "FASTag"));
         rechargeList.add(new MenuModel(R.drawable.ic_dth, "DTH"));
         rechargeList.add(new MenuModel(R.drawable.ic_cable_tv, "Cable Tv", "Cable"));
         binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
@@ -371,7 +371,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 startActivity(intent);
                 break;
             }
-            case "FASTag\nRecharge":
+            case "FASTag":
                 startActivity(new Intent(requireActivity(), OperatorList.class));
                 break;
             case "Mobile Payments": {

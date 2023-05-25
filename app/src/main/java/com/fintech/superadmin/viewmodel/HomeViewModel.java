@@ -68,7 +68,7 @@ public class HomeViewModel extends ViewModel {
 
     private void initLessList() {
         lessList.add(new MenuModel(R.drawable.c_mobile, "Mobile\nRecharge"));
-        lessList.add(new MenuModel(R.drawable.c_fastag, "FASTag\nRecharge"));
+        lessList.add(new MenuModel(R.drawable.c_fastag, "FASTag"));
         lessList.add(new MenuModel(R.drawable.c_dth, "DTH"));
         lessList.add(new MenuModel(R.drawable.c_cable, "Cable Tv", "Cable"));
 
@@ -82,7 +82,7 @@ public class HomeViewModel extends ViewModel {
     private void initMoreList() {
 
         moreList.add(new MenuModel(R.drawable.c_mobile, "Mobile\nRecharge"));
-        moreList.add(new MenuModel(R.drawable.c_fastag, "FASTag\nRecharge"));
+        moreList.add(new MenuModel(R.drawable.c_fastag, "FASTag"));
         moreList.add(new MenuModel(R.drawable.c_dth, "DTH"));
         moreList.add(new MenuModel(R.drawable.c_cable, "Cable Tv", "Cable"));
         moreList.add(new MenuModel(R.drawable.c_bbps, "BBPS", "BBPS"));
