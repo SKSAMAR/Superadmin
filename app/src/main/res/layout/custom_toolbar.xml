@@ -91,7 +91,6 @@
                     android:layout_gravity="center"
                     android:paddingVertical="@dimen/_5sdp"
                     android:src="@drawable/ic_bar_code"
-                    android:visibility="gone"
                     app:tint="@color/white" />
 
                 <ImageView
