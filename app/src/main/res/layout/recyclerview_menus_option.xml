@@ -34,8 +34,8 @@
 
             <ImageView
                 app:resourceImage="@{myMenus.icon}"
-                android:layout_width="45sp"
-                android:layout_height="45sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:layout_gravity="center"
                 android:foregroundGravity="center"
                 android:id="@+id/menu_icon_logo"/>

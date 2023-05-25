@@ -78,6 +78,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
     void inIt() {
 
         try {
+            viewModel.bank = getIntent().getStringExtra("bank");
             apiType = getIntent().getStringExtra("apiName");
             if (apiType.trim().equalsIgnoreCase("fingPay")) {
                 topBankList = new ArrayList<>();

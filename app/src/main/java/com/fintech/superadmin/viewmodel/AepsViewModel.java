@@ -36,6 +36,7 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
     public String amount = "";
     public String transactionType = "";
     public String selectedBank = null;
+    public String bank = "1";
 
     public List<AEPSBanksModel> aepsBanksList = null;
 
@@ -90,7 +91,7 @@ public class AepsViewModel extends ViewModel implements AepsBankListener {
     public void startAEPSServices(Context context, String apiType, String aadhar, String fingerData, String mobile, String transType, String longitude, String latitude, String amount, ResetListener listener) {
 
         if (apiType.trim().equalsIgnoreCase("paysprint")) {
-            NetworkUtil.getNetworkResult(aepsRepository.apiServices.AEPSResponse("APP", aadhar, fingerData.trim(), mobile, transType, selectedAepsBankModel.getIinno(), longitude, latitude, amount), context, result -> {
+            NetworkUtil.getNetworkResult(aepsRepository.apiServices.AEPSResponse(bank, "APP", aadhar, fingerData.trim(), mobile, transType, selectedAepsBankModel.getIinno(), longitude, latitude, amount), context, result -> {
                 DisplayMessageUtil.dismissDialog();
                 Intent intent = new Intent(context, AepsReceiptActivity.class);
                 intent.putExtra("response", result);

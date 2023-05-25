@@ -84,10 +84,8 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
     private CustomerHomeMenuFragmentsBinding binding;
     HomeViewModel viewModel;
     ProgressDialog dialog;
-
     User user = null;
 
-    MenuAdapter menuAdapter;
 
     public CustomerMenuFragments() {
         // Required empty public constructor
@@ -126,19 +124,14 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
 
     private void setBuToCMenus() {
 
-        //Money Transfer
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
-
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
-
         moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
-
-        moneyTransferList.add(new MenuModel(R.drawable.moneytransfer, "To Self\nAccount"));
-
-        moneyTransferList.add(new MenuModel(R.drawable.moneytransfer, "Check\nBalance"));
+        moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
 
         //Recharge
         binding.firstHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
@@ -146,31 +139,27 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         rechargeList.add(new MenuModel(R.drawable.mobilerecharge, "Mobile\nRecharge"));
         rechargeList.add(new MenuModel(R.drawable.dth, "DTH"));
         rechargeList.add(new MenuModel(R.drawable.electricity, "Electricity"));
-        rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card\nBill Payments", "Credit Card"));
-        rechargeList.add(new MenuModel(R.drawable.postpaid, "Postpaid"));
-        rechargeList.add(new MenuModel(R.drawable.broadband, "Broadband/Landline"));
+        rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
+        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag\nRecharge"));
+        rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
+        rechargeList.add(new MenuModel(R.drawable.subtract, "broadband"));
+        rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
         binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
         binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-
-        //AEPS Services
-        binding.aepsBannerImage.setVisibility(View.GONE);
 
 
         //Utilities
         binding.utilitiesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> utilitiesList = new ArrayList<>();
         utilitiesList.add(new MenuModel(R.drawable.bbps_menu, "BBPS", "BBPS"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "Book A\nCylinder", "Gas"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_water, "Water"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_electricity, "Electricity"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_postpaid, "Postpaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_boardband, "Broadband"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
-
+        utilitiesList.add(new MenuModel(R.drawable.gas_cylinder, "Book A\nCylinder", "Gas"));
+        utilitiesList.add(new MenuModel(R.drawable.water, "Water"));
+        utilitiesList.add(new MenuModel(R.drawable.postpaid, "Postpaid"));
+//        utilitiesList.add(new MenuModel(R.drawable.broadband, "Broadband"));
+        utilitiesList.add(new MenuModel(R.drawable.piped_gas, "LPG"));
+//        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
+        utilitiesList.add(new MenuModel(R.drawable.landline, "Landline"));
+//        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
         binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -179,16 +168,31 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> financesList = new ArrayList<>();
         financesList.add(new MenuModel(R.drawable.emi, "EMI"));
-        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance", "Insurance"));
-        financesList.add(new MenuModel(R.drawable.ic_lic_bill, "LIC", "LIC"));
-        financesList.add(new MenuModel(R.drawable.ic_municipal, "Municipal", "MUNICIPALITY"));
-//        financesList.add(new MenuModel(R.drawable.loan_repayment, "Loan\nRepayment", "EMI PAYMENT"));
-//        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance Application"));
-//        financesList.add(new MenuModel(R.drawable.loan, "Loan Application"));
-
+        financesList.add(new MenuModel(R.drawable.insurance, "Insurance", "Insurance"));
+        financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
+        financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        binding.b2cContainer.setVisibility(View.VISIBLE);
+
+
+        //Travels & Holiday
+        binding.travelMenus.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> BookingList = new ArrayList<>();
+        BookingList.add(new MenuModel(R.drawable.flightsbooking, "Flights"));
+        BookingList.add(new MenuModel(R.drawable.busbooking, "Bus"));
+        BookingList.add(new MenuModel(R.drawable.trainbooking, "Train"));
+        BookingList.add(new MenuModel(R.drawable.hotelbooking, "Hotels"));
+        binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
+        binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        //Account Opening
+        binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> accountOpening = new ArrayList<>();
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
+        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
+        binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
+        binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
 

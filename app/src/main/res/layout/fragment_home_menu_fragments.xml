@@ -426,6 +426,44 @@
 
             </androidx.cardview.widget.CardView>
 
+
+
+            <!--            Aeps-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/aeps_banner_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0.5dp"
+                app:contentPadding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/aadhaar_enabled_payment_system"
+                        android:fontFamily="@font/sagnika"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/aeps_home_menu"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -444,10 +482,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/recharges"
+                        android:text="Recharge &amp; Pay Bills"
                         android:fontFamily="@font/sagnika"
                         android:layout_marginStart="10sp"
                         android:layout_marginTop="5sp"
+                        android:paddingBottom="@dimen/_12sdp"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"/>
@@ -497,41 +536,7 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-            <!--            Aeps-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/aeps_banner_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0.5dp"
-                app:contentPadding="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/aadhaar_enabled_payment_system"
-                        android:fontFamily="@font/sagnika"
-                        android:layout_marginStart="10sp"
-                        android:layout_marginTop="5sp"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/aeps_home_menu"/>
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -562,6 +567,39 @@
                         android:layout_height="wrap_content"
                         android:overScrollMode="never"
                         android:id="@+id/taxesHomeMenu"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:contentPadding="2dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10sp"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="@font/sagnika"
+                        android:text="Travels"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:id="@+id/travelMenus"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

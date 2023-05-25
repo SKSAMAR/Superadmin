@@ -296,7 +296,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
-    Observable<AePSDto> AEPSResponse(@Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData,
+    Observable<AePSDto> AEPSResponse(@Field("bank") String bank, @Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData,
                                                         @Field("mobile") String mobile, @Field("transType") String transType,
                                                         @Field("bankName") String bankName, @Field("long") String longitude,
                                                         @Field("lat") String latitude, @Field("amount") String amount);
