@@ -261,6 +261,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
         utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
         utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
+        utilitiesList.add(new MenuModel(R.drawable.rentpay, "Rent Pay"));
         utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
 
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));

@@ -127,8 +127,8 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
-        moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
-        moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
+        moneyTransferList.add(new MenuModel(R.drawable.banktransfer, "Bank Transfer"));
+        moneyTransferList.add(new MenuModel(R.drawable.checkbalance, "Check Balance"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -158,7 +158,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
 //        utilitiesList.add(new MenuModel(R.drawable.broadband, "Broadband"));
         utilitiesList.add(new MenuModel(R.drawable.piped_gas, "LPG"));
 //        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
-        utilitiesList.add(new MenuModel(R.drawable.landline, "Landline"));
+        utilitiesList.add(new MenuModel(R.drawable.rentpay, "Rent Pay"));
 //        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
         binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -167,10 +167,11 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         //Finances and Taxes
         binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> financesList = new ArrayList<>();
-        financesList.add(new MenuModel(R.drawable.emi, "EMI"));
+        financesList.add(new MenuModel(R.drawable.reccuringdeposit, "EMI"));
         financesList.add(new MenuModel(R.drawable.insurance, "Insurance", "Insurance"));
         financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
         financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
+        financesList.add(new MenuModel(R.drawable.carinsurance, "Car Insurance"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 

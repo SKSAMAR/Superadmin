@@ -12,7 +12,7 @@
       android:pathData="M85.84,42.56C85.84,43.73 84.89,44.68 83.72,44.68H58.28C57.11,44.68 56.16,43.73 56.16,42.56V38.32C56.16,37.15 57.11,36.2 58.28,36.2H83.72C84.89,36.2 85.84,37.15 85.84,38.32V42.56Z"
       android:strokeWidth="4"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"/>
+      android:strokeColor="?android:colorPrimary"/>
   <path
       android:pathData="M34.06,118.88L46.29,108.63"
       android:strokeLineJoin="round"
@@ -32,28 +32,28 @@
       android:strokeLineJoin="round"
       android:strokeWidth="4"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"
+      android:strokeColor="?android:colorPrimary"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M82.66,27.72C85.59,27.72 87.96,25.35 87.96,22.42C87.96,19.49 85.59,17.12 82.66,17.12C79.73,17.12 77.36,19.49 77.36,22.42C77.36,25.35 79.73,27.72 82.66,27.72Z"
       android:strokeLineJoin="round"
       android:strokeWidth="4"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"
+      android:strokeColor="?android:colorPrimary"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M59.34,27.72C62.27,27.72 64.64,25.35 64.64,22.42C64.64,19.49 62.27,17.12 59.34,17.12C56.41,17.12 54.04,19.49 54.04,22.42C54.04,25.35 56.41,27.72 59.34,27.72Z"
       android:strokeLineJoin="round"
       android:strokeWidth="4"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"
+      android:strokeColor="?android:colorPrimary"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M45.56,48.57C45.56,46.42 47.46,44.68 49.8,44.68H92.2C94.54,44.68 96.44,46.42 96.44,48.57V66.23C96.44,68.38 94.54,70.12 92.2,70.12H49.8C47.46,70.12 45.56,68.38 45.56,66.23V48.57Z"
       android:strokeLineJoin="round"
       android:strokeWidth="4"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"
+      android:strokeColor="?android:colorPrimary"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M51.92,97.68C55.43,97.68 58.28,94.83 58.28,91.32C58.28,87.81 55.43,84.96 51.92,84.96C48.41,84.96 45.56,87.81 45.56,91.32C45.56,94.83 48.41,97.68 51.92,97.68Z"

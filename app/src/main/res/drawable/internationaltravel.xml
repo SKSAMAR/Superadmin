@@ -10,10 +10,10 @@
       android:pathData="M72,68.96L3,136.96"
       android:strokeWidth="5"
       android:fillColor="#00000000"
-      android:strokeColor="#5507A4"
+      android:strokeColor="?android:colorPrimary"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M138.11,45.51C140.26,52.03 141.42,59 141.42,66.24C141.42,102.82 111.76,132.47 75.18,132.47C38.6,132.47 8.95,102.82 8.95,66.24C8.95,29.65 38.6,0 75.18,0C81.83,0 88.25,0.98 94.31,2.8C92.33,4.85 90.63,7.18 89.28,9.72C84.77,8.6 80.05,8 75.18,8C43.02,8 16.95,34.07 16.95,66.24C16.95,98.4 43.02,124.47 75.18,124.47C107.35,124.47 133.42,98.4 133.42,66.24C133.42,60.86 132.69,55.65 131.32,50.71C133.83,49.3 136.11,47.54 138.11,45.51Z"
-      android:fillColor="#5507A4"
+      android:fillColor="?android:colorPrimary"
       android:fillType="evenOdd"/>
 </vector>

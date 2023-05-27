@@ -11,7 +11,7 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "Metavisionpay"]
+        manifestPlaceholders = [appName: "MetaVisionPay"]
         appType = "B2C"
         applicationId "panel.metavisionpay.com"
         minSdk 22

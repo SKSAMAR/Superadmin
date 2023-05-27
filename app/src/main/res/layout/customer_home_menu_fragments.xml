@@ -132,7 +132,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_60sdp"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
                     android:src="@drawable/__wallet"/>
 
                 <ImageView
@@ -140,7 +140,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_60sdp"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
                     android:src="@drawable/cashabck"/>
 
 
@@ -149,7 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_60sdp"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
                     android:src="@drawable/__refer"/>
 
             </LinearLayout>

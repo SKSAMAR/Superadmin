@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.HelpOutline
+import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,16 +37,19 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import com.fintech.superadmin.ui.theme.SuperAdminTheme
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.fintech.superadmin.R
 import com.fintech.superadmin.activities.mobilenumber.SendMoney
 import com.fintech.superadmin.activities.qrscanner.util.QrCodeAnalyzer
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.clean.util.textSdp
+import com.fintech.superadmin.data.db.AppDatabase
+import com.fintech.superadmin.data.db.entities.User
+import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.Accessable
 import com.fintech.superadmin.util.ViewUtils
+import com.fintech.superadmin.util.displayMobilePayQr
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 class QrMobilePayActivity : ComponentActivity() {
 
@@ -107,10 +110,17 @@ class QrMobilePayActivity : ComponentActivity() {
                         },
                         actions = {
                             IconButton(
-                                onClick = {}
+                                onClick = {
+                                    if (Accessable.isAccessable()) {
+                                        val user: User =
+                                            AppDatabase.getAppDatabase(this@QrMobilePayActivity).userDao.regularUser
+                                        displayMobilePayQr(user, this@QrMobilePayActivity)
+                                    }
+
+                                }
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.HelpOutline,
+                                    imageVector = Icons.Default.QrCode,
                                     contentDescription = "help",
                                 )
                             }
@@ -153,7 +163,7 @@ class QrMobilePayActivity : ComponentActivity() {
                                                 val id = data["id"]
 
                                                 mobile?.let {
-                                                    if (Accessable.isAccessable()){
+                                                    if (Accessable.isAccessable()) {
                                                         val intent = Intent(
                                                             this@QrMobilePayActivity,
                                                             SendMoney::class.java
@@ -250,6 +260,7 @@ class QrMobilePayActivity : ComponentActivity() {
             }
         }
     }
+
     class CutOutShape : Shape {
         override fun createOutline(
             size: androidx.compose.ui.geometry.Size,

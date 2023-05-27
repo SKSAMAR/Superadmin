@@ -25,17 +25,17 @@
         android:pathData="M113.08,40.82C113.08,30.6 111.1,24.98 101.2,24.98H45.76C33.88,24.98 29.92,28.37 29.92,38.84C29.92,46.76 29.92,74.32 29.92,82.1C29.92,93.52 29.92,104.18 29.92,104.18C29.92,110.74 35.24,112.1 41.8,112.1H101.2C107.76,112.1 113.08,110.74 113.08,104.18C113.08,104.18 113.08,95.42 113.08,82.1C113.08,74.18 113.08,48.74 113.08,40.82Z"
         android:strokeWidth="4"
         android:fillColor="#00000000"
-        android:strokeColor="#5507A4"/>
+        android:strokeColor="?android:colorPrimary"/>
     <path
         android:pathData="M98.23,104.18C102.06,104.18 105.16,101.08 105.16,97.25C105.16,93.42 102.06,90.32 98.23,90.32C94.4,90.32 91.3,93.42 91.3,97.25C91.3,101.08 94.4,104.18 98.23,104.18Z"
         android:strokeWidth="4"
         android:fillColor="#00000000"
-        android:strokeColor="#5507A4"/>
+        android:strokeColor="?android:colorPrimary"/>
     <path
         android:pathData="M44.77,104.18C48.6,104.18 51.7,101.08 51.7,97.25C51.7,93.42 48.6,90.32 44.77,90.32C40.94,90.32 37.84,93.42 37.84,97.25C37.84,101.08 40.94,104.18 44.77,104.18Z"
         android:strokeWidth="4"
         android:fillColor="#00000000"
-        android:strokeColor="#5507A4"/>
+        android:strokeColor="?android:colorPrimary"/>
     <path
         android:pathData="M114,49H117.33C118.25,49 119,49.9 119,51V67C119,68.1 118.25,69 117.33,69H114"
         android:strokeWidth="4"
@@ -50,11 +50,11 @@
         android:pathData="M95.26,36.86C95.26,37.95 94.38,38.84 93.28,38.84H51.7C50.61,38.84 49.72,37.95 49.72,36.86V32.9C49.72,31.81 50.61,30.92 51.7,30.92H93.28C94.38,30.92 95.26,31.81 95.26,32.9V36.86Z"
         android:strokeWidth="4"
         android:fillColor="#00000000"
-        android:strokeColor="#5507A4"/>
+        android:strokeColor="?android:colorPrimary"/>
     <path
         android:pathData="M99.22,80.27L43.78,80.42C39.82,80.42 37.84,78.44 37.84,74.48C37.84,68.54 37.84,56.94 37.84,50.72C37.84,46.76 39.82,44.78 43.78,44.78C61.6,44.78 74.89,44.78 99.22,44.78C103.18,44.78 105.16,46.76 105.16,50.72C105.16,54.68 105.16,72.45 105.16,74.48C105.16,78.44 101.29,80.27 99.22,80.27Z"
         android:strokeWidth="4"
         android:fillColor="#00000000"
-        android:strokeColor="#5507A4"/>
+        android:strokeColor="?android:colorPrimary"/>
   </group>
 </vector>
