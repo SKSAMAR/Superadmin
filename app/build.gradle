@@ -11,9 +11,9 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "MetaVisionPay"]
-        appType = "B2C"
-        applicationId "panel.metavisionpay.com"
+        manifestPlaceholders = [appName: "UBI Payments"]
+        appType = "B2B"
+        applicationId "b2b.ubipayment.com"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31

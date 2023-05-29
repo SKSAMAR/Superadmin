@@ -77,9 +77,10 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
+        /*
         homeBinding.fab.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, QrMobilePayActivity.class));
-        });
+        });*/
 
         homeBinding.toolbar.userFirstName.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);

@@ -60,6 +60,11 @@
     </style>
 
 
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/sagnika</item>
+    </style>
+
+
     <style name="Theme.AppThemeAdditional" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/purple_500</item>

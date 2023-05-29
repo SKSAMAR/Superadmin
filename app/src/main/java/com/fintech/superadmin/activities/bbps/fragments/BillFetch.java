@@ -67,6 +67,7 @@ public class BillFetch extends Fragment {
                 binding.directPayBBPS.setVisibility(View.VISIBLE);
                 binding.getDetails.setVisibility(View.GONE);
                 binding.fetchableConsumerLayout.setVisibility(View.GONE);
+                binding.mPinBBPS.setVisibility(View.VISIBLE);
                 if (viewModel.selectedBBPS.getCategory()!=null){
                     binding.directPayCaNum.setText(viewModel.selectedBBPS.getCategory()+" Number");
                 }else{

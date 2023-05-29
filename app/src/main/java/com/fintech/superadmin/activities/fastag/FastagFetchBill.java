@@ -48,15 +48,6 @@ public class FastagFetchBill extends BaseActivity implements ResetListener {
         binding.caNumber.setText("");
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
-            onBackPressed();
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void manageState(){
         if (viewModel.fastagOpperatorModel.getViewbill().trim().equals("1")){

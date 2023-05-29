@@ -699,7 +699,7 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/FasTag/PaySprint/pay_bill.php")
-    Observable<RegularResponse> payFastAgBill(@Field("amount") String amount, @Field("canumber") String num, @Field("operator") String operator,
+    Observable<RegularResponse> payFastAgBill(@Field("tpin") String tpin, @Field("amount") String amount, @Field("canumber") String num, @Field("operator") String operator,
                                               @Field("billDetails") String billDetails, @Field("long") String longi,
                                               @Field("lati") String lati, @Field("pay_fastag") String pay_fastag);
     //FASTAG

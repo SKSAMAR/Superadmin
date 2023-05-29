@@ -77,24 +77,51 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
+
+                    <LinearLayout
                         android:visibility="gone"
                         android:id="@+id/directPayAmount"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_margin="@dimen/_6sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:text="@={fastagViewModel.cc_amount}"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/amount"
-                            android:maxLines="1"
-                            android:inputType="text"
-                            android:id="@+id/cc_amount"
-                            android:importantForAutofill="no"
-                            android:padding="15dp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={fastagViewModel.cc_amount}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/amount"
+                                android:maxLines="1"
+                                android:inputType="text"
+                                android:id="@+id/cc_amount"
+                                android:importantForAutofill="no"
+                                android:padding="15dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:text="@={fastagViewModel.mPin}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/enter_m_pin"
+                                android:id="@+id/mPin"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:importantForAutofill="no"
+                                android:padding="15dp"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

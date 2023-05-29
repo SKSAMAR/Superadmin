@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="sendAmountViewModel"
             type="com.fintech.superadmin.viewmodel.ToBankViewModel" />
@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.tobank.SendAmountDMT"
-        android:background="@color/screenBackground">
+        android:background="@color/screenBackground"
+        tools:context=".activities.tobank.SendAmountDMT">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/addAmountTopSection"
@@ -105,9 +105,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/addAmountBalanceSection"
-            android:layout_below="@id/addAmountTopSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/addAmountTopSection"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
@@ -120,58 +120,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:text="@={sendAmountViewModel.amount}"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:ems="10"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/enter_amount"
-                        android:id="@+id/enteredAmount"
-                        android:maxLines="1"
-                        android:maxLength="5"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:background="@android:color/transparent"
-                    android:theme="@style/Widget.Design.TextInputLayout"
-                    android:focusableInTouchMode="false">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/enteredAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@android:color/transparent"
+                            android:ems="10"
+                            android:hint="@string/enter_amount"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLength="5"
+                            android:maxLines="1"
+                            android:text="@={sendAmountViewModel.amount}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:onClick="@{sendAmountViewModel::onSpinnerClick}"
-                        android:id="@+id/transactionType"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:hint="@string/transaction_type"
-                        android:inputType="none"
                         android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                        android:theme="@style/Widget.Design.TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/transactionType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/transaction_type"
+                            android:importantForAutofill="no"
+                            android:inputType="none"
+                            android:onClick="@{sendAmountViewModel::onSpinnerClick}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -180,39 +180,39 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:text="@={sendAmountViewModel.mPin}"
+                        android:id="@+id/em"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:ems="10"
                         android:background="@android:color/transparent"
+                        android:ems="10"
                         android:hint="@string/enter_m_pin"
-                        android:id="@+id/em"
-                        android:maxLines="1"
-                        android:maxLength="5"
                         android:importantForAutofill="no"
                         android:inputType="number"
-                        />
+                        android:maxLength="5"
+                        android:maxLines="1"
+                        android:text="@={sendAmountViewModel.mPin}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:onClick="@{sendAmountViewModel::onSendDMTButtonClick}"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/confirm"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:id="@+id/button_send_amount"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_send_amount"
+                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:onClick="@{sendAmountViewModel::onSendDMTButtonClick}"
+                        android:text="@string/confirm"
+                        android:textColor="@color/white" />
 
 
-            </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

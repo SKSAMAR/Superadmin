@@ -1,5 +1,6 @@
 package com.fintech.superadmin.viewmodel;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ import com.fintech.superadmin.data.repositories.MobileRechargesRepository;
 import com.fintech.superadmin.databinding.ActivitySelectOperatorBinding;
 import com.fintech.superadmin.databinding.BbpsCategoryDesignBinding;
 import com.fintech.superadmin.databinding.DthInformationDesignBinding;
+import com.fintech.superadmin.databinding.FastagPayBinding;
 import com.fintech.superadmin.databinding.FetchBillFastagBinding;
 import com.fintech.superadmin.databinding.FetchBillLicBinding;
 import com.fintech.superadmin.databinding.OtpScreenLayoutBinding;
@@ -62,6 +64,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -169,16 +172,13 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             if (PopupUtil.access) {
                 if (operatorModel == null) {
                     MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Select a Provide a Operator", R.drawable.warning);
-                }
-                else if (mobileNumber.getValue() == null || mobileNumber.getValue().isEmpty()) {
+                } else if (mobileNumber.getValue() == null || mobileNumber.getValue().isEmpty()) {
                     MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid number", R.drawable.warning);
                 } else if (plan == null || plan.isEmpty()) {
                     MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid plan", R.drawable.warning);
-                }
-//                else if (mPin == null || mPin.trim().isEmpty()) {
-//                    MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid M-pin", R.drawable.warning);
-//                }
-                else {
+                } else if (mPin == null || mPin.trim().isEmpty()) {
+                    MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Provide a valid M-pin", R.drawable.warning);
+                } else {
                     String message = mobileNumber.getValue().replaceAll("[^\\w]", "");
                     StringBuilder builder = new StringBuilder(message);
                     if (service.equals("prepaid")) {
@@ -211,6 +211,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     public LiveData<BrowsePlanResponse> getBrowsePlan(Context context) {
         String service_type = "1";
         if (mode.equals("dth")) {
@@ -236,6 +237,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     public void findCustomerInfoDth(Context context) {
         String service_type = "1";
         if (mode.equals("dth")) {
@@ -269,6 +271,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     public void onFetchTheBillLic(View view) {
         if (Accessable.isAccessable()) {
             if (lic_number.isEmpty()) {
@@ -346,6 +349,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         }
     }
 
+    @SuppressLint("CheckResult")
     public void fetchBbpsOperatorsCategory(Context context, Receiver<Integer> receiver) {
         if (Accessable.isAccessable()) {
             DisplayMessageUtil.loading(context);
@@ -445,6 +449,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         }
     }
 
+    @SuppressLint("CheckResult")
     public void onFetchBBPSBill(View view) {
         if (Accessable.isAccessable()) {
 
@@ -505,6 +510,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         }
     }
 
+    @SuppressLint("CheckResult")
     public void proceedToPayBillBBPS(View view) {
 
         if (Accessable.isAccessable()) {
@@ -532,11 +538,10 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                     }
 
                 }
-
-//                if( mPin == null || mPin.trim().isEmpty()){
-//                    ViewUtils.showToast(view.getContext(), "Enter a valid M-PIN");
-//                    return;
-//                }
+                if (mPin == null || mPin.trim().isEmpty()) {
+                    ViewUtils.showToast(view.getContext(), "Enter a valid M-PIN");
+                    return;
+                }
 
 
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -687,12 +692,15 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         }
     }
 
+    @SuppressLint("CheckResult")
     public void directFastagPay(View view) {
         if (Accessable.isAccessable()) {
             if (consumer_number == null || consumer_number.trim().length() < 3) {
                 MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Provide valid" + fastagOpperatorModel.getDisplayname());
             } else if (cc_amount == null || cc_amount.trim().isEmpty()) {
                 MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Provide valid amount");
+            } else if (mPin == null || mPin.trim().isEmpty()) {
+                MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Provide valid M-Pin");
             } else {
                 try {
                     float checkBalance = Float.parseFloat(cc_amount);
@@ -706,7 +714,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                 }
 
                 DisplayMessageUtil.loading(view.getContext());
-                mobileRechargesRepository.apiServices.payFastAgBill(cc_amount, consumer_number, fastagOpperatorModel.getId(), "", UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
+                mobileRechargesRepository.apiServices.payFastAgBill(mPin, cc_amount, consumer_number, fastagOpperatorModel.getId(), "", UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(res -> {
@@ -758,6 +766,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     public void fetchFasTagBillOnline(Context context) {
         DisplayMessageUtil.loading(context);
         mobileRechargesRepository.apiServices.fetchFasTagBill(consumer_number, fastagOpperatorModel.getId(), "fetch_fast")
@@ -776,26 +785,30 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     private void showBillDataFastAg(Context context, FastagBillFetch fastagBillFetch) {
         AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.CustomDialog);
-        FetchBillFastagBinding binding = FetchBillFastagBinding.inflate(LayoutInflater.from(context));
+        FastagPayBinding binding = FastagPayBinding.inflate(LayoutInflater.from(context));
         alert.setView(binding.getRoot());
         AlertDialog alertDialog = alert.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
         binding.setBillData(fastagBillFetch);
-        binding.consumerId.setText(consumer_number);
+        binding.number.setText(consumer_number);
         if (fastagBillFetch.getDuedate() == null) {
-            binding.dueDateLayout.setVisibility(View.GONE);
+            binding.duedateLayout.setVisibility(View.GONE);
         }
-
-
-        binding.cancelButton.setOnClickListener(v -> alertDialog.dismiss());
-        binding.confirmButton.setOnClickListener(v -> {
+        binding.cancel.setOnClickListener(v -> alertDialog.dismiss());
+        binding.sendAmountUser.setOnClickListener(v -> {
+            mPin = Objects.requireNonNull(binding.mpin.getText()).toString();
             try {
                 float checkBalance = Float.parseFloat(fastagBillFetch.getAmount());
                 if (checkBalance < 99 || checkBalance >= 1000) {
                     DisplayMessageUtil.error(context, "Please make transaction between 100 Rs & 1000");
+                    return;
+                }
+                if (mPin == null || mPin.trim().isEmpty()) {
+                    DisplayMessageUtil.error(context, "Provide Provide valid M-Pin");
                     return;
                 }
                 cc_amount = "" + checkBalance;
@@ -814,7 +827,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             }
             alertDialog.dismiss();
             DisplayMessageUtil.loading(context);
-            mobileRechargesRepository.apiServices.payFastAgBill(cc_amount, consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
+            mobileRechargesRepository.apiServices.payFastAgBill(mPin ,cc_amount, consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {
@@ -833,7 +846,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         if (mode.equals("dth")) {
             service_type = "2";
         }
-        NetworkUtil.getNetworkResult(mobileRechargesRepository.apiServices.getHLRInformation( service_type, mode, mobileNumber.getValue(), "hlr_check"),
+        NetworkUtil.getNetworkResult(mobileRechargesRepository.apiServices.getHLRInformation(service_type, mode, mobileNumber.getValue(), "hlr_check"),
                 context, data -> {
                     if (data.getResponse_code().equals(1)) {
                         operatorModel = data.getOperator();

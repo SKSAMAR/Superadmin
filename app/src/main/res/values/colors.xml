@@ -12,8 +12,24 @@
     <color name="screenBackground">#DAD4DC</color>
     <color name="none">#00000000</color>
     <color name="iconColor">#BD0407</color>
-
     <color name="second_top">#804BDD</color>
+
+
+
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="background">#EEF1F7</color>
+    <color name="backgroundDark">#d6d9de</color>
+    <color name="colorPrimary">#18A3AE</color>
+    <color name="colorSecondary">#FADC00</color>
+    <color name="colorPrimaryDark">#276569</color>
+    <color name="colorPrimaryLight">#5dbfc6</color>
+    <color name="lightGrey">#F8F8F8</color>
+    <color name="disabled">#BBBBBB</color>
+    <color name="red">#FC100D</color>
+    <color name="green">#4BB543</color>
+    <color name="yellow">#FFBE00</color>
+    <color name="transparent">#00000000</color>
+    <color name="gainsboro">#E5E5E5</color>
 
     <color name="ucrop_color_toolbar">@color/white</color>
     <color name="ucrop_color_statusbar">@color/white</color>

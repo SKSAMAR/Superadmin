@@ -375,5 +375,6 @@
     <string name="cashfree">Cashfree</string>
     <string name="recharge_amp_pay_bills"><![CDATA[Recharge & Pay Bills]]></string>
     <string name="transfer_money">Transfer Money</string>
+    <string name="number">Number</string>
 
 </resources>
