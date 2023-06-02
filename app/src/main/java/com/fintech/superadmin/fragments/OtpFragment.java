@@ -45,7 +45,7 @@ public class OtpFragment extends Fragment implements AuthListener, AuthoriseList
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_otp, container, false);
         binding.OtpSection.setVisibility(View.VISIBLE);
         binding.createPasswordSection.setVisibility(View.GONE);
-        fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
+        //fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
         authviewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         binding.setMyviewmodel(authviewModel);
         authviewModel.authListener = this;

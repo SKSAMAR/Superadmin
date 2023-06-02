@@ -13,6 +13,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -90,7 +91,7 @@ class QrActivity : ComponentActivity() {
             }
         ) {
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize().padding(it)
             ) {
                 AndroidView(
                     factory = { context ->

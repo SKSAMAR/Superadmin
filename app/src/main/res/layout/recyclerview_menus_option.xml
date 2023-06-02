@@ -40,7 +40,7 @@
                 android:foregroundGravity="center"
                 android:id="@+id/menu_icon_logo"/>
 
-
+<!--            app:tint="?android:colorPrimary"-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_7sdp"

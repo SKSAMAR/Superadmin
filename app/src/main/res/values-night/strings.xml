@@ -8,7 +8,6 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="create_account">Create Account</string>
     <string name="confirm_your_password">Confirm your password</string>
-    <string name="recharges">Recharges</string>
     <string name="utilities">Utilities</string>
     <string name="finances_and_taxes">Finances and Taxes</string>
     <string name="home">Home</string>
@@ -30,8 +29,6 @@
     <string name="confirm_account_number">Confirm account number</string>
     <string name="ifsc">IFSC</string>
     <string name="account_holder_name">Account holder name</string>
-    <string name="phone_number_optional">Phone number (Optional)</string>
-    <string name="nickname">Nickname</string>
     <string name="you_can_send_money_to_your_contact_using_their_bank_account_number_and_ifsc_code">You can send money to your contact using their bank account number and IFSC code.</string>
     <string name="confirm">Confirm</string>
     <string name="categories">Categories</string>
@@ -42,5 +39,4 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="operator_name_re">Operator Name</string>
     <string name="select_card_type">Select Card Type</string>
-    <string name="cash_deposit">Cash Deposit</string>
 </resources>

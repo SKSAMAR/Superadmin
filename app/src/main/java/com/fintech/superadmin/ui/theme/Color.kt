@@ -2,6 +2,7 @@ package com.fintech.superadmin.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 var Purple200 = Color(0xFFBD0407)
@@ -46,6 +47,17 @@ val OkColor = Color(0xFF07B6BC)
 //val LightestSky = Color(0xFFB6DFFF)
 
 val OpenGreen = Color(0xFF34A853)
+
+val G1 = Color(0xFF07B6BC)
+val G2 = Color(0xFF0862F7)
+
+val BackGroundGradient = Brush.horizontalGradient(
+    colors = listOf(G2, G1)
+)
+
+val BackHorizontalGradient = Brush.horizontalGradient(
+    colors = listOf(G2, G1)
+)
 
 @Composable
 fun BackgroundCardGrey(): Color {

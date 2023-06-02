@@ -39,7 +39,7 @@ public class ChangePasswordFragment extends Fragment implements AuthListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_change_password, container, false);
-        fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
+        //fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
         authviewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         binding.setMyviewmodel(authviewModel);
         authviewModel.authListener = this;

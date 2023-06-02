@@ -25,6 +25,8 @@ public class AuthData{
 
   private String User_Type;
 
+  private String OTP;
+
   public Boolean getStatus() {
     return this.Status;
   }
@@ -79,6 +81,14 @@ public class AuthData{
 
   public void setUser_Type(String User_Type) {
     this.User_Type = User_Type;
+  }
+
+  public String getOTP() {
+    return OTP;
+  }
+
+  public void setOTP(String OTP) {
+    this.OTP = OTP;
   }
 
   @Override

@@ -10,8 +10,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <uses-feature android:name="android.hardware.bluetooth" />
     <uses-feature android:name="android.hardware.bluetooth_le" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
@@ -21,8 +23,7 @@
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -78,32 +79,32 @@
         <activity
             android:name="com.fintech.superadmin.activities.aeps.BrandedAePSHome"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ProjectRC"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.rebranded.RebrandedHome"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ProjectRC"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.aeps.AepsReceiptActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ProjectRC"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.transactionDetails.TransactionDetailsReceiptActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ProjectRC"
             tools:ignore="LockedOrientationActivity" />
 
@@ -238,8 +239,8 @@
         <activity
             android:name="com.fintech.superadmin.activities.addfunds.PayActivityWebView"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="com.fintech.superadmin.activities.addfunds.FundExchange"
@@ -311,11 +312,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-<!--        <activity-->
-<!--            android:name=".activities.addfunds.PayActivityWithPayTm"-->
-<!--            android:exported="true"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            tools:ignore="LockedOrientationActivity" />-->
+        <!--        <activity-->
+        <!--            android:name=".activities.addfunds.PayActivityWithPayTm"-->
+        <!--            android:exported="true"-->
+        <!--            android:screenOrientation="portrait"-->
+        <!--            tools:ignore="LockedOrientationActivity" />-->
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
@@ -334,17 +335,16 @@
         <activity
             android:name="com.fintech.superadmin.activities.addfunds.CashFreeAddWalletActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.fingBoard.FingBoardHome"
             android:exported="false"
-            android:theme="@style/Theme.ProjectRC"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
 
 
         <activity
@@ -490,6 +490,13 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.dmt.transaction.DmtTransactionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name="com.fintech.superadmin.activities.rechargeactivities.SelectOperator"
             android:exported="true"
@@ -534,41 +541,41 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-<!--        /**-->
-<!--        <activity-->
-<!--            android:name="brindacreationsations.activities.MainActivity"-->
-<!--            android:configChanges="uiMode"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            tools:ignore="LockedOrientationActivity" />-->
-<!--        **/-->
+        <!--        /**-->
+        <!--        <activity-->
+        <!--            android:name="brindacreationsations.activities.MainActivity"-->
+        <!--            android:configChanges="uiMode"-->
+        <!--            android:launchMode="singleTask"-->
+        <!--            android:screenOrientation="portrait"-->
+        <!--            tools:ignore="LockedOrientationActivity" />-->
+        <!--        **/-->
 
         <activity
             android:name="com.fintech.superadmin.activities.creditcard.CCFetchBill"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.creditcard.CCFetchBillK"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.creditcard.CCRefundActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.creditcard.CCDetailedAnalytic"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
@@ -579,12 +586,39 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name="com.fintech.superadmin.auth.AuthActivity"
+            android:name="com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
+
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.rewards.RewardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.auth.AuthActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host=""
+                    android:scheme="https"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.fintech.superadmin.activities.FirstScreen"
@@ -598,19 +632,17 @@
         </activity>
 
 
-
-
         <meta-data
             android:name="com.phonepe.android.sdk.Debuggable"
-            android:value="false"/>
+            android:value="false" />
         <!-- Keep it false in production environment-->
         <meta-data
             android:name="com.phonepe.android.sdk.isUAT"
-            android:value="false"/>
+            android:value="false" />
         <!-- Get the App Id from PhonePe-->
         <meta-data
             android:name="com.phonepe.android.sdk.AppId"
-            android:value="${applicationId}"/>
+            android:value="${applicationId}" />
 
     </application>
 

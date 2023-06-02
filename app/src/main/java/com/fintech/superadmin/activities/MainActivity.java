@@ -1,6 +1,5 @@
 package com.fintech.superadmin.activities;
 
-import com.fintech.superadmin.databinding.ActivityMainBinding;
 
 /**
 @AndroidEntryPoint

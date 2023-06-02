@@ -60,49 +60,10 @@ public class HomeViewModel extends ViewModel {
     public HomeViewModel(HomeRepository homeRepository, APIServices apiServices) {
         this.homeRepository = homeRepository;
         this.apiServices = apiServices;
-        initLessList();
-        initMoreList();
         switchLess();
     }
 
 
-    private void initLessList() {
-        lessList.add(new MenuModel(R.drawable.c_mobile, "Mobile\nRecharge"));
-        lessList.add(new MenuModel(R.drawable.c_fastag, "FASTag"));
-        lessList.add(new MenuModel(R.drawable.c_dth, "DTH"));
-        lessList.add(new MenuModel(R.drawable.c_cable, "Cable Tv", "Cable"));
-
-        lessList.add(new MenuModel(R.drawable.c_bbps, "BBPS", "BBPS"));
-        lessList.add(new MenuModel(R.drawable.c_lpg, "Book A\nCylinder", "Gas"));
-        lessList.add(new MenuModel(R.drawable.ic_water, "Water"));
-        lessList.add(new MenuModel(R.drawable.c_more, "See All"));
-
-    }
-
-    private void initMoreList() {
-
-        moreList.add(new MenuModel(R.drawable.c_mobile, "Mobile\nRecharge"));
-        moreList.add(new MenuModel(R.drawable.c_fastag, "FASTag"));
-        moreList.add(new MenuModel(R.drawable.c_dth, "DTH"));
-        moreList.add(new MenuModel(R.drawable.c_cable, "Cable Tv", "Cable"));
-        moreList.add(new MenuModel(R.drawable.c_bbps, "BBPS", "BBPS"));
-        moreList.add(new MenuModel(R.drawable.c_lpg, "Book A\nCylinder", "Gas"));
-        moreList.add(new MenuModel(R.drawable.ic_water, "Water"));
-        moreList.add(new MenuModel(R.drawable.c_electricity, "Electricity"));
-        moreList.add(new MenuModel(R.drawable.c_mobile, "Postpaid"));
-        moreList.add(new MenuModel(R.drawable.c_data_card, "Broadband"));
-        moreList.add(new MenuModel(R.drawable.c_lpg, "LPG"));
-        moreList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
-        moreList.add(new MenuModel(R.drawable.c_landline, "Landline"));
-        moreList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPostpaid", "BBPS"));
-        moreList.add(new MenuModel(R.drawable.c_insurance, "Insurance"));
-        moreList.add(new MenuModel(R.drawable.c_credit_card, "Credit Card"));
-        moreList.add(new MenuModel(R.drawable.c_lic, "LIC"));
-
-        moreList.add(new MenuModel(R.drawable.c_home, "abc"));
-        moreList.add(new MenuModel(R.drawable.c_more, "See Less"));
-
-    }
     public void switchMore() {
         currentList = moreList;
     }

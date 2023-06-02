@@ -7,11 +7,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -24,6 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -91,104 +95,119 @@ fun LoginPage(
     viewModel: AuthViewModel = viewModel(),
     context: Context = LocalContext.current
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Column {
-            Spacer(modifier = Modifier.height(15.sdp))
-            AsyncImage(
-                model = Logos.logo,
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
-                modifier = Logos
-                    .setLogoMods()
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.height(15.sdp))
-        }
-
-        Card(
+    Box {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 14.sdp, vertical = 10.sdp),
-            backgroundColor = BackgroundCardGrey(),
-            shape = RoundedCornerShape(8.sdp),
-            elevation = 0.dp
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
+            Column {
+                Spacer(modifier = Modifier.height(15.sdp))
+                AsyncImage(
+                    model = Logos.logo,
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Logos
+                        .setLogoMods()
+                        .align(Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.height(15.sdp))
+            }
+
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 12.sdp, bottom = 12.sdp, start = 14.sdp, end = 14.sdp)
+                    .padding(horizontal = 14.sdp, vertical = 10.sdp),
+                backgroundColor = BackgroundCardGrey(),
+                shape = RoundedCornerShape(8.sdp),
+                elevation = 0.dp
             ) {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = "Login",
-                    color = MaterialTheme.colors.onSurface,
-                    fontSize = 16.textSdp
-                )
-                Spacer(modifier = Modifier.height(29.sdp))
-                BasicOutlinedTextView(
-                    hint = "Mobile or Email",
-                    value = viewModel.mobile.value,
-                    onValueChange = { viewModel.mobile.value = it },
-                    maxLength = 100,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Text,
-                        capitalization = KeyboardCapitalization.None
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.sdp))
-
-                BasicOutlinedPasswordView(
-                    hint = "Password",
-                    value = viewModel.password.value,
-                    onValueChange = { viewModel.password.value = it },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(8.sdp))
-                Text(
+                Column(
                     modifier = Modifier
-                        .align(Alignment.End)
-                        .clickable { navController.navigate(AuthNav.ForgotPassword.route) },
-                    text = "Forgot Password",
-                    fontSize = 10.textSdp,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(modifier = Modifier.height(32.sdp))
-                BaseButton(
-                    text = "Login",
-                    fontSize = 14.textSdp,
-                    onClick = {
-                        if (Accessable.isAccessable()) {
-                            viewModel.loginMerchant(context)
-                        }
-                    }
-                )
-                Spacer(modifier = Modifier.height(20.sdp))
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .clickable { navController.navigate(AuthNav.RegisterPage.route) },
-                    text = buildAnnotatedString {
-                        append("Don't have an account? ")
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Register")
-                        }
-                    },
-                    fontSize = 10.textSdp,
-                )
-                Spacer(modifier = Modifier.height(10.sdp))
+                        .fillMaxWidth()
+                        .padding(top = 12.sdp, bottom = 12.sdp, start = 14.sdp, end = 14.sdp)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = "Login",
+                        color = MaterialTheme.colors.onSurface,
+                        fontSize = 16.textSdp
+                    )
+                    Spacer(modifier = Modifier.height(29.sdp))
+                    BasicOutlinedTextView(
+                        hint = "Mobile or Email",
+                        value = viewModel.mobile.value,
+                        onValueChange = { viewModel.mobile.value = it },
+                        maxLength = 100,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Text,
+                            capitalization = KeyboardCapitalization.None
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(10.sdp))
 
+                    BasicOutlinedPasswordView(
+                        hint = "Password",
+                        value = viewModel.password.value,
+                        onValueChange = { viewModel.password.value = it },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(8.sdp))
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .clickable { navController.navigate(AuthNav.ForgotPassword.route) },
+                        text = "Forgot Password",
+                        fontSize = 10.textSdp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.height(32.sdp))
+                    BaseButton(
+                        text = "Login",
+                        fontSize = 14.textSdp,
+                        onClick = {
+                            if (Accessable.isAccessable()) {
+                                viewModel.loginMerchant(context)
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(20.sdp))
+                    Text(
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .clickable { navController.navigate(AuthNav.RegisterPage.route) },
+                        text = buildAnnotatedString {
+                            append("Don't have an account? ")
+                            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append("Register")
+                            }
+                        },
+                        fontSize = 10.textSdp,
+                    )
+                    Spacer(modifier = Modifier.height(10.sdp))
+
+                }
             }
         }
+
+        if (viewModel.mobileVerificationDialog) {
+
+            DisplayComposeDialog(
+                onCancel = {
+                    viewModel.mobileVerificationDialog = false
+                },
+                content = {
+                    viewModel.MobileOTPPage()
+                }
+            )
+        }
     }
+
 }
 
 
@@ -628,4 +647,35 @@ fun CreatePasswordPage(
             }
         }
     }
+}
+
+
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun DisplayComposeDialog(
+    onCancel: () -> Unit = {},
+    content: @Composable ColumnScope.() -> Unit
+) {
+
+    AlertDialog(
+        modifier = Modifier.padding(horizontal = 20.sdp),
+        onDismissRequest = { onCancel() },
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false,
+            //decorFitsSystemWindows = true,
+            securePolicy = SecureFlagPolicy.SecureOff
+        ),
+        title = null,
+        text = null,
+        buttons = {
+            Column(
+                content = content
+            )
+        }
+    )
+
+
 }

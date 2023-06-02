@@ -17,7 +17,7 @@ import com.fintech.superadmin.data.db.entities.Report;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.db.entities.UserProfile;
 
-@Database(entities = {AuthData.class, User.class, PaySprintApi.class, UserProfile.class, Report.class}, version = 18, exportSchema = false)
+@Database(entities = {AuthData.class, User.class, PaySprintApi.class, UserProfile.class, Report.class}, version = 19, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase appDatabase = null;

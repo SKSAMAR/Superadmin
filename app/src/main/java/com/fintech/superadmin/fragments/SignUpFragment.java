@@ -46,7 +46,7 @@ public class SignUpFragment extends Fragment implements AuthListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false);
-        fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
+        //fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
         authviewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         binding.setMyviewmodel(authviewModel);
         authviewModel.authListener = this;
@@ -112,5 +112,4 @@ public class SignUpFragment extends Fragment implements AuthListener {
             setFragment(new OtpFragment());
         }
     }
-
 }

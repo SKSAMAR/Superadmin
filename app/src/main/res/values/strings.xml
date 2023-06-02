@@ -10,7 +10,6 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="create_account">Create Account</string>
     <string name="confirm_your_password">Confirm your password</string>
-    <string name="recharges">Recharges</string>
     <string name="utilities">Utilities</string>
     <string name="finances_and_taxes">Finances and Taxes</string>
     <string name="home">Home</string>
@@ -34,8 +33,6 @@
     <string name="confirm_account_number">Confirm account number</string>
     <string name="ifsc">IFSC</string>
     <string name="account_holder_name">Account holder name</string>
-    <string name="phone_number_optional">Phone number (Optional)</string>
-    <string name="nickname">Nickname</string>
     <string name="you_can_send_money_to_your_contact_using_their_bank_account_number_and_ifsc_code">You can send money to your contact using their bank account number and IFSC code.</string>
     <string name="confirm">Confirm</string>
     <string name="categories">Categories</string>
@@ -128,7 +125,6 @@
     <string name="select_pan_card">Select Pan Card</string>
     <string name="pan_no">Pan no</string>
     <string name="select_bank">Select Bank</string>
-    <string name="branch_name">Branch Name</string>
     <string name="account_holder">Account Holder</string>
     <string name="passbook_photo">Passbook Photo</string>
     <string name="registered_mobile_number">Registered Mobile Number</string>
@@ -211,7 +207,6 @@
     <string name="gst">GST</string>
     <string name="tds">TDS</string>
     <string name="dmt_mobile">DMT Mobile</string>
-    <string name="wallet_exchange">Wallet Exchange</string>
     <string name="exchange_wallet">Exchange Wallet</string>
     <string name="select_receipt">Select Receipt</string>
     <string name="news">News</string>
@@ -243,15 +238,7 @@
     <string name="what_would_you_like_to_do_with_this_beneficiary">What would you like to do with this beneficiary?</string>
     <string name="verify_account">Verify Account</string>
     <string name="send_money__">Send Money</string>
-    <string name="a_c_no">A/C No.</string>
     <string name="mode">Mode</string>
-    <string name="beneficiary_">Beneficiary</string>
-    <string name="sender_s_wallet">Sender\'s Wallet</string>
-    <string name="__slashes">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</string>
-    <string name="total_adhikari_cost">Total Adhikari Cost</string>
-    <string name="t_charges_from_customer_n_inc_of_applicable_gst">T. charges from customer\n(inc. of applicable GST)</string>
-    <string name="adhikari_commission_n_subject_to_app_tds_5">Adhikari Commission\n(subject to app TDS @5%)</string>
-    <string name="confirm_send_amount">Confirm-Send Amount</string>
     <string name="min">Min</string>
     <string name="max">Max</string>
     <string name="amount_in_words">Amount in Words</string>
@@ -276,11 +263,6 @@
     <string name="email__">Email</string>
     <string name="this_is_verify_declaimer">Disclaimer: Beneficiary name is as received from the beneficiary bank. Annapurnaply would not be responsible for any discrepancy in beneficiary name.</string>
     <string name="tds_charge">TDS Charge</string>
-    <string name="charges_for_settlement_is_rs_10_for_imps_neft">*Note:-*
-    ~*AEPS + mATM + settlement "Payout" Will be available 24 hours.
-    *Charges for settlement are Rs.8 for IMPS.
-    *No settlement to be done on bank Holiday &amp; holiday declared by RBI on NEFT
-    (Transaction charges are inclusive of GST)```</string>
     <string name="contact_us">Contact Us.</string>
     <string name="mobile">Mobile</string>
     <string name="customer_care">Customer Care</string>
@@ -304,7 +286,6 @@
     <string name="due_date">Due Date</string>
     <string name="fetch_bill">Fetch Bill</string>
     <string name="pay_amount">Pay Amount</string>
-    <string name="total">Total</string>
 
 
     <string name="biller_coverage">Biller Coverage</string>
@@ -330,7 +311,6 @@
 
 
     <!-- font families -->
-    <string name="valid_from">Valid From</string>
     <string name="payment_mode">Payment Mode</string>
     <string name="remark">Remark</string>
     <string name="new_m_pin">NEW M-PIN</string>
@@ -340,17 +320,12 @@
     <string name="help_email">Help Email</string>
     <string name="circle">Circle</string>
     <string name="info_zweie_com">info@zweie.com</string>
-    <string name="paytm">PayTm</string>
     <string name="select_aadhaar_">Select Aadhaar</string>
     <string name="plan">Plan</string>
     <string name="amount_type">Amount Type</string>
     <string name="margin">Margin</string>
-    <string name="partner_id">Partner ID</string>
     <string name="enter_m_pin">Enter M-PIN</string>
-    <string name="store">Store</string>
-    <string name="scan_amp_pay"><![CDATA[Scan & Pay]]></string>
     <string name="title_activity_qr">QrActivity</string>
-    <string name="my_wallet">My Wallet</string>
     <string name="department">Department</string>
     <string name="issue_date">Issue Date</string>
     <string name="action_date">Action Date</string>
@@ -358,16 +333,13 @@
     <string name="payout_">Payout</string>
 
     <string name="select_card_type">Select Card Type</string>
-    <string name="cash_deposit">Cash Deposit</string>
     <string name="otp">OTP</string>
     <string name="pay_bill">Pay Bill</string>
     <string name="are_you_sure">Are you Sure</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="transaction_card">Transaction Card</string>
-    <string name="razorpay">Razorpay</string>
     <string name="qr_upi">QR / UPI</string>
-    <string name="phone_pe">Phone Pe</string>
     <string name="exchange">Exchange</string>
     <string name="main_bal">Main Bal</string>
     <string name="m_pin">M-PIN</string>
@@ -376,5 +348,12 @@
     <string name="recharge_amp_pay_bills"><![CDATA[Recharge & Pay Bills]]></string>
     <string name="transfer_money">Transfer Money</string>
     <string name="number">Number</string>
+
+    <string name="msg_subscribe_failed">Failed to subscribe to Delivery topic</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="you_won_a_gift_card_scratch_to_won_a_card">You won a gift card. Scratch\nto won a card.</string>
+
+
 
 </resources>

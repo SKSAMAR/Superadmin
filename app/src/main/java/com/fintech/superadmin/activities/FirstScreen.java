@@ -1,11 +1,14 @@
 package com.fintech.superadmin.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 
@@ -22,6 +25,9 @@ import com.fintech.superadmin.ui.theme.MyColors;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.ThemeColors;
+import com.fintech.superadmin.util.ViewUtils;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Objects;
 import java.util.Timer;
@@ -56,6 +62,15 @@ public class FirstScreen extends BaseActivity {
         bottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bottom_animation);
         binding.LogoSplash.setAnimation(topAnimation);
         getColorModel();
+
+        Uri deepLinkUri = getIntent().getData();
+        if (deepLinkUri != null) {
+            // Retrieve the deep link data from the Uri
+            String deepLinkData = deepLinkUri.toString();
+            ViewUtils.showToast(FirstScreen.this, ""+deepLinkData.toString());
+        }else{
+            //ViewUtils.showToast(FirstScreen.this, "Nothing");
+        }
     }
 
     private void chooseFate(User user) {

@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.fintech.superadmin.clean.presentation.dmt.transaction.DmtTransactionActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.fintech.superadmin.R;
@@ -104,7 +105,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
                 dialog.dismiss();
 
                 viewModel.selectedBeneficiaryModel = viewModel.topBeneficiaryBank;
-                Intent intent = new Intent(ToAccount.this, SendAmountDMT.class);
+                Intent intent = new Intent(ToAccount.this, DmtTransactionActivity.class);
                 intent.putExtra("number", viewModel.globalSelectedMobile);
                 intent.putExtra("selectedBankModel", viewModel.selectedBeneficiaryModel);
                 startActivity(intent);
@@ -213,7 +214,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
 
     @Override
     public void onItemClicked(View view, BeneficiaryBank model) {
-        Intent intent = new Intent(ToAccount.this, SendAmountDMT.class);
+        Intent intent = new Intent(ToAccount.this, DmtTransactionActivity.class);
         intent.putExtra("number", viewModel.globalSelectedMobile);
         intent.putExtra("selectedBankModel", model);
         startActivity(intent);

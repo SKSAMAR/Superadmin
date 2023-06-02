@@ -39,7 +39,7 @@ public class ForgotPasswordFragment extends Fragment implements AuthListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password ,container, false);
-        fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
+        //fragmentContainerView = requireActivity().findViewById(R.id.ScreenFrame);
         AuthViewModel viewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         binding.setMyviewmodel(viewModel);
         viewModel.authListener = this;

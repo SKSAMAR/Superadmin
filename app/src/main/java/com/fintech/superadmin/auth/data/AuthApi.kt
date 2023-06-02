@@ -20,6 +20,19 @@ interface AuthApi {
     ): Observable<AuthData>
 
 
+    @FormUrlEncoded
+    @POST("Backend/Merchant/MemberOperation/Login/Login.php")
+    fun verifyLogin(
+        @Field("otp_mobile") otp_mobile: String?,
+        @Field("otp_password") otp_password: String?,
+        @Field("enteredOtp") enteredOtp: String?,
+        @Field("otp_store") otp_store: String?,
+        @Field("long") longitude: String?,
+        @Field("lati") latitude: String?,
+        @Field("otp_verify") otp_verify: String = "otp_verify"
+    ): Observable<AuthData>
+
+
     //OnBoarding
     @FormUrlEncoded
     @POST("Backend/Merchant/MemberOperation/temp/onboard.php")

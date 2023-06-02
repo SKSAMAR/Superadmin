@@ -42,6 +42,7 @@ import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
+import com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -123,7 +124,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
 
 
     private void setBuToCMenus() {
-
+        binding.referearn.setOnClickListener(v -> startActivity(new Intent(requireActivity(), ReferEarnActivity.class)));
         binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
