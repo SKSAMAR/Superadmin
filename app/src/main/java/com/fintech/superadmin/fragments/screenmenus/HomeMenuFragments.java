@@ -42,6 +42,7 @@ import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
+import com.fintech.superadmin.clean.presentation.payout.PayoutActivity;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -120,10 +121,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                     binding.b2baepsBalText.setText("AePS: " + user.getAepsbalance());
                     binding.b2bmainBalText.setText("Main: " + user.getMainbalance());
                 } else {
-                    setBuToCMenus();
                     binding.b2cmainBalText.setText("Main: " + user.getMainbalance());
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -134,15 +135,17 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
     private void setBToBMenus() {
-
-
         //Money Transfer
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        if (viewModel.isAlreadySet){
+            return;
+        }
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 5, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
         moneyTransferList.add(new MenuModel(R.drawable.fingerprint, "AePS"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "Fing AePS"));
         moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
+        moneyTransferList.add(new MenuModel(R.drawable.dmt, "X-Payout"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -167,7 +170,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
         rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag"));
         rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
-        rechargeList.add(new MenuModel(R.drawable.subtract, "broadband"));
+        rechargeList.add(new MenuModel(R.drawable.subtract, "Broadband"));
         rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
         binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
         binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -177,11 +180,11 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.utilitiesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> utilitiesList = new ArrayList<>();
         utilitiesList.add(new MenuModel(R.drawable.bbps_menu, "BBPS", "BBPS"));
-        utilitiesList.add(new MenuModel(R.drawable.gas_cylinder, "Book A\nCylinder", "Gas"));
+        utilitiesList.add(new MenuModel(R.drawable.gas_cylinder, "LPG", "LPG"));
         utilitiesList.add(new MenuModel(R.drawable.water, "Water"));
         utilitiesList.add(new MenuModel(R.drawable.postpaid, "Postpaid"));
 //        utilitiesList.add(new MenuModel(R.drawable.broadband, "Broadband"));
-        utilitiesList.add(new MenuModel(R.drawable.piped_gas, "LPG"));
+        utilitiesList.add(new MenuModel(R.drawable.piped_gas, "Piped Gas", "Gas"));
 //        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
         utilitiesList.add(new MenuModel(R.drawable.landline, "Landline"));
 //        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
@@ -220,72 +223,14 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
-        binding.b2bclickPayout.setOnClickListener(v -> viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout()));
+        binding.b2bclickPayout.setOnClickListener(v -> viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startPayout()));
 
         binding.accountOpeningContainer.setVisibility(View.VISIBLE);
         binding.b2BContainer.setVisibility(View.VISIBLE);
         binding.b2cContainer.setVisibility(View.GONE);
-
+        viewModel.isAlreadySet = true;
     }
 
-    private void setBuToCMenus() {
-
-
-        //Money Transfer
-        binding.moneyTransferCard.setVisibility(View.GONE);
-
-        //Recharge
-        binding.firstHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
-        List<MenuModel> rechargeList = new ArrayList<>();
-        rechargeList.add(new MenuModel(R.drawable.ic_mobile_recharge, "Mobile\nRecharge"));
-        rechargeList.add(new MenuModel(R.drawable.ic_fastag_recharge, "FASTag"));
-        rechargeList.add(new MenuModel(R.drawable.ic_dth, "DTH"));
-        rechargeList.add(new MenuModel(R.drawable.ic_cable_tv, "Cable Tv", "Cable"));
-        binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
-        binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-
-        //AEPS Services
-        binding.aepsBannerImage.setVisibility(View.GONE);
-
-
-        //Utilities
-        binding.utilitiesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
-        List<MenuModel> utilitiesList = new ArrayList<>();
-        utilitiesList.add(new MenuModel(R.drawable.bbps_menu, "BBPS", "BBPS"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "Book A\nCylinder", "Gas"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_water, "Water"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_electricity, "Electricity"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_postpaid, "Postpaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_boardband, "Broadband"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cylinder, "LPG"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_prepaid, "Data Card\nPrepaid", "Datacard Prepaid"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_landline, "Landline"));
-        utilitiesList.add(new MenuModel(R.drawable.rentpay, "Rent Pay"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
-
-        binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
-        binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-
-        //Finances and Taxes
-        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
-        List<MenuModel> financesList = new ArrayList<>();
-        financesList.add(new MenuModel(R.drawable.emi, "EMI"));
-        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance", "Insurance"));
-        financesList.add(new MenuModel(R.drawable.ic_lic_bill, "LIC", "LIC"));
-        financesList.add(new MenuModel(R.drawable.ic_municipal, "Municipal", "MUNICIPALITY"));
-//        financesList.add(new MenuModel(R.drawable.loan_repayment, "Loan\nRepayment", "EMI PAYMENT"));
-//        financesList.add(new MenuModel(R.drawable.ic_insurance, "Insurance Application"));
-//        financesList.add(new MenuModel(R.drawable.loan, "Loan Application"));
-
-        binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
-        binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-
-        binding.b2BContainer.setVisibility(View.GONE);
-        binding.b2cContainer.setVisibility(View.VISIBLE);
-    }
 
 
     //Should be not use this but the one which has been commented
@@ -294,23 +239,27 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         bank = "1";
         switch (model.getTitle()) {
-            case "Move To Bank":{
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
+            case "X-Payout": {
+                startActivity(new Intent(requireActivity(), PayoutActivity.class));
+                break;
+            }
+            case "Move To Bank": {
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startPayout());
                 break;
             }
             case "Fino AePs": {
                 bank = "2";
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAEPS());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAEPS());
                 break;
             }
             case "ICICI AePS": {
                 bank = "1";
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAEPS());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAEPS());
                 break;
             }
             case "NSDL AePs": {
                 bank = "3";
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAEPS());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAEPS());
                 break;
             }
             case "Mobile\nRecharge": {
@@ -328,19 +277,18 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 intent.putExtra("mode", "dth");
                 startActivity(intent);
                 break;
-
             }
 
             case "Current Properitor": {
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(3));
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAccountOpening(3));
                 break;
             }
             case "Current Account": {
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(2));
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAccountOpening(2));
                 break;
             }
             case "Saving Account": {
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAccountOpening(1));
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAccountOpening(1));
                 break;
             }
 
@@ -350,20 +298,20 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "Credit Card":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startCreditCard());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startCreditCard());
                 break;
             case "Fing AePS":
                 viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingAEPS());
                 break;
             case "AePS":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAEPS());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAEPS());
                 break;
             case "Micro ATM": {
                 String atm = getString(R.string.atmType).trim().toLowerCase();
                 if (atm.equals("fingpay")) {
-                    viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingPayMicroAtm(start.getMerchantCred()));
+                    viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingPayMicroAtm(start.getMerchantCredentials()));
                 } else {
-                    viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startMicroAtm(start.getPaysprintMerchantCred(), start.getPaysprintApiCred()));
+                    viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startMicroAtm(start.getPaysprintMerchantCredentials(), start.getPaysprintApiCredentials()));
                 }
                 break;
             }
@@ -390,6 +338,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             case "EMI":
             case "Insurance":
             case "Data Card\nPrepaid":
+            case "Piped Gas":
             case "Broadband":
             case "Gas":
             case "BBPS":
@@ -408,19 +357,19 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             }
 
             case "Balance\nEnquiry":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSBE());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAePSBE());
                 break;
             case "Cash\nWithdrawal":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSCW());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAePSCW());
                 break;
             case "Aadhaar\nPay":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSM());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAePSM());
                 break;
             case "Mini\nStatement":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startAePSMS());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startAePSMS());
                 break;
             case "Payout":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCred()), start -> startPayout());
+                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startPayout());
                 break;
 
             default:

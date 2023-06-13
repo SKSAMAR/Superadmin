@@ -48,6 +48,7 @@ import kotlinx.coroutines.delay
 object Logos {
 
     var logo by mutableStateOf(com.fintech.superadmin.R.drawable.logo)
+
     @Composable
     fun setLogoMods(): Modifier {
         //LocalConfiguration.current.screenWidthDp.sdp
@@ -137,13 +138,15 @@ fun LoginPage(
                     )
                     Spacer(modifier = Modifier.height(29.sdp))
                     BasicOutlinedTextView(
-                        hint = "Mobile or Email",
+                        hint = "Mobile",
                         value = viewModel.mobile.value,
-                        onValueChange = { viewModel.mobile.value = it },
-                        maxLength = 100,
+                        onValueChange = {
+                            viewModel.mobile.value = it
+                        },
+                        maxLength = 10,
                         keyboardOptions = KeyboardOptions(
                             imeAction = ImeAction.Next,
-                            keyboardType = KeyboardType.Text,
+                            keyboardType = KeyboardType.Number,
                             capitalization = KeyboardCapitalization.None
                         ),
                         modifier = Modifier.fillMaxWidth()
@@ -263,13 +266,15 @@ fun ForgotPasswordPage(
                 }
                 Spacer(modifier = Modifier.height(10.sdp))
                 BasicOutlinedTextView(
-                    hint = "Enter your email or mobile number",
+                    hint = "Enter mobile number",
                     value = viewModel.mobile.value,
-                    onValueChange = { viewModel.mobile.value = it },
-                    maxLength = 100,
+                    onValueChange = {
+                        viewModel.mobile.value = it
+                    },
+                    maxLength = 10,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
-                        keyboardType = KeyboardType.Text,
+                        keyboardType = KeyboardType.Number,
                         capitalization = KeyboardCapitalization.None
                     ),
                     modifier = Modifier.fillMaxWidth()
@@ -648,7 +653,6 @@ fun CreatePasswordPage(
         }
     }
 }
-
 
 
 @OptIn(ExperimentalComposeUiApi::class)

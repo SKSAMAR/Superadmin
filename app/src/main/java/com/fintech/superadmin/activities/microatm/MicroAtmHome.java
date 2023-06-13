@@ -152,7 +152,10 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
                 checkPermission(() -> viewModel.recordTransaction(MicroAtmHome.this, amount, txnType));
             }
         });
-        binding.selectedBankName.setOnClickListener(v -> onSpinnerClick());
+        binding.selectedBankName.setOnClickListener(v -> {
+            ViewUtils.showToast(this, "Clicked");
+            onSpinnerClick();
+        });
     }
 
     private void onOldClick() {
@@ -408,7 +411,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
         });
     }
 
-    void initiateFingpayTransaction(AtmProceedableDto data){
+    void initiateFingpayTransaction(AtmProceedableDto data) {
         MerchantCred merchantCred = (MerchantCred) getIntent().getParcelableExtra("merchantCred");
         int tType;
         if (txnType.trim().equals("ATMBE")) {
@@ -467,7 +470,7 @@ public class MicroAtmHome extends BaseActivity implements BetterListener<AtmProc
                 break;
             case "fingpay":
                 initiateFingpayTransaction(data);
-              break;
+                break;
         }
     }
 

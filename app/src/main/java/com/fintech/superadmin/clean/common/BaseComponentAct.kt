@@ -40,6 +40,7 @@ open class BaseComponentAct : ComponentActivity() {
     open fun BaseScaffold(
         topBar: @Composable () -> Unit = {},
         bottomBar: @Composable () -> Unit = {},
+        floatingActionButton: @Composable () -> Unit = {},
         content: @Composable BoxScope.() -> Unit
     ) {
         val isNetworkAvailable = connectionLiveData.observeAsState(true)
@@ -48,6 +49,7 @@ open class BaseComponentAct : ComponentActivity() {
             topBar = topBar,
             bottomBar = bottomBar,
             scaffoldState = scaffoldState,
+            floatingActionButton = floatingActionButton
         ) {
             Column(
                 modifier = Modifier

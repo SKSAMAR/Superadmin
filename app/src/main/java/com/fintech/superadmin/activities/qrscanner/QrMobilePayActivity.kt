@@ -112,9 +112,11 @@ class QrMobilePayActivity : ComponentActivity() {
                             IconButton(
                                 onClick = {
                                     if (Accessable.isAccessable()) {
-                                        val user: User =
-                                            AppDatabase.getAppDatabase(this@QrMobilePayActivity).userDao.regularUser
+                                        startActivity(Intent(context, com.fintech.superadmin.clean.presentation.qr.QrActivity::class.java))
+                                        /**
+                                        val user: User = AppDatabase.getAppDatabase(this@QrMobilePayActivity).userDao.regularUser
                                         displayMobilePayQr(user, this@QrMobilePayActivity)
+                                        **/
                                     }
 
                                 }

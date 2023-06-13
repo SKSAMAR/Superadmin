@@ -1,10 +1,13 @@
 package com.fintech.superadmin.clean.data.remote
 
+import com.fintech.superadmin.clean.data.remote.dto.cashfree.CashFree
+import com.fintech.superadmin.clean.data.remote.dto.cashfree.PayoutBeneficiary
 import com.fintech.superadmin.clean.data.remote.dto.otps.OTPResponse
 import com.fintech.superadmin.clean.data.remote.dto.refer.ReferDto
 import com.fintech.superadmin.clean.data.remote.dto.reward.ScratchCardData
 import com.fintech.superadmin.data.network.responses.DMTSendAmountResponse
 import com.fintech.superadmin.data.network.responses.RegularResponse
+import com.fintech.superadmin.data.network.responses.SystemResponse
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -55,6 +58,49 @@ interface FintechAPI {
     fun scratchTheCardData(@Field("coupon_id") coupon_id: String): Observable<RegularResponse>
 
 
+
+    //X-PAYOUT
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Payout/CashFree/DirectPayout/main.php")
+    fun addPayoutBeneficiaries(
+        @Field("beneName") beneName: String,
+        @Field("beneEmail") beneEmail: String,
+        @Field("beneMobile") beneMobile: String,
+        @Field("beneAcc") beneAcc: String,
+        @Field("beneIFSC") beneIFSC: String,
+        @Field("address") address: String,
+        @Field("nameAtBank") nameAtBank: String = "nameAtBank",
+    ): Observable<CashFree>
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    fun getPayoutBeneficiaries(
+        @Field("payout_account_disp") payout_account_disp: String = "payout_account_disp",
+    ): Observable<SystemResponse<List<PayoutBeneficiary>?>>
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Payout/CashFree/DirectPayout/main.php")
+    fun doDirectPayout(
+        @Field("send_amount") send_amount: String,
+        @Field("bene_id") bene_id: String,
+        @Field("trans_mode") trans_mode: String,
+        @Field("verify") verify: String,
+        @Field("otp") otp: String,
+    ): Observable<RegularResponse>
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Payout/CashFree/DirectPayout/main.php")
+    fun sendPayoutOTP(
+        @Field("trans_mode") trans_mode: String,
+        @Field("amount") amount: String,
+        @Field("sendotp") sendotp: String = "sendotp"
+    ): Observable<SystemResponse<OTPResponse?>>
+
+
+
+    //X-PAYOUT
 
 
 }

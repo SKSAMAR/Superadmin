@@ -1,5 +1,6 @@
 package com.fintech.superadmin.viewmodel;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import com.fintech.superadmin.activities.addfunds.PayUMoney;
 import com.fintech.superadmin.activities.addfunds.RequestOffline;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.repositories.FundRepository;
+import com.fintech.superadmin.data_model.offline.OfflineBank;
 import com.fintech.superadmin.data_model.request.RequestedHistoryModel;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.ChangerListener;
@@ -36,6 +38,7 @@ import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.NetworkUtil;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,6 +65,9 @@ public class FundViewModel extends ViewModel {
     public String remarks = "";
     public ChangerListener listener = null;
     public ResetListener resetListener = null;
+    public List<OfflineBank> offlineBanks = new ArrayList<>();
+    public OfflineBank selectedOfflineBank;
+
 
     @Inject
     public FundViewModel(FundRepository fundRepository) {
@@ -85,7 +91,7 @@ public class FundViewModel extends ViewModel {
         view.getContext().startActivity(new Intent(view.getContext(), PayUMoney.class));
     }
 
-    public void onWalletCashFree(View view){
+    public void onWalletCashFree(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), CashFreeAddWalletActivity.class));
     }
 
@@ -95,6 +101,35 @@ public class FundViewModel extends ViewModel {
 
     public void onWalletExchange(View view) {
         view.getContext().startActivity(new Intent(view.getContext(), FundExchange.class));
+    }
+
+
+    public String getSelectedBankName() {
+        if (selectedOfflineBank != null && selectedOfflineBank.BANK_NAME != null) {
+            return selectedOfflineBank.BANK_NAME;
+        }
+        return "";
+    }
+
+    public String getSelectedBankID() {
+        if (selectedOfflineBank != null && selectedOfflineBank.ID != null) {
+            return selectedOfflineBank.ID;
+        }
+        return "";
+    }
+    public void getOfflineBanks(Context context, Receiver<Boolean> receiver) {
+        if (offlineBanks!=null && !offlineBanks.isEmpty()){
+            receiver.getData(true);
+            return;
+        }
+        NetworkUtil.getNetworkResult(fundRepository.apiServices.getOfflineBank("offline_banks"), context, result -> {
+            if (result.getStatus()) {
+                offlineBanks = result.getReceivableData();
+                receiver.getData(true);
+            } else {
+                DisplayMessageUtil.error(context, result.getMessage());
+            }
+        });
     }
 
 
@@ -137,6 +172,45 @@ public class FundViewModel extends ViewModel {
         });
     }
 
+    public void onBanksSpinnerClick(View view) {
+        getOfflineBanks(view.getContext(), result->{
+
+            Dialog dialog = new Dialog(view.getContext());
+            dialog.setContentView(R.layout.my_spinner_row);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            EditText searchOperator = dialog.findViewById(R.id.SearchOperator);
+            ListView myOperatorListView = dialog.findViewById(R.id.MyOperatorListView);
+            ArrayAdapter<OfflineBank> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, offlineBanks);
+            myOperatorListView.setAdapter(adapter);
+            searchOperator.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    adapter.getFilter().filter(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            myOperatorListView.setOnItemClickListener((parent, view1, position, id) -> {
+                selectedOfflineBank = adapter.getItem(position);
+                TextInputEditText editText = view.getRootView().findViewById(R.id.bankName);
+                editText.setText(getSelectedBankName());
+                dialog.dismiss();
+            });
+        });
+    }
+
+    @SuppressLint("CheckResult")
     public void onRequestOffline(View view) {
         //make the payment done..
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
@@ -150,9 +224,8 @@ public class FundViewModel extends ViewModel {
             } else if (payment_mode.isEmpty()) {
                 MyAlertUtils.showServerAlertDialog(view.getContext(), "Select valid Payment Mode");
             } else {
-
                 MyAlertUtils.showProgressAlertDialog(view.getContext());
-                fundRepository.apiServices.offlineWalletDemand(receipt, getTextPlain(amount), getTextPlain(payment_mode), getTextPlain(transaction_id), getTextPlain(remarks), getTextPlain("requestOffline"))
+                fundRepository.apiServices.offlineWalletDemand(receipt, getTextPlain(getSelectedBankID()), getTextPlain(amount), getTextPlain(payment_mode), getTextPlain(transaction_id), getTextPlain(remarks), getTextPlain("1"))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(regularResponse -> {
@@ -207,36 +280,34 @@ public class FundViewModel extends ViewModel {
     }
 
 
-    public void getPayuCredential(Context context, Receiver<PayuResponse> responsiveListener, String txn_id, String amount){
+    public void getPayuCredential(Context context, Receiver<PayuResponse> responsiveListener, String txn_id, String amount) {
         DisplayMessageUtil.loading(context);
         fundRepository.apiServices.getPayuCall(txn_id, amount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res->{
+                .subscribe(res -> {
                     DisplayMessageUtil.dismissDialog();
-                    if(res.getStatus() && res.getResponse_code().equals(1)){
+                    if (res.getStatus() && res.getResponse_code().equals(1)) {
                         responsiveListener.getData(res);
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(context, res.getMessage());
                     }
-                }, err-> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+                }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
     }
 
-    public void getPayuHashify(Context context, Receiver<String> responsiveListener, String hashData){
+    public void getPayuHashify(Context context, Receiver<String> responsiveListener, String hashData) {
         DisplayMessageUtil.loading(context);
         fundRepository.apiServices.getHashCallHashify(hashData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(res->{
+                .subscribe(res -> {
                     DisplayMessageUtil.dismissDialog();
-                    if(res.getStatus() && res.getResponse_code().equals(1)){
+                    if (res.getStatus() && res.getResponse_code().equals(1)) {
                         responsiveListener.getData(res.getReceivableData());
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(context, res.getMessage());
                     }
-                }, err-> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
+                }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
     }
 
     public void getRequestedHistory(Context context, String transaction_id, Receiver<List<RequestedHistoryModel>> receiver) {
@@ -252,13 +323,13 @@ public class FundViewModel extends ViewModel {
 
 
     public void madeValidPayment(String amount, Context context, WebViewPayment viewPayment) {
-        if (Accessable.isAccessable()){
+        if (Accessable.isAccessable()) {
             DisplayMessageUtil.loading(context);
-            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount, "gatewayType"), context, result->{
+            NetworkUtil.getNetworkResult(fundRepository.apiServices.payFundAmount(amount, "gatewayType"), context, result -> {
                 DisplayMessageUtil.dismissDialog();
-                if(result.status){
+                if (result.status) {
                     viewPayment.webViewPage(result.message);
-                }else{
+                } else {
                     DisplayMessageUtil.error(context, result.message);
                 }
             });

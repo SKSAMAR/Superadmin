@@ -136,6 +136,13 @@
             android:theme="@style/Theme.ProjectRC" />
 
         <activity
+            android:name="com.fintech.superadmin.clean.presentation.qr.QrActivity"
+            android:exported="false"
+            android:label="@string/title_activity_qr"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.ProjectRC" />
+
+        <activity
             android:name="com.fintech.superadmin.activities.profile.MyCommissionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -586,7 +593,32 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name="com.fintech.superadmin.clean.presentation.payout.PayoutActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.payout.add.PayoutAddActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.wallet.WalletBalanceActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"

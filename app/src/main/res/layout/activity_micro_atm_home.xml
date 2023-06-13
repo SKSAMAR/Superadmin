@@ -76,10 +76,9 @@
                                 android:ems="10"
                                 android:hint="@string/select_micro_atm_device"
                                 android:id="@+id/selectedBankName"
-                                android:focusableInTouchMode="false"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down"
-                                android:maxLines="1"
                                 android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:maxLines="1"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
 

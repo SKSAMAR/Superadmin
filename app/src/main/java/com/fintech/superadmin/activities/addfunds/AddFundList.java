@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -49,7 +50,7 @@ public class AddFundList extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {// todo: goto back activity from here
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             finish();
             return true;
@@ -58,17 +59,9 @@ public class AddFundList extends BaseActivity {
     }
 
     private void checkAvailability() {
-        User user = AppDatabase.getAppDatabase(this).getUserDao().getRegularUser();
-        if (user != null) {
-            try {
-                if (!user.getUserstatus().trim().equals("5")) {
-                    binding.walletExchangeLayout.setVisibility(View.VISIBLE);
-                } else {
-                    binding.walletExchangeLayout.setVisibility(View.GONE);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        String type = getString(R.string.app_type);
+        if (type.trim().equalsIgnoreCase("b2c")){
+            binding.walletExchangeLayout.setVisibility(View.GONE);
         }
         NetworkUtil.getNetworkResult(apiServices.getGatewayLists("getGatewayLists"), this, additionalGatewaysList::setValue);
         additionalGatewaysList.observe(this, result -> {

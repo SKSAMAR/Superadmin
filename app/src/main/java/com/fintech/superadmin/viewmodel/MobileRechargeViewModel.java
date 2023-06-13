@@ -142,6 +142,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         getModels();
     }
 
+    @SuppressLint("CheckResult")
     private void getModels() {
         mobileRechargesRepository.apiServices.fetchBBPSMode("modesList")
                 .subscribe(result -> {
@@ -375,6 +376,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     }
 
 
+    @SuppressLint("CheckResult")
     public void fetchBbpsOperators(View view) {
         EditText category_bbps = view.getRootView().findViewById(R.id.category_bbps);
         EditText operatorName = view.getRootView().findViewById(R.id.operator_bbps);
@@ -383,21 +385,11 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             return;
         } else if (opData != null) {
             ArrayList<BBPSOPData> arr_filtered = new ArrayList<>();
-            if (op_category.equals("Gas/LPG")) {
-                for (BBPSOPData e : opData) {
-                    if (e.getCategory().equalsIgnoreCase("GAS") || e.getCategory().equalsIgnoreCase("LPG")) {
-                        arr_filtered.add(e);
-                    }
-                }
-            } else {
-                for (BBPSOPData e : opData) {
-                    if (e.getCategory().equalsIgnoreCase(category_bbps.getText().toString())) {
-                        arr_filtered.add(e);
-                    }
+            for (BBPSOPData e : opData) {
+                if (e.getCategory().equalsIgnoreCase(category_bbps.getText().toString())) {
+                    arr_filtered.add(e);
                 }
             }
-
-
             popInfoDesign(view.getContext(), arr_filtered, (view1, data) -> {
                 operatorName.setText(data);
                 op_name = data;
@@ -417,14 +409,8 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                             opData = res.getData();
                             for (BBPSOPData e : res.getData()) {
                                 try {
-                                    if (e.getCategory().equalsIgnoreCase("Gas/LPG")) {
-                                        if (e.getCategory().equalsIgnoreCase("GAS") || e.getCategory().equalsIgnoreCase("LPG")) {
-                                            arr_filtered.add(e);
-                                        }
-                                    } else {
-                                        if (e.getCategory().equalsIgnoreCase(op_category)) {
-                                            arr_filtered.add(e);
-                                        }
+                                    if (e.getCategory().equalsIgnoreCase(op_category)) {
+                                        arr_filtered.add(e);
                                     }
                                 } catch (NullPointerException exception) {
                                     exception.printStackTrace();
@@ -511,6 +497,20 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     @SuppressLint("CheckResult")
     public void proceedToPayBillBBPS(View view) {
 
+        try {
+            TextInputEditText editText = (TextInputEditText) view.getRootView().findViewById(R.id.bill_net_amount);
+            plan = editText.getText().toString().trim();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            TextInputEditText editText = (TextInputEditText) view.getRootView().findViewById(R.id.modeSelection);
+            mode = editText.getText().toString().trim().toUpperCase();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if (Accessable.isAccessable()) {
             if (selectedBBPS.getViewbill().equals("1") && myFetchedBill == null) {
                 ViewUtils.showToast(view.getContext(), "Bill Fetch is Mandatory for this Operator");
@@ -550,9 +550,8 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                     e.printStackTrace();
                 }
                 DisplayMessageUtil.loading(view.getContext());
-                String type = "ONLINE";
                 mobileRechargesRepository.apiServices
-                        .payBBpsBill(plan.trim(), consumer_number, selectedBBPS.getId(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), type)
+                        .payBBpsBill(plan.trim(), consumer_number, selectedBBPS.getId(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), mode)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(res -> {

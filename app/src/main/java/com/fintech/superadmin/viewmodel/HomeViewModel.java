@@ -56,6 +56,8 @@ public class HomeViewModel extends ViewModel {
     private final List<MenuModel> moreList = new ArrayList<>();
     private final List<MenuModel> lessList = new ArrayList<>();
 
+    public boolean isAlreadySet = false;
+
     @Inject
     public HomeViewModel(HomeRepository homeRepository, APIServices apiServices) {
         this.homeRepository = homeRepository;

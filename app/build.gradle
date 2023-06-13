@@ -6,13 +6,14 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
+
 def appType
 def sdkname
 android {
     compileSdk 33
     defaultConfig {
         manifestPlaceholders = [appName: "PaytCash"]
-        appType = "B2C"
+        appType = "B2B"
         applicationId "paytcash.net"
         minSdk 22
         //noinspection OldTargetApi

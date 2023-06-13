@@ -32,60 +32,56 @@
 
 
                     <LinearLayout
+                        android:id="@+id/categoryContainer"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/category"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:textStyle="bold"
-                            android:textColor="?android:colorPrimary"/>
-                        <EditText
-                            android:onClick="@{viewModel::fetchBbpsCategory}"
-                            android:id="@+id/category_bbps"
-                            android:layout_marginTop="@dimen/_15sdp"
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_margin="@dimen/_6sdp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:clickable="false"
-                            android:cursorVisible="false"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:importantForAutofill="no"
-                            android:inputType="text"
-                            android:scrollbars="horizontal"
-                            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-                            android:hint="@string/category"/>
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:onClick="@{viewModel::fetchBbpsCategory}"
+                                android:id="@+id/category_bbps"
+                                android:hint="@string/category"
+                                android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:inputType="text"
+                                android:importantForAutofill="no"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:padding="15dp"
+                                android:editable="false"
+                                tools:ignore="Deprecated" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <EditText
-                        android:onClick="@{viewModel::fetchBbpsOperators}"
-                        android:id="@+id/operator_bbps"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.name}"
-                        android:maxLines="1"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:scrollbars="horizontal"
-                        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        android:hint="@string/operator"/>
 
-                    <EditText
-                        android:visibility="gone"
-                        android:layout_marginTop="@dimen/_30sdp"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_margin="@dimen/_6sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:hint="@string/amount"/>
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:onClick="@{viewModel::fetchBbpsOperators}"
+                            android:id="@+id/operator_bbps"                            android:hint="@string/operator"
+                            android:text="@{viewModel.selectedBBPS.name}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:importantForAutofill="no"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:padding="15dp"
+                            android:editable="false"
+                            tools:ignore="Deprecated" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <RelativeLayout
@@ -108,18 +104,6 @@
                                 android:paddingVertical="@dimen/_5sdp"
                                 android:layout_marginEnd="@dimen/_2sdp"
                                 android:text="@string/proceed_"/>
-
-                            <Button
-                                android:id="@+id/cancel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_2sdp"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:paddingVertical="@dimen/_5sdp"
-                                android:backgroundTint="@color/white"
-                                android:textColor="?android:colorPrimary"
-                                android:text="@string/cancel_"/>
-
                         </LinearLayout>
                     </RelativeLayout>
 

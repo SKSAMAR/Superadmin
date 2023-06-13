@@ -33,7 +33,10 @@ public class BillPayment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mobileRechargeViewModel = new ViewModelProvider(requireActivity()).get(MobileRechargeViewModel.class);
         binding.setViewModel(mobileRechargeViewModel);
-        binding.edit.setOnClickListener(v-> binding.billNetAmount.setEnabled(true));
+        binding.edit.setOnClickListener(v -> {
+            binding.paymentAmount.setEnabled(true);
+            binding.billNetAmount.setEnabled(true);
+        });
         binding.setLifecycleOwner(requireActivity());
     }
 }

@@ -30,145 +30,119 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/category"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:text="@{viewModel.op_category}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:editable="false"
-                        android:id="@+id/category"
-                        tools:ignore="Deprecated" />
-                </LinearLayout>
 
 
-                <LinearLayout
-                    android:orientation="vertical"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/biller"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:text="@{viewModel.myFetchedBill.bill_fetch.userName}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:editable="false"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@string/biller">
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/biller_name"
-                        tools:ignore="Deprecated" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.displayname}"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:text="@{viewModel.consumer_number}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:editable="false"
-                        android:id="@+id/consumer_number"
-                        tools:ignore="Deprecated,TextFields" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/amount"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:text="@{viewModel.myFetchedBill.bill_fetch.billnetamount}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:editable="false"
-                        android:id="@+id/bill_net_amount"
-                        tools:ignore="Deprecated" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/enter_m_pin_"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:text="@={viewModel.mPin}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:id="@+id/mPinBBPS"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="visible"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mode"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:onClick="@{viewModel::selectModeBBPS}"
-                        android:text="@={viewModel.mode}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@{viewModel.myFetchedBill.bill_fetch.userName}"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:cursorVisible="false"
-                        android:maxLines="1"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down"
-                        android:importantForAutofill="no"
-                        android:id="@+id/modeSelection"
+                        android:padding="15dp"
+                        android:editable="false"
+                        tools:ignore="Deprecated"
                         />
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@{viewModel.selectedBBPS.displayname}">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/consumer_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="15dp"
+                        android:editable="false"
+                        tools:ignore="Deprecated"
+                        android:text="@{viewModel.consumer_number}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/paymentAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@string/amount"
+                    android:enabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bill_net_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="15dp"
+                        android:text="@={viewModel.myFetchedBill.bill_fetch.billnetamount}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@string/enter_m_pin_">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mPinBBPS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="15dp"
+                        android:text="@={viewModel.mPin}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@string/mode">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/modeSelection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:editable="false"
+                        tools:ignore="Deprecated"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:onClick="@{viewModel::selectModeBBPS}"
+                        android:padding="15dp"
+                        android:text="@={viewModel.mode}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
                     android:layout_marginTop="@dimen/_8sdp"

@@ -81,6 +81,32 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/bankInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:background="@android:color/transparent"
+                    android:focusableInTouchMode="false"
+                    android:theme="@style/Widget.Design.TextInputLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/bank_name"
+                        android:importantForAutofill="no"
+                        android:inputType="none"
+                        android:text="@{fundViewModel.selectedBankName}"
+                        android:onClick="@{fundViewModel::onBanksSpinnerClick}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout"
                     android:layout_width="match_parent"

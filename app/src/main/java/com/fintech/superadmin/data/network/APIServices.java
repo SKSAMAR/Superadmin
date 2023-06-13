@@ -78,6 +78,7 @@ import com.fintech.superadmin.data.network.responses.SystemResponse;
 import com.fintech.superadmin.data.network.responses.UserTypeResponse;
 import com.fintech.superadmin.data.sys.TPinResponse;
 import com.fintech.superadmin.data_model.LoginModel;
+import com.fintech.superadmin.data_model.offline.OfflineBank;
 import com.fintech.superadmin.data_model.request.RequestedHistoryModel;
 import com.fintech.superadmin.model.PayuResponse;
 
@@ -269,15 +270,15 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
-    Observable<PaysprintResponse> paysprintTypeExistence(@Field("paysprint") String paysprint);
+    Observable<PaysprintResponse> paysprintTypeExistence(@Field("paysprintv2") String paysprint);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
-    Observable<FingPayBoardCred> fingpayExistence(@Field("fingpay") String fingpay);
+    Observable<FingPayBoardCred> fingpayExistence(@Field("fingpayv2") String fingpay);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
-    Observable<MahagramResponse> mahagramTypeExistence(@Field("mahagram") String mahagram);
+    Observable<MahagramResponse> mahagramTypeExistence(@Field("mahagramv2") String mahagram);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/getBankList.php")
@@ -522,15 +523,20 @@ public interface APIServices {
 
 
     @Multipart
-    @POST("Backend/Merchant/API/app/temp/main.php?apicall=upload")
+    @POST("Backend/Merchant/Ledger/CashDeposit.php?apicall=upload")
     Observable<RegularResponse> offlineWalletDemand(
             @Part MultipartBody.Part receipt,
+            @Part("bank") RequestBody bank,
             @Part("amount") RequestBody amount,
             @Part("payment_mode") RequestBody payment_mode,
             @Part("txnid") RequestBody txnid,
             @Part("remark") RequestBody remark,
-            @Part("requestOffline") RequestBody requestOffline
+            @Part("WalletRechargeOffline") RequestBody WalletRechargeOffline
     );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<OfflineBank>>> getOfflineBank(@Field("offline_banks") String offline_banks);
 
     @FormUrlEncoded
     @POST("mobile_phone/banner/new_alert.php")

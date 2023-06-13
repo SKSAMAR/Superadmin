@@ -10,6 +10,7 @@ data class SharableData(
 
 val listOfLogos = listOf(
     SharableData(R.drawable.whatsapp_icon, "com.whatsapp"),
+    SharableData(R.drawable.whatsapp_business, "com.whatsapp.w4b"),
     SharableData(R.drawable.facebook_icon, "com.facebook.katana"),
     SharableData(R.drawable.instagram_icon, "com.instagram.android"),
     SharableData(R.drawable.options_circle, "messenger")

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.fintech.superadmin.viewmodel.MobileRechargeViewModel" />
@@ -12,356 +14,288 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".activities.bbps.fragments.BillFetch">
+
             <LinearLayout
                 android:id="@+id/card_root_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_margin="@dimen/_10sdp"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:orientation="vertical"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/third_rectangle">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/biller_coverage"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:maxLines="1"
-                        android:inputType="none"
-                        android:background="@android:color/transparent"
-                        android:editable="false"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@string/ind"
-                        android:id="@+id/biller_coverage"
-                        tools:ignore="Deprecated" />
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:background="@drawable/third_rectangle"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/biller_category"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-
-                    <EditText
+                    android:layout_margin="@dimen/_6sdp"
+                    android:hint="@string/biller_category">
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/biller_category"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:background="@android:color/transparent"
-                        android:editable="false"
-                        android:inputType="none"
+                        android:layout_height="wrap_content"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
                         android:maxLines="1"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@{viewModel.op_category}"
-                        tools:ignore="Deprecated,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-                </RelativeLayout>
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="15dp"
+                        android:editable="false"
+                        tools:ignore="Deprecated"
+                        android:text="@{viewModel.op_category}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <RelativeLayout
                     android:id="@+id/ad1Layout"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/third_rectangle"
-                    android:layout_marginTop="@dimen/_10sdp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_pencil"/>
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.ad1_d_name}"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:maxLines="1"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@android:color/transparent"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@={viewModel.ad1}"
-                        android:id="@+id/ad1"
-                        />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:hint="@{viewModel.selectedBBPS.ad1_d_name}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ad1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="15dp"
+                            android:text="@={viewModel.ad1}" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/fetchableConsumerLayout"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/third_rectangle"
-                    android:layout_marginTop="@dimen/_10sdp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.displayname}"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/consumer_number"
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@android:color/transparent"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@={viewModel.consumer_number}"
-                        tools:ignore="TextFields" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:hint="@{viewModel.selectedBBPS.displayname}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/consumer_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="15dp"
+                            android:text="@={viewModel.consumer_number}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </RelativeLayout>
 
 
                 <RelativeLayout
                     android:id="@+id/ad2Layout"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/third_rectangle"
-                    android:layout_marginTop="@dimen/_10sdp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.ad2_d_name}"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:maxLines="1"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@android:color/transparent"
-                        android:inputType="text"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@={viewModel.ad2}"
-                        android:id="@+id/ad2"
-                        />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:hint="@{viewModel.selectedBBPS.ad2_d_name}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ad2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="15dp"
+                            android:text="@={viewModel.ad2}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/ad3Layout"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/third_rectangle"
-                    android:layout_marginTop="@dimen/_10sdp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.selectedBBPS.ad3_d_name}"
-                        android:layout_marginStart="3dp"
-                        android:textStyle="bold"
-                        android:textColor="?android:colorPrimary"/>
-                    <EditText
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:maxLines="1"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@android:color/transparent"
-                        android:inputType="text"
-                        android:padding="@dimen/_4sdp"
-                        android:text="@={viewModel.ad3}"
-                        android:id="@+id/ad3"
-                        />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:hint="@{viewModel.selectedBBPS.ad3_d_name}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/ad3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="15dp"
+                            android:text="@={viewModel.ad3}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </RelativeLayout>
 
 
                 <LinearLayout
                     android:id="@+id/directPayBBPS"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/directPayCaNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:textStyle="bold"
-                            android:textColor="?android:colorPrimary"/>
-                        <EditText
-                            android:text="@={viewModel.consumer_number}"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:inputType="text"
-                            android:id="@+id/direct_consumer_number"
-                            tools:ignore="TextFields" />
+                            android:layout_margin="@dimen/_6sdp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/direct_consumer_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:importantForAutofill="no"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:padding="15dp"
+                                android:text="@={viewModel.consumer_number}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/amount"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:textStyle="bold"
-                            android:textColor="?android:colorPrimary"/>
-                        <EditText
-                            android:text="@={viewModel.plan}"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:inputType="number"
-                            android:id="@+id/direct_bill_net_amount"
-                            />
+                            android:layout_margin="@dimen/_6sdp"
+                            android:hint="@string/amount">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/direct_bill_net_amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:importantForAutofill="no"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:padding="15dp"
+                                android:text="@={viewModel.plan}" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/enter_m_pin_"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:textStyle="bold"
-                            android:textColor="?android:colorPrimary"/>
-                        <EditText
-                            android:text="@={viewModel.mPin}"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:importantForAutofill="no"
-                            android:inputType="text"
-                            android:id="@+id/mPinBBPS"
-                            />
+                            android:layout_margin="@dimen/_6sdp"
+                            android:hint="@string/enter_m_pin">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/mPinBBPS"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:importantForAutofill="no"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:padding="15dp"
+                                android:text="@={viewModel.mPin}" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:visibility="visible"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/mode"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:textStyle="bold"
-                            android:textColor="?android:colorPrimary"/>
-                        <EditText
-                            android:onClick="@{viewModel::selectModeBBPS}"
-                            android:text="@={viewModel.mode}"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:cursorVisible="false"
-                            android:maxLines="1"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down"
-                            android:importantForAutofill="no"
-                            android:id="@+id/modeSelection"
-                            />
+                            android:layout_margin="@dimen/_6sdp"
+                            android:hint="@string/mode">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/modeSelection"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"
+                                android:editable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:importantForAutofill="no"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:onClick="@{viewModel::selectModeBBPS}"
+                                android:padding="15dp"
+                                android:text="@={viewModel.mode}"
+                                tools:ignore="Deprecated" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+                <Button
                     android:onClick="@{viewModel::onFetchBBPSBill}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/getDetails"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:layout_margin="@dimen/_10sdp"
-                    app:contentPaddingLeft="44dp"
-                    app:contentPaddingRight="44dp"
-                    app:contentPaddingTop="12dp"
-                    app:contentPaddingBottom="12dp"
-                    app:cardCornerRadius="@dimen/_25sdp"
-                    app:cardBackgroundColor="?android:colorPrimary">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_20sdp"
-                            android:text="@string/get_details"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/payMyBBPS"
-                    android:onClick="@{viewModel::proceedToPayBillBBPS}"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="@string/get_details"/>
+
+
+                <Button
+                    android:onClick="@{viewModel::proceedToPayBillBBPS}"
                     android:visibility="gone"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:layout_margin="@dimen/_10sdp"
-                    app:contentPaddingLeft="44dp"
-                    app:contentPaddingRight="44dp"
-                    app:contentPaddingTop="12dp"
-                    app:contentPaddingBottom="12dp"
-                    app:cardCornerRadius="@dimen/_25sdp"
-                    app:cardBackgroundColor="?android:colorPrimary">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_20sdp"
-                            android:text="@string/pay_now"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                    android:id="@+id/payMyBBPS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:text="@string/pay_now"/>
+
 
                 <LinearLayout
                     android:id="@+id/spacer"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_15sdp"
-                    android:orientation="vertical"
-                    />
+                    android:orientation="vertical" />
 
             </LinearLayout>
         </RelativeLayout>

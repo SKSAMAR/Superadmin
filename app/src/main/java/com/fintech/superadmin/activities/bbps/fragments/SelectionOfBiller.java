@@ -36,13 +36,13 @@ public class SelectionOfBiller extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MobileRechargeViewModel.class);
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(requireActivity());
-        if(viewModel.menuModel.getTitle().contains("BBPS")){
-            viewModel.op_category = "Electricity";
-            binding.categoryBbps.setText("Electricity");
-        }
-        else {
+        if (viewModel.menuModel.getTitle().contains("BBPS")) {
+            viewModel.op_category = "";
+            binding.categoryBbps.setText("");
+        } else {
             viewModel.op_category = viewModel.menuModel.getPassed_name();
             binding.categoryBbps.setText(viewModel.menuModel.getPassed_name());
+            binding.categoryContainer.setVisibility(View.GONE);
         }
     }
 }

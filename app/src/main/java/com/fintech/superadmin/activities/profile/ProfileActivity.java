@@ -14,7 +14,9 @@ import android.view.View;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
+
 import com.fintech.superadmin.activities.common.BaseActivity;
+
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -52,7 +54,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
     ProfileViewModel viewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -63,14 +65,16 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
         binding.toolbar.back.setOnClickListener(view -> onBackPressed());
         setLiveData();
         setElementsInList();
-        binding.onChangePicture.setOnClickListener(view -> ImagePicker.with(ProfileActivity.this)
-                .crop()
-                .compress(1024)
-                .maxResultSize(1080,1080)
-                .createIntent(intentention -> {
-                    someActivityResultLauncher.launch(intentention);
-                    return null;
-                }));
+        binding.onChangePicture.setOnClickListener(
+                view -> ImagePicker.with(ProfileActivity.this)
+                        .crop()
+                        .compress(1024)
+                        .maxResultSize(1080, 1080)
+                        .createIntent(intentention -> {
+                            someActivityResultLauncher.launch(intentention);
+                            return null;
+                        })
+        );
     }
 
     @Override
@@ -83,30 +87,29 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
         return super.onOptionsItemSelected(item);
     }
 
-    private void setElementsInList(){
+    private void setElementsInList() {
         List<ProfileListModel> list = new ArrayList<>();
 //        list.add(new ProfileListModel(R.drawable.ic_profile_socialmedia,"Social Media"));
-        list.add(new ProfileListModel(R.drawable.ic_account,"My Profile"));
-        list.add(new ProfileListModel(R.drawable.ic_profile_bank,"KYC REGISTRATION"));
-        list.add(new ProfileListModel(R.drawable.ic_profile_settings,"M-PIN"));
-        list.add(new ProfileListModel(R.drawable.ic_profile_settings,"Change Password"));
+        list.add(new ProfileListModel(R.drawable.ic_account, "My Profile"));
+        list.add(new ProfileListModel(R.drawable.ic_profile_bank, "KYC REGISTRATION"));
+        list.add(new ProfileListModel(R.drawable.ic_profile_settings, "M-PIN"));
+        list.add(new ProfileListModel(R.drawable.ic_profile_settings, "Change Password"));
 //        list.add(new ProfileListModel(R.drawable.ic_account,"AePS Package"));
 //        list.add(new ProfileListModel(R.drawable.ic_account,"My Commission"));
-        list.add(new ProfileListModel(R.drawable.ic_account,"Customer Care"));
-        list.add(new ProfileListModel(R.drawable.ic_profile_logout,"Logout"));
+        list.add(new ProfileListModel(R.drawable.ic_account, "Customer Care"));
+        list.add(new ProfileListModel(R.drawable.ic_profile_logout, "Logout"));
         binding.listRecycler.setAdapter(new ProfileListAdapter(list, this));
     }
 
     @SuppressLint("SetTextI18n")
-    private void setLiveData(){
+    private void setLiveData() {
         AppDatabase appDatabase = AppDatabase.getAppDatabase(ProfileActivity.this);
         appDatabase.getUserDao().getUser().observe(this, user -> {
-            if(user!=null){
+            if (user != null) {
                 binding.setNameNumber(user);
-                binding.fullName.setText(user.getName()+" "+user.getLastname());
-                Glide.with(ProfileActivity.this).load(""+user.image).into(binding.profileImage);
-            }
-            else{
+                binding.fullName.setText(user.getName() + " " + user.getLastname());
+                Glide.with(ProfileActivity.this).load("" + user.image).into(binding.profileImage);
+            } else {
                 binding.profileImage.setImageResource(R.drawable.ic_profile_user);
             }
         });
@@ -120,15 +123,16 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
                 intent = new Intent(ProfileActivity.this, SocialMedia.class);
                 startActivity(intent);
                 break;
-            case "My Profile":{
+            case "My Profile": {
                 startActivity(new Intent(view.getContext(), ProfileDetails.class));
-            }break;
+            }
+            break;
             case "KYC REGISTRATION":
                 intent = new Intent(ProfileActivity.this, BankDetails.class);
                 startActivity(intent);
                 break;
             case "M-PIN":
-                    m_pin_execution();
+                m_pin_execution();
                 break;
             case "My Commission":
                 intent = new Intent(ProfileActivity.this, MyCommissionActivity.class);
@@ -154,12 +158,13 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
             case "Logout":
                 viewModel.profileRepository.deleteUser(ProfileActivity.this);
                 break;
-            default: ViewUtils.showToast(ProfileActivity.this, "Coming Soon");
+            default:
+                ViewUtils.showToast(ProfileActivity.this, "Coming Soon");
         }
     }
 
 
-    private void myModal(){
+    private void myModal() {
 
         viewModel.profileRepository.getHelpSupport(ProfileActivity.this, data -> {
 
@@ -175,14 +180,13 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
 
             binding.dialMobile.setOnClickListener(v -> {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:"+dialMobile));
+                callIntent.setData(Uri.parse("tel:" + dialMobile));
                 startActivity(callIntent);
             });
 
 
-
             binding.firstEmail.setOnClickListener(v -> {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",sendFEmail, null));
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", sendFEmail, null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
                 emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -192,7 +196,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
     }
 
 
-    private void m_pin_execution(){
+    private void m_pin_execution() {
         viewModel.checkM_pinStatus(new TaskListener<SystemResponse<TPinResponse>>() {
             @Override
             public void onLoading() {
@@ -203,12 +207,11 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
             public void onResponse(SystemResponse<TPinResponse> data) {
                 DisplayMessageUtil.dismissDialog();
                 Intent intent = new Intent(ProfileActivity.this, PinActivity.class);
-                if(data.getStatus() && data.getResponse_code().equals(1)){
+                if (data.getStatus() && data.getResponse_code().equals(1)) {
                     //T-Pin Already Exists
                     intent.putExtra("action_given", "CHANGE");
                     startActivity(intent);
-                }
-                else if(data.getResponse_code().equals(2)){
+                } else if (data.getResponse_code().equals(2)) {
                     //create new T-Pin
                     intent.putExtra("action_given", "CREATE");
                     t_pin_task_launcher.launch(intent);
@@ -231,10 +234,9 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
                     Bundle bundle = Objects.requireNonNull(data).getExtras();
                     boolean status = bundle.getBoolean("action_status", false);
                     String val = bundle.getString("action_result");
-                    if(status){
+                    if (status) {
                         DisplayMessageUtil.success(ProfileActivity.this, val);
-                    }
-                    else{
+                    } else {
                         DisplayMessageUtil.error(ProfileActivity.this, val);
                     }
                 }
@@ -260,7 +262,6 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
                     }
                 }
             });
-
 
 
 }
