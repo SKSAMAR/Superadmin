@@ -13,7 +13,7 @@ android {
     compileSdk 33
     defaultConfig {
         manifestPlaceholders = [appName: "PaytCash"]
-        appType = "B2B"
+        appType = "B2C"
         applicationId "paytcash.net"
         minSdk 22
         //noinspection OldTargetApi
