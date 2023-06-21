@@ -1,8 +1,10 @@
 package com.fintech.superadmin.data.network;
 
 import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
+import com.fintech.superadmin.clean.data.remote.dto.browsePlan.BrowsePlanDto;
 import com.fintech.superadmin.data.DetailedDto;
 import com.fintech.superadmin.data.DynamicROfferResponse;
+import com.fintech.superadmin.data.ROfferPlan;
 import com.fintech.superadmin.data.accountop.AccountOPeningResponse;
 import com.fintech.superadmin.data.apiResponse.fingpay.aadharOTP.SendOtpResp;
 import com.fintech.superadmin.data.apiResponse.fingpay.aeps.AePsResponse;
@@ -84,6 +86,7 @@ import com.fintech.superadmin.model.PayuResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.MultipartBody;
@@ -137,7 +140,7 @@ public interface APIServices {
 
     //HLR CHECK
     @FormUrlEncoded
-    @POST("Backend/Merchant/API/Recharge/PaySprint/recharge.php")
+    @POST("Backend/Merchant/API/Recharge/PaySprint/hlr.php")
     Observable<HLRResponse> getHLRInformation(@Field("service_type") String service_type, @Field("type") String type, @Field("number") String number,
                                               @Field("hlr_check") String hlr_check);
     //HLR CHECK
@@ -215,8 +218,8 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("Backend/Merchant/API/Recharge/PaySprint/recharge.php")
-    Observable<DthInfoResponse> dth_info(@Field("service_type") String service_type, @Field("ca") String ca, @Field("op") String op, @Field("dth_info") String dth_info);
+    @POST("Backend/Merchant/API/Recharge/PaySprint/hlr.php")
+    Observable<SystemResponse<Object>> dth_info(@Field("service_type") String service_type, @Field("number") String number, @Field("operatorCode") String operatorCode, @Field("dth_info") String dth_info);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/BBPS/PaySprint/fetchDetails.php")
@@ -254,13 +257,13 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("mobile_phone/mobile_number_pay/is_number_valid.php")
-    Observable<AuthResponse> numberAuthenticate(@Field("mobile") String number);
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<RegularResponse> numberAuthenticate(@Field("mobile") String mobile, @Field("sendPayAvailable") String sendPayAvailable);
 
 
     @FormUrlEncoded
-    @POST("mobile_phone/mobile_number_pay/pay_onthis.php")
-    Observable<NumberPayResponse> numberAuthenticatePay(@Field("to_mobile") String number, @Field("amount") String amount);
+    @POST("Backend/Merchant/API/SelfPay/main.php")
+    Observable<RegularResponse> numberAuthenticatePay(@Field("mobile") String mobile, @Field("amount") String amount);
 
 
     @FormUrlEncoded
@@ -289,7 +292,6 @@ public interface APIServices {
     Observable<List<AEPSBanksModel>> getFingPayBankList(@Field("getMappedBanks") String getMappedBanks);
 
 
-
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/FingPay/Txns.php")
     Observable<AePsResponse> AEPSFingPayResponse(@Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("mobile") String mobile, @Field("transType") String transType, @Field("bankName") String bankName, @Field("long") String longitude, @Field("lat") String latitude, @Field("amount") String amount);
@@ -298,9 +300,9 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
     Observable<AePSDto> AEPSResponse(@Field("bank") String bank, @Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData,
-                                                        @Field("mobile") String mobile, @Field("transType") String transType,
-                                                        @Field("bankName") String bankName, @Field("long") String longitude,
-                                                        @Field("lat") String latitude, @Field("amount") String amount);
+                                     @Field("mobile") String mobile, @Field("transType") String transType,
+                                     @Field("bankName") String bankName, @Field("long") String longitude,
+                                     @Field("lat") String latitude, @Field("amount") String amount);
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
@@ -477,8 +479,8 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("Backend/Merchant/API/Recharge/PaySprint/recharge.php")
-    Observable<DynamicROfferResponse> getMeROffers(@Field("service_type") String service_type, @Field("op") String op, @Field("mobile") String mobile, @Field("getRoffer") String getRoffer);
+    @POST("Backend/Merchant/API/Recharge/PaySprint/hlr.php")
+    Observable<SystemResponse<List<ROfferPlan>>> getMeROffers(@Field("service_type") String service_type, @Field("operatorCode") String operatorCode, @Field("number") String number, @Field("r_offer") String r_offer);
 
     @FormUrlEncoded
     @POST("mobile_phone/recharge/browseplan.php")
@@ -891,5 +893,7 @@ public interface APIServices {
     @POST("Backend/Merchant/API/AePs/FingPay/main.php")
     Observable<SendOtpResp> completeFingKyc(@Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("otp") String otp, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat);
     //FingpayBoard
+
+
 
 }

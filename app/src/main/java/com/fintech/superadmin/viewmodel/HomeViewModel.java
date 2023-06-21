@@ -14,6 +14,7 @@ import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.fingBoard.FingBoardHome;
+import com.fintech.superadmin.activities.mobilenumber.SendMoney;
 import com.fintech.superadmin.data.apiResponse.merchant.FingPayBoardCred;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.dto.MahagramResponse;
@@ -21,6 +22,7 @@ import com.fintech.superadmin.data.dto.PaysprintResponse;
 import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
+import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.data.repositories.HomeRepository;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.BringHistoryListener;
@@ -153,24 +155,33 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-    public void checkIfAccountExists(String mobile, NumberPayListener listener) {
-        apiServices.numberAuthenticate(mobile)
+    public void checkIfAccountExists(Context context, String mobile) {
+        apiServices.numberAuthenticate( mobile, "sendPayAvailable")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AuthResponse>() {
+                .subscribe(new Observer<RegularResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        listener.showProgress("Please Wait, Loading..");
+                        DisplayMessageUtil.loading(context);
                     }
 
                     @Override
-                    public void onNext(@NonNull AuthResponse authResponse) {
-                        listener.isNumberValid(authResponse);
+                    public void onNext(@NonNull RegularResponse authResponse) {
+                        DisplayMessageUtil.dismissDialog();
+                        if (authResponse.isStatus()){
+                            Intent intent = new Intent(context, SendMoney.class);
+                            intent.putExtra("receiver_id", "");
+                            intent.putExtra("receiver_name", "");
+                            intent.putExtra("receiver_mobile", mobile);
+                            context.startActivity(intent);
+                        }else{
+                            DisplayMessageUtil.anotherDialogFailure(context, authResponse.getMessage());
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        listener.showMessage("Failed due to\n" + e.getMessage());
+                        DisplayMessageUtil.anotherDialogFailure(context, e.getLocalizedMessage());
                     }
 
                     @Override

@@ -513,6 +513,14 @@
             android:name="com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.browsePlan.RechargeBrowsePlan"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
@@ -662,6 +670,56 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+        <activity
+            android:name=".flight.presentation.home.FlightHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTask"
+            />
+
+        <activity
+            android:name=".flight.presentation.airSearch.AirSearchActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name=".flight.presentation.travellers.TravellersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name=".flight.presentation.seatSelection.SeatSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name=".flight.presentation.airports.AirportsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name=".flight.presentation.airlines.AirlinesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTop"
+            />
 
 
         <meta-data

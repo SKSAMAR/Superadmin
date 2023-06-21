@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.data.network.responses.NumberPayResponse;
+import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.data.repositories.MobileNumberPayRepository;
 import com.fintech.superadmin.listeners.NumberPayListener;
 import com.fintech.superadmin.listeners.ResetListener;
@@ -42,25 +43,22 @@ public class MobileNumberPayViewModel extends ViewModel {
 
 
 
-    public void checkIfAccountExists(String mobile){
-        repository.isNumberValidCheck(mobile, listener);
-    }
 
     public void sendMoneyToContact(View view){
-        if(amount==null || amount.isEmpty()){
+        if(amount==null || amount.trim().isEmpty()){
             MyAlertUtils.showAlertDialog(view.getContext(), "Warning", "Enter a valid amount", R.drawable.warning);
         }else {
             apiServices.numberAuthenticatePay(receiver_mobile, amount)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<NumberPayResponse>() {
+                    .subscribe(new Observer<RegularResponse>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             MyAlertUtils.showProgressAlertDialog(view.getContext());
                         }
 
                         @Override
-                        public void onNext(@NonNull NumberPayResponse numberPayResponse) {
+                        public void onNext(@NonNull RegularResponse numberPayResponse) {
                             if(numberPayResponse.isStatus()) {
                                 MyAlertUtils.showAlertDialog(view.getContext(), "Success", numberPayResponse.getMessage(), R.drawable.success);
                                 resetListener.resetRequiredData(true);

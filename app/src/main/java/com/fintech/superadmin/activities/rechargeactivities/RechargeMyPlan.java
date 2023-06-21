@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
+import com.fintech.superadmin.clean.presentation.browsePlan.RechargeBrowsePlan;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.model.OperatorModel;
@@ -276,16 +277,22 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
                         return;
                     }
 
+                    /**
                     if(rechargeViewModel.hlrResponse == null || rechargeViewModel.hlrResponse.getInfo().getCircle().equalsIgnoreCase("IN")){
                         DisplayMessageUtil.error(RechargeMyPlan.this, "Select a valid Circle");
                         return;
                     }
+                     intent.putExtra("operatorModel", rechargeViewModel.operatorModel);
+                     intent.putExtra("mode", rechargeViewModel.mode);
+                     intent.putExtra("num",binding.customerId.getText().toString());
+                     intent.putExtra("hlrResponse", rechargeViewModel.hlrResponse);
+                     rOfferActivityResultLauncher.launch(intent);
 
-                    Intent intent = new Intent(RechargeMyPlan.this, BrowsePlan.class);
-                    intent.putExtra("operatorModel", rechargeViewModel.operatorModel);
-                    intent.putExtra("mode", rechargeViewModel.mode);
-                    intent.putExtra("num",binding.customerId.getText().toString());
-                    intent.putExtra("hlrResponse", rechargeViewModel.hlrResponse);
+                     **/
+
+                    Intent intent = new Intent(RechargeMyPlan.this, RechargeBrowsePlan.class);
+                    intent.putExtra("mobile", rechargeViewModel.mobileNumber.getValue());
+                    intent.putExtra("selectedOperatorCode", rechargeViewModel.operatorModel.getOperatorcode());
                     rOfferActivityResultLauncher.launch(intent);
                 }
             });
@@ -396,6 +403,16 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
             binding.warningRechText.setText(warning);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String plan = getIntent().getStringExtra("plan");
+        if (plan!=null){
+            rechargeViewModel.plan = plan;
+            binding.customerPlan.setText(plan);
         }
     }
 }

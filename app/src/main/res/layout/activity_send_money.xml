@@ -46,17 +46,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:onClick="@{sendMoneyViewModel::requestMoneyToContact}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="14sp"
-                    android:text="@string/request"
-                    android:layout_weight="1"
-                    android:layout_margin="5sp"
-                    android:backgroundTint="?android:colorPrimary"
-                    android:id="@+id/onRequestMoneyButton"/>
-
 
                 <Button
                     android:onClick="@{sendMoneyViewModel::sendMoneyToContact}"

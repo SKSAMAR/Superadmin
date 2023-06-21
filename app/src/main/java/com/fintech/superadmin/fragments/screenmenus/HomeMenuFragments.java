@@ -53,6 +53,7 @@ import com.fintech.superadmin.data.dto.PaysprintMerchantCred;
 import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.databinding.FragmentHomeMenuFragmentsBinding;
+import com.fintech.superadmin.flight.presentation.home.FlightHomeActivity;
 import com.fintech.superadmin.fragments.sliders.SliderFragment;
 import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
 import com.fintech.superadmin.listeners.NumberPayListener;
@@ -79,7 +80,7 @@ import java.util.Random;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeMenuFragments extends Fragment implements RecyclerViewClickListener, NumberPayListener {
+public class HomeMenuFragments extends Fragment implements RecyclerViewClickListener {
 
     String bank = "1";
     private FragmentHomeMenuFragmentsBinding binding;
@@ -239,6 +240,11 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         bank = "1";
         switch (model.getTitle()) {
+
+            case "Flights":{
+                startActivity(new Intent(requireActivity(), FlightHomeActivity.class));
+                break;
+            }
             case "X-Payout": {
                 startActivity(new Intent(requireActivity(), PayoutActivity.class));
                 break;
@@ -467,7 +473,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             Objects.requireNonNull(cursor).close();
             User user = AppDatabase.getAppDatabase(requireActivity()).getUserDao().getRegularUser();
             if (!user.getMobile().equals(selectedPhone)) {
-                viewModel.checkIfAccountExists(selectedPhone, HomeMenuFragments.this);
+                viewModel.checkIfAccountExists(requireActivity(), selectedPhone);
             } else {
                 MyAlertUtils.showServerAlertDialog(requireActivity(), "Invalid choice");
             }
@@ -557,31 +563,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 }
             }
         }
-    }
-
-    @Override
-    public void isNumberValid(AuthResponse authResponse) {
-
-        if (authResponse.isStatus()) {
-            MyAlertUtils.dismissAlertDialog();
-            Intent intent = new Intent(requireActivity(), SendMoney.class);
-            intent.putExtra("receiver_id", authResponse.getUser().getId());
-            intent.putExtra("receiver_name", authResponse.getUser().getName() + " " + authResponse.getUser().getLastname());
-            intent.putExtra("receiver_mobile", authResponse.getUser().getMobile());
-            startActivity(intent);
-        } else {
-            DisplayMessageUtil.anotherDialogFailure(requireActivity(), authResponse.getMessage());
-        }
-    }
-
-    @Override
-    public void showMessage(String message) {
-        MyAlertUtils.showServerAlertDialog(requireActivity(), message);
-    }
-
-    @Override
-    public void showProgress(String message) {
-        MyAlertUtils.showProgressAlertDialog(requireActivity());
     }
 
 

@@ -98,9 +98,16 @@ interface FintechAPI {
         @Field("sendotp") sendotp: String = "sendotp"
     ): Observable<SystemResponse<OTPResponse?>>
 
-
-
     //X-PAYOUT
 
+
+    //FingpayBoard
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Recharge/PaySprint/hlr.php")
+    fun browsePlanAdmin(
+        @Field("browse_plan") browse_plan: String?,
+        @Field("number") number: String?,
+        @Field("operatorCode") operatorCode: String?
+    ): Observable<SystemResponse<Any?>>
 
 }

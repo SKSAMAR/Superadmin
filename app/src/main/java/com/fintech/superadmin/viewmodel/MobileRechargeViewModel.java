@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.adapters.DthInfoAdapter;
+import com.fintech.superadmin.adapters.DynamicListAdapter;
 import com.fintech.superadmin.adapters.OperatorAdapter;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPData;
 import com.fintech.superadmin.data.browseplan.BrowsePlanResponse;
@@ -35,6 +36,7 @@ import com.fintech.superadmin.data.network.responses.FetchBillInfo;
 import com.fintech.superadmin.data.network.responses.LicFetchResponse;
 import com.fintech.superadmin.data.network.responses.OperatorResponse;
 import com.fintech.superadmin.data.repositories.MobileRechargesRepository;
+import com.fintech.superadmin.data_model.DynamicData;
 import com.fintech.superadmin.databinding.ActivitySelectOperatorBinding;
 import com.fintech.superadmin.databinding.BbpsCategoryDesignBinding;
 import com.fintech.superadmin.databinding.DthInformationDesignBinding;
@@ -58,11 +60,18 @@ import com.fintech.superadmin.util.PopupUtil;
 import com.fintech.superadmin.util.UtilHolder;
 import com.fintech.superadmin.util.ViewUtils;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -250,19 +259,45 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                 .subscribe(res -> {
                     DisplayMessageUtil.dismissDialog();
                     if (res.getStatus() && res.getResponse_code().equals(1)) {
-                        dthInfoDesign(context, res.getInfo());
+                        dthInfoDesign(context, res.getReceivableData());
                     } else {
                         DisplayMessageUtil.error(context, res.getMessage());
                     }
                 }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
     }
 
-    private void dthInfoDesign(Context context, List<? extends DthInfoResponse.Info> list) {
+    private void dthInfoDesign(Context context, Object object) {
+        ArrayList<DynamicData> dynamicList = new ArrayList<>();
+        String jsonStr = new Gson().toJson(object);
+        try {
+            JSONObject json = new JSONObject(jsonStr);
+            Iterator<String> keys = json.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                Object value = json.get(key);
+                String setKey = key.trim().replace("_", " ").toUpperCase();
+                try {
+                    if (!value.toString().isEmpty()){
+                        dynamicList.add(new DynamicData(setKey, value));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            dynamicList.forEach(dynamicData -> {
+                System.out.println(dynamicData.key + ": ==  " + dynamicData.value);
+            });
+        }
+
         Dialog dialog = new Dialog(context, R.style.MyTransparentBottomSheetDialogTheme);
         DthInformationDesignBinding binding = DthInformationDesignBinding.inflate(LayoutInflater.from(context));
         dialog.setContentView(binding.getRoot());
         binding.myRecycler.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
-        binding.myRecycler.setAdapter(new DthInfoAdapter(list));
+        binding.myRecycler.setAdapter(new DynamicListAdapter(dynamicList));
         binding.cancel.setOnClickListener(v -> {
             dialog.dismiss();
         });
@@ -500,14 +535,14 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         try {
             TextInputEditText editText = (TextInputEditText) view.getRootView().findViewById(R.id.bill_net_amount);
             plan = editText.getText().toString().trim();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
             TextInputEditText editText = (TextInputEditText) view.getRootView().findViewById(R.id.modeSelection);
             mode = editText.getText().toString().trim().toUpperCase();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -824,7 +859,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             }
             alertDialog.dismiss();
             DisplayMessageUtil.loading(context);
-            mobileRechargesRepository.apiServices.payFastAgBill(mPin ,cc_amount, consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
+            mobileRechargesRepository.apiServices.payFastAgBill(mPin, cc_amount, consumer_number, fastagOpperatorModel.getId(), json, UtilHolder.getLongitude(), UtilHolder.getLatitude(), "pay_fastag")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {

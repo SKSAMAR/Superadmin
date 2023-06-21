@@ -5,6 +5,7 @@ import android.content.Context;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
+import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.listeners.NumberPayListener;
 
 import javax.inject.Inject;
@@ -28,33 +29,4 @@ public class MobileNumberPayRepository {
     }
 
 
-    public void isNumberValidCheck(String mobile, NumberPayListener listener){
-        
-        apiServices.numberAuthenticate(mobile)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<AuthResponse>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        listener.showProgress("Please Wait, Loading..");
-                    }
-
-                    @Override
-                    public void onNext(@NonNull AuthResponse authResponse) {
-                        listener.isNumberValid(authResponse);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        listener.showMessage(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-
-    }
 }

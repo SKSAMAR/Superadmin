@@ -1,5 +1,6 @@
 package com.fintech.superadmin.data.repositories;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
@@ -125,15 +126,17 @@ public class MobileRechargesRepository {
             return list;
         }
 
+    @SuppressLint("CheckResult")
     public void getMeMyROffer(String sertvice_type, Context context, String op, String num, DynamicROfferListener listener){
-
         listener.onStartLooking();
-        apiServices.getMeROffers(sertvice_type ,op, num,"getRoffer")
+        apiServices.getMeROffers(sertvice_type ,op, num,"r_offer")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response->{
-                    if (Objects.equals(response.getResponseCode(), 1)){
-                        listener.getMeROffer(response.component2());
+                    if (Objects.equals(response.getResponse_code(), 1)){
+                        listener.getMeROffer(response.getReceivableData());
+                    }else{
+                        DisplayMessageUtil.error(context, ""+response.getMessage());
                     }
                 }, Throwable::printStackTrace);
     }

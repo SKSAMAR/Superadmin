@@ -130,6 +130,7 @@ public class SendMoney extends BaseActivity implements ResetListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.response_menu, menu);
         menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

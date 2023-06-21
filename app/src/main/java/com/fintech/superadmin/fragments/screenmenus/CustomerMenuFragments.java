@@ -81,7 +81,7 @@ import java.util.Random;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CustomerMenuFragments extends Fragment implements RecyclerViewClickListener, NumberPayListener {
+public class CustomerMenuFragments extends Fragment implements RecyclerViewClickListener {
 
     private CustomerHomeMenuFragmentsBinding binding;
     private HomeViewModel viewModel;
@@ -426,7 +426,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
             Objects.requireNonNull(cursor).close();
             User user = AppDatabase.getAppDatabase(requireActivity()).getUserDao().getRegularUser();
             if (!user.getMobile().equals(selectedPhone)) {
-                viewModel.checkIfAccountExists(selectedPhone, CustomerMenuFragments.this);
+                viewModel.checkIfAccountExists( requireActivity(), selectedPhone);
             } else {
                 MyAlertUtils.showServerAlertDialog(requireActivity(), "Invalid choice");
             }
@@ -518,122 +518,6 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         }
     }
 
-    @Override
-    public void isNumberValid(AuthResponse authResponse) {
-
-        if (authResponse.isStatus()) {
-            MyAlertUtils.dismissAlertDialog();
-            Intent intent = new Intent(requireActivity(), SendMoney.class);
-            intent.putExtra("receiver_id", authResponse.getUser().getId());
-            intent.putExtra("receiver_name", authResponse.getUser().getName() + " " + authResponse.getUser().getLastname());
-            intent.putExtra("receiver_mobile", authResponse.getUser().getMobile());
-            startActivity(intent);
-        } else {
-            DisplayMessageUtil.anotherDialogFailure(requireActivity(), authResponse.getMessage());
-        }
-    }
-
-    @Override
-    public void showMessage(String message) {
-        MyAlertUtils.showServerAlertDialog(requireActivity(), message);
-    }
-
-    @Override
-    public void showProgress(String message) {
-        MyAlertUtils.showProgressAlertDialog(requireActivity());
-    }
-
-
-    public void beginMahagramAtm(MahagramApiCred response, MahagramMerchant merchant) {
-        if (merchant == null) {
-            startActivity(new Intent(requireActivity(), BcRegistration.class));
-            return;
-        } else {
-            merchant.getBCID();
-        }
-        if (appInstalledOrNot("org.egram.microatm")) {
-            Intent intent = new Intent();
-            intent.setComponent(new
-                    ComponentName("org.egram.microatm", "org.egram.microatm.BluetoothMacSearchActivity"));
-            intent.putExtra("saltkey", response.getSaltKey());
-            intent.putExtra("secretkey", response.getSecretKey());
-            intent.putExtra("bcid", merchant.getBCID());
-            intent.putExtra("userid", user.getId());
-            intent.putExtra("bcemailid", merchant.getEmail());
-            intent.putExtra("phone1", merchant.getNum());
-            intent.putExtra("clientrefid", createMultipleTransactionID());
-            intent.putExtra("vendorid", "");
-            intent.putExtra("udf1", "");
-            intent.putExtra("udf2", "");
-            intent.putExtra("udf3", "");
-            intent.putExtra("udf4", "");
-            startActivityForResult(intent, 12322);
-        } else {
-            try {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-                dialog.setTitle("Permission to ATM Installation");
-                dialog.setMessage("You need to install external ATM App from Google's Play store.");
-                dialog.create();
-                dialog.setPositiveButton("Proceed", (dialog12, which) -> {
-                    Intent viewIntent = new Intent("android.intent.action.VIEW",
-                            Uri.parse("https://play.google.com/store/apps/details?id=org.egram.microatm"));
-                    startActivity(viewIntent);
-                });
-
-                dialog.setNegativeButton("Cancel", (dialog1, which) -> {
-
-                });
-                dialog.show();
-            } catch (Exception e) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(requireActivity());
-                dialog.create();
-                dialog.setPositiveButton("Proceed", (dialog12, which) -> {
-                    Intent viewIntent = new Intent("android.intent.action.VIEW",
-                            Uri.parse("https://play.google.com/store/apps/details?id=org.egram.microatm"));
-                    startActivity(viewIntent);
-                });
-
-                dialog.setNegativeButton("Cancel", (dialog1, which) -> {
-
-                });
-                dialog.show();
-                ViewUtils.showToast(requireActivity(), "Unable to Connect Try Again...");
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    private boolean appInstalledOrNot(String uri) {
-        PackageManager pm = requireActivity().getPackageManager();
-        try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public final String createMultipleTransactionID() {
-        String AgentTranID = "";
-        try {
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmssSS");
-            Date date = new Date();
-            String tranID = sdf.format(date);
-            int n = 6;
-            Random randGen = new Random();
-            int startNum = (int) Math.pow(10, n - 1);
-            int range = (int) (Math.pow(10, n) - startNum);
-            int randomNum = randGen.nextInt(range) + startNum;
-            String ran = String.valueOf(randomNum);
-            AgentTranID = tranID + ran;
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return AgentTranID;
-    }
 
     private void newsModal() {
         binding.newsSection.setOnClickListener(v -> {
@@ -698,13 +582,6 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
 
     public void startCreditCard() {
         startActivity(new Intent(requireActivity(), CCFetchBillK.class));
-    }
-
-
-    public void onAddFundClick() {
-        if (Accessable.isAccessable()) {
-            startActivity(new Intent(requireActivity(), AddFundList.class));
-        }
     }
 
 

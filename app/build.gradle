@@ -18,8 +18,8 @@ android {
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
-        versionCode 2
-        versionName "0.0.1.1"
+        versionCode 3
+        versionName "0.0.1.3"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -76,13 +76,32 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.4.0'
     implementation 'com.google.android.gms:play-services-measurement-api:21.3.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.material:material'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+
 
 
     //Circular ImageView
@@ -285,6 +304,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-dynamic-links'
     implementation 'com.google.firebase:firebase-analytics'
 
+    //Calendar
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+    implementation 'com.kizitonwose.calendar:view:2.1.1'
+    implementation 'com.kizitonwose.calendar:compose:2.1.1'
+
 }
 
 repositories {
@@ -320,6 +344,7 @@ afterEvaluate {
     sdkname = apiName.trim().toLowerCase()
     createInfoXml(appType, sdkname)
 
+    /**
     project.dependencies {
         fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
             print "file : ${file.name}\n"
@@ -334,9 +359,7 @@ afterEvaluate {
             implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
             print("Bouncy Included")
         }
-
-
-    }
+    }**/
 }
 
 /**

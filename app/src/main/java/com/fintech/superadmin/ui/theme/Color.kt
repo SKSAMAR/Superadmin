@@ -66,3 +66,12 @@ fun BackgroundCardGrey(): Color {
     }
     return Color(0xFFF2F2F2)
 }
+
+val Purple80 = Color(0xFF5b34a0)
+val PurpleGrey80 = Color(0xFF5b34a0)
+val Pink80 = Color(0xFF5b34a0)
+
+val Purple40 = Color(0xFF58378a)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
+
