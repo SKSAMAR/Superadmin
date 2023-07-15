@@ -316,33 +316,9 @@ repositories {
 }
 
 
-static def fetchAarFileNames(appId) {
-    String responseString = ""
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=ATM")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            responseString = reader.readLine()
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
 afterEvaluate {
-    def appId = android.defaultConfig.applicationId
-    def apiName = fetchAarFileNames(appId)
+    def apiName = "fingpay"
     sdkname = apiName.trim().toLowerCase()
-    createInfoXml(appType, sdkname)
     project.dependencies {
         fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
             print "file : ${file.name}\n"
@@ -358,23 +334,4 @@ afterEvaluate {
             print("Bouncy Included")
         }
     }
-}
-
-def createInfoXml(String appType, String sdkname) {
-    def appId = android.defaultConfig.applicationId
-    def xmlContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-            "<resources>\n" +
-            "    <string name=\"app_type\">${appType}</string>\n" +
-            "    <string name=\"base_url_data\">${appId}</string>\n" +
-            "    <string name=\"atmType\">${sdkname}</string>\n" +
-            "</resources>"
-    print(xmlContent)
-    def file = new File(projectDir, "src/main/res/values/info.xml")
-    if (file.exists()) {
-        file.delete()
-    }
-    file.withWriter { writer ->
-        writer.write(xmlContent)
-    }
-    return file
 }
