@@ -4,5 +4,5 @@
     <string name="base_url_data">panel.metavisionpay.com</string>
     <string name="atmType">paysprintnew</string>
     <string name="secondaryUrl">panel.metavisionpay.com</string>
-    <string name="roffer">no</string>
+    <string name="roffer">yes</string>
 </resources>

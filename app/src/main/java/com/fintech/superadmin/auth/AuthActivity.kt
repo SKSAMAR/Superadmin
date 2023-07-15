@@ -16,6 +16,7 @@ import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.ViewUtils
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URLDecoder
 
 @AndroidEntryPoint
 class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
@@ -46,6 +47,7 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
                     assert(deepLink != null)
                     var referlink = deepLink.toString()
                     try {
+                        referlink = URLDecoder.decode(referlink, "UTF-8")
                         referlink = referlink.substring(referlink.lastIndexOf("=") + 1)
                         viewModel.referral_code.value = referlink
                     } catch (e: Exception) {
