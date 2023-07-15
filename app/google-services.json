@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "830349812825",
+    "project_id": "metavisionpay-b1cea",
+    "storage_bucket": "metavisionpay-b1cea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830349812825:android:e98d630612569cda62bd48",
+        "android_client_info": {
+          "package_name": "panel.metavisionpay.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830349812825-d3iiohtkfo8d8bn8r1rqf4gbv3n60ojq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "panel.metavisionpay.com",
+            "certificate_hash": "b36f502e32f0641cb1ef082125b0a9d98bd9e8d6"
+          }
+        },
+        {
+          "client_id": "830349812825-bgf1mbeikgpscgl2hfrearhco6v292q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG2q8QnW2u8ZGGZqWfIihlDqk0BImn96A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830349812825-bgf1mbeikgpscgl2hfrearhco6v292q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

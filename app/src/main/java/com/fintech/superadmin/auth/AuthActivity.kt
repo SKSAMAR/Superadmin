@@ -1,6 +1,7 @@
 package com.fintech.superadmin.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.deer_listener.Receiver
 import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import com.fintech.superadmin.util.ViewUtils
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,17 +36,6 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
     }
 
     private fun init(){
-        val deepLinkUri = intent.data
-        if (deepLinkUri != null) {
-            // Retrieve the deep link data from the Uri
-            val deepLinkData = deepLinkUri.toString()
-            ViewUtils.showToast(this@AuthActivity, "" + deepLinkData)
-        } else {
-            //ViewUtils.showToast(this@AuthActivity, "Nothing")
-        }
-
-        /**
-        FirebaseApp.initializeApp(this)
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
@@ -56,17 +47,18 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
                     var referlink = deepLink.toString()
                     try {
                         referlink = referlink.substring(referlink.lastIndexOf("=") + 1)
-                        viewModel.mobile.value = referlink
-                        Log.d("REFER_MESSAGE", referlink)
+                        viewModel.referral_code.value = referlink
                     } catch (e: Exception) {
-                        Log.d("REFER_MESSAGE", e.message?:"Some Error")
+                        ViewUtils.showToast(this@AuthActivity, e.message)
                     }
                 }
-            }.addOnFailureListener(this) { e ->
-                Log.d("REFER_MESSAGE", e.message?:"Some Error")
             }
-
-        **/
+            .addOnFailureListener(this) { e ->
+                ViewUtils.showToast(
+                    this@AuthActivity,
+                    e.message?:"Some Error"
+                )
+            }
 
     }
 

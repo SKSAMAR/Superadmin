@@ -69,9 +69,6 @@ public class CustomerSupportViewModel extends ViewModel {
             else if(description.trim().isEmpty()){
                 DisplayMessageUtil.error(view.getContext(), "Enter a valid description");
             }
-//            else if(proof == null){
-//                DisplayMessageUtil.error(view.getContext(), "Select a valid proof");
-//            }
             else{
                 RequestBody r_department = RequestBody.create(MediaType.parse("text/plain"), department);
                 RequestBody r_trans_id = RequestBody.create(MediaType.parse("text/plain"), transactionId);

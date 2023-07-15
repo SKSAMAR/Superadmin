@@ -49,6 +49,7 @@ import com.fintech.superadmin.clean.presentation.contacts.ContactsViewModel
 import com.fintech.superadmin.clean.presentation.referEarn.component.ContactRow
 import com.fintech.superadmin.clean.presentation.rewards.RewardActivity
 import com.fintech.superadmin.clean.util.ViewUtils.copyReferralLink
+import com.fintech.superadmin.clean.util.ViewUtils.createLink
 import com.fintech.superadmin.clean.util.ViewUtils.shareWithAll
 import com.fintech.superadmin.clean.util.ViewUtils.shareWithPackage
 import com.fintech.superadmin.clean.util.sdp
@@ -109,8 +110,13 @@ class ReferEarnActivity : BaseComponentAct() {
                 )
             }
         ) {
-
             BasicScreenState(state = viewModel.state) {
+
+                LaunchedEffect(key1 = true) {
+                    createLink(custid = viewModel.state.value.receivedResponse?.rEFERCODE?:"") {
+                        viewModel.link = it
+                    }
+                }
 
                 LazyColumn(
                     modifier = Modifier
@@ -255,8 +261,7 @@ class ReferEarnActivity : BaseComponentAct() {
                                                 width = 1.sdp,
                                                 color = MaterialTheme.colors.onSurface,
                                                 shape = RoundedCornerShape(6.sdp)
-                                            )
-                                            .clip(RoundedCornerShape(6.sdp))
+                                            ).clip(RoundedCornerShape(6.sdp))
                                     ) {
 
                                         Row(

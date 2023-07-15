@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_type">B2B</string>
-    <string name="base_url_data">paytcash.net</string>
+    <string name="app_type">B2C</string>
+    <string name="base_url_data">panel.metavisionpay.com</string>
     <string name="atmType">paysprintnew</string>
+    <string name="secondaryUrl">panel.metavisionpay.com</string>
+    <string name="roffer">no</string>
 </resources>

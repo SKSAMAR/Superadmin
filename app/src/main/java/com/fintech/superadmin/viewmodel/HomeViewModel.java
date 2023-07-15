@@ -23,6 +23,7 @@ import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.APIServices;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
+import com.fintech.superadmin.data.network.responses.SystemResponse;
 import com.fintech.superadmin.data.repositories.HomeRepository;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.BringHistoryListener;
@@ -71,11 +72,10 @@ public class HomeViewModel extends ViewModel {
     public void switchMore() {
         currentList = moreList;
     }
+
     public void switchLess() {
         currentList = lessList;
     }
-
-
 
 
     public void onAddFundClick(View view) {
@@ -156,7 +156,7 @@ public class HomeViewModel extends ViewModel {
 
 
     public void checkIfAccountExists(Context context, String mobile) {
-        apiServices.numberAuthenticate( mobile, "sendPayAvailable")
+        apiServices.numberAuthenticate(mobile, "sendPayAvailable")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegularResponse>() {
@@ -168,13 +168,13 @@ public class HomeViewModel extends ViewModel {
                     @Override
                     public void onNext(@NonNull RegularResponse authResponse) {
                         DisplayMessageUtil.dismissDialog();
-                        if (authResponse.isStatus()){
+                        if (authResponse.isStatus()) {
                             Intent intent = new Intent(context, SendMoney.class);
                             intent.putExtra("receiver_id", "");
                             intent.putExtra("receiver_name", "");
                             intent.putExtra("receiver_mobile", mobile);
                             context.startActivity(intent);
-                        }else{
+                        } else {
                             DisplayMessageUtil.anotherDialogFailure(context, authResponse.getMessage());
                         }
                     }
@@ -192,22 +192,24 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void bringTheNews(TextView textView, CardView cardView) {
-        apiServices.getMeLatestNews("")
+        apiServices.getMeLatestNews("newsAlert")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+                .subscribe(new Observer<RegularResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull String s) {
-                        news = s;
-                        textView.setText(news);
-                        textView.setSelected(true);
-                        if (!s.isEmpty()) {
-                            cardView.setVisibility(View.VISIBLE);
+                    public void onNext(@NonNull RegularResponse response) {
+                        if (response.isStatus()) {
+                            news = response.getMessage();
+                            textView.setText(news);
+                            textView.setSelected(true);
+                            if (!response.getMessage().isEmpty()) {
+                                cardView.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
 

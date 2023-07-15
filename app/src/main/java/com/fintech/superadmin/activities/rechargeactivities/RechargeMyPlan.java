@@ -27,6 +27,7 @@ import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.clean.presentation.browsePlan.RechargeBrowsePlan;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
+import com.fintech.superadmin.data.deer_response.G;
 import com.fintech.superadmin.data.model.OperatorModel;
 import com.fintech.superadmin.data.network.responses.CustomerInfoResponse;
 import com.fintech.superadmin.data.network.responses.MyOfferResponse;
@@ -370,6 +371,11 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
                     binding.dthInfoCard.setVisibility(View.VISIBLE);
                     break;
                 }
+            }
+
+            String rOffer = getString(R.string.roffer).trim().toLowerCase();
+            if (rOffer.equals("no")){
+                binding.ROffer.setVisibility(View.GONE);
             }
         });
 

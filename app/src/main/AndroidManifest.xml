@@ -373,6 +373,7 @@
             android:name="com.fintech.superadmin.activities.profile.ProfileDetails"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             tools:ignore="LockedOrientationActivity" /> <!-- <service -->
         <service
             android:name="com.anfu.pos.library.bluetooth4.BluetoothLeService"
@@ -617,6 +618,22 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name="com.fintech.superadmin.clean.presentation.suvidhaPayout.SuvidhaPayout"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.suvidhaPayout.SuvidhaPayoutAddActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name="com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -654,9 +671,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host=""
-                    android:scheme="https"
-                    tools:ignore="AppLinkUrlError" />
+                    android:host="metavisionpay.page.link"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

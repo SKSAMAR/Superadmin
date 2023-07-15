@@ -44,6 +44,7 @@ import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
 import com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity;
 import com.fintech.superadmin.clean.presentation.rewards.RewardActivity;
+import com.fintech.superadmin.clean.presentation.suvidhaPayout.SuvidhaPayout;
 import com.fintech.superadmin.clean.presentation.wallet.WalletBalanceActivity;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
@@ -208,6 +209,11 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         switch (model.getTitle()) {
 
+            case "Bank Transfer": {
+                Intent intent = new Intent(requireActivity(), SuvidhaPayout.class);
+                startActivity(intent);
+                break;
+            }
             case "Mobile\nRecharge": {
                 MobileRechargeViewModel.service = "Mobile\nRecharge";
                 Intent intent = new Intent(requireActivity(), RechargeMyPlan.class);
@@ -257,7 +263,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
                 break;
             }
             case "Credit Card":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startCreditCard());
+                startCreditCard();
                 break;
             case "Fing AePS":
                 viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingAEPS());
@@ -426,7 +432,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
             Objects.requireNonNull(cursor).close();
             User user = AppDatabase.getAppDatabase(requireActivity()).getUserDao().getRegularUser();
             if (!user.getMobile().equals(selectedPhone)) {
-                viewModel.checkIfAccountExists( requireActivity(), selectedPhone);
+                viewModel.checkIfAccountExists(requireActivity(), selectedPhone);
             } else {
                 MyAlertUtils.showServerAlertDialog(requireActivity(), "Invalid choice");
             }

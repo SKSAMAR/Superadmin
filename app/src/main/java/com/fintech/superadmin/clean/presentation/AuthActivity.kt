@@ -41,7 +41,10 @@ class AuthActivity : BaseComponentAct() {
     @Composable
     private fun AuthHomeScreen() {
         viewModel.navHostController = rememberNavController()
-        NavHost(navController = viewModel.navHostController, startDestination = AuthNavigation.CREDENTIAL.route) {
+        NavHost(
+            navController = viewModel.navHostController,
+            startDestination = AuthNavigation.CREDENTIAL.route
+        ) {
             composable(AuthNavigation.CREDENTIAL.route) {
                 BaseScaffold(
                     bottomBar = {

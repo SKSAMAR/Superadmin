@@ -66,6 +66,7 @@ class  AuthViewModel
     val otp = mutableStateOf("")
     private val mobileOtp = mutableStateOf("")
     private val mobileOtpHash = mutableStateOf("")
+    var referral_code = mutableStateOf("")
     var resendAble = mutableStateOf(false)
     var timerCount = mutableStateOf(System.currentTimeMillis())
     val otpHash = mutableStateOf("")
@@ -166,7 +167,7 @@ class  AuthViewModel
                     hash = otpHash.value,
                     fname = firstName.value.trim(),
                     gstNumber = "".trim(),
-                    referral_code = "".trim()
+                    referral_code = referral_code.value.trim()
                 ), this
             ) {
                 if (it.status) {

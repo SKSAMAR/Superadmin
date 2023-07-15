@@ -520,6 +520,18 @@ fun RegisterPage(
                     )
                     Spacer(modifier = Modifier.height(10.sdp))
 
+                    if (viewModel.referral_code.value.trim().isNotEmpty()) {
+                        BasicOutlinedTextView(
+                            hint = "Referral Code",
+                            value = viewModel.referral_code.value,
+                            onValueChange = {  },
+                            maxLength = 500,
+                            isEditable = false,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(10.sdp))
+                    }
+
                     BaseButton(
                         text = "Signup",
                         fontSize = 14.textSdp,

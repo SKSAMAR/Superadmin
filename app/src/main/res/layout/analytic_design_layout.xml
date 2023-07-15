@@ -85,22 +85,22 @@
                         android:orientation="vertical"
                         tools:ignore="UselessParent">
 
+<!--                        <ImageView-->
+<!--                            android:id="@+id/AnalyticLogo"-->
+<!--                            android:layout_width="55sp"-->
+<!--                            android:layout_height="55sp"-->
+<!--                            android:contentDescription="@string/todo"-->
+<!--                            android:src="@drawable/logo"-->
+<!--                            />-->
+
+
                         <ImageView
                             android:id="@+id/AnalyticLogo"
                             android:layout_width="55sp"
                             android:layout_height="55sp"
                             android:contentDescription="@string/todo"
                             android:src="@drawable/logo"
-                            />
-
-
-                        <!--                        <ImageView-->
-                        <!--                            android:id="@+id/AnalyticLogo"-->
-                        <!--                            android:layout_width="55sp"-->
-                        <!--                            android:layout_height="55sp"-->
-                        <!--                            android:contentDescription="@string/todo"-->
-                        <!--                            android:src="@drawable/logo"-->
-                        <!--                            app:urlImage="@{analyticDataModel.logo}" />-->
+                            app:urlImage="@{analyticDataModel.logo}" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"

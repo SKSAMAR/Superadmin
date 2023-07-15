@@ -62,15 +62,6 @@ public class FirstScreen extends BaseActivity {
         bottomAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bottom_animation);
         binding.LogoSplash.setAnimation(topAnimation);
         getColorModel();
-
-        Uri deepLinkUri = getIntent().getData();
-        if (deepLinkUri != null) {
-            // Retrieve the deep link data from the Uri
-            String deepLinkData = deepLinkUri.toString();
-            ViewUtils.showToast(FirstScreen.this, ""+deepLinkData.toString());
-        }else{
-            //ViewUtils.showToast(FirstScreen.this, "Nothing");
-        }
     }
 
     private void chooseFate(User user) {

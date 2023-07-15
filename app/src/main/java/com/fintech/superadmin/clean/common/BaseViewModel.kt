@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-open class BaseViewModel<T>: ViewModel() {
+open class BaseViewModel<T> : ViewModel() {
 
     protected val _state = mutableStateOf(ScreenState<T>())
     val state: State<ScreenState<T>> = _state
@@ -18,8 +18,8 @@ open class BaseViewModel<T>: ViewModel() {
     var baseDialogVisible by mutableStateOf(false)
     var somethingChanged by mutableStateOf(false)
 
-    fun displayAnimation(anim: Int, message: String, time: Long = 1000L){
-        viewModelScope.launch(Dispatchers.IO){
+    fun displayAnimation(anim: Int, message: String, time: Long = 1000L) {
+        viewModelScope.launch(Dispatchers.IO) {
             animationState.value = AnimationModel(anim, message)
             delay(time)
             animationState.value = null
@@ -94,15 +94,20 @@ open class BaseViewModel<T>: ViewModel() {
         _state.value.baseDialogVisible.value = true
     }
 
-    fun displayResponseMessage(message: String?) {
+    fun displayResponseMessage(message: String?, actionDone: () -> Unit = {}) {
         _state.value.content = {
             SuccessResponseDialog(
-                onDismissRequest = { _state.value.baseDialogVisible.value = false },
+                onDismissRequest = {
+                    _state.value.baseDialogVisible.value = false
+                    actionDone.invoke()
+                },
                 onAccept = {
                     _state.value.baseDialogVisible.value = false
+                    actionDone.invoke()
                 },
                 onCancel = {
                     _state.value.baseDialogVisible.value = false
+                    actionDone.invoke()
                 },
                 message = message ?: ""
             )

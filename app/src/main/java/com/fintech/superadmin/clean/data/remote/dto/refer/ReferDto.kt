@@ -30,7 +30,4 @@ data class ReferDto(
 
 	@field:SerializedName("REFER_CODE")
 	val rEFERCODE: String? = null,
-
-	@field:SerializedName("REFER_URL")
-	val REFER_URL: String? = null,
 ) : Parcelable
