@@ -124,27 +124,45 @@ object ViewUtils {
         showToast("Copied")
     }
 
-    /**
     fun Context.createLink(custid: String, action: (link: String) -> Unit) {
-
-        val sharelinktext = "https://mttone.page.link/?" +
-                "link=http://www.mytycoonrecharge.com/myrefer.php?custid=" + custid +
+        action.invoke("https://google.com")
+        /**
+        val sharelinktext = "https://metavisionpay.page.link/?" +
+                "link=http://${packageName}/myrefer.php?custid=" + custid +
                 "&apn=" + packageName +
                 "&st=" + "My Refer Link" +
                 "&sd=" + "Registration" +
-                "&si=" + "https://www.mytycoonrecharge.com/assets/images/Mytycoonrecharge.png"
-        action.invoke(sharelinktext.toString())
-
-        /**
+                "&si=" + "https://panel.metavisionpay.com/Backend/assets/Reseller_docs/Logo/metaversion.png"
         val shortLinkTask = Firebase.dynamicLinks.shortLinkAsync {
             longLink = Uri.parse(sharelinktext)
         }.addOnSuccessListener { (shortLink, flowChartLink) ->
             action.invoke(shortLink.toString())
         }.addOnFailureListener {
-            ViewUtils.showToast(applicationContext, it.message)
+            showToast(it.message)
         }**/
     }
-    **/
+
+    /**
+    fun Context.createLink(custid: String, action: (link: String) -> Unit) {
+
+    val sharelinktext = "https://mttone.page.link/?" +
+    "link=http://www.mytycoonrecharge.com/myrefer.php?custid=" + custid +
+    "&apn=" + packageName +
+    "&st=" + "My Refer Link" +
+    "&sd=" + "Registration" +
+    "&si=" + "https://www.mytycoonrecharge.com/assets/images/Mytycoonrecharge.png"
+    action.invoke(sharelinktext.toString())
+
+    /**
+    val shortLinkTask = Firebase.dynamicLinks.shortLinkAsync {
+    longLink = Uri.parse(sharelinktext)
+    }.addOnSuccessListener { (shortLink, flowChartLink) ->
+    action.invoke(shortLink.toString())
+    }.addOnFailureListener {
+    ViewUtils.showToast(applicationContext, it.message)
+    }**/
+    }
+     **/
 
 
     fun Context.showToast(message: String?) {
@@ -178,6 +196,7 @@ object ViewUtils {
         binding.cancel.setOnClickListener { view -> alertDialog2.dismiss() }
         binding.scratchCard.setScratchListener(object : ScratchListener {
             override fun onScratchStarted() {}
+
             @SuppressLint("SetTextI18n")
             override fun onScratchProgress(scratchCardLayout: ScratchCardLayout, i: Int) {
                 if (i > 30 && !scratchRevealed[0]) {
@@ -186,7 +205,10 @@ object ViewUtils {
                     receiver.getData(true)
                     scratchRevealed[0] = true
 
-                    binding.textView20.text = "You won a gift card for\n${scratchCardData.tRANSACTIONTYPE?.lowercase()?.replaceFirstChar { it.uppercase() }?:""}"
+                    binding.textView20.text = "You won a gift card for\n${
+                        scratchCardData.tRANSACTIONTYPE?.lowercase()
+                            ?.replaceFirstChar { it.uppercase() } ?: ""
+                    }"
                     binding.textView20.isVisible = true
                     scratchTheCard(api, scratchCardData.iD ?: "dssd")
                 }

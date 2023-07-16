@@ -6,17 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.fintech.superadmin.auth.component.Logos;
+import com.fintech.superadmin.R;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYouListener;
-import com.fintech.superadmin.R;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,129 +27,112 @@ public class BindingUtils {
 
 
     @BindingAdapter("loadLogoImage")
-    public static void loadLogoImage(ImageView imageView, int logo){
+    public static void loadLogoImage(ImageView imageView, int logo) {
 
     }
 
 
     @BindingAdapter("urlImage")
-    public static void loadUrlImage(ImageView imageView, String url){
+    public static void loadUrlImage(ImageView imageView, String url) {
         try {
-            if(!url.isEmpty()){
-
-                if(url.contains(".svg")){
+            if (!url.isEmpty()) {
+                if (url.contains(".svg")) {
                     loadSvgUrl(imageView, url);
+                } else {
+                    Glide.with(imageView).load(url).error(R.drawable.logo).placeholder(R.drawable.loading).into(imageView);
                 }
-                else{
-                    Glide.with(imageView).load(url.trim()).error(R.drawable.no_images).placeholder(R.drawable.loading).into(imageView);                }
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
     @BindingAdapter("urIImage")
-    public static void loadUrIImage(ImageView imageView, Uri imageUri){
+    public static void loadUrIImage(ImageView imageView, Uri imageUri) {
         try {
             imageView.setImageURI(imageUri);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
 
     @BindingAdapter("ProfileUrlImage")
-    public static void loadProfileUrlImage(ImageView imageView, String url){
+    public static void loadProfileUrlImage(ImageView imageView, String url) {
 
         try {
 
-            if(!url.isEmpty()){
+            if (!url.isEmpty()) {
                 Glide.with(imageView).load(url).error(R.drawable.ic_baseline_account_circle_24).placeholder(R.drawable.ic_baseline_account_circle_24).into(imageView);
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
     @BindingAdapter("resourceImage")
-    public static void loadResourceImage(ImageView imageView, Integer image){
+    public static void loadResourceImage(ImageView imageView, Integer image) {
         try {
 
             imageView.setImageResource(image);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
     @SuppressLint("SetTextI18n")
     @BindingAdapter("booleanTextResult")
-    public static void booleanTextData(TextView textView, boolean result){
+    public static void booleanTextData(TextView textView, boolean result) {
         try {
-            if(result){
+            if (result) {
                 textView.setText("YES");
-            }
-            else{
+            } else {
                 textView.setText("No");
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
 
     @BindingAdapter("bitmapResourceImage")
-    public static void loadBitmapResourceImage(ImageView imageView, Bitmap bitmap){
+    public static void loadBitmapResourceImage(ImageView imageView, Bitmap bitmap) {
         try {
             imageView.setImageBitmap(bitmap);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
 
     @BindingAdapter("dataOfText")
-    public static void setIntegerToText(TextView textView, Long data){
+    public static void setIntegerToText(TextView textView, Long data) {
 
         textView.setText(String.valueOf(data));
     }
 
     @BindingAdapter("loadSvgImage")
-    public static void loadSvgUrl(ImageView imageView, String url){
+    public static void loadSvgUrl(ImageView imageView, String url) {
         try {
 
-            if(!url.contains(".svg")){
+            if (!url.contains(".svg")) {
                 loadUrlImage(imageView, url);
                 return;
             }
 
-            GlideToVectorYou
-                    .init()
-                    .setPlaceHolder(R.drawable.loading,R.drawable.loading)
-                    .with(imageView.getContext())
-                    .withListener(new GlideToVectorYouListener() {
-                        @Override
-                        public void onLoadFailed() {
-                            imageView.setImageResource(R.drawable.loading);
-                        }
+            GlideToVectorYou.init().setPlaceHolder(R.drawable.loading, R.drawable.loading).with(imageView.getContext()).withListener(new GlideToVectorYouListener() {
+                @Override
+                public void onLoadFailed() {
+                    imageView.setImageResource(R.drawable.loading);
+                }
 
-                        @Override
-                        public void onResourceReady() {
-                        }
-                    })
-                    .load(Uri.parse(url), imageView);
-        }
-        catch (NullPointerException e){
+                @Override
+                public void onResourceReady() {
+                }
+            }).load(Uri.parse(url), imageView);
+        } catch (NullPointerException e) {
             e.fillInStackTrace();
         }
     }
-
-
-
 
 
     private static class DownloadImageTask extends AsyncTask<String, Void, String> {
@@ -196,7 +177,7 @@ public class BindingUtils {
             try {
                 Bitmap bitmap = loadImage("logo.png", imageView.getContext());
                 imageView.setImageBitmap(bitmap);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.fillInStackTrace();
             }
         }

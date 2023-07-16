@@ -304,7 +304,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "Credit Card":
-                viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startCreditCard());
+                startCreditCard();
                 break;
             case "Fing AePS":
                 viewModel.checkFindPayServiceExistence(requireActivity(), start -> startFingAEPS());

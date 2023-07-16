@@ -5,6 +5,7 @@ import com.fintech.superadmin.clean.data.remote.dto.cashfree.PayoutBeneficiary
 import com.fintech.superadmin.clean.data.remote.dto.otps.OTPResponse
 import com.fintech.superadmin.clean.data.remote.dto.refer.ReferDto
 import com.fintech.superadmin.clean.data.remote.dto.reward.ScratchCardData
+import com.fintech.superadmin.clean.data.remote.dto.suvidhaPayout.SuvidhaBeneficiary
 import com.fintech.superadmin.data.network.responses.DMTSendAmountResponse
 import com.fintech.superadmin.data.network.responses.RegularResponse
 import com.fintech.superadmin.data.network.responses.SystemResponse
@@ -110,4 +111,33 @@ interface FintechAPI {
         @Field("operatorCode") operatorCode: String?
     ): Observable<SystemResponse<Any?>>
 
+
+    //Suvidhaa Payout
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Payout/Suvidhaa/main.php")
+    fun addBeneficiary(
+        @Field("beneName") beneName: String?,
+        @Field("accNum") accNum: String?,
+        @Field("ifsc") ifsc: String?
+    ): Observable<RegularResponse>
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    fun getSuvidhaBeneficiary(
+        @Field("search") search: String?,
+        @Field("suvidhaBeneficiaries") suvidhaBeneficiaries: String = "suvidhaBeneficiaries"
+    ): Observable<SystemResponse<List<SuvidhaBeneficiary>?>>
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/Payout/Suvidhaa/main.php")
+    fun doSuvidhaaPayout(
+        @Field("amount") amount: String,
+        @Field("beneRowId") beneRowId: String,
+        @Field("doTxn") doTxn: String = "doTxn",
+    ): Observable<RegularResponse>
+
+
+    //Suvidhaa Payout
 }

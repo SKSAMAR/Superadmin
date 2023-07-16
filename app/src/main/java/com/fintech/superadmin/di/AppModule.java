@@ -144,7 +144,7 @@ public class AppModule {
             return response;
         });
         httpClient.addInterceptor(networkConnectionInterceptor);
-        httpClient.addInterceptor(httpLoggingInterceptor);
+        //httpClient.addInterceptor(httpLoggingInterceptor);
         return httpClient.build();
     }
 

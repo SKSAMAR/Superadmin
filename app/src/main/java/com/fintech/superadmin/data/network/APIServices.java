@@ -541,8 +541,8 @@ public interface APIServices {
     Observable<SystemResponse<List<OfflineBank>>> getOfflineBank(@Field("offline_banks") String offline_banks);
 
     @FormUrlEncoded
-    @POST("mobile_phone/banner/new_alert.php")
-    Observable<String> getMeLatestNews(@Field("user_type") String user_type);
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<RegularResponse> getMeLatestNews(@Field("newsAlert") String newsAlert);
 
     //Bring Packages
     @FormUrlEncoded
@@ -640,12 +640,12 @@ public interface APIServices {
 
     //PaySprint_Lic
     @FormUrlEncoded
-    @POST("Agent/Backend/lic/fetchDetails.php")
-    Observable<LicFetchResponse> fetchLicBill(@Field("num") String num, @Field("email") String email, @Field("fetch_lic") String fetch_lic);
+    @POST("Backend/Merchant/API/Lic/PaySprint/fetchDetail.php")
+    Observable<LicFetchResponse> fetchLicBill(@Field("num") String num, @Field("op") String op, @Field("fetch_lic") String fetch_lic);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/lic/fetchDetails.php")
-    Observable<RegularResponse> payLicBill(@Field("num") String num, @Field("email") String email,
+    @POST("Backend/Merchant/API/Lic/PaySprint/main.php")
+    Observable<RegularResponse> payLicBill(@Field("canum") String canum, @Field("ad1") String ad1,
                                            @Field("billDetails") String billDetails, @Field("long") String longi,
                                            @Field("lati") String lati, @Field("pay_lic") String pay_lic, @Field("mode") String mode);
 
@@ -707,8 +707,8 @@ public interface APIServices {
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/FasTag/PaySprint/pay_bill.php")
-    Observable<RegularResponse> payFastAgBill(@Field("tpin") String tpin, @Field("amount") String amount, @Field("canumber") String num, @Field("operator") String operator,
-                                              @Field("billDetails") String billDetails, @Field("long") String longi,
+    Observable<RegularResponse> payFastAgBill(@Field("tpin") String tpin, @Field("amount") String amount, @Field("num") String num, @Field("op") String op,
+                                              @Field("billdata") String billdata, @Field("long") String longi,
                                               @Field("lati") String lati, @Field("pay_fastag") String pay_fastag);
     //FASTAG
 
@@ -783,15 +783,13 @@ public interface APIServices {
 
     //BC Registration
 
-
     //Complain
-
     @Multipart
-    @POST("Agent/Backend/tickets/ComplaintBox.php?apicall=upload")
+    @POST("Backend/Merchant/API/app/temp/main.php?apicall=upload")
     Observable<RegularResponse> raiseAComplainTicket(@Part MultipartBody.Part proof, @Part("department") RequestBody department, @Part("transaction_id") RequestBody subject, @Part("txndate") RequestBody txndate, @Part("desc") RequestBody desc);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/tickets/ticketHistory.php")
+    @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<SystemResponse<List<TicketHistoryModel>>> getTicketHistory(@Field("transaction_id") String transaction_id, @Field("ticketHistory") String ticketHistory);
 
 
@@ -802,14 +800,14 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("Agent/Backend/creditcard/main.php")
+    @POST("Backend/Merchant/API/CreditCard/PaySprint/main.php")
     Observable<CCGenerateOtpResponse> fetchCreditCardBill(@Field("card_type") String card_type,
                                                           @Field("fname") String fname, @Field("amount") String amount,
                                                           @Field("cardNum") String cardNum, @Field("mobile") String mobile,
                                                           @Field("fetchBill") String fetchBill);
 
     @FormUrlEncoded
-    @POST("Agent/Backend/creditcard/main.php")
+    @POST("Backend/Merchant/API/CreditCard/PaySprint/main.php")
     Observable<RegularResponse> payCreditCardBill(@Field("card_type") String card_type,
                                                   @Field("name") String name, @Field("amount") String amount,
                                                   @Field("cardnumber") String cardnumber, @Field("mobile") String mobile,
@@ -817,19 +815,19 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("Agent/Backend/creditcard/main.php")
+    @POST("Backend/Merchant/API/CreditCard/PaySprint/main.php")
     Observable<RegularResponse> resendOtpForRefund(@Field("ref_id") String ref_id, @Field("resendOTP") String resendOTP);
 
 
     @FormUrlEncoded
-    @POST("Agent/Backend/creditcard/main.php")
+    @POST("Backend/Merchant/API/CreditCard/PaySprint/main.php")
     Observable<RegularResponse> ccForRefund(@Field("refund_otp") String refund_otp,
                                             @Field("refund_ref_id") String refund_ref_id,
                                             @Field("refundTxn") String refundTxn);
 
 
     @FormUrlEncoded
-    @POST("Agent/Backend/creditcard/main.php")
+    @POST("Backend/Merchant/API/CreditCard/PaySprint/main.php")
     Observable<SystemResponse<List<CreditCardHistory>>> ccHistory(@Field("historyCC") String historyCC);
 
     //Credit Card
