@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.activities.addfunds.PayActivityWebView;
 import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.activities.customersupport.NewTicketRise;
 import com.fintech.superadmin.activities.profile.ProfileActivity;
@@ -25,6 +27,8 @@ import com.fintech.superadmin.databinding.ActivityHomeBinding;
 import com.fintech.superadmin.fragments.AnalyticFragment;
 import com.fintech.superadmin.fragments.screenmenus.CustomerMenuFragments;
 import com.fintech.superadmin.fragments.screenmenus.HomeMenuFragments;
+import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
+import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.StartGettingLocation;
 import com.fintech.superadmin.util.ViewUtils;
@@ -33,7 +37,6 @@ import com.fintech.superadmin.viewmodel.HomeViewModel;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.Function;
 
 import javax.inject.Inject;
 
@@ -46,7 +49,6 @@ public class HomeActivity extends BaseActivity {
     public final int STORAGE_PERMISSION = 786;
     private ActivityHomeBinding homeBinding;
     boolean exit = false;
-
     @Inject
     UserRepository userRepository;
 
@@ -93,6 +95,12 @@ public class HomeActivity extends BaseActivity {
         StartGettingLocation.setAllTheLocations(HomeActivity.this);
         homeBinding.toolbar.customerSupport.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, NewTicketRise.class)));
         homeBinding.toolbar.qrCode.setOnClickListener(v -> {
+            String baseUrl = BuildConfig.APPLICATION_ID;
+            if (baseUrl.equals("kkpayments.co.in")) {
+                Intent intent = new Intent(HomeActivity.this, PayActivityWebView.class);
+                startActivity(intent);
+                return;
+            }
             startActivity(new Intent(HomeActivity.this, QrMobilePayActivity.class));
         });
 
@@ -118,7 +126,21 @@ public class HomeActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     private <T extends Fragment> void setNavigationClick(T homeMenuFragments) {
         homeBinding.bottomNavigation.setBackground(null);
-//        homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(false);
+        String secondaryUrl;
+        try {
+            secondaryUrl = getString(R.string.secondaryUrl);
+            if (secondaryUrl != null && !secondaryUrl.trim().isEmpty() && !secondaryUrl.equals(BuildConfig.APPLICATION_ID)) {
+                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(true);
+                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(true);
+            } else {
+                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(false);
+                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            secondaryUrl = BuildConfig.APPLICATION_ID;
+        }
+        String finalSecondaryUrl = secondaryUrl;
         homeBinding.bottomNavigation.setOnItemSelectedListener(item -> {
 
             if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
@@ -136,7 +158,12 @@ public class HomeActivity extends BaseActivity {
                         startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                         item.setCheckable(false);
                         break;
-
+                    case R.id.my_store: {
+                        SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(HomeActivity.this);
+                        simple.openUrlForResult("https://" + finalSecondaryUrl, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
+                        item.setCheckable(false);
+                        break;
+                    }
                     case R.id.navHome:
                         setFragment(homeMenuFragments, homeBinding.HomeMenuFragment);
                         break;
@@ -154,11 +181,8 @@ public class HomeActivity extends BaseActivity {
 
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
         }
-        //When Permission is Granted
-
     }
 
 
