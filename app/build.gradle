@@ -380,6 +380,7 @@ static def fetchROffer(appId) {
 }
 
 afterEvaluate {
+    //fixed
     def appId = android.defaultConfig.applicationId
     def apiName = fetchAarFileNames(appId)
     def secondaryUrl = fetchSecondaryUrl(appId)
