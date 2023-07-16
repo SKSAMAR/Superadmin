@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
-    id 'com.google.gms.google-services'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
@@ -295,13 +294,6 @@ dependencies {
     implementation 'in.codeshuffle.scratchcardlayout:ScratchCardLayout:1.0.8'
 
 
-    //Dynamic links
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:31.0.0')
-    implementation 'com.google.firebase:firebase-dynamic-links'
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     //Calendar
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'

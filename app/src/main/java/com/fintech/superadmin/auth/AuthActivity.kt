@@ -1,7 +1,6 @@
 package com.fintech.superadmin.auth
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,8 +12,6 @@ import com.fintech.superadmin.auth.component.LoginScreen
 import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.deer_listener.Receiver
 import com.fintech.superadmin.ui.theme.SuperAdminTheme
-import com.fintech.superadmin.util.ViewUtils
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +33,7 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
     }
 
     private fun init(){
-        FirebaseDynamicLinks.getInstance()
+        /**FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
                 // Get deep link from result (may be null if no link is found)
@@ -58,8 +55,7 @@ class AuthActivity : BaseComponentAct(), Receiver<Boolean> {
                     this@AuthActivity,
                     e.message?:"Some Error"
                 )
-            }
-
+            }**/
     }
 
     @Composable

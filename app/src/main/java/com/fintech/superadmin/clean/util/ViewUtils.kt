@@ -22,11 +22,6 @@ import com.fintech.superadmin.clean.data.remote.dto.reward.ScratchCardData
 import com.fintech.superadmin.data.network.responses.RegularResponse
 import com.fintech.superadmin.databinding.ScratchDialogBinding
 import com.fintech.superadmin.deer_listener.Receiver
-import com.google.firebase.dynamiclinks.ktx.component1
-import com.google.firebase.dynamiclinks.ktx.component2
-import com.google.firebase.dynamiclinks.ktx.dynamicLinks
-import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
-import com.google.firebase.ktx.Firebase
 import dev.skymansandy.scratchcardlayout.listener.ScratchListener
 import dev.skymansandy.scratchcardlayout.ui.ScratchCardLayout
 import java.net.URLEncoder
@@ -130,6 +125,8 @@ object ViewUtils {
     }
 
     fun Context.createLink(custid: String, action: (link: String) -> Unit) {
+        action.invoke("https://google.com")
+        /**
         val sharelinktext = "https://metavisionpay.page.link/?" +
                 "link=http://${packageName}/myrefer.php?custid=" + custid +
                 "&apn=" + packageName +
@@ -142,7 +139,7 @@ object ViewUtils {
             action.invoke(shortLink.toString())
         }.addOnFailureListener {
             showToast(it.message)
-        }
+        }**/
     }
 
     /**

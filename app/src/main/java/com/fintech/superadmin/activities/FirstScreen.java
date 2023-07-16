@@ -25,9 +25,6 @@ import com.fintech.superadmin.ui.theme.MyColors;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.ThemeColors;
-import com.fintech.superadmin.util.ViewUtils;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Objects;
 import java.util.Timer;
