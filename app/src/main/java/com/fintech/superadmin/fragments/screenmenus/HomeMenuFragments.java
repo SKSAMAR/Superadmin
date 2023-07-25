@@ -140,13 +140,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         if (viewModel.isAlreadySet){
             return;
         }
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 5, GridLayoutManager.VERTICAL, false));
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
         moneyTransferList.add(new MenuModel(R.drawable.fingerprint, "AePS"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "Fing AePS"));
         moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
-        moneyTransferList.add(new MenuModel(R.drawable.dmt, "X-Payout"));
+//        moneyTransferList.add(new MenuModel(R.drawable.dmt, "X-Payout"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
