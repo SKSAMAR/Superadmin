@@ -17,8 +17,8 @@ public class SimpleBeneficiaryHistoryAdapter extends RecyclerView.Adapter<Simple
 
     List<BeneficiaryHistoryResponse> filterList;
     List<BeneficiaryHistoryResponse> list;
-    BeneficiaryHistoryListener listener;
-    public SimpleBeneficiaryHistoryAdapter(List<BeneficiaryHistoryResponse> list, BeneficiaryHistoryListener listener){
+    BeneficiaryHistoryListener<BeneficiaryHistoryResponse> listener;
+    public SimpleBeneficiaryHistoryAdapter(List<BeneficiaryHistoryResponse> list, BeneficiaryHistoryListener<BeneficiaryHistoryResponse> listener){
         this.filterList = list;
         this.list = list;
         this.listener = listener;
@@ -41,7 +41,6 @@ public class SimpleBeneficiaryHistoryAdapter extends RecyclerView.Adapter<Simple
         else{
             holder.binding.clickUpdate.setVisibility(View.VISIBLE);
         }
-
         holder.binding.clickUpdate.setOnClickListener(v -> listener.clickOnUpdateInfo(v, filterList.get(position)));
 
         holder.binding.refundButton.setOnClickListener(v -> listener.clickOnRefund(v, filterList.get(position)));

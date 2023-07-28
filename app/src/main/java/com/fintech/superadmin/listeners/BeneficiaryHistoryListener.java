@@ -4,12 +4,12 @@ import android.view.View;
 
 import com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse;
 
-public interface BeneficiaryHistoryListener {
+public interface BeneficiaryHistoryListener<T> {
 
-    void clickOnMoreInfo(View view, BeneficiaryHistoryResponse history);
-    void clickOnUpdateInfo(View view, BeneficiaryHistoryResponse history);
+    void clickOnMoreInfo(View view, T history);
+    void clickOnUpdateInfo(View view, T history);
     void notifierScreen(boolean result);
-    void clickOnRefund(View view, BeneficiaryHistoryResponse history);
+    void clickOnRefund(View view, T history);
     void bringAllOverHistoryAgain(boolean status);
 
 }

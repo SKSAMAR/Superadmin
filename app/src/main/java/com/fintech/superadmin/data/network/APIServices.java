@@ -25,12 +25,19 @@ import com.fintech.superadmin.data.dto.AtmProceedableDto;
 import com.fintech.superadmin.data.dto.CreditCardHistory;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
+import com.fintech.superadmin.data.eko.BaseEkoResponse;
+import com.fintech.superadmin.data.eko.EkoAddBeneResponse;
+import com.fintech.superadmin.data.eko.EkoDmtFerchBeneficaryResponse;
+import com.fintech.superadmin.data.eko.EkoDmtVerificationResponse;
+import com.fintech.superadmin.data.eko.EkoDtmTransactionHistory;
+import com.fintech.superadmin.data.eko.EkoSendOtpResponse;
 import com.fintech.superadmin.data.fastag.FastagBillFetch;
 import com.fintech.superadmin.data.hlr.HLRResponse;
 import com.fintech.superadmin.data.model.AEPSBanksModel;
 import com.fintech.superadmin.data.model.BankModel;
 import com.fintech.superadmin.data.model.ColorModel;
 import com.fintech.superadmin.data.model.ComPackageModel;
+import com.fintech.superadmin.data.model.EkoBankModel;
 import com.fintech.superadmin.data.model.GraphModel;
 import com.fintech.superadmin.data.model.HelpSupport;
 import com.fintech.superadmin.data.model.HistoryModel;
@@ -247,6 +254,7 @@ public interface APIServices {
     @POST("Backend/Merchant/API/Payout/PaySprint/main.php")
     Observable<ArrayList<BankModel>> getAllBanks(@Field("getBanks") String getBanks);
 
+
     @FormUrlEncoded
     @POST("mobile_phone/histories/default_history.php")
     Observable<List<HistoryModel>> getHistory(@Field("user_id") String user_id, @Field("user_type_id") String user_type_id, @Field("indexing") String indexing, @Field("fromDate") String fromDate, @Field("toDate") String toDate, @Field("transType") String transType, @Field("result") String result, @Field("id") String id);
@@ -462,6 +470,110 @@ public interface APIServices {
     Observable<RegularResponse> verifyDmtTransaction(@Field("akno") String ackno, @Field("ref_id") String refrence, @Field("refund_otp") String otp, @Field("refundDmt") String refundDmt);
 
     //paysprint dmt
+
+
+    //Dmt Eko
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<ArrayList<EkoBankModel>> getAllEkoBanks(@Field("getEkoBanks") String getBanks);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<com.fintech.superadmin.data.eko.QueryRemitterResponse> ekoqueryRemitter(@Field("mobile") String mobile, @Field("getInfoBtn") String getInfoBtn);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<EkoSendOtpResponse> ekoregisterRemitter(@Field("send_otp") String send_otp,
+                                                       @Field("fname") String fname, @Field("lname") String lname,
+                                                       @Field("mobile") String mobile, @Field("Address") String Address, @Field("pincode") String pincode,
+                                                       @Field("dob") String dob);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<EkoDmtVerificationResponse> ekoVerifyRemitter(@Field("str_code") String str_code, @Field("otp") String otp,
+                                                             @Field("fname") String fname, @Field("lname") String lname,
+                                                             @Field("mobile") String mobile, @Field("Address") String Address, @Field("pincode") String pincode,
+                                                             @Field("dob") String dob);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<RegisterRemitterResponse> ekoupdateRemitter(@Field("remitter_first_name") String remitter_first_name, @Field("remitter_last_name") String remitter_last_name,
+                                                           @Field("remitter_mobile") String remitter_mobile,
+                                                           @Field("dob") String dob, @Field("address") String address,
+                                                           @Field("pincode") String pincode, @Field("updateRemitter") String updateRemitter);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<EkoAddBeneResponse> ekoregisterBeneficiary(@Field("bene_name") String bene_name, @Field("bene_acc") String bene_acc, @Field("bene_ifsc") String bene_ifsc, @Field("bene_bank") String bene_bank, @Field("sendermobile") String sendermobile);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<EkoDmtFerchBeneficaryResponse> ekobringBeneficiary(@Field("mobile") String mobile, @Field("acc_num") String acc_num, @Field("get_beneficiaries") String get_beneficiaries);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<BaseEkoResponse> ekogetThePennyDrop(
+            @Field("beneid") String beneid,
+            @Field("bene_acc") String bene_acc,
+            @Field("bank_code") String bank_code,
+            @Field("benename") String benename,
+            @Field("senderMobile") String senderMobile,
+            @Field("verify_bene") String verify_bene
+    );
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<BaseEkoResponse> ekodeleteBeneficiary(@Field("bene_id") String bene_id, @Field("bene_acc") String bene_acc, @Field("bene_delete") String bene_delete, @Field("senderMobile") String senderMobile);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<DMTSendAmountResponse> ekosendAmountDMT(@Field("tpin") String tpin, @Field("bene_id") String bene_id, @Field("send_amount") String send_amount, @Field("send_am_acc") String send_am_acc, @Field("txn_type") String txn_type, @Field("ifsc") String ifsc, @Field("senderMobile") String senderMobile);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<List<EkoDtmTransactionHistory>> ekogetSelectedBeneficiaryHistory(@Field("reference") String reference, @Field("bene_id") String bene_id, @Field("selectedHistory") String selectedHistory);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<BeneHistoryUpdateResponse> ekoupdateDMTTransaction(@Field("ref_id") String ref_id, @Field("check_dmt_status") String check_dmt_status);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<List<EkoDtmTransactionHistory>> ekogetAllBeneficiaryHistories(@Field("acc_num") String num_acc, @Field("senderMobile") String senderMobile, @Field("all_histories") String all_histories);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<List<DmtUserData>> ekogetAllDMTUsers(@Field("person") String person, @Field("dmt_acc") String dmt_acc);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<RegularResponse> ekodeleteDmtUserAccount(@Field("delete_id") String delete_id, @Field("delete_dmt_user") String delete_dmt_user);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<QueryRemitterResponse> ekorefreshDmtUserAccount(@Field("refresh_id") String refresh_id, @Field("mobile") String mobile, @Field("refresh_dmt_user") String refresh_dmt_user);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<RegularResponse> ekorefundDmtTransaction(@Field("akno") String ackno, @Field("ref_id") String refrence, @Field("resendRefundOTP") String resendRefundOTP);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    Observable<RegularResponse> ekoverifyDmtTransaction(@Field("akno") String ackno, @Field("ref_id") String refrence, @Field("refund_otp") String otp, @Field("refundDmt") String refundDmt);
+
+    //eko dmt
 
 
     @FormUrlEncoded
@@ -891,7 +1003,6 @@ public interface APIServices {
     @POST("Backend/Merchant/API/AePs/FingPay/main.php")
     Observable<SendOtpResp> completeFingKyc(@Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("otp") String otp, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat);
     //FingpayBoard
-
 
 
 }

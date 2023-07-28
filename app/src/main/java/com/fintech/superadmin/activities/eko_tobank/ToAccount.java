@@ -1,4 +1,4 @@
-package com.fintech.superadmin.activities.tobank;
+package com.fintech.superadmin.activities.eko_tobank;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,25 +18,26 @@ import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.fintech.superadmin.clean.presentation.dmt.transaction.DmtTransactionActivity;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayout;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.common.BaseActivity;
-import com.fintech.superadmin.data.model.BankModel;
+import com.fintech.superadmin.clean.presentation.eko_dmt.transaction.EkoDmtTransactionActivity;
+import com.fintech.superadmin.data.eko.EkoDtmTransactionHistory;
+import com.fintech.superadmin.data.eko.RecipientListItem;
+import com.fintech.superadmin.data.model.EkoBankModel;
 import com.fintech.superadmin.data.network.responses.AddBeneficiaryResponse;
-import com.fintech.superadmin.data.network.responses.BeneficiaryBank;
 import com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse;
-import com.fintech.superadmin.databinding.ActivityToAccountBinding;
+import com.fintech.superadmin.databinding.ActivityEkoToAccountBinding;
 import com.fintech.superadmin.databinding.BottomBeneficiaryMoreSheetBinding;
 import com.fintech.superadmin.databinding.JustVerifiedModalBinding;
-import com.fintech.superadmin.listeners.BeneficiaryClickListener;
 import com.fintech.superadmin.listeners.BeneficiaryHistoryListener;
-import com.fintech.superadmin.listeners.ToBankListener;
+import com.fintech.superadmin.listeners.EkoBeneficiaryClickListener;
+import com.fintech.superadmin.listeners.ToEkoBankListener;
 import com.fintech.superadmin.masterListener.NotFoundListener;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.ViewUtils;
-import com.fintech.superadmin.viewmodel.ToBankViewModel;
+import com.fintech.superadmin.viewmodel.EkoToBankViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,22 +45,22 @@ import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ToAccount extends BaseActivity implements ToBankListener, BeneficiaryClickListener, BeneficiaryHistoryListener<BeneficiaryHistoryResponse>, NotFoundListener {
+public class ToAccount extends BaseActivity implements ToEkoBankListener, EkoBeneficiaryClickListener, BeneficiaryHistoryListener<EkoDtmTransactionHistory>, NotFoundListener {
 
     ProgressDialog dialog;
-    ActivityToAccountBinding classBinding;
-    ToBankViewModel viewModel;
+    ActivityEkoToAccountBinding classBinding;
+    EkoToBankViewModel viewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        classBinding = ActivityToAccountBinding.inflate(getLayoutInflater());
+        classBinding = ActivityEkoToAccountBinding.inflate(getLayoutInflater());
         setContentView(classBinding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("To Accounts");
-        viewModel = new ViewModelProvider(this).get(ToBankViewModel.class);
+        viewModel = new ViewModelProvider(this).get(EkoToBankViewModel.class);
         classBinding.setMyBankViewModel(viewModel);
         viewModel.listener = this;
         viewModel.notFoundListener = this;
@@ -81,7 +82,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
 
     private void provide(boolean result) {
         if (result) {
-            viewModel.selectedBeneficiaryModel = (BeneficiaryBank) getIntent().getSerializableExtra("selectedBankModel");
+            viewModel.selectedBeneficiaryModel = (RecipientListItem) getIntent().getParcelableExtra("selectedBankModel");
             AddBeneficiaryResponse response = (AddBeneficiaryResponse) getIntent().getSerializableExtra("wholeInfoBeneficiary");
             Dialog dialog = new Dialog(ToAccount.this);
             JustVerifiedModalBinding binding = JustVerifiedModalBinding.inflate(LayoutInflater.from(ToAccount.this));
@@ -94,18 +95,18 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
                 dialog.dismiss();
 
                 String bene_acc = response.getData().getAccno();
-                String bankCode = response.getData().getBankid();
+                String bankCode = response.getData().getIfsc();
+                String bankId = response.getData().getIfsc();
                 String beneName = response.getData().getName();
                 String beneId = response.getData().getBene_id();
-                viewModel.pennyDropSelf(ToAccount.this, beneId, bene_acc, bankCode, beneName, viewModel.globalSelectedMobile, res -> {
+                viewModel.pennyDropSelf(ToAccount.this, beneId, bene_acc, bankCode,bankId, beneName, viewModel.globalSelectedMobile, res -> {
                     viewModel.getBeneficiaries(ToAccount.this, ToAccount.this, bene_acc, classBinding.myBankListRecycler, this, viewModel.globalSelectedMobile);
                 });
             });
             binding.sendMoney.setOnClickListener(v -> {
                 dialog.dismiss();
-
                 viewModel.selectedBeneficiaryModel = viewModel.topBeneficiaryBank;
-                Intent intent = new Intent(ToAccount.this, DmtTransactionActivity.class);
+                Intent intent = new Intent(ToAccount.this, EkoDmtTransactionActivity.class);
                 intent.putExtra("number", viewModel.globalSelectedMobile);
                 intent.putExtra("selectedBankModel", viewModel.selectedBeneficiaryModel);
                 startActivity(intent);
@@ -192,7 +193,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
     }
 
     @Override
-    public void setAllBanks(ArrayList<BankModel> list) {
+    public void setAllBanks(ArrayList<EkoBankModel> list) {
 
     }
 
@@ -213,15 +214,15 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
     }
 
     @Override
-    public void onItemClicked(View view, BeneficiaryBank model) {
-        Intent intent = new Intent(ToAccount.this, DmtTransactionActivity.class);
+    public void onItemClicked(View view, RecipientListItem model) {
+        Intent intent = new Intent(ToAccount.this, EkoDmtTransactionActivity.class);
         intent.putExtra("number", viewModel.globalSelectedMobile);
         intent.putExtra("selectedBankModel", model);
         startActivity(intent);
     }
 
     @Override
-    public void onMoreClickListener(View view, BeneficiaryBank model) {
+    public void onMoreClickListener(View view, RecipientListItem model) {
 
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext(), R.style.MyTransparentBottomSheetDialogTheme);
         BottomBeneficiaryMoreSheetBinding binding = BottomBeneficiaryMoreSheetBinding.inflate(LayoutInflater.from(view.getContext()));
@@ -234,7 +235,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
-                        viewModel.deleteThisBeneficiary(ToAccount.this, model.getBene_id(), model.getAccno(), classBinding.myBankListRecycler, ToAccount.this);
+                        viewModel.deleteThisBeneficiary(ToAccount.this, "" + model.getRecipientId(), model.getAccount(), classBinding.myBankListRecycler, ToAccount.this);
                         bottomSheetDialog.dismiss();
                         break;
 
@@ -254,11 +255,11 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
             startActivity(intent);
         });
         binding.pennyDrop.setOnClickListener(v -> {
-            String bene_acc = model.getAccno();
-            String bankCode = model.getBankid();
-            String beneName = model.getName();
-            String beneId = model.getBene_id();
-            viewModel.pennyDropSelf(ToAccount.this, beneId, bene_acc, bankCode, beneName, viewModel.globalSelectedMobile, res -> {
+            String bene_acc = model.getAccount();//  model.getAccno();
+            String bankCode = model.getIfsc(); //model.getBankid();
+            String beneName = model.getRecipientName();//model.getName();
+            String beneId = "" + model.getRecipientId();// model.getBene_id();
+            viewModel.pennyDropSelf(ToAccount.this, beneId, bene_acc, bankCode, bankCode, beneName, viewModel.globalSelectedMobile, res -> {
                 viewModel.getBeneficiaries(ToAccount.this, ToAccount.this, "", classBinding.myBankListRecycler, this, viewModel.globalSelectedMobile);
             });
         });
@@ -266,15 +267,15 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
 
 
     @Override
-    public void clickOnMoreInfo(View view, BeneficiaryHistoryResponse history) {
+    public void clickOnMoreInfo(View view, EkoDtmTransactionHistory history) {
         Intent intent = new Intent(ToAccount.this, DetailedHistoryScreen.class);
         intent.putExtra("selectedHistory", history);
         startActivity(intent);
     }
 
     @Override
-    public void clickOnUpdateInfo(View view, BeneficiaryHistoryResponse history) {
-        viewModel.updateDMTTransactionNow(ToAccount.this, history.getReference_id(), classBinding.myHistoryListRecycler, this, "all");
+    public void clickOnUpdateInfo(View view, EkoDtmTransactionHistory history) {
+        viewModel.updateDMTTransactionNow(ToAccount.this, history.getData().getClientRefId(), classBinding.myHistoryListRecycler, this, "all");
     }
 
     @Override
@@ -283,10 +284,10 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
     }
 
     @Override
-    public void clickOnRefund(View view, BeneficiaryHistoryResponse history) {
+    public void clickOnRefund(View view, EkoDtmTransactionHistory history) {
 
         try {
-            viewModel.applyForRefundDmtTransaction(ToAccount.this, ToAccount.this, history.getData().getAckno(), history.getReference_id());
+            viewModel.applyForRefundDmtTransaction(ToAccount.this, ToAccount.this, history.getData().getUtilityAccNo(), history.getData().getClientRefId());
         } catch (NullPointerException e) {
             DisplayMessageUtil.error(ToAccount.this, "Not Eligible for refund");
         }
@@ -306,7 +307,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
                 if (viewModel.adapter != null) {
                     viewModel.adapter.getFilter().filter(query);
                 }
-//                viewModel.getBeneficiaries( ToAccount.this,ToAccount.this,query, classBinding.myBankListRecycler, ToAccount.this, viewModel.globalSelectedMobile);
+                viewModel.getBeneficiaries(ToAccount.this, ToAccount.this, query, classBinding.myBankListRecycler, ToAccount.this, viewModel.globalSelectedMobile);
                 return false;
             }
 
@@ -316,8 +317,7 @@ public class ToAccount extends BaseActivity implements ToBankListener, Beneficia
                 if (viewModel.adapter != null) {
                     viewModel.adapter.getFilter().filter(newText);
                 }
-
-//                viewModel.getBeneficiaries(ToAccount.this,ToAccount.this,newText, classBinding.myBankListRecycler, ToAccount.this, viewModel.globalSelectedMobile);
+                viewModel.getBeneficiaries(ToAccount.this, ToAccount.this, newText, classBinding.myBankListRecycler, ToAccount.this, viewModel.globalSelectedMobile);
                 return false;
             }
         });

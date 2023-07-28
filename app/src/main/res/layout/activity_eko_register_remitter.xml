@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="registerRemitter"
+            type="com.fintech.superadmin.viewmodel.EkoToBankViewModel" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".activities.eko_tobank.RegisterRemitter">
+
+    <LinearLayout
+        android:id="@+id/edit_names"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:baselineAligned="false">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/first_name_layout"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={registerRemitter.remitter_first_name}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:id="@+id/first_name"
+                    android:importantForAutofill="no"
+                    android:padding="15dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/last_name_layout"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:text="@={registerRemitter.remitter_last_name}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
+                    android:id="@+id/last_name"
+                    android:importantForAutofill="no"
+                    android:padding="15dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/edit_mobile_layout"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:text="@={registerRemitter.remitter_mobile}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:id="@+id/mobile_number"
+                android:importantForAutofill="no"
+                android:padding="15dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/edit_otp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:text="@={registerRemitter.remitter_otp}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_otp"
+                android:inputType="text"
+                android:id="@+id/otp_edit"
+                android:importantForAutofill="no"
+                android:padding="15dp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/edit_dob"
+            android:layout_weight="1"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date_of_birth"
+                android:id="@+id/date_of_birth"
+                android:onClick="@{registerRemitter::onDateSelectionClick}"
+                android:text="@={registerRemitter.remitter_dob}"
+                android:inputType="date"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:importantForAutofill="no"
+                android:padding="15dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/edit_address"
+            android:layout_weight="1"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/address"
+                android:importantForAutofill="no"
+                android:inputType="textPostalAddress"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:text="@={registerRemitter.remitter_address}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/edit_pin_code"
+            android:layout_weight="1"
+            android:layout_marginVertical="@dimen/_3sdp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:text="@={registerRemitter.pin_code}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pin_code"
+                android:inputType="number"
+                android:id="@+id/pin_code"
+                android:maxLength="6"
+                android:importantForAutofill="no"
+                android:padding="15dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:onClick="@{registerRemitter::onRegisterRemitterButtonClick}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/apply"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/button_apply"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_names"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

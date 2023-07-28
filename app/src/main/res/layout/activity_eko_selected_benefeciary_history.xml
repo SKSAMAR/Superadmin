@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="selectedBeneficiaryViewModel"
+            type="com.fintech.superadmin.viewmodel.EkoToBankViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screenBackground"
+        tools:context=".activities.eko_tobank.SelectedBeneficiaryHistory">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"/>
+        <SearchView
+            android:id="@+id/historySearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search History Reference"
+            android:background="@android:color/white"
+            android:fontFamily="@font/sagnika"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_records"
+            android:id="@+id/no_records"
+            android:layout_centerInParent="true"
+            android:textSize="22sp"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/historySearchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/selectedBeneficiaryHistory"/>
+    </RelativeLayout>
+
+</layout>

@@ -295,6 +295,119 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
+            android:name="com.fintech.superadmin.activities.tobank.DMTHome"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+
+
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.DetailedHistoryScreen"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.SelectedBeneficiaryHistory"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.SendAmountDMT"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.RegisterRemitter"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.QueryRemitter"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.AddBeneficiary"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.SelectBank"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.tobank.ToAccount"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+
+
+<!--        EKO-->
+
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.DMTDetailedAnalytic"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.DMTHome"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.DetailedHistoryScreen"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.SelectedBeneficiaryHistory"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.SendAmountDMT"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.RegisterRemitter"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.QueryRemitter"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.AddBeneficiary"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.SelectBank"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.fintech.superadmin.activities.eko_tobank.ToAccount"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+
+
+        <activity
             android:name="com.fintech.superadmin.activities.bbps.BBPSDetailedAnalytic"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -304,11 +417,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.DMTHome"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name="com.fintech.superadmin.activities.creation.CreationActivity"
             android:exported="true"
@@ -416,36 +525,10 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.DetailedHistoryScreen"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.SelectedBeneficiaryHistory"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.SendAmountDMT"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.RegisterRemitter"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.activities.microatm.MicroAtmHome"
             android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.QueryRemitter"
-            android:exported="true"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
@@ -483,24 +566,17 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.AddBeneficiary"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.SelectBank"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name="com.fintech.superadmin.activities.tobank.ToAccount"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
 
         <activity
             android:name="com.fintech.superadmin.clean.presentation.dmt.transaction.DmtTransactionActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.eko_dmt.transaction.EkoDmtTransactionActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"

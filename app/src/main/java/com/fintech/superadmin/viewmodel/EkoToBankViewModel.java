@@ -22,32 +22,41 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fintech.superadmin.R;
-import com.fintech.superadmin.activities.tobank.SelectBank;
-import com.fintech.superadmin.activities.tobank.SelectedBeneficiaryHistory;
+import com.fintech.superadmin.activities.eko_tobank.SelectBank;
+import com.fintech.superadmin.activities.eko_tobank.SelectedBeneficiaryHistory;
 import com.fintech.superadmin.adapters.BeneficiaryAdapter;
+import com.fintech.superadmin.adapters.EkoBeneficiaryAdapter;
+import com.fintech.superadmin.adapters.EkoSimpleBeneficiaryHistoryAdapter;
 import com.fintech.superadmin.adapters.SimpleBeneficiaryHistoryAdapter;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
+import com.fintech.superadmin.data.eko.BaseEkoResponse;
+import com.fintech.superadmin.data.eko.EkoDmtFerchBeneficaryResponse;
+import com.fintech.superadmin.data.eko.EkoDtmTransactionHistory;
+import com.fintech.superadmin.data.eko.QueryRemitterResponse;
+import com.fintech.superadmin.data.eko.RecipientListItem;
 import com.fintech.superadmin.data.model.BankModel;
+import com.fintech.superadmin.data.model.EkoBankModel;
 import com.fintech.superadmin.data.network.dmt.FetchBeneficiaryResponse;
 import com.fintech.superadmin.data.network.responses.BeneHistoryUpdateResponse;
 import com.fintech.superadmin.data.network.responses.BeneficiaryBank;
 import com.fintech.superadmin.data.network.responses.BeneficiaryDeleteResponse;
 import com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse;
 import com.fintech.superadmin.data.network.responses.PennyDropResponse;
-import com.fintech.superadmin.data.network.responses.QueryRemitterResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
-import com.fintech.superadmin.data.repositories.ToBankRepository;
+import com.fintech.superadmin.data.repositories.EkoToBankRepository;
 import com.fintech.superadmin.databinding.OtpScreenLayoutBinding;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.BeneficiaryClickListener;
 import com.fintech.superadmin.listeners.BeneficiaryHistoryListener;
 import com.fintech.superadmin.listeners.DMTHomeListeners;
+import com.fintech.superadmin.listeners.EkoBeneficiaryClickListener;
 import com.fintech.superadmin.listeners.PayoutListener;
 import com.fintech.superadmin.listeners.RemitterListener;
 import com.fintech.superadmin.listeners.ResetListener;
 import com.fintech.superadmin.listeners.SendAmountViewsListener;
 import com.fintech.superadmin.listeners.ToBankListener;
+import com.fintech.superadmin.listeners.ToEkoBankListener;
 import com.fintech.superadmin.masterListener.NotFoundListener;
 import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
@@ -72,10 +81,10 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
-public class ToBankViewModel extends ViewModel {
+public class EkoToBankViewModel extends ViewModel {
 
-    public ToBankRepository toBankRepository;
-    public ToBankListener listener;
+    public EkoToBankRepository toBankRepository;
+    public ToEkoBankListener listener;
 
     public static String remitter_dob = null;
     public static String pin_code = null;
@@ -85,7 +94,7 @@ public class ToBankViewModel extends ViewModel {
     public String globalSelectedMobile = null;
     public String remitter_address = null;
     public static QueryRemitterResponse MyQueryRemitterResponse;
-    public BeneficiaryBank topBeneficiaryBank = null;
+    public RecipientListItem topBeneficiaryBank = null;
     //register_remitter
     public String remitter_otp = null;
     public String str = "";
@@ -100,15 +109,15 @@ public class ToBankViewModel extends ViewModel {
     public String account_holder_name = null;
     public String phone_number = null;
     public String nick_name = null;
-    public BankModel selectedBank = null;
+    public EkoBankModel selectedBank;
     //add_beneficiary
     public String mPin = "";
 
 
-    public BeneficiaryAdapter adapter;
+    public EkoBeneficiaryAdapter adapter;
     //send amount
     public static String transType = null;
-    public BeneficiaryBank selectedBeneficiaryModel = null;
+    public RecipientListItem selectedBeneficiaryModel = null;
     public static String amount = null;
     public PayoutListener payoutListener;
     public SendAmountViewsListener sendAmountViewsListener;
@@ -118,7 +127,7 @@ public class ToBankViewModel extends ViewModel {
 
 
     @Inject
-    public ToBankViewModel(ToBankRepository toBankRepository) {
+    public EkoToBankViewModel(EkoToBankRepository toBankRepository) {
         this.toBankRepository = toBankRepository;
     }
 
@@ -144,7 +153,7 @@ public class ToBankViewModel extends ViewModel {
             MyAlertUtils.showServerAlertDialog(view.getContext(), "Confirm Account number.");
         } else if (!account_number.equals(confirm_account_number)) {
             MyAlertUtils.showServerAlertDialog(view.getContext(), "Account Numbers don't match.");
-        } else if (selectedBank.getIfsccode() == null || selectedBank.getIfsccode().trim().isEmpty()) {
+        } else if (selectedBank.getSTATICIFSC() == null || selectedBank.getSTATICIFSC().trim().isEmpty()) {
             MyAlertUtils.showServerAlertDialog(view.getContext(), "Enter valid IFSC code.");
         } else if (account_holder_name == null || account_holder_name.isEmpty()) {
             MyAlertUtils.showServerAlertDialog(view.getContext(), "Provide valid Account holder name.");
@@ -159,7 +168,7 @@ public class ToBankViewModel extends ViewModel {
 //            MyAlertUtils.showServerAlertDialog(view.getContext(), "Provide valid Pin Code.");
 //        }
         else {
-            toBankRepository.addMyBeneficiary(selectedBank.getBankid(), globalSelectedMobile, selectedBeneficiaryModel, view.getContext(), account_holder_name, selectedBank.getIfsccode(), account_number, globalSelectedMobile);
+            toBankRepository.addMyBeneficiary(selectedBank.getID(), globalSelectedMobile, selectedBeneficiaryModel, view.getContext(), account_holder_name, selectedBank.getSTATICIFSC(), account_number, globalSelectedMobile);
         }
     }
 
@@ -180,8 +189,6 @@ public class ToBankViewModel extends ViewModel {
             DisplayMessageUtil.error(view.getContext(), "Provide valid Last name");
         } else if (remitter_mobile == null || remitter_mobile.isEmpty()) {
             DisplayMessageUtil.error(view.getContext(), "Provide valid Last name");
-        } else if (remitter_otp == null || remitter_otp.isEmpty()) {
-            DisplayMessageUtil.error(view.getContext(), "Provide valid OTP");
         } else if (remitter_dob == null || remitter_dob.isEmpty()) {
             DisplayMessageUtil.error(view.getContext(), "Provide valid Date of Birth");
         } else if (remitter_address == null || remitter_address.isEmpty()) {
@@ -189,7 +196,7 @@ public class ToBankViewModel extends ViewModel {
         } else if (pin_code == null || pin_code.isEmpty()) {
             DisplayMessageUtil.error(view.getContext(), "Provide valid Pin Code");
         } else {
-            toBankRepository.register_remitter(remitter_otp, view.getContext(), remitter_first_name, remitter_last_name, remitter_mobile, remitter_address, pin_code, remitter_dob, str);
+            toBankRepository.register_remitter(view.getContext(), remitter_first_name, remitter_last_name, remitter_mobile, remitter_address, pin_code, remitter_dob);
         }
 
     }
@@ -220,33 +227,37 @@ public class ToBankViewModel extends ViewModel {
         remitterListener.dateSetter(sdf.format(myCalendar.getTime()));
     }
 
-    public void getBeneficiaries(NotFoundListener notFoundListener, Context context, String acc_num, RecyclerView recyclerView, BeneficiaryClickListener listener, String givenMobile) {
+    public void getBeneficiaries(NotFoundListener notFoundListener, Context context, String acc_num, RecyclerView recyclerView, EkoBeneficiaryClickListener listener, String givenMobile) {
         if (givenMobile != null) {
             notFoundListener.loading();
-            toBankRepository.apiServices.bringBeneficiary(givenMobile, acc_num, "get_beneficiary")
+            toBankRepository.apiServices.ekobringBeneficiary(givenMobile, acc_num, "get_beneficiary")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<FetchBeneficiaryResponse>() {
+                    .subscribe(new Observer<EkoDmtFerchBeneficaryResponse>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(@NonNull FetchBeneficiaryResponse beneficiaryBankList) {
+                        public void onNext(@NonNull EkoDmtFerchBeneficaryResponse beneficiaryBankList) {
                             MyAlertUtils.dismissAlertDialog();
-                            recyclerView.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
-                            if (beneficiaryBankList.getData() != null && beneficiaryBankList.getData().size() > 0) {
-                                MyAlertUtils.dismissAlertDialog();
-                                adapter = new BeneficiaryAdapter(beneficiaryBankList.getData(), listener);
-                                recyclerView.setAdapter(adapter);
-                                topBeneficiaryBank = beneficiaryBankList.getData().get(0);
-                                notFoundListener.found();
-                            } else {
+                            try {
+                                recyclerView.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
+                                if (beneficiaryBankList.getStatus().equals(0) && (beneficiaryBankList.getResponseStatusId().equals(0)) && !beneficiaryBankList.getData().getRecipientList().isEmpty()) {
+                                    MyAlertUtils.dismissAlertDialog();
+                                    adapter = new EkoBeneficiaryAdapter(beneficiaryBankList.getData().getRecipientList(), listener);
+                                    recyclerView.setAdapter(adapter);
+                                    topBeneficiaryBank = beneficiaryBankList.getData().getRecipientList().get(0);
+                                    notFoundListener.found();
+                                } else {
+                                    notFoundListener.notFound();
+                                    EkoBeneficiaryAdapter adapter = new EkoBeneficiaryAdapter(null, listener);
+                                    recyclerView.setAdapter(adapter);
+                                }
+                            } catch (Exception e) {
                                 notFoundListener.notFound();
-                                BeneficiaryAdapter adapter = new BeneficiaryAdapter(null, listener);
-                                recyclerView.setAdapter(adapter);
-//                                MyAlertUtils.showAlertDialog(context,"No Beneficiary in Records" );
+                                e.printStackTrace();
                             }
                         }
 
@@ -265,24 +276,29 @@ public class ToBankViewModel extends ViewModel {
     }
 
 
-    public void deleteThisBeneficiary(Context context, String bene_id, String bene_acc, RecyclerView recyclerView, BeneficiaryClickListener listener) {
+    public void deleteThisBeneficiary(Context context, String bene_id, String bene_acc, RecyclerView recyclerView, EkoBeneficiaryClickListener listener) {
         if (globalSelectedMobile != null) {
             MyAlertUtils.showProgressAlertDialog(context);
-            toBankRepository.apiServices.deleteBeneficiary(bene_id, bene_acc, "delete_this", globalSelectedMobile)
+            toBankRepository.apiServices.ekodeleteBeneficiary(bene_id, bene_acc, "delete_this", globalSelectedMobile)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<BeneficiaryDeleteResponse>() {
+                    .subscribe(new Observer<BaseEkoResponse>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(@NonNull BeneficiaryDeleteResponse deleteResponse) {
-                            if (deleteResponse.isStatus() && globalSelectedMobile != null && deleteResponse.response_code.equals(1)) {
-                                getBeneficiaries(notFoundListener, context, "", recyclerView, listener, globalSelectedMobile);
-                            } else {
-                                DisplayMessageUtil.error(context, deleteResponse.getMessage());
+                        public void onNext(@NonNull BaseEkoResponse deleteResponse) {
+                            try {
+                                if (deleteResponse.getResponseStatusId().equals(0) && globalSelectedMobile != null && deleteResponse.getStatus().equals(0)) {
+                                    getBeneficiaries(notFoundListener, context, "", recyclerView, listener, globalSelectedMobile);
+                                } else {
+                                    DisplayMessageUtil.error(context, deleteResponse.getMessage());
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                DisplayMessageUtil.error(context, "" + deleteResponse.getMessage());
                             }
                         }
 
@@ -345,22 +361,21 @@ public class ToBankViewModel extends ViewModel {
             } else if (transType == null || transType.trim().isEmpty()) {
                 DisplayMessageUtil.error(view.getContext(), "Select a valid Transaction type");
                 return;
-            }
-            else if (mPin == null || mPin.trim().isEmpty()) {
+            } else if (mPin == null || mPin.trim().isEmpty()) {
                 DisplayMessageUtil.error(view.getContext(), "Select a valid Transaction type");
                 return;
             }
-            NetworkUtil.getNetworkResult(
-                    toBankRepository.apiServices.sendAmountDMT(mPin, selectedBeneficiaryModel.getBene_id(), amount, selectedBeneficiaryModel.getAccno(), transType, selectedBeneficiaryModel.getIfsc(), globalSelectedMobile),
-                    view.getContext(),
-                    result -> {
-                        sendAmountViewsListener.eraseAmountText();
-                        amount = null;
-                        transType = null;
-                        mPin = "";
-                        DisplayMessageUtil.dmtShow(view.getContext(), result.getDmtTransactions());
-                    }
-            );
+//            NetworkUtil.getNetworkResult(
+//                    toBankRepository.apiServices.ekosendAmountDMT(mPin, selectedBeneficiaryModel.getBene_id(), amount, selectedBeneficiaryModel.getAccno(), transType, selectedBeneficiaryModel.getIfsc(), globalSelectedMobile),
+//                    view.getContext(),
+//                    result -> {
+//                        sendAmountViewsListener.eraseAmountText();
+//                        amount = null;
+//                        transType = null;
+//                        mPin = "";
+//                        DisplayMessageUtil.dmtShow(view.getContext(), result.getDmtTransactions());
+//                    }
+//            );
         }
     }
 
@@ -372,23 +387,23 @@ public class ToBankViewModel extends ViewModel {
         view.getContext().startActivity(intent);
     }
 
-    public void getSelectedBeneficiaryHistory(Context context, String reference, RecyclerView recyclerView, BeneficiaryHistoryListener listener) {
+    public void getSelectedBeneficiaryHistory(Context context, String reference, RecyclerView recyclerView, BeneficiaryHistoryListener<EkoDtmTransactionHistory> listener) {
         AppDatabase appDatabase = AppDatabase.getAppDatabase(context);
         User user = appDatabase.getUserDao().getRegularUser();
         if (user != null) {
-            toBankRepository.apiServices.getSelectedBeneficiaryHistory(reference, selectedBeneficiaryModel.getBene_id(), "selectedHistory")
+            toBankRepository.apiServices.ekogetSelectedBeneficiaryHistory(reference, selectedBeneficiaryModel.getRecipientId().toString(), "selectedHistory")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<List<BeneficiaryHistoryResponse>>() {
+                    .subscribe(new Observer<List<EkoDtmTransactionHistory>>() {
                         @Override
                         public void onSubscribe(@NonNull Disposable d) {
                             notFoundListener.loading();
                         }
 
                         @Override
-                        public void onNext(@NonNull List<BeneficiaryHistoryResponse> beneficiaryHistoryResponses) {
+                        public void onNext(@NonNull List<EkoDtmTransactionHistory> beneficiaryHistoryResponses) {
                             recyclerView.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
-                            recyclerView.setAdapter(new SimpleBeneficiaryHistoryAdapter(beneficiaryHistoryResponses, listener));
+                            recyclerView.setAdapter(new EkoSimpleBeneficiaryHistoryAdapter(beneficiaryHistoryResponses, listener));
                             MyAlertUtils.dismissAlertDialog();
                             if (beneficiaryHistoryResponses.isEmpty()) {
                                 listener.notifierScreen(true);
@@ -417,7 +432,7 @@ public class ToBankViewModel extends ViewModel {
     public void updateDMTTransactionNow(Context context, String reference_id, RecyclerView recyclerView, BeneficiaryHistoryListener listener, String loc) {
         MyAlertUtils.showProgressAlertDialog(context);
 
-        toBankRepository.apiServices.updateDMTTransaction(reference_id, "check_dmt_status")
+        toBankRepository.apiServices.ekoupdateDMTTransaction(reference_id, "check_dmt_status")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BeneHistoryUpdateResponse>() {
@@ -452,22 +467,21 @@ public class ToBankViewModel extends ViewModel {
                 });
     }
 
-    public void setAllHistories(Context context, String acc_num, RecyclerView recyclerView, BeneficiaryHistoryListener<BeneficiaryHistoryResponse> listener) {
-
+    public void setAllHistories(Context context, String acc_num, RecyclerView recyclerView, BeneficiaryHistoryListener<EkoDtmTransactionHistory> listener) {
         notFoundListener.loading();
-        toBankRepository.apiServices.getAllBeneficiaryHistories(acc_num, globalSelectedMobile, "all_histories")
+        toBankRepository.apiServices.ekogetAllBeneficiaryHistories(acc_num, globalSelectedMobile, "all_histories")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<BeneficiaryHistoryResponse>>() {
+                .subscribe(new Observer<List<EkoDtmTransactionHistory>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull List<BeneficiaryHistoryResponse> beneficiaryHistoryResponses) {
+                    public void onNext(@NonNull List<EkoDtmTransactionHistory> beneficiaryHistoryResponses) {
                         recyclerView.setLayoutManager(new GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false));
-                        recyclerView.setAdapter(new SimpleBeneficiaryHistoryAdapter(beneficiaryHistoryResponses, listener));
+                        recyclerView.setAdapter(new EkoSimpleBeneficiaryHistoryAdapter(beneficiaryHistoryResponses, listener));
                         MyAlertUtils.dismissAlertDialog();
                         if (beneficiaryHistoryResponses.isEmpty()) {
                             notFoundListener.notFound();
@@ -492,7 +506,7 @@ public class ToBankViewModel extends ViewModel {
 
     public void deleteDMTUserAccount(String id, Context context, DMTHomeListeners listeners) {
         MyAlertUtils.showProgressAlertDialog(context);
-        toBankRepository.apiServices.deleteDmtUserAccount(id, "delete_dmt_user")
+        toBankRepository.apiServices.ekodeleteDmtUserAccount(id, "delete_dmt_user")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegularResponse>() {
@@ -523,44 +537,10 @@ public class ToBankViewModel extends ViewModel {
                 });
     }
 
-    public void refreshDMTUserAccount(String id, String mobile, Context context, DMTHomeListeners listeners) {
-        MyAlertUtils.showProgressAlertDialog(context);
-        toBankRepository.apiServices.refreshDmtUserAccount(id, mobile, "refresh_dmt_user")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<QueryRemitterResponse>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull QueryRemitterResponse queryRemitterResponse) {
-                        if (queryRemitterResponse.isStatus() && queryRemitterResponse.response_code == 1) {
-                            ViewUtils.showToast(context, queryRemitterResponse.getMessage());
-                            toBankRepository.getAllMyDMTAccounts(listeners, "");
-                        } else {
-                            MyAlertUtils.showServerAlertDialog(context, queryRemitterResponse.getMessage());
-                        }
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
 
     public void applyForRefundDmtTransaction(BeneficiaryHistoryListener listener, Context context, String ackno, String refrence) {
         MyAlertUtils.showProgressAlertDialog(context);
-        toBankRepository.apiServices.refundDmtTransaction(ackno, refrence, "resendRefundOTP")
+        toBankRepository.apiServices.ekorefundDmtTransaction(ackno, refrence, "resendRefundOTP")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegularResponse>() {
@@ -613,7 +593,7 @@ public class ToBankViewModel extends ViewModel {
 
     private void verifyRefundAmountOTP(BeneficiaryHistoryListener listener, Dialog dialog, Context context, String refrence, String ackno, String otp) {
         MyAlertUtils.showProgressAlertDialog(context);
-        toBankRepository.apiServices.verifyDmtTransaction(ackno, refrence, otp, "refundDmt")
+        toBankRepository.apiServices.ekoverifyDmtTransaction(ackno, refrence, otp, "refundDmt")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RegularResponse>() {
@@ -647,28 +627,31 @@ public class ToBankViewModel extends ViewModel {
     }
 
 
-    public void pennyDropSelf(Context context, String beneid, String acc, String bankid, String name, String mobile, Receiver<Boolean> receiver) {
+    public void pennyDropSelf(Context context, String beneid, String acc, String bankid, String bankcode, String name, String mobile, Receiver<Boolean> receiver) {
         MyAlertUtils.showProgressAlertDialog(context);
 
-        toBankRepository.apiServices.getThePennyDrop(beneid, acc, bankid, name, mobile, "verify_name")
+        toBankRepository.apiServices.ekogetThePennyDrop(beneid, acc, bankid, name, mobile, "verify_name")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<PennyDropResponse>() {
+                .subscribe(new Observer<BaseEkoResponse>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull PennyDropResponse response) {
-                        if (response.status && response.getResponse_code().equals(1)) {
-                            String printMessage = response.getMessage() + "\nUTR: " + response.getUtr() + "\nName: " + response.getBenename();
-                            DisplayMessageUtil.success(context, printMessage);
-                            receiver.getData(true);
-                        } else {
-                            DisplayMessageUtil.error(context, response.getMessage());
+                    public void onNext(@NonNull BaseEkoResponse response) {
+                        try {
+                            if (response.getStatus().equals(0) && response.getResponseTypeId().equals(0)) {
+                                //String printMessage = response.getMessage() + "\nUTR: " + response.getUtr() + "\nName: " + response.getBenename();
+                                DisplayMessageUtil.success(context, response.getMessage());
+                                receiver.getData(true);
+                            } else {
+                                DisplayMessageUtil.error(context, response.getMessage());
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-
                     }
 
                     @Override

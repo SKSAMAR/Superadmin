@@ -40,6 +40,30 @@ interface FintechAPI {
     ): Observable<OTPResponse>
 
     @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    fun ekosendAmountDMT(
+        @Field("bene_id") bene_id: String,
+        @Field("send_amount") send_amount: String,
+        @Field("send_am_acc") send_am_acc: String,
+        @Field("txn_type") txn_type: String,
+        @Field("ifsc") ifsc: String,
+        @Field("senderMobile") senderMobile: String,
+        @Field("tpin") tpin: String
+    ): Observable<DMTSendAmountResponse>
+
+
+
+    /**
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/MoneyTransfer/EKO/Main.php")
+    fun ekosendAmountOTP(
+        @Field("otpSendTime") otpSendTime: String,
+        @Field("send_am") send_am: String,
+        @Field("sendotp") sendotp: String = "sendotp"
+    ): Observable<OTPResponse>
+    **/
+
+    @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
     fun earnedAndData(
         @Field("referData") referData: String = "referData"

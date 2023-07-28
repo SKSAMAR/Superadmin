@@ -32,6 +32,7 @@ import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
 import com.fintech.superadmin.activities.creditcard.CCFetchBillK;
+import com.fintech.superadmin.activities.eko_tobank.QueryRemitter;
 import com.fintech.superadmin.activities.fastag.OperatorList;
 import com.fintech.superadmin.activities.lic.LicFetchBill;
 import com.fintech.superadmin.activities.mahagrm_bc.BcRegistration;
@@ -40,7 +41,6 @@ import com.fintech.superadmin.activities.mobilenumber.SendMoney;
 import com.fintech.superadmin.activities.payoutpaysprint.PaysprintPayout;
 import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
-import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
 import com.fintech.superadmin.clean.presentation.payout.PayoutActivity;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
@@ -322,7 +322,8 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "DMT": {
-                Intent intent = new Intent(requireActivity(), QueryRemitter.class);
+//                Intent intent = new Intent(requireActivity(), com.fintech.superadmin.activities.eko_tobank.QueryRemitter.class);
+                Intent intent = new Intent(requireActivity(), com.fintech.superadmin.activities.tobank.QueryRemitter.class);
                 startActivity(intent);
                 break;
             }

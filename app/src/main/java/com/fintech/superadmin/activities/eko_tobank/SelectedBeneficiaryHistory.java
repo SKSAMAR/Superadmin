@@ -1,4 +1,4 @@
-package com.fintech.superadmin.activities.tobank;
+package com.fintech.superadmin.activities.eko_tobank;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,35 +11,35 @@ import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fintech.superadmin.activities.common.BaseActivity;
-import com.fintech.superadmin.data.network.responses.BeneficiaryBank;
-import com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse;
-import com.fintech.superadmin.databinding.ActivitySelectedBenefeciaryHistoryBinding;
+import com.fintech.superadmin.data.eko.EkoDtmTransactionHistory;
+import com.fintech.superadmin.data.eko.RecipientListItem;
+import com.fintech.superadmin.databinding.ActivityEkoSelectedBenefeciaryHistoryBinding;
 import com.fintech.superadmin.listeners.BeneficiaryHistoryListener;
 import com.fintech.superadmin.masterListener.NotFoundListener;
 import com.fintech.superadmin.util.ViewUtils;
-import com.fintech.superadmin.viewmodel.ToBankViewModel;
+import com.fintech.superadmin.viewmodel.EkoToBankViewModel;
 
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SelectedBeneficiaryHistory extends BaseActivity implements BeneficiaryHistoryListener<BeneficiaryHistoryResponse>, NotFoundListener {
+public class SelectedBeneficiaryHistory extends BaseActivity implements BeneficiaryHistoryListener<EkoDtmTransactionHistory>, NotFoundListener {
 
-    ToBankViewModel viewModel;
-    ActivitySelectedBenefeciaryHistoryBinding binding;
+    EkoToBankViewModel viewModel;
+    ActivityEkoSelectedBenefeciaryHistoryBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySelectedBenefeciaryHistoryBinding.inflate(getLayoutInflater());
+        binding = ActivityEkoSelectedBenefeciaryHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Beneficiary History");
-        viewModel = new ViewModelProvider(this).get(ToBankViewModel.class);
+        viewModel = new ViewModelProvider(this).get(EkoToBankViewModel.class);
         viewModel.globalSelectedMobile = getIntent().getStringExtra("number");
-        viewModel.selectedBeneficiaryModel = (BeneficiaryBank) getIntent().getSerializableExtra("selectedBankModel");
+        viewModel.selectedBeneficiaryModel = (RecipientListItem) getIntent().getParcelableExtra("selectedBankModel");
         viewModel.notFoundListener = this;
         binding.setSelectedBeneficiaryViewModel(viewModel);
         binding.noRecords.setVisibility(View.GONE);
@@ -61,15 +61,15 @@ public class SelectedBeneficiaryHistory extends BaseActivity implements Benefici
     }
 
     @Override
-    public void clickOnMoreInfo(View view, BeneficiaryHistoryResponse history) {
+    public void clickOnMoreInfo(View view, EkoDtmTransactionHistory history) {
         Intent intent = new Intent(SelectedBeneficiaryHistory.this, DetailedHistoryScreen.class);
         intent.putExtra("selectedHistory", history);
         startActivity(intent);
     }
 
     @Override
-    public void clickOnUpdateInfo(View view, BeneficiaryHistoryResponse history) {
-        viewModel.updateDMTTransactionNow(SelectedBeneficiaryHistory.this, history.getReference_id(), binding.selectedBeneficiaryHistory,this,"selected");
+    public void clickOnUpdateInfo(View view, EkoDtmTransactionHistory history) {
+        viewModel.updateDMTTransactionNow(SelectedBeneficiaryHistory.this, history.getData().getClientRefId(), binding.selectedBeneficiaryHistory,this,"selected");
     }
 
     @Override
@@ -83,11 +83,11 @@ public class SelectedBeneficiaryHistory extends BaseActivity implements Benefici
     }
 
     @Override
-    public void clickOnRefund(View view, BeneficiaryHistoryResponse history) {
-        if(history.getData().getAckno()==null || history.getData().getAckno().isEmpty()){
+    public void clickOnRefund(View view, EkoDtmTransactionHistory history) {
+        if(history.getData().getUtilityAccNo()==null || history.getData().getUtilityAccNo().isEmpty()){
             ViewUtils.showToast(SelectedBeneficiaryHistory.this, "You are not acknowledge to use this service");
         }else{
-            viewModel.applyForRefundDmtTransaction(SelectedBeneficiaryHistory.this,this, history.getData().getAckno(), history.getReference_id());
+            viewModel.applyForRefundDmtTransaction(SelectedBeneficiaryHistory.this,this, history.getData().getUtilityAccNo(), history.getData().getClientRefId());
         }
     }
 
