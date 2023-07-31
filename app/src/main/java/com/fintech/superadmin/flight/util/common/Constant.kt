@@ -1,6 +1,7 @@
 package com.fintech.superadmin.flight.util.common
 
 object Constant {
+    const val QR_CODE = "QR_CODE"
     const val PLAN = "PLAN"
     const val TypeAddress = "typeAddress"
     const val CityModel = "CityModel"

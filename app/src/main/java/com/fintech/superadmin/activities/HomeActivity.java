@@ -30,6 +30,7 @@ import com.fintech.superadmin.fragments.screenmenus.HomeMenuFragments;
 import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
 import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
+import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.StartGettingLocation;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.HomeViewModel;
@@ -231,4 +232,5 @@ public class HomeActivity extends BaseActivity {
             DisplayMessageUtil.success(HomeActivity.this, message);
         }
     }
+
 }

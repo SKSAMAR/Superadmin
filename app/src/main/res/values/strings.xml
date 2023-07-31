@@ -355,6 +355,9 @@
     <string name="you_won_a_gift_card_scratch_to_won_a_card">You won a gift card. Scratch\nto won a card.</string>
     <string name="travels_services">Travels Services</string>
     <string name="store">Store</string>
+    <string name="your_magic_wallet_is_now_de_active">Your Magic Wallet is now De-active</string>
+    <string name="note_rupees_999_will_deduct_from_your_main_wallet_balance">Note:- Rupees 999 will deduct from your Main Wallet Balance.</string>
+    <string name="activate_now">Activate Now</string>
 
 
 </resources>

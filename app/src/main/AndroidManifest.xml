@@ -536,6 +536,30 @@
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.payQr.ShowQrActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+
+        <activity
+            android:name="com.fintech.superadmin.activities.pan.NSDLPanActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name="com.fintech.superadmin.clean.presentation.magic.MagicWalletActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            tools:ignore="LockedOrientationActivity" />
+
+
         <activity
             android:name="com.fintech.superadmin.activities.mobilenumber.SendMoney"
             android:exported="true"

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.profile.ViewSlabData;
+import com.fintech.superadmin.clean.presentation.payQr.ShowQrActivity;
 import com.fintech.superadmin.constructor.Construct;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -28,7 +29,9 @@ import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.data.network.responses.SlabInfoResponse;
 import com.fintech.superadmin.databinding.PackageSelectorDesignBinding;
 import com.fintech.superadmin.deer_listener.Receiver;
+import com.fintech.superadmin.flight.util.common.Constant;
 import com.fintech.superadmin.util.Accessable;
+import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
 import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.ViewUtils;
@@ -47,37 +50,56 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ProfileRepository {
 
-    public APIServices  apiServices;
+    public APIServices apiServices;
     AppDatabase appDatabase;
 
     String selectedName = "";
     String selectedId = "";
 
     @Inject
-    public ProfileRepository(@ApplicationContext Context context, APIServices  apiServices){
+    public ProfileRepository(@ApplicationContext Context context, APIServices apiServices) {
         appDatabase = AppDatabase.getAppDatabase(context);
         this.apiServices = apiServices;
     }
 
 
-
-    public void deleteUser(Context context){
+    public void deleteUser(Context context) {
         Construct.logoutExecute(context);
     }
 
 
-    public void getHelpSupport(Context context, Receiver<HelpSupport> receiver){
-        if(Accessable.isAccessable()){
+    public void getHelpSupport(Context context, Receiver<HelpSupport> receiver) {
+        if (Accessable.isAccessable()) {
             NetworkUtil.getNetworkResult(apiServices.getHelpSupport("help_support"), context, receiver::getData);
         }
     }
 
+    public void getQrCode(Context context) {
+        if (Accessable.isAccessable()) {
+            NetworkUtil.getNetworkResult(apiServices.applyForQrCode("createVpa"), context, result -> {
+                if (result.response_code.equals(1) || result.response_code.equals(3)) {
+                    NetworkUtil.getNetworkResult(apiServices.showQrSystem("showMyQrCode"), context, resultQr -> {
+                        if (resultQr.getResponse_code().equals(1) && !resultQr.getReceivableData().isEmpty()) {
+                            Intent intent = new Intent(context, ShowQrActivity.class);
+                            intent.putExtra(Constant.QR_CODE, resultQr.getReceivableData());
+                            context.startActivity(intent);
+
+                        } else {
+                            DisplayMessageUtil.error(context, "" + resultQr.getMessage());
+                        }
+                    });
+                } else {
+                    DisplayMessageUtil.error(context, "" + result.getMessage());
+                }
+            });
+        }
+    }
 
 
-    public void updateProfileDetails(Context context, UserProfile userProfile, User user){
+    public void updateProfileDetails(Context context, UserProfile userProfile, User user) {
         MyAlertUtils.showProgressAlertDialog(context);
-        
-        apiServices.updateMyInformation(user.getName(),user.getLastname(),userProfile.getALTERNATE_PHONE_NO(),userProfile.getDOB(),userProfile.getGENDER(), userProfile.getCOUNTRY(), userProfile.getSTATE(), user.getPin(),user.getAddress(),user.getToken(),user.getMobile(),"update_profile_details")
+
+        apiServices.updateMyInformation(user.getName(), user.getLastname(), userProfile.getALTERNATE_PHONE_NO(), userProfile.getDOB(), userProfile.getGENDER(), userProfile.getCOUNTRY(), userProfile.getSTATE(), user.getPin(), user.getAddress(), user.getToken(), user.getMobile(), "update_profile_details")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ConfirmationResponse>() {
@@ -88,18 +110,17 @@ public class ProfileRepository {
 
                     @Override
                     public void onNext(@NonNull ConfirmationResponse confirmationResponse) {
-                        if(confirmationResponse.isstatus()){
-                            MyAlertUtils.showAlertDialog(context, "Success",confirmationResponse.getMessage(), R.drawable.success);
+                        if (confirmationResponse.isstatus()) {
+                            MyAlertUtils.showAlertDialog(context, "Success", confirmationResponse.getMessage(), R.drawable.success);
                             userLogin(user.getMobile(), user.getPassword());
-                        }
-                        else{
-                            MyAlertUtils.showAlertDialog(context, "Failed",confirmationResponse.getMessage(), R.drawable.failed);
+                        } else {
+                            MyAlertUtils.showAlertDialog(context, "Failed", confirmationResponse.getMessage(), R.drawable.failed);
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context,"Failed due to: "+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to: " + e.getMessage());
                     }
 
                     @Override
@@ -109,10 +130,10 @@ public class ProfileRepository {
                 });
     }
 
-    public void updateSocialMediaDetails(Context context, UserProfile userProfile, User user){
+    public void updateSocialMediaDetails(Context context, UserProfile userProfile, User user) {
         MyAlertUtils.showProgressAlertDialog(context);
-        
-        apiServices.updateMySocialMedia(user.getMobile(), "update_social_media", userProfile.FACEBOOK_URL, userProfile.TWITTER_URL, userProfile.LINKEDIN_URL, userProfile.INSTAGRAM_URL, userProfile.DRIBBLE_BOX_URL, userProfile.DROPBOX_URL, userProfile.GOOGLE_PLUS_URL,userProfile.PINTEREST_URL, userProfile.SKYPE_URL, userProfile.VINE_URL)
+
+        apiServices.updateMySocialMedia(user.getMobile(), "update_social_media", userProfile.FACEBOOK_URL, userProfile.TWITTER_URL, userProfile.LINKEDIN_URL, userProfile.INSTAGRAM_URL, userProfile.DRIBBLE_BOX_URL, userProfile.DROPBOX_URL, userProfile.GOOGLE_PLUS_URL, userProfile.PINTEREST_URL, userProfile.SKYPE_URL, userProfile.VINE_URL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ConfirmationResponse>() {
@@ -123,17 +144,18 @@ public class ProfileRepository {
 
                     @Override
                     public void onNext(@NonNull ConfirmationResponse confirmationResponse) {
-                        if(confirmationResponse.isstatus()){
-                            MyAlertUtils.showAlertDialog(context, "Success",confirmationResponse.getMessage(), R.drawable.success);
-                        }
-                        else{
-                            MyAlertUtils.showAlertDialog(context, "Failed",confirmationResponse.getMessage(), R.drawable.failed);
+                        if (confirmationResponse.isstatus()) {
+                            MyAlertUtils.showAlertDialog(context, "Success", confirmationResponse.getMessage(), R.drawable.success);
+                        } else {
+                            MyAlertUtils.showAlertDialog(context, "Failed", confirmationResponse.getMessage(), R.drawable.failed);
                         }
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context,"Failed due to: "+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to: " + e.getMessage());
                     }
+
                     @Override
                     public void onComplete() {
 
@@ -141,10 +163,10 @@ public class ProfileRepository {
                 });
     }
 
-    public void updateMyPassword(Context context, User user, String new_password, String old_pass){
+    public void updateMyPassword(Context context, User user, String new_password, String old_pass) {
         MyAlertUtils.showProgressAlertDialog(context);
-        
-        apiServices.changeMyPassword( "update_my_password", new_password, old_pass)
+
+        apiServices.changeMyPassword("update_my_password", new_password, old_pass)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ConfirmationResponse>() {
@@ -155,17 +177,18 @@ public class ProfileRepository {
 
                     @Override
                     public void onNext(@NonNull ConfirmationResponse confirmationResponse) {
-                        if(confirmationResponse.isstatus()){
-                            MyAlertUtils.showAlertDialog(context, "Success",confirmationResponse.getMessage(), R.drawable.success);
-                        }
-                        else{
-                            MyAlertUtils.showAlertDialog(context, "Failed",confirmationResponse.getMessage(), R.drawable.failed);
+                        if (confirmationResponse.isstatus()) {
+                            MyAlertUtils.showAlertDialog(context, "Success", confirmationResponse.getMessage(), R.drawable.success);
+                        } else {
+                            MyAlertUtils.showAlertDialog(context, "Failed", confirmationResponse.getMessage(), R.drawable.failed);
                         }
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context,"Failed due to: "+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to: " + e.getMessage());
                     }
+
                     @Override
                     public void onComplete() {
 
@@ -174,9 +197,9 @@ public class ProfileRepository {
     }
 
 
-    public void bringPackageData(Context context, String type){
+    public void bringPackageData(Context context, String type) {
         User user = appDatabase.getUserDao().getRegularUser();
-        
+
         apiServices.getAllPackageList(user.getId(), user.getUserstatus(), user.getToken(), type, "fetch")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -189,17 +212,16 @@ public class ProfileRepository {
                     @Override
                     public void onNext(@NonNull PackageResponseData responseData) {
                         MyAlertUtils.dismissAlertDialog();
-                        if(responseData.getResponse_code()==999){
+                        if (responseData.getResponse_code() == 999) {
                             ViewUtils.showToast(context, "Session Expired");
-                        }
-                        else{
-                            bringPackagesList(context, type, responseData.getSelected() ,responseData.getData());
+                        } else {
+                            bringPackagesList(context, type, responseData.getSelected(), responseData.getData());
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                     }
 
                     @Override
@@ -213,9 +235,9 @@ public class ProfileRepository {
 
 
     @SuppressLint("SetTextI18n")
-    public void bringPackagesList(Context context, String type, String selected,List<PackageResponseData.PackageData> list){
+    public void bringPackagesList(Context context, String type, String selected, List<PackageResponseData.PackageData> list) {
 
-        if(list==null || list.isEmpty()){
+        if (list == null || list.isEmpty()) {
             MyAlertUtils.showAlertDialog(context, "Warning", "No Package Found", R.drawable.warning);
             return;
         }
@@ -231,7 +253,7 @@ public class ProfileRepository {
 
         ArrayAdapter<PackageResponseData.PackageData> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, list);
         binding.MyPackageListView.setAdapter(adapter);
-        binding.headTitleSection.setText(type.toUpperCase()+" Packages");
+        binding.headTitleSection.setText(type.toUpperCase() + " Packages");
         binding.selectedPackage.setText(selected);
         dialogMain.show();
 
@@ -254,7 +276,7 @@ public class ProfileRepository {
 
         binding.MyPackageListView.setOnItemClickListener((parent, view, position, id) -> {
 
-            AlertDialog.Builder myDialog=new AlertDialog.Builder(context);
+            AlertDialog.Builder myDialog = new AlertDialog.Builder(context);
             myDialog.setTitle("Select an option");
             myDialog.setPositiveButton("Select Package",
                     (dialog, which) -> {
@@ -269,7 +291,7 @@ public class ProfileRepository {
                 dialog.dismiss();
                 MyAlertUtils.showProgressAlertDialog(context);
                 selectedId = adapter.getItem(position).getId();
-                
+
                 apiServices.getThisPackageSlabData(selectedId, "fetch_slab")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -284,7 +306,7 @@ public class ProfileRepository {
                                 MyAlertUtils.dismissAlertDialog();
                                 selectedName = adapter.getItem(position).getName();
                                 Intent intent = new Intent(context, ViewSlabData.class);
-                                intent.putExtra("package_name",selectedName);
+                                intent.putExtra("package_name", selectedName);
                                 intent.putExtra("slabInfoResponse", slabInfoResponses);
                                 context.startActivity(intent);
                             }
@@ -301,16 +323,16 @@ public class ProfileRepository {
                         });
             });
             myDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-            AlertDialog alertDialog=myDialog.create();
+            AlertDialog alertDialog = myDialog.create();
             alertDialog.show();
         });
 
     }
 
 
-    public void setPackageOnWeb(Context context, String selectedId, String selected_type){
+    public void setPackageOnWeb(Context context, String selectedId, String selected_type) {
         User user = appDatabase.getUserDao().getRegularUser();
-        
+
         apiServices.setThisPackage(user.getId(), user.getUserstatus(), user.getToken(), selectedId, selected_type, "set_package")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -322,20 +344,18 @@ public class ProfileRepository {
 
                     @Override
                     public void onNext(@NonNull RegularResponse regularResponse) {
-                        if(regularResponse.getResponse_code().equals(999)){
+                        if (regularResponse.getResponse_code().equals(999)) {
                             ViewUtils.showToast(context, "Session Expired");
-                        }
-                        else if(regularResponse.isStatus() && regularResponse.getResponse_code().equals(1)){
+                        } else if (regularResponse.isStatus() && regularResponse.getResponse_code().equals(1)) {
                             MyAlertUtils.showAlertDialog(context, "Success", regularResponse.getMessage(), R.drawable.success);
-                        }
-                        else{
+                        } else {
                             MyAlertUtils.showServerAlertDialog(context, regularResponse.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
                     }
 
                     @Override
@@ -346,60 +366,58 @@ public class ProfileRepository {
     }
 
 
-
     public void userLogin(String mobile, String password) {
 
 
     }
 
 
-    public void updateProfilePicture(Context context, String image_encoded){
+    public void updateProfilePicture(Context context, String image_encoded) {
         MyAlertUtils.showProgressAlertDialog(context);
-                 apiServices.updateProfilePicture(image_encoded)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<RegularResponse>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
+        apiServices.updateProfilePicture(image_encoded)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RegularResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(@NonNull RegularResponse response) {
+                        MyAlertUtils.dismissAlertDialog();
+                        if (response.getResponse_code().equals(1)) {
+                            MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.success);
+                            refreshUserData(context);
+
+                        } else {
+                            MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.warning);
                         }
+                    }
 
-                        @Override
-                        public void onNext(@NonNull RegularResponse response) {
-                            MyAlertUtils.dismissAlertDialog();
-                            if(response.getResponse_code().equals(1)){
-                                MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.success);
-                                refreshUserData(context);
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        MyAlertUtils.showServerAlertDialog(context, "Failed due to\n" + e.getMessage());
+                    }
 
-                            }
-                            else{
-                                MyAlertUtils.showAlertDialog(context, "Result", response.getMessage(), R.drawable.warning);
-                            }
-                        }
+                    @Override
+                    public void onComplete() {
 
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            MyAlertUtils.showServerAlertDialog(context, "Failed due to\n"+e.getMessage());
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
+                    }
+                });
 
     }
 
-    public void refreshUserData(Context context){
-        if(Accessable.isAccessable()){
+    public void refreshUserData(Context context) {
+        if (Accessable.isAccessable()) {
             apiServices.getAllCredentials("fetch_all")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(c->{
-                        if(c.getStatus() && c.getResponse_code().equals(1)){
+                    .subscribe(c -> {
+                        if (c.getStatus() && c.getResponse_code().equals(1)) {
                             Construct.refreshData(context, c.getReceivableData());
                         }
-                    },error->{
+                    }, error -> {
 
                     });
         }

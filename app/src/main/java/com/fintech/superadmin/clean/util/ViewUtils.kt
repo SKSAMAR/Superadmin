@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
 import android.provider.Telephony
@@ -15,6 +16,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import com.fintech.superadmin.R
 import com.fintech.superadmin.clean.data.remote.FintechAPI
@@ -24,6 +27,7 @@ import com.fintech.superadmin.databinding.ScratchDialogBinding
 import com.fintech.superadmin.deer_listener.Receiver
 import dev.skymansandy.scratchcardlayout.listener.ScratchListener
 import dev.skymansandy.scratchcardlayout.ui.ScratchCardLayout
+import java.io.File
 import java.net.URLEncoder
 
 object ViewUtils {
@@ -223,6 +227,48 @@ object ViewUtils {
             .subscribe(
                 { result: RegularResponse? -> }
             ) { error: Throwable? -> }
+    }
+
+    fun openInCustomBrowser(context: Context, url: String?, encData: String?) {
+        val htmlData = "<html>\n" +
+                "<head></head>\n" +
+                "<body onload=\"submitForm()\">\n" +
+                "<form id=\"myForm\" method=\"post\" action=\"${url}\">\n" +
+                "  <textarea name=\"encdata\" style=\"display:none\">${encData}</textarea>\n" +
+                "  <input type=\"submit\" value=\"Submit\">\n" +
+                "</form>\n" +
+                "<script>\n" +
+                "  function submitForm() {\n" +
+                "    document.getElementById(\"myForm\").submit();\n" +
+                "  }\n" +
+                "</script>\n" +
+                "</body>\n" +
+                "</html>"
+        // Create a temporary HTML file on the device's storage
+        val fileName = "temp.html"
+        val file = File(context.cacheDir, fileName)
+        file.writeText(htmlData)
+        // Get the file's Uri
+        val uri = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
+        // Create a CustomTabsIntent and launch the Uri in a custom tab
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.intent.data = uri
+        customTabsIntent.intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        try {
+            val browserIntent =
+                Intent("android.intent.action.VIEW", Uri.parse("http://"))
+            val resolveInfo: ResolveInfo? = context.packageManager.resolveActivity(
+                browserIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+            val packageName = resolveInfo?.activityInfo?.packageName
+            customTabsIntent.intent.setPackage(packageName ?: "")
+            context.startActivity(customTabsIntent.intent)
+        } catch (e: Exception) {
+            context.startActivity(customTabsIntent.intent)
+            e.printStackTrace()
+        }
     }
 
 }

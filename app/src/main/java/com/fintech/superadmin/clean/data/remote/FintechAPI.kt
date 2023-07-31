@@ -9,6 +9,7 @@ import com.fintech.superadmin.clean.data.remote.dto.suvidhaPayout.SuvidhaBenefic
 import com.fintech.superadmin.data.network.responses.DMTSendAmountResponse
 import com.fintech.superadmin.data.network.responses.RegularResponse
 import com.fintech.superadmin.data.network.responses.SystemResponse
+import com.fintech.superadmin.data.network.responses.UTIPANRedirect
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -164,4 +165,43 @@ interface FintechAPI {
 
 
     //Suvidhaa Payout
+
+    //NSDLPAN
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    fun naslCreationPanCardRedirect(
+        @Field("first_name") first_name: String,
+        @Field("last_name") last_name: String,
+        @Field("mode") mode: String,
+        @Field("title") title: String,
+        @Field("gender") gender: String,
+        @Field("nsdlCreation") nsdlCreation: String = "nsdlCreation",
+    ): Observable<UTIPANRedirect>
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    fun naslChangePanCardRedirect(
+        @Field("first_name") first_name: String,
+        @Field("last_name") last_name: String,
+        @Field("email") email: String,
+        @Field("mode") mode: String,
+        @Field("title") title: String,
+        @Field("gender") gender: String,
+        @Field("nsdlChange") nsdlChange: String = "nsdlChange",
+    ): Observable<UTIPANRedirect>
+
+    //NSDL PAN
+
+
+    //MAGIC WALLET
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/360_Wallet/360_withdraw.php")
+    fun magicWalletWithdraw(
+        @Field("amount") amount: String
+    ): Observable<RegularResponse>
+
+    //MAGIC WALLET
 }

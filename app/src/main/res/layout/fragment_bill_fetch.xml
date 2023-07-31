@@ -101,7 +101,6 @@
 
                 </RelativeLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/ad2Layout"
                     android:layout_width="match_parent"
@@ -153,7 +152,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </RelativeLayout>
-
 
                 <LinearLayout
                     android:id="@+id/directPayBBPS"

@@ -1,13 +1,18 @@
 package com.fintech.superadmin.viewmodel;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.fintech.superadmin.R;
@@ -15,23 +20,24 @@ import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.fingBoard.FingBoardHome;
 import com.fintech.superadmin.activities.mobilenumber.SendMoney;
+import com.fintech.superadmin.clean.presentation.magic.MagicWalletActivity;
+import com.fintech.superadmin.clean.util.ViewUtils;
 import com.fintech.superadmin.data.apiResponse.merchant.FingPayBoardCred;
 import com.fintech.superadmin.data.db.entities.User;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
 import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.APIServices;
-import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
-import com.fintech.superadmin.data.network.responses.SystemResponse;
 import com.fintech.superadmin.data.repositories.HomeRepository;
+import com.fintech.superadmin.databinding.NotificationsDesignBinding;
 import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.BringHistoryListener;
-import com.fintech.superadmin.listeners.NumberPayListener;
 import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.DisplayQrUtilKt;
 import com.fintech.superadmin.util.NetworkUtil;
+import com.fintech.superadmin.util.UtilHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +64,10 @@ public class HomeViewModel extends ViewModel {
     public List<MenuModel> currentList = new ArrayList<>();
     private final List<MenuModel> moreList = new ArrayList<>();
     private final List<MenuModel> lessList = new ArrayList<>();
-
     public boolean isAlreadySet = false;
+
+    public MutableLiveData<String> _360_Wallet = new MutableLiveData<>();
+    public MutableLiveData<String> _360_error = new MutableLiveData<>("");
 
     @Inject
     public HomeViewModel(HomeRepository homeRepository, APIServices apiServices) {
@@ -108,6 +116,45 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    public void _360Operate(Context context) {
+        if (Accessable.isAccessable()) {
+            NetworkUtil.getNetworkResult(apiServices.magicWalletStatus("magicWalletStatus"), context, result -> {
+                _360_Wallet.setValue(result.getReceivableData());
+                if (result.getStatus()) {
+                    context.startActivity(new Intent(context, MagicWalletActivity.class));
+                    _360_error.setValue("");
+                } else {
+
+                    User user = homeRepository.appDatabase.getUserDao().getRegularUser();
+                    _360_error.setValue(result.getMessage());
+                    NotificationsDesignBinding binding = NotificationsDesignBinding.inflate(LayoutInflater.from(context));
+                    Dialog dialog = new Dialog(context, R.style.MyTransparentBottomSheetDialogTheme);
+                    dialog.setContentView(binding.getRoot());
+                    dialog.setCanceledOnTouchOutside(true);
+                    WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+                    dialog.getWindow().setAttributes(params);
+                    dialog.show();
+                    binding.cancel.setOnClickListener(view -> dialog.dismiss());
+                    binding.errorMessage.setText(result.getMessage());
+                    binding.errorMessage2.setText("Main Wallet Balance: " + user.getMainbalance());
+                    binding.activeNow.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        NetworkUtil.getNetworkResult(apiServices.magicWalletActivate("activateWallet"), context, aResult -> {
+                            if (aResult.getStatus()) {
+                                DisplayMessageUtil.success(context, aResult.getMessage());
+                                NetworkUtil.getNetworkResult(apiServices.magicWalletStatus("magicWalletStatus"), null, info -> _360_Wallet.setValue(info.getReceivableData()));
+                            } else {
+                                DisplayMessageUtil.error(context, aResult.getMessage());
+                            }
+                        });
+                    });
+
+                }
+            });
+        }
+    }
+
 
     public void checkPaysprintServiceExistence(
             Context context,
@@ -152,6 +199,61 @@ public class HomeViewModel extends ViewModel {
                 start.getData(response);
             }
         });
+    }
+
+    @SuppressLint("CheckResult")
+    public void startCMS(Context context, String type, Receiver<String> stringReceiver) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.startCMS(type, UtilHolder.getLatitude(), UtilHolder.getLongitude())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.getStatus()) {
+                            stringReceiver.getData(res.getRedirectionUrl());
+                        } else {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
+    }
+
+
+    @SuppressLint("CheckResult")
+    public void busRedirect(Context context) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.busRedirect("busRedirect")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.getResponseCode() != null && res.getResponseCode().equals(1)) {
+                            ViewUtils.INSTANCE.openInCustomBrowser(context, res.getData().getUrl(), res.getData().getEncdata());
+                        } else {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    public void startUTIPan(Context context) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.utiPanCardRedirect("utiPanCard")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.getStatus() != null && res.getStatus()) {
+                            ViewUtils.INSTANCE.openInCustomBrowser(context, res.getData().getUrl(), res.getData().getEncdata());
+                        } else {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
     }
 
 

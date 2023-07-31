@@ -22,6 +22,7 @@ import com.fintech.superadmin.data.deer_response.CFPTransaction;
 import com.fintech.superadmin.data.deer_response.RechargeResponse;
 import com.fintech.superadmin.data.dthinfo.DthInfoResponse;
 import com.fintech.superadmin.data.dto.AtmProceedableDto;
+import com.fintech.superadmin.data.dto.CmsResponse;
 import com.fintech.superadmin.data.dto.CreditCardHistory;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
@@ -55,6 +56,7 @@ import com.fintech.superadmin.data.network.responses.BankItResponse;
 import com.fintech.superadmin.data.network.responses.BeneHistoryUpdateResponse;
 import com.fintech.superadmin.data.network.responses.BeneficiaryDeleteResponse;
 import com.fintech.superadmin.data.network.responses.BeneficiaryHistoryResponse;
+import com.fintech.superadmin.data.network.responses.BusBookRedirect;
 import com.fintech.superadmin.data.network.responses.CCGenerateOtpResponse;
 import com.fintech.superadmin.data.network.responses.CommissionResponse;
 import com.fintech.superadmin.data.network.responses.ConfirmationResponse;
@@ -84,6 +86,7 @@ import com.fintech.superadmin.data.network.responses.RegularHistoryResponse;
 import com.fintech.superadmin.data.network.responses.RegularResponse;
 import com.fintech.superadmin.data.network.responses.SlabInfoResponse;
 import com.fintech.superadmin.data.network.responses.SystemResponse;
+import com.fintech.superadmin.data.network.responses.UTIPANRedirect;
 import com.fintech.superadmin.data.network.responses.UserTypeResponse;
 import com.fintech.superadmin.data.sys.TPinResponse;
 import com.fintech.superadmin.data_model.LoginModel;
@@ -127,6 +130,52 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Agent/Backend/Login/send_otp.php")
     Observable<RegularResponse> sendSignupOTP(@Field("mobile") String mobile, @Field("email") String email);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<String>> magicWalletStatus(
+            @Field("magicWalletStatus") String magicWalletStatus
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/360_Wallet/magic_active.php")
+    Observable<SystemResponse<String>> magicWalletActivate(
+            @Field("activateWallet") String activateWallet
+    );
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<CmsResponse> startCMS(
+            @Field("cms") String cms,
+            @Field("latitude") String latitude,
+            @Field("longitude") String longitude
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<BusBookRedirect> busRedirect(
+            @Field("busRedirect") String busRedirect
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<UTIPANRedirect> utiPanCardRedirect(
+            @Field("utiPanCard") String utiPanCard
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/QrSystem/main.php")
+    Observable<SystemResponse<String>> showQrSystem(
+            @Field("displayMyQrCode") String displayMyQrCode
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/QrSystem/main.php")
+    Observable<RegularResponse> applyForQrCode(
+            @Field("createVpa") String createVpa
+    );
 
 
     @FormUrlEncoded

@@ -12,9 +12,9 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "Easy Travel Hub"]
+        manifestPlaceholders = [appName: "Zuq Zuq"]
         appType = "B2B"
-        applicationId "easytravelhub.com"
+        applicationId "zuqzuq.in"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
@@ -330,6 +330,54 @@ static def fetchAarFileNames(appId) {
     return responseString
 }
 
+static def fetchDMTName(appId) {
+    String responseString = "paysprint"
+    try {
+        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=DMT")
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
+        connection.setRequestMethod("GET")
+        connection.connect()
+        connection.setConnectTimeout(60000)
+        connection.setReadTimeout(60000)
+
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
+            responseString = reader.readLine()
+            reader.close()
+        } else {
+            // Handle error response
+        }
+        connection.disconnect()
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+    return responseString
+}
+
+static def fetchMagicWalletName(appId) {
+    String responseString = "no"
+    try {
+        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=MagicWallet")
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
+        connection.setRequestMethod("GET")
+        connection.connect()
+        connection.setConnectTimeout(60000)
+        connection.setReadTimeout(60000)
+
+        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
+            responseString = reader.readLine()
+            reader.close()
+        } else {
+            // Handle error response
+        }
+        connection.disconnect()
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+    return responseString
+}
+
 static def fetchSecondaryUrl(appId) {
     String responseString = ""
     try {
@@ -382,13 +430,15 @@ afterEvaluate {
     //fixed
     def appId = android.defaultConfig.applicationId
     def apiName = fetchAarFileNames(appId)
+    def dmtName = fetchDMTName(appId)
+    def magicWallet = fetchMagicWalletName(appId)
     def secondaryUrl = fetchSecondaryUrl(appId)
     def rOfferAvailability = fetchROffer(appId)
     sdkname = apiName.trim().toLowerCase()
     if (secondaryUrl == null || secondaryUrl.trim().isEmpty()) {
         secondaryUrl = ""
     }
-    createInfoXml(appType, sdkname, secondaryUrl, rOfferAvailability)
+    createInfoXml(appType, sdkname, secondaryUrl, rOfferAvailability, dmtName, magicWallet)
 
     project.dependencies {
         fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
@@ -424,7 +474,7 @@ afterEvaluate {
     downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php?mode=download", "logo.png")
 }
 
-def createInfoXml(String appType, String sdkname, String secondaryUrl, String rOfferAvailability) {
+def createInfoXml(String appType, String sdkname, String secondaryUrl, String rOfferAvailability, String dmtName, String magicWallet) {
     def appId = android.defaultConfig.applicationId
     def xmlContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
             "<resources>\n" +
@@ -433,6 +483,8 @@ def createInfoXml(String appType, String sdkname, String secondaryUrl, String rO
             "    <string name=\"atmType\">${sdkname}</string>\n" +
             "    <string name=\"secondaryUrl\">${secondaryUrl}</string>\n" +
             "    <string name=\"roffer\">${rOfferAvailability}</string>\n" +
+            "    <string name=\"dmtName\">${dmtName}</string>\n" +
+            "    <string name=\"magicWallet\">${magicWallet}</string>\n" +
             "</resources>"
     print(xmlContent)
     def file = new File(projectDir, "src/main/res/values/info.xml")

@@ -38,6 +38,7 @@ import com.fintech.superadmin.activities.lic.LicFetchBill;
 import com.fintech.superadmin.activities.mahagrm_bc.BcRegistration;
 import com.fintech.superadmin.activities.microatm.MicroAtmHome;
 import com.fintech.superadmin.activities.mobilenumber.SendMoney;
+import com.fintech.superadmin.activities.pan.NSDLPanActivity;
 import com.fintech.superadmin.activities.payoutpaysprint.PaysprintPayout;
 import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
@@ -63,6 +64,7 @@ import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
+import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.UtilHolder;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.HomeViewModel;
@@ -86,7 +88,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     private FragmentHomeMenuFragmentsBinding binding;
     HomeViewModel viewModel;
     ProgressDialog dialog;
-
     User user = null;
 
     public HomeMenuFragments() {
@@ -97,14 +98,19 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_menu_fragments, container, false);
         binding.getRoot().setOverScrollMode(View.OVER_SCROLL_NEVER);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding.setHomeViewModel(viewModel);
         dialog = new ProgressDialog(requireActivity());
+        if (getString(R.string.magicWallet).trim().equalsIgnoreCase("yes")) {
+            binding.magicContainer.setVisibility(View.VISIBLE);
+        } else {
+            binding.magicContainer.setVisibility(View.GONE);
+        }
         return binding.getRoot();
     }
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -124,20 +130,60 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 } else {
                     binding.b2cmainBalText.setText("Main: " + user.getMainbalance());
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         viewModel.bringTheNews(binding.everynews, binding.newsSection);
         binding.everynews.setSelected(true);
         newsModal();
+        observeMagicWallet();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getString(R.string.magicWallet).trim().equalsIgnoreCase("yes")) {
+            NetworkUtil.getNetworkResult(viewModel.apiServices.magicWalletStatus("magicWalletStatus"), null, result -> {
+                viewModel._360_Wallet.setValue(result.getReceivableData());
+                if (result.getStatus()) {
+                    viewModel._360_error.setValue("");
+                } else {
+                    viewModel._360_error.setValue(result.getMessage());
+                }
+            });
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void observeMagicWallet() {
+        if (getString(R.string.magicWallet).trim().equalsIgnoreCase("yes")) {
+            viewModel._360_error.observe(requireActivity(), result -> {
+                if (result != null && !result.trim().isEmpty()) {
+                    binding.magicContainer.setVisibility(View.VISIBLE);
+                    binding.magicWalletText.setText("Magic W: Activate now");
+                }
+            });
+            viewModel._360_Wallet.observe(requireActivity(), result -> {
+                if (result != null && !result.trim().isEmpty()) {
+                    binding.magicContainer.setVisibility(View.VISIBLE);
+                    binding.magicWalletText.setText("Magic W: " + getString(R.string.rupee_sign) + result);
+                }
+            });
+            binding.magicContainer.setOnClickListener(v->{
+                viewModel._360Operate(requireActivity());
+            });
+        } else {
+            binding.magicContainer.setVisibility(View.GONE);
+        }
+    }
+
+
 
 
     private void setBToBMenus() {
         //Money Transfer
-        if (viewModel.isAlreadySet){
+        if (viewModel.isAlreadySet) {
             return;
         }
         binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 5, GridLayoutManager.VERTICAL, false));
@@ -188,6 +234,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         utilitiesList.add(new MenuModel(R.drawable.piped_gas, "Piped Gas", "Gas"));
 //        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
         utilitiesList.add(new MenuModel(R.drawable.landline, "Landline"));
+        utilitiesList.add(new MenuModel(R.drawable.ic_cms, "CMS"));
+        utilitiesList.add(new MenuModel(R.drawable.utipancard, "UTI Pan"));
+        utilitiesList.add(new MenuModel(R.drawable.utipancard, "NSDL Pan"));
+        utilitiesList.add(new MenuModel(R.drawable.school_bus, "Bus"));
 //        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
         binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -233,7 +283,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     }
 
 
-
     //Should be not use this but the one which has been commented
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -241,8 +290,24 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         bank = "1";
         switch (model.getTitle()) {
 
-            case "Flights":{
+            case "Flights": {
                 startActivity(new Intent(requireActivity(), FlightHomeActivity.class));
+                break;
+            }
+            case "CMS": {
+                startCMS();
+                break;
+            }
+            case "Bus": {
+                startBusRedirect();
+                break;
+            }
+            case "UTI Pan": {
+                viewModel.startUTIPan(requireActivity());
+                break;
+            }
+            case "NSDL Pan": {
+                startActivity(new Intent(requireActivity(), NSDLPanActivity.class));
                 break;
             }
             case "X-Payout": {
@@ -322,8 +387,12 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "DMT": {
-//                Intent intent = new Intent(requireActivity(), com.fintech.superadmin.activities.eko_tobank.QueryRemitter.class);
-                Intent intent = new Intent(requireActivity(), com.fintech.superadmin.activities.tobank.QueryRemitter.class);
+                Intent intent;
+                if (getString(R.string.dmtName).trim().toLowerCase().equals("eko")) {
+                    intent = new Intent(requireActivity(), com.fintech.superadmin.activities.eko_tobank.QueryRemitter.class);
+                } else {
+                    intent = new Intent(requireActivity(), com.fintech.superadmin.activities.tobank.QueryRemitter.class);
+                }
                 startActivity(intent);
                 break;
             }
@@ -726,6 +795,17 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
     public void startCreditCard() {
         startActivity(new Intent(requireActivity(), CCFetchBillK.class));
+    }
+
+    private void startCMS() {
+        viewModel.startCMS(requireActivity(), "cms", data -> {
+            SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(requireActivity());
+            simple.openUrlForResult(data, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
+        });
+    }
+
+    private void startBusRedirect() {
+        viewModel.busRedirect(requireActivity());
     }
 
 
