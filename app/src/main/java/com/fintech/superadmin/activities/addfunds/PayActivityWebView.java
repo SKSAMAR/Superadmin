@@ -213,7 +213,7 @@ public class PayActivityWebView extends BaseActivity implements WebViewPayment {
                 startActivity(browserIntent);
                 return true;
             }
-            if (url.toLowerCase().contains(BuildConfig.APPLICATION_ID)) {
+            if (url.toLowerCase().contains(getString(R.string.base_url_data))) {
                 homeScreen("Success", true);
                 audio(binding.amountbalance.getText().toString());
                 return true;

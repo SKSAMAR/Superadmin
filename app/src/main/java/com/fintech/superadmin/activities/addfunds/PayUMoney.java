@@ -174,8 +174,8 @@ public class PayUMoney extends BaseActivity {
                 .setTransactionId(txnId)
                 .setFirstName(user.getName())
                 .setEmail(user.getEmail())
-                .setSurl("https://"+ BuildConfig.APPLICATION_ID+"/Backend/Merchant/API/app/temp/sdkGateway/Payu/callback.php")
-                .setFurl("https://"+ BuildConfig.APPLICATION_ID+"/Backend/Merchant/API/app/temp/sdkGateway/Payu/callback.php")
+                .setSurl("https://"+ getString(R.string.base_url_data)+"/Backend/Merchant/API/app/temp/sdkGateway/Payu/callback.php")
+                .setFurl("https://"+ getString(R.string.base_url_data)+"/Backend/Merchant/API/app/temp/sdkGateway/Payu/callback.php")
                 .setUserCredential(user.getId())
                 .setAdditionalParams(additionalParams)
                 .setPayUSIParams(null);

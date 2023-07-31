@@ -118,7 +118,7 @@ public class AppModule {
                 **/
                 .hostnameVerifier((hostname, session) -> {
                     HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    return hv.verify(BuildConfig.APPLICATION_ID, session);
+                    return hv.verify(context.getString(R.string.base_url_data), session);
                 });
 
         httpClient.addInterceptor(chain -> {
@@ -161,7 +161,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://"+ context.getString(R.string.base_url_data)+"/")
                 .client(httpClient)
                 .build();
         return retrofit.create(APIServices.class);
@@ -180,7 +180,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://"+ context.getString(R.string.base_url_data)+"/")
                 .client(httpClient)
                 .build();
         return retrofit.create(AuthApi.class);
@@ -197,7 +197,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://"+context.getString(R.string.base_url_data)+"/")
                 .client(httpClient)
                 .build();
         return retrofit.create(YesApi.class);

@@ -2,6 +2,7 @@ package com.fintech.superadmin.clean.data.di
 
 import android.content.Context
 import com.fintech.superadmin.BuildConfig
+import com.fintech.superadmin.R
 import com.fintech.superadmin.clean.data.remote.FintechAPI
 import com.fintech.superadmin.data.network.APIServices
 import com.google.gson.FieldNamingPolicy
@@ -37,7 +38,7 @@ object FintechSystemModule {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(ScalarsConverterFactory.create())
-            .baseUrl("https://" + BuildConfig.APPLICATION_ID + "/")
+            .baseUrl("https://" + context.getString(R.string.base_url_data) + "/")
             .client(httpClient)
             .build()
         return retrofit.create(FintechAPI::class.java)

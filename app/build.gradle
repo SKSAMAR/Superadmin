@@ -14,7 +14,7 @@ android {
     defaultConfig {
         manifestPlaceholders = [appName: "RNS Pay"]
         appType = "B2B"
-        applicationId "rnspay.com"
+        applicationId "androidrnspay.com"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
