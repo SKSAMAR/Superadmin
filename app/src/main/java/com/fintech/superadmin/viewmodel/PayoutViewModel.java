@@ -313,7 +313,6 @@ public class PayoutViewModel extends ViewModel {
             return;
         }
         else {
-
             if (accountNumber == null || accountNumber.isEmpty()) {
                 MyAlertUtils.showWarningAlertDialog(view.getContext(), "Provide Account Number");
             } else if (IFSC == null || IFSC.isEmpty()) {

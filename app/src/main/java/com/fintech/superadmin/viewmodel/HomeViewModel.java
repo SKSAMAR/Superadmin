@@ -219,6 +219,24 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    @SuppressLint("CheckResult")
+    public void startRailway(Context context, Receiver<String> stringReceiver) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.startRailways("railway")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.status || res.response_code == 1) {
+                            stringReceiver.getData(res.message);
+                        } else {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
+    }
+
 
     @SuppressLint("CheckResult")
     public void busRedirect(Context context) {

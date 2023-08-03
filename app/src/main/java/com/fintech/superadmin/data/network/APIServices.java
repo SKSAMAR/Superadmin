@@ -153,6 +153,13 @@ public interface APIServices {
             @Field("longitude") String longitude
     );
 
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/Railway/Railway.php")
+    Observable<RegularResponse> startRailways(
+            @Field("flight") String flight
+    );
+
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<BusBookRedirect> busRedirect(

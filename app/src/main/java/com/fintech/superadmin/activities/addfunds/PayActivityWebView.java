@@ -156,7 +156,6 @@ public class PayActivityWebView extends BaseActivity implements WebViewPayment {
                 String audioAmount = binding.amountbalance.getText().toString();
                 viewModel.madeValidPayment(audioAmount, PayActivityWebView.this, PayActivityWebView.this);
             }
-
         });
     }
 

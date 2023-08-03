@@ -41,8 +41,6 @@ public class PaysprintPayout extends BaseActivity implements PayoutHomeListener 
         viewModel = new ViewModelProvider(this).get(PayoutViewModel.class);
         binding.setPayoutViewModel(viewModel);
         viewModel.repository.paySprintPayoutList(PaysprintPayout.this);
-
-
         int search_plateId = getResources().getIdentifier("android:id/search_plate", null, null);
         View mSearchPlate = binding.searchView.findViewById(search_plateId);
         mSearchPlate.setBackgroundColor(Color.TRANSPARENT);

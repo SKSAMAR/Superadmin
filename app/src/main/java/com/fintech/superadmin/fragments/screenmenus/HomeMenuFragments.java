@@ -170,15 +170,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                     binding.magicWalletText.setText("Magic W: " + getString(R.string.rupee_sign) + result);
                 }
             });
-            binding.magicContainer.setOnClickListener(v->{
+            binding.magicContainer.setOnClickListener(v -> {
                 viewModel._360Operate(requireActivity());
             });
         } else {
             binding.magicContainer.setVisibility(View.GONE);
         }
     }
-
-
 
 
     private void setBToBMenus() {
@@ -300,6 +298,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             }
             case "Bus": {
                 startBusRedirect();
+                break;
+            }
+            case "Train": {
+                startRailway();
                 break;
             }
             case "UTI Pan": {
@@ -489,7 +491,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             intent.putExtra("email", user.getEmail());
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivityForResult(intent, 993192);
-
         } else {
             ViewUtils.showToast(requireActivity(), "Location Permissions are not granted");
         }
@@ -799,6 +800,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
     private void startCMS() {
         viewModel.startCMS(requireActivity(), "cms", data -> {
+            SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(requireActivity());
+            simple.openUrlForResult(data, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
+        });
+    }
+
+    private void startRailway() {
+        viewModel.startRailway(requireActivity(), data -> {
             SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(requireActivity());
             simple.openUrlForResult(data, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
         });

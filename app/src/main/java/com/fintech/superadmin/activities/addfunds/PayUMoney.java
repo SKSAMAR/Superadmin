@@ -252,7 +252,6 @@ public class PayUMoney extends BaseActivity {
         Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
     }
 
-
     private String getHexString(byte[] array) {
         StringBuilder hash = new StringBuilder();
         for (byte hashByte : array) {
@@ -260,7 +259,6 @@ public class PayUMoney extends BaseActivity {
         }
         return hash.toString();
     }
-
 
     private String calculateHmacSHA1Hash(String data, String key) {
         String HMAC_SHA1_ALGORITHM = "HmacSHA1";
@@ -278,7 +276,6 @@ public class PayUMoney extends BaseActivity {
 
         return result;
     }
-
 
     private PayUCheckoutProConfig getCheckoutProConfig() {
         PayUCheckoutProConfig checkoutProConfig = new PayUCheckoutProConfig();
