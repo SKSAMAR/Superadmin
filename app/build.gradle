@@ -13,7 +13,7 @@ android {
     compileSdk 33
     defaultConfig {
         manifestPlaceholders = [appName: "Lulu Pe"]
-        appType = "B2B"
+        appType = "B2C"
         applicationId "lulupe.in"
         minSdk 22
         //noinspection OldTargetApi

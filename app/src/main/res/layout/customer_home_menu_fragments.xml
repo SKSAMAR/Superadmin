@@ -125,17 +125,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="1">
 
                 <ImageView
                     android:id="@+id/walletPe"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_60sdp"
                     android:layout_marginHorizontal="@dimen/_4sdp"
                     android:src="@drawable/__wallet"/>
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/reawrds"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -145,6 +146,7 @@
 
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/referearn"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -268,6 +270,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
