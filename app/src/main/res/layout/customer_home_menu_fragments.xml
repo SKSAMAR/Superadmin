@@ -121,6 +121,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/b2cContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -229,6 +230,7 @@
             </androidx.cardview.widget.CardView>
 
             <FrameLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="175sp"
                 android:id="@+id/HomeSliderFragment2"

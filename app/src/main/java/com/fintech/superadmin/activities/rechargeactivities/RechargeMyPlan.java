@@ -121,7 +121,7 @@ public class RechargeMyPlan extends BaseActivity implements PaymentListener, Res
         LiveData<User> userLiveData = AppDatabase.getAppDatabase(RechargeMyPlan.this).getUserDao().getUser();
         userLiveData.observe(this, user -> {
             try {
-                menu.getItem(0).setTitle("Main Bal: "+user.mainbalance+"\nAePS Bal: "+user.aepsbalance);
+                menu.getItem(0).setTitle("Main Bal: "+user.mainbalance);
             }catch (Exception e){
                 e.printStackTrace();
             }

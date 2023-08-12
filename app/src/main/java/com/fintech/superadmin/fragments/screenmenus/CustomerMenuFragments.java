@@ -98,7 +98,6 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         binding = DataBindingUtil.inflate(inflater, R.layout.customer_home_menu_fragments, container, false);
         binding.getRoot().setOverScrollMode(View.OVER_SCROLL_NEVER);
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
@@ -133,7 +132,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
-        moneyTransferList.add(new MenuModel(R.drawable.banktransfer, "Bank Transfer"));
+        moneyTransferList.add(new MenuModel(R.drawable.banktransfer, "Add Fund"));
         moneyTransferList.add(new MenuModel(R.drawable.checkbalance, "Check Balance"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -208,6 +207,11 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
     @Override
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         switch (model.getTitle()) {
+
+            case "Add Fund": {
+                startActivity(new Intent(requireActivity(), AddFundList.class));
+                break;
+            }
 
             case "Bank Transfer": {
                 Intent intent = new Intent(requireActivity(), SuvidhaPayout.class);
