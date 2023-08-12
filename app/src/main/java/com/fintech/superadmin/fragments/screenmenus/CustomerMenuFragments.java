@@ -176,7 +176,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         financesList.add(new MenuModel(R.drawable.insurance, "Insurance", "Insurance"));
         financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
         financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
-        financesList.add(new MenuModel(R.drawable.carinsurance, "Car Insurance"));
+        //financesList.add(new MenuModel(R.drawable.carinsurance, "Car Insurance"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -261,11 +261,11 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
                 break;
             }
 
-            case "LIC": {
-                Intent intent = new Intent(requireActivity(), LicFetchBill.class);
-                startActivity(intent);
-                break;
-            }
+//            case "LIC": {
+//                Intent intent = new Intent(requireActivity(), LicFetchBill.class);
+//                startActivity(intent);
+//                break;
+//            }
             case "Credit Card":
                 startCreditCard();
                 break;
@@ -296,6 +296,7 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
                 proceedToSeekMobileNumber();
                 break;
             }
+            case "LIC":
             case "Postpaid":
             case "LPG":
             case "Data Card\nPostpaid":
