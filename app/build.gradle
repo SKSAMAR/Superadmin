@@ -12,9 +12,9 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "ETH Hub"]
+        manifestPlaceholders = [appName: "Lulu Pe"]
         appType = "B2B"
-        applicationId "easytravelhub.com"
+        applicationId "lulupe.in"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31

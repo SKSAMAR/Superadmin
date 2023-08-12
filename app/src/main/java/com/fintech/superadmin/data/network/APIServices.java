@@ -368,6 +368,29 @@ public interface APIServices {
                                      @Field("bankName") String bankName, @Field("long") String longitude,
                                      @Field("lat") String latitude, @Field("amount") String amount);
 
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
+    Observable<RegularResponse> AePSRegistrationAuthenticate(@Field("device") String app, @Field("aadharReg") String aadharReg, @Field("fingerData") String fingerData,
+                                                             @Field("long") String longitude, @Field("lat") String latitude);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
+    Observable<RegularResponse> AePSDailyAuthenticate(@Field("device") String app, @Field("AuthToday") String AuthToday, @Field("fingerData") String fingerData,
+                                                      @Field("long") String longitude, @Field("lat") String latitude);
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<RegularResponse> aEPSDailyAuthCheck(@Field("aePSDailyAuth") String aePSDailyAuth);
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<RegularResponse> aEPSRegistrationAuthCheck(@Field("aePSReg") String aePSReg);
+
+
     @FormUrlEncoded
     @POST("Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
     Observable<MiniStatementResponse> startAepsResponseMiniStatement(@Field("device") String app, @Field("aadhar") String aadhar, @Field("fingerData") String fingerData,
@@ -377,7 +400,7 @@ public interface APIServices {
 
 
     @FormUrlEncoded
-    @POST("/Agent/Backend/AEPS/Paysprint/aeps_init_req.php")
+    @POST("/Backend/Merchant/API/AePs/PaySprint/aeps_init_req.php")
     Observable<RegularResponse> aEPS_Status(@Field("ref_id") String ref_id, @Field("check_aeps_status") String check_aeps_status);
 
 

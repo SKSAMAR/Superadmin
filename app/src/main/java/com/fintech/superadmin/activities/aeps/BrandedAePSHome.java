@@ -34,14 +34,21 @@ import com.fintech.superadmin.activities.aeps.brandedComp.util;
 import com.fintech.superadmin.activities.aeps.brandedComp.utilDevices;
 import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.data.model.AEPSBanksModel;
+import com.fintech.superadmin.databinding.AepsDailyAuthDialogBinding;
+import com.fintech.superadmin.databinding.AepsRegAuthDialogBinding;
 import com.fintech.superadmin.databinding.WActivityDashboardAepsBinding;
+import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.listeners.ResetListener;
 import com.fintech.superadmin.util.AadhaarVerify;
 import com.fintech.superadmin.util.AuthorizedSingleton;
 import com.fintech.superadmin.util.Constant;
+import com.fintech.superadmin.util.DisplayMessageUtil;
+import com.fintech.superadmin.util.NetworkUtil;
 import com.fintech.superadmin.util.StartGettingLocation;
 import com.fintech.superadmin.util.UtilHolder;
+import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.AepsViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -63,6 +70,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
     private RecyclerViewClickListener recyclerViewClick = this;
     AepsViewModel viewModel;
     WActivityDashboardAepsBinding binding;
+    
 
     public BrandedAePSHome() {
         Constant.toReset = false;
@@ -91,7 +99,9 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
                 topBankList.add(new AEPSBanksModel("8", "Indian bank", "607105", "1", R.drawable.indianbank));
                 topBankList.add(new AEPSBanksModel("34", "Baroda Uttar Pradesh Gramin Bank", "606993", "1", R.drawable.barodaup));
 
-            } else {
+            }
+            else {
+
                 topBankList = new ArrayList<>();
                 topBankList.add(new AEPSBanksModel("85", "State Bank of India", "607094", "1", R.drawable.sbi));
                 topBankList.add(new AEPSBanksModel("14", "Bank of India", "508505", "1", R.drawable.boi));
@@ -102,7 +112,8 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
                 topBankList.add(new AEPSBanksModel("41", "Indian bank", "607105", "1", R.drawable.indianbank));
                 topBankList.add(new AEPSBanksModel("18", "Baroda Uttar Pradesh Gramin Bank", "606993", "1", R.drawable.barodaup));
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -164,7 +175,6 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         insertLatLongApi();
         BankList();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -396,36 +406,43 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         alert.show();
     }
 
+
     private void scanDevice() {
-        int indexCount = 50;
-        String deviceValue = AllString.getValue(this, AllString.SELECTED_DEVICE_INDEX);
-        if (deviceValue != null && deviceValue.length() > 0) {
-            indexCount = Integer.parseInt(deviceValue);
-        }
+        try {
 
-        switch (indexCount) {
-            case 0:
-                this.MantraFinger();
-                break;
-            case 1:
-                this.MorphoDevice();
-                break;
-            case 2:
-                this.TatvikFinger();
-                break;
-            case 3:
-                this.StarTekFinger();
-                break;
-            case 4:
-                this.SecuGenFinger();
-                break;
-            case 5:
-                this.EvoluteFinger();
-                break;
-            case 6:
-                this.NextBiometric();
+            viewModel.bank = getIntent().getStringExtra("bank");
+            apiType = getIntent().getStringExtra("apiName");
+            int indexCount = 50;
+            String deviceValue = AllString.getValue(this, AllString.SELECTED_DEVICE_INDEX);
+            if (deviceValue != null && deviceValue.length() > 0) {
+                indexCount = Integer.parseInt(deviceValue);
+            }
+            switch (indexCount) {
+                case 0:
+                    this.MantraFinger();
+                    break;
+                case 1:
+                    this.MorphoDevice();
+                    break;
+                case 2:
+                    this.TatvikFinger();
+                    break;
+                case 3:
+                    this.StarTekFinger();
+                    break;
+                case 4:
+                    this.SecuGenFinger();
+                    break;
+                case 5:
+                    this.EvoluteFinger();
+                    break;
+                case 6:
+                    this.NextBiometric();
+            }
         }
-
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void MorphoDevice() {
@@ -440,7 +457,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("Morpho RD Services Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.scl.rdservice")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.scl.rdservice")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -477,7 +494,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("Mantra RD Services Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.mantra.rdservice")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.mantra.rdservice")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -507,7 +524,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("SecuGen RD Services Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.secugen.rdservice")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.secugen.rdservice")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -536,7 +553,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("Tatvik RD Services Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.tatvik.bio.tmf20")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tatvik.bio.tmf20")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -566,7 +583,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("Startek RD Service not found. Click OK to download now.");
             alertDialog.setPositiveButton("OK", (dialogInterface, i) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.acpl.registersdk")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.acpl.registersdk")));
                 } catch (Exception var4) {
                     var4.printStackTrace();
                 }
@@ -594,7 +611,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("Evolute RD Services Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.evolute.rdservice")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.evolute.rdservice")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -623,7 +640,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             alertDialog.setMessage("NEXT Biometrics L0 Is Not Found.Click OK to Download Now.");
             alertDialog.setPositiveButton("OK", (dialog, which) -> {
                 try {
-                    this.startActivity(new Intent("androR.id.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=com.nextbiometrics.onetouchrdservice&hl=en_IN&gl=US")));
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nextbiometrics.onetouchrdservice&hl=en_IN&gl=US")));
                 } catch (Exception var4) {
                     (new util()).snackBar(binding.mainLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
                     var4.printStackTrace();
@@ -815,6 +832,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
         binding.recyclerBank.setAdapter(this.topBankAdaptor);
 
     }
+    
 
 
     @SuppressLint({"UseCompatLoadingForDrawables"})
@@ -923,7 +941,7 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
                         }
 
                     }
-                    //isAllInputValid();
+                    isAllInputValid();
                 }
                 break;
             case 7:
@@ -987,5 +1005,6 @@ public class BrandedAePSHome extends BaseActivity implements View.OnClickListene
             Constant.toReset = false;
         }
     }
+    
 
 }

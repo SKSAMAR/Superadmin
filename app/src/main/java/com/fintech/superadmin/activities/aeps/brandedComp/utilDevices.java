@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,7 +18,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 
 public class utilDevices {
-    public DeviceDataModel morphoDeviceData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel morphoDeviceData(View ParentLayout, String mainData) {
         DeviceDataModel dataModel = new DeviceDataModel();
         dataModel.setErrMsg("Please connect your Morpho device!");
         dataModel.setErrCode("111");
@@ -48,7 +47,8 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel morphoFingerData(RelativeLayout ParentLayout, String mainData, DeviceDataModel morphoDeviceData) {
+
+    public DeviceDataModel morphoFingerData(View ParentLayout, String mainData, DeviceDataModel morphoDeviceData) {
         DeviceDataModel dataModel = new DeviceDataModel();
         dataModel.setErrMsg("Please connect your Morpho device!");
         /*  89 */
@@ -140,7 +140,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel mantraData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel mantraData(View ParentLayout, String mainData) {
         /* 146 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 147 */
@@ -249,7 +249,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel secugenData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel secugenData(View ParentLayout, String mainData) {
         /* 213 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 214 */
@@ -348,7 +348,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel tatvikData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel tatvikData(View ParentLayout, String mainData) {
         /* 274 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 275 */
@@ -447,7 +447,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel starTekData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel starTekData(View ParentLayout, String mainData) {
         /* 335 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 336 */
@@ -545,7 +545,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel EvoluteData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel EvoluteData(View ParentLayout, String mainData) {
         /* 395 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 396 */
@@ -642,7 +642,7 @@ public class utilDevices {
         return dataModel;
     }
 
-    public DeviceDataModel NextBIoData(RelativeLayout ParentLayout, String mainData) {
+    public DeviceDataModel NextBIoData(View ParentLayout, String mainData) {
         /* 454 */
         DeviceDataModel dataModel = new DeviceDataModel();
         /* 455 */

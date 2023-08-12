@@ -15,7 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +33,10 @@ import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
+import com.fintech.superadmin.activities.aeps.brandedComp.AllString;
+import com.fintech.superadmin.activities.aeps.brandedComp.DeviceDataModel;
+import com.fintech.superadmin.activities.aeps.brandedComp.util;
+import com.fintech.superadmin.activities.aeps.brandedComp.utilDevices;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
 import com.fintech.superadmin.activities.creditcard.CCFetchBillK;
 import com.fintech.superadmin.activities.eko_tobank.QueryRemitter;
@@ -53,7 +60,10 @@ import com.fintech.superadmin.data.dto.PaysprintApiCred;
 import com.fintech.superadmin.data.dto.PaysprintMerchantCred;
 import com.fintech.superadmin.data.model.MenuModel;
 import com.fintech.superadmin.data.network.responses.AuthResponse;
+import com.fintech.superadmin.databinding.AepsDailyAuthDialogBinding;
+import com.fintech.superadmin.databinding.AepsRegAuthDialogBinding;
 import com.fintech.superadmin.databinding.FragmentHomeMenuFragmentsBinding;
+import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.flight.presentation.home.FlightHomeActivity;
 import com.fintech.superadmin.fragments.sliders.SliderFragment;
 import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
@@ -69,6 +79,7 @@ import com.fintech.superadmin.util.UtilHolder;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.HomeViewModel;
 import com.fintech.superadmin.viewmodel.MobileRechargeViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.paysprint.onboardinglib.activities.HostActivity;
 
 import java.security.SecureRandom;
@@ -85,10 +96,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeMenuFragments extends Fragment implements RecyclerViewClickListener {
 
     String bank = "1";
+    private String oType = "";
     private FragmentHomeMenuFragmentsBinding binding;
     HomeViewModel viewModel;
     ProgressDialog dialog;
     User user = null;
+    private DeviceDataModel morphoDeviceData;
+
+    private final String IciciPidData = "<?xml version=\"1.0\"?><PidOptions ver=\"1.0\"><Opts env=\"P\" fCount=\"1\" fType=\"2\" iCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"10000\" posh=\"UNKNOWN\" /></PidOptions>";
+    private BottomSheetDialog bottomAePsSheetDialog;
+    private AepsDailyAuthDialogBinding aepsDailyAuthDialogBinding;
+    private AepsRegAuthDialogBinding aepsRegAuthDialogBinding;
+    private String regAadhaar = "";
 
     public HomeMenuFragments() {
         // Required empty public constructor
@@ -197,10 +216,10 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
 
 
         //AEPS Services
-        binding.aepsHomeMenu.setLayoutManager(new GridLayoutManager(requireActivity(), 4, GridLayoutManager.VERTICAL, false));
+        binding.aepsHomeMenu.setLayoutManager(new GridLayoutManager(requireActivity(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> aePSTransferList = new ArrayList<>();
         aePSTransferList.add(new MenuModel(R.drawable.aeps, "Fino AePs"));
-        aePSTransferList.add(new MenuModel(R.drawable.aeps, "ICICI AePS"));
+        //aePSTransferList.add(new MenuModel(R.drawable.aeps, "ICICI AePS"));
         aePSTransferList.add(new MenuModel(R.drawable.aeps, "NSDL AePs"));
         aePSTransferList.add(new MenuModel(R.drawable.cashwithdraw, "Move To Bank"));
         binding.aepsHomeMenu.setAdapter(new MenuAdapter(aePSTransferList, this));
@@ -256,20 +275,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.travelMenus.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
         List<MenuModel> BookingList = new ArrayList<>();
         BookingList.add(new MenuModel(R.drawable.flightsbooking, "Flights"));
-        BookingList.add(new MenuModel(R.drawable.busbooking, "Bus"));
         BookingList.add(new MenuModel(R.drawable.trainbooking, "Train"));
-        BookingList.add(new MenuModel(R.drawable.hotelbooking, "Hotels"));
-        binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
-        binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-        //Account Opening
-        binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
-        List<MenuModel> accountOpening = new ArrayList<>();
-        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
-        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
-        accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
-        binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
-        binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         binding.b2bclickPayout.setOnClickListener(v -> viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startPayout()));
@@ -278,6 +284,34 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         binding.b2BContainer.setVisibility(View.VISIBLE);
         binding.b2cContainer.setVisibility(View.GONE);
         viewModel.isAlreadySet = true;
+
+
+        String url = getString(R.string.base_url_data);
+        if (url.contains("easytravelhub")) {
+
+            binding.accountOpeningContainer.setVisibility(View.GONE);
+            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
+            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+        } else {
+
+            //Account Opening
+            binding.accountOpeningContainer.setVisibility(View.VISIBLE);
+            binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+            List<MenuModel> accountOpening = new ArrayList<>();
+            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
+            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
+            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
+            binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
+            binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+            BookingList.add(new MenuModel(R.drawable.busbooking, "Bus"));
+            BookingList.add(new MenuModel(R.drawable.hotelbooking, "Hotels"));
+            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
+            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        }
     }
 
 
@@ -285,7 +319,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onRecyclerViewClickItem(View view, MenuModel model) {
-        bank = "1";
+        bank = "2";
         switch (model.getTitle()) {
 
             case "Flights": {
@@ -634,6 +668,121 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 }
             }
         }
+        switch (requestCode) {
+            case 1:
+                if (resultCode == -1) {
+                    this.morphoDeviceData = (new utilDevices()).morphoDeviceData(binding.getRoot(), data.getStringExtra("DEVICE_INFO"));
+                    if (this.morphoDeviceData.getErrCode().equalsIgnoreCase("919")) {
+                        MorphoFinger();
+                    }
+                }
+                break;
+
+            case 2:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).morphoFingerData(binding.getRoot(), data.getStringExtra("PID_DATA"), this.morphoDeviceData);
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+
+            case 3:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).mantraData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case 4:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).secugenData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                break;
+            case 5:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).tatvikData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case 6:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).starTekData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case 7:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).EvoluteData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                break;
+
+            case 8:
+                if (resultCode == -1) {
+                    DeviceDataModel dataModel = (new utilDevices()).NextBIoData(binding.getRoot(), data.getStringExtra("PID_DATA"));
+                    if (dataModel.getErrCode().equalsIgnoreCase("0")) {
+                        if (this.oType.equalsIgnoreCase("DA")) {
+                            dailyAuthentication(data.getStringExtra("PID_DATA"));
+                        } else if (this.oType.equalsIgnoreCase("OR")) {
+                            onceRegistration(data.getStringExtra("PID_DATA"));
+                        }
+                    } else {
+                        Toast.makeText(requireActivity(), dataModel.getErrCode() + " :  " + dataModel.getErrMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
+
+
     }
 
 
@@ -751,42 +900,69 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     }
 
     private void startAEPS() {
-        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
-        intent.putExtra("apiName", "paysprint");
-        intent.putExtra("bank", bank);
-        startActivity(intent);
+
+        paySprintOnceReg(onceRegResult -> {
+            dailyAuth(dailyAuthData -> {
+                Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+                intent.putExtra("apiName", "paysprint");
+                intent.putExtra("bank", bank);
+                startActivity(intent);
+            });
+        });
     }
 
     private void startAePSBE() {
-        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
-        intent.putExtra("aepsType", "BE");
-        intent.putExtra("apiName", "paysprint");
-        intent.putExtra("bank", bank);
-        startActivity(intent);
+
+        paySprintOnceReg(onceRegResult -> {
+            dailyAuth(dailyAuthData -> {
+                Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+                intent.putExtra("aepsType", "BE");
+                intent.putExtra("apiName", "paysprint");
+                intent.putExtra("bank", bank);
+                startActivity(intent);
+            });
+        });
     }
 
     private void startAePSMS() {
-        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
-        intent.putExtra("aepsType", "MS");
-        intent.putExtra("apiName", "paysprint");
-        intent.putExtra("bank", bank);
-        startActivity(intent);
+        paySprintOnceReg(onceRegResult -> {
+            dailyAuth(dailyAuthData -> {
+
+                Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+                intent.putExtra("aepsType", "MS");
+                intent.putExtra("apiName", "paysprint");
+                intent.putExtra("bank", bank);
+                startActivity(intent);
+
+            });
+        });
     }
 
     private void startAePSCW() {
-        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
-        intent.putExtra("aepsType", "CW");
-        intent.putExtra("apiName", "paysprint");
-        intent.putExtra("bank", bank);
-        startActivity(intent);
+
+        paySprintOnceReg(onceRegResult -> {
+            dailyAuth(dailyAuthData -> {
+                Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+                intent.putExtra("aepsType", "CW");
+                intent.putExtra("apiName", "paysprint");
+                intent.putExtra("bank", bank);
+                startActivity(intent);
+            });
+
+        });
     }
 
     private void startAePSM() {
-        Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
-        intent.putExtra("aepsType", "M");
-        intent.putExtra("apiName", "paysprint");
-        intent.putExtra("bank", bank);
-        startActivity(intent);
+
+        paySprintOnceReg(onceRegResult->{
+            dailyAuth(dailyAuthData->{
+                Intent intent = new Intent(requireActivity(), BrandedAePSHome.class);
+                intent.putExtra("aepsType", "M");
+                intent.putExtra("apiName", "paysprint");
+                intent.putExtra("bank", bank);
+                startActivity(intent);
+            });
+        });
     }
 
     private void startPayout() {
@@ -817,13 +993,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     }
 
 
-    public void onAddFundClick() {
-        if (Accessable.isAccessable()) {
-            startActivity(new Intent(requireActivity(), AddFundList.class));
-        }
-    }
-
-
     public void startMicroAtm(PaysprintMerchantCred paySprintMerchant, PaysprintApiCred paysprintApiCred) {
 
         if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -834,5 +1003,454 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             intent.putExtra("paySprintApi", paysprintApiCred);
             startActivity(intent);
         }
+    }
+
+
+    private void MorphoDevice() {
+        PackageManager packageManager = this.requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.scl.rdservice", packageManager)) {
+            Intent intent = new Intent("in.gov.uidai.rdservice.fp.INFO");
+            intent.setPackage("com.scl.rdservice");
+            this.startActivityForResult(intent, 1);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("Morpho RD Services Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.scl.rdservice")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.b2bwalletBalLayout, "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    private void MorphoFinger() {
+        Intent intent2 = new Intent();
+        intent2.setComponent(new ComponentName("com.scl.rdservice", "com.scl.rdservice.FingerCaptureActivity"));
+        intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+        intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+        this.startActivityForResult(intent2, 2);
+    }
+
+    private void MantraFinger() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.mantra.rdservice", packageManager)) {
+            Intent intent2 = new Intent();
+            intent2.setComponent(new ComponentName("com.mantra.rdservice", "com.mantra.rdservice.RDServiceActivity"));
+            intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+            this.startActivityForResult(intent2, 3);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("Mantra RD Services Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.mantra.rdservice")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.getRoot(), "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                    Log.e("deviceerror", "" + var4);
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    private void SecuGenFinger() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.secugen.rdservice", packageManager)) {
+            Intent intent2 = new Intent();
+            intent2.setComponent(new ComponentName("com.secugen.rdservice", "com.secugen.rdservice.Capture"));
+            intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+            this.startActivityForResult(intent2, 4);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("SecuGen RD Services Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.secugen.rdservice")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.getRoot(), "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    private void TatvikFinger() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.tatvik.bio.tmf20", packageManager)) {
+            Intent intent2 = new Intent();
+            intent2.setComponent(new ComponentName("com.tatvik.bio.tmf20", "com.tatvik.bio.tmf20.RDMainActivity"));
+            intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+            this.startActivityForResult(intent2, 5);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("Tatvik RD Services Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.tatvik.bio.tmf20")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.getRoot(), "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                    Log.e("deviceerror", "" + var4);
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    public void StarTekFinger() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.acpl.registersdk", packageManager)) {
+            Intent intent = new Intent();
+            intent.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent.setComponent(new ComponentName("com.acpl.registersdk", "com.acpl.registersdk.MainActivity"));
+            intent.putExtra("PID_OPTIONS", this.IciciPidData);
+            this.startActivityForResult(intent, 6);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("Startek RD Service not found. Click OK to download now.");
+            alertDialog.setPositiveButton("OK", (dialogInterface, i) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.acpl.registersdk")));
+                } catch (Exception var4) {
+                    var4.printStackTrace();
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, i) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    private void EvoluteFinger() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.evolute.rdservice", packageManager)) {
+            Intent intent2 = new Intent();
+            intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent2.setComponent(new ComponentName("com.evolute.rdservice", "com.evolute.rdservice.RDserviceActivity"));
+            intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+            this.startActivityForResult(intent2, 7);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("Evolute RD Services Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.evolute.rdservice")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.getRoot(), "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+    private void NextBiometric() {
+        PackageManager packageManager = requireActivity().getPackageManager();
+        if (util.isPackageInstalled("com.nextbiometrics.onetouchrdservice", packageManager)) {
+            Intent intent2 = new Intent();
+            intent2.setAction("in.gov.uidai.rdservice.fp.CAPTURE");
+            intent2.putExtra("PID_OPTIONS", this.IciciPidData);
+            intent2.setPackage("com.nextbiometrics.onetouchrdservice");
+            this.startActivityForResult(intent2, 8);
+        } else {
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(requireActivity(), R.style.alertDialog_sdk);
+            alertDialog.setTitle("Get Service");
+            alertDialog.setMessage("NEXT Biometrics L0 Is Not Found.Click OK to Download Now.");
+            alertDialog.setPositiveButton("OK", (dialog, which) -> {
+                try {
+
+                    this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nextbiometrics.onetouchrdservice&hl=en_IN&gl=US")));
+                } catch (Exception var4) {
+                    (new util()).snackBar(binding.getRoot(), "Something went wrong.Please try again later.", AllString.SnackBarBackGroundColor);
+                    var4.printStackTrace();
+                }
+
+            });
+            alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+            alertDialog.show();
+        }
+
+    }
+
+
+    private void dailyAuthentication(String fingerData) {
+        NetworkUtil.getNetworkResult(viewModel.apiServices.AePSDailyAuthenticate("APP", "" + regAadhaar, fingerData, UtilHolder.getLongitude(), UtilHolder.getLatitude()), requireActivity(), result -> {
+            if (result.status || result.response_code == 1) {
+                oType = "";
+                if (bottomAePsSheetDialog != null) {
+                    bottomAePsSheetDialog.dismiss();
+                }
+            } else {
+                DisplayMessageUtil.error(requireActivity(), "" + result.message);
+            }
+        });
+    }
+
+    private void onceRegistration(String fingerData) {
+        String aadhaarNumber = aepsRegAuthDialogBinding.aadhaarNumber.getText().toString().trim();
+        NetworkUtil.getNetworkResult(viewModel.apiServices.AePSRegistrationAuthenticate("APP", "" + aadhaarNumber, fingerData, UtilHolder.getLongitude(), UtilHolder.getLatitude()), requireActivity(), result -> {
+            if (result.status || result.response_code == 1) {
+                oType = "";
+                if (bottomAePsSheetDialog != null) {
+                    bottomAePsSheetDialog.dismiss();
+                }
+            } else {
+                DisplayMessageUtil.error(requireActivity(), "" + result.message);
+            }
+        });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void aePSRegistrationAuthDialog() {
+        oType = "OR";
+        bottomAePsSheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+        aepsRegAuthDialogBinding = AepsRegAuthDialogBinding.inflate(getLayoutInflater());
+        aepsRegAuthDialogBinding.textChangeDeviceName.setOnClickListener((v) -> this.registrationSelection());
+
+        String selectedDevice = AllString.getValue(requireActivity(), AllString.SELECTED_DEVICEONE);
+        if (selectedDevice != null && selectedDevice.length() > 0) {
+            String device1 = "" + selectedDevice;
+            aepsRegAuthDialogBinding.textDeviceName.setText(device1);
+            if (selectedDevice.equalsIgnoreCase("Mantra")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_mantrimages);
+            } else if (selectedDevice.equalsIgnoreCase("Morpho")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_moprhoimages);
+            } else if (selectedDevice.equalsIgnoreCase("Tatvik")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_tatvikimagesl);
+            } else if (selectedDevice.equalsIgnoreCase("Startek")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_startekimage);
+            } else if (selectedDevice.equalsIgnoreCase("Secugen")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_secugenimages);
+            } else if (selectedDevice.equalsIgnoreCase("Evolute")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_evoluteimages);
+            } else if (selectedDevice.equalsIgnoreCase("NextBio")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_nextbioimages);
+            }
+        } else {
+            this.registrationSelection();
+        }
+
+
+        aepsRegAuthDialogBinding.submit.setOnClickListener(v -> {
+            if (aepsRegAuthDialogBinding.aadhaarNumber.getText().toString().trim().length() != 12) {
+                ViewUtils.showToast(requireActivity(), "Please Enter your valid Aadhaar Number");
+            } else if (!aepsRegAuthDialogBinding.checkBox.isChecked()) {
+                ViewUtils.showToast(requireActivity(), "Please confirm if it's your Aadhaar");
+            } else {
+                this.scanDevice();
+            }
+        });
+        bottomAePsSheetDialog.setContentView(aepsRegAuthDialogBinding.getRoot());
+        bottomAePsSheetDialog.show();
+    }
+
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
+    private void dailySelection() {
+        String[] deviceType = new String[]{"Mantra", "Morpho", "Tatvik", "Startek", "Secugen", "Evolute", "NextBio"};
+        androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+        alert.setTitle("Please select one option");
+        alert.setSingleChoiceItems(deviceType, -1, (dialog, which) -> {
+            AllString.setValue(requireActivity(), AllString.SELECTED_DEVICEONE, deviceType[which]);
+            AllString.setValue(requireActivity(), AllString.SELECTED_DEVICE_INDEX, String.valueOf(which));
+            aepsDailyAuthDialogBinding.textDeviceName.setText(deviceType[which]);
+            if (deviceType[which].equalsIgnoreCase("Mantra")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_mantrimages);
+            } else if (deviceType[which].equalsIgnoreCase("Morpho")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_moprhoimages);
+            } else if (deviceType[which].equalsIgnoreCase("Tatvik")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_tatvikimagesl);
+            } else if (deviceType[which].equalsIgnoreCase("Startek")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_startekimage);
+            } else if (deviceType[which].equalsIgnoreCase("Secugen")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_secugenimages);
+            } else if (deviceType[which].equalsIgnoreCase("Evolute")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_evoluteimages);
+            } else if (deviceType[which].equalsIgnoreCase("NextBio")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_nextbioimages);
+            }
+
+        });
+        alert.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        alert.setCancelable(false);
+        alert.show();
+    }
+
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
+    private void registrationSelection() {
+        String[] deviceType = new String[]{"Mantra", "Morpho", "Tatvik", "Startek", "Secugen", "Evolute", "NextBio"};
+        androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
+        alert.setTitle("Please select one option");
+        alert.setSingleChoiceItems(deviceType, -1, (dialog, which) -> {
+            AllString.setValue(requireActivity(), AllString.SELECTED_DEVICEONE, deviceType[which]);
+            AllString.setValue(requireActivity(), AllString.SELECTED_DEVICE_INDEX, String.valueOf(which));
+            aepsRegAuthDialogBinding.textDeviceName.setText(deviceType[which]);
+            if (deviceType[which].equalsIgnoreCase("Mantra")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_mantrimages);
+            } else if (deviceType[which].equalsIgnoreCase("Morpho")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_moprhoimages);
+            } else if (deviceType[which].equalsIgnoreCase("Tatvik")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_tatvikimagesl);
+            } else if (deviceType[which].equalsIgnoreCase("Startek")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_startekimage);
+            } else if (deviceType[which].equalsIgnoreCase("Secugen")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_secugenimages);
+            } else if (deviceType[which].equalsIgnoreCase("Evolute")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_evoluteimages);
+            } else if (deviceType[which].equalsIgnoreCase("NextBio")) {
+                aepsRegAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_nextbioimages);
+            }
+
+        });
+        alert.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        alert.setCancelable(false);
+        alert.show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void aePSDailyAuthDialog() {
+        oType = "DA";
+        bottomAePsSheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+        aepsDailyAuthDialogBinding = AepsDailyAuthDialogBinding.inflate(getLayoutInflater());
+        aepsDailyAuthDialogBinding.textChangeDeviceName.setOnClickListener((v) -> this.dailySelection());
+
+        String message = aepsDailyAuthDialogBinding.aadhaarNumber.getText().toString();
+        aepsDailyAuthDialogBinding.aadhaarNumber.setText(message + regAadhaar);
+
+        String selectedDevice = AllString.getValue(requireActivity(), AllString.SELECTED_DEVICEONE);
+        if (selectedDevice != null && selectedDevice.length() > 0) {
+            String device1 = "" + selectedDevice;
+            aepsDailyAuthDialogBinding.textDeviceName.setText(device1);
+            if (selectedDevice.equalsIgnoreCase("Mantra")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_mantrimages);
+            } else if (selectedDevice.equalsIgnoreCase("Morpho")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_moprhoimages);
+            } else if (selectedDevice.equalsIgnoreCase("Tatvik")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_tatvikimagesl);
+            } else if (selectedDevice.equalsIgnoreCase("Startek")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_startekimage);
+            } else if (selectedDevice.equalsIgnoreCase("Secugen")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_secugenimages);
+            } else if (selectedDevice.equalsIgnoreCase("Evolute")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_evoluteimages);
+            } else if (selectedDevice.equalsIgnoreCase("NextBio")) {
+                aepsDailyAuthDialogBinding.imgDevice.setImageResource(R.drawable.w_nextbioimages);
+            }
+        } else {
+            this.dailySelection();
+        }
+
+        aepsDailyAuthDialogBinding.submit.setOnClickListener(v -> {
+            if (!aepsDailyAuthDialogBinding.checkBox.isChecked()) {
+                ViewUtils.showToast(requireActivity(), "Please confirm if it's your Aadhaar");
+            } else {
+                this.scanDevice();
+            }
+        });
+        bottomAePsSheetDialog.setContentView(aepsDailyAuthDialogBinding.getRoot());
+        bottomAePsSheetDialog.show();
+    }
+
+    private void scanDevice() {
+        try {
+            int indexCount = 50;
+            String deviceValue = AllString.getValue(requireActivity(), AllString.SELECTED_DEVICE_INDEX);
+            if (deviceValue != null && deviceValue.length() > 0) {
+                indexCount = Integer.parseInt(deviceValue);
+            }
+            switch (indexCount) {
+                case 0:
+                    this.MantraFinger();
+                    break;
+                case 1:
+                    this.MorphoDevice();
+                    break;
+                case 2:
+                    this.TatvikFinger();
+                    break;
+                case 3:
+                    this.StarTekFinger();
+                    break;
+                case 4:
+                    this.SecuGenFinger();
+                    break;
+                case 5:
+                    this.EvoluteFinger();
+                    break;
+                case 6:
+                    this.NextBiometric();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void dailyAuth(Receiver<Boolean> receiver) {
+        NetworkUtil.getNetworkResult(viewModel.apiServices.aEPSDailyAuthCheck("aePSDailyAuth"), requireActivity(), result -> {
+            regAadhaar = "" + result.message;
+            if (result.status) {
+                receiver.getData(true);
+            } else {
+                aePSDailyAuthDialog();
+            }
+        });
+    }
+
+    private void paySprintOnceReg(Receiver<Boolean> receiver) {
+        NetworkUtil.getNetworkResult(viewModel.apiServices.aEPSRegistrationAuthCheck("aePSReg"), requireActivity(), result -> {
+            if (result.status || result.response_code == 1) {
+                receiver.getData(true);
+            } else {
+                aePSRegistrationAuthDialog();
+            }
+        });
     }
 }

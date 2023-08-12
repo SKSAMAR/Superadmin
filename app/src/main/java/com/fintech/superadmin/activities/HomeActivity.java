@@ -2,12 +2,18 @@ package com.fintech.superadmin.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -24,6 +30,7 @@ import com.fintech.superadmin.activities.profile.ProfileActivity;
 import com.fintech.superadmin.activities.qrscanner.QrMobilePayActivity;
 import com.fintech.superadmin.data.repositories.UserRepository;
 import com.fintech.superadmin.databinding.ActivityHomeBinding;
+import com.fintech.superadmin.encoder.Base64Encoder;
 import com.fintech.superadmin.fragments.AnalyticFragment;
 import com.fintech.superadmin.fragments.screenmenus.CustomerMenuFragments;
 import com.fintech.superadmin.fragments.screenmenus.HomeMenuFragments;
@@ -35,6 +42,8 @@ import com.fintech.superadmin.util.StartGettingLocation;
 import com.fintech.superadmin.util.ViewUtils;
 import com.fintech.superadmin.viewmodel.HomeViewModel;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -53,7 +62,7 @@ public class HomeActivity extends BaseActivity {
     @Inject
     UserRepository userRepository;
 
-
+    ;
     //HomeMenuFragments homeMenuFragments;
     HomeViewModel homeViewModel;
 
@@ -232,5 +241,6 @@ public class HomeActivity extends BaseActivity {
             DisplayMessageUtil.success(HomeActivity.this, message);
         }
     }
+
 
 }
