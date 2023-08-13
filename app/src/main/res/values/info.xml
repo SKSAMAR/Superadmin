@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_type">B2B</string>
-    <string name="base_url_data">lulupe.in</string>
+    <string name="base_url_data">rnspay.com</string>
     <string name="atmType">paysprintnew</string>
-    <string name="secondaryUrl">lulupe.in</string>
+    <string name="secondaryUrl">rnspay.com</string>
     <string name="roffer">no</string>
-    <string name="dmtName">paysprint</string>
+    <string name="dmtName">paysprintnew</string>
     <string name="magicWallet">no</string>
 </resources>
