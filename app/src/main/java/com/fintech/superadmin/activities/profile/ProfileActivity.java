@@ -91,7 +91,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
         List<ProfileListModel> list = new ArrayList<>();
 //        list.add(new ProfileListModel(R.drawable.ic_profile_socialmedia,"Social Media"));
         list.add(new ProfileListModel(R.drawable.ic_account, "My Profile"));
-        list.add(new ProfileListModel(R.drawable.cf_ic_qr, "Show QR"));
+//        list.add(new ProfileListModel(R.drawable.cf_ic_qr, "Show QR"));
         list.add(new ProfileListModel(R.drawable.ic_profile_bank, "KYC REGISTRATION"));
         list.add(new ProfileListModel(R.drawable.ic_profile_settings, "M-PIN"));
         list.add(new ProfileListModel(R.drawable.ic_profile_settings, "Change Password"));

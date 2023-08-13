@@ -5,6 +5,6 @@
     <string name="atmType">paysprintnew</string>
     <string name="secondaryUrl">rnspay.com</string>
     <string name="roffer">no</string>
-    <string name="dmtName">paysprintnew</string>
-    <string name="magicWallet">no</string>
+    <string name="dmtName">null</string>
+    <string name="magicWallet">null</string>
 </resources>

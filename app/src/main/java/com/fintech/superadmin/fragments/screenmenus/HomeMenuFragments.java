@@ -203,13 +203,13 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         if (viewModel.isAlreadySet) {
             return;
         }
-        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 5, GridLayoutManager.VERTICAL, false));
+        binding.moneyTransfer.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> moneyTransferList = new ArrayList<>();
         moneyTransferList.add(new MenuModel(R.drawable.contact, "Mobile Payments"));
         moneyTransferList.add(new MenuModel(R.drawable.fingerprint, "AePS"));
 //        moneyTransferList.add(new MenuModel(R.drawable.ic_aeps, "Fing AePS"));
-        moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
-        moneyTransferList.add(new MenuModel(R.drawable.dmt, "X-Payout"));
+//        moneyTransferList.add(new MenuModel(R.drawable.dmt, "DMT"));
+//        moneyTransferList.add(new MenuModel(R.drawable.dmt, "X-Payout"));
         moneyTransferList.add(new MenuModel(R.drawable.ic_m_atm, "Micro ATM"));
         binding.moneyTransfer.setAdapter(new MenuAdapter(moneyTransferList, this));
         binding.moneyTransfer.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -231,11 +231,11 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         rechargeList.add(new MenuModel(R.drawable.mobilerecharge, "Mobile\nRecharge"));
         rechargeList.add(new MenuModel(R.drawable.dth, "DTH"));
         rechargeList.add(new MenuModel(R.drawable.electricity, "Electricity"));
-        rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
-        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag"));
+//        rechargeList.add(new MenuModel(R.drawable.creditcard, "Credit Card"));
+//        rechargeList.add(new MenuModel(R.drawable.fastag, "FASTag"));
         rechargeList.add(new MenuModel(R.drawable.cable_tv, "Cable Tv", "Cable"));
         rechargeList.add(new MenuModel(R.drawable.subtract, "Broadband"));
-        rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
+//        rechargeList.add(new MenuModel(R.drawable.seeall, "See All"));
         binding.firstHomeMenu.setAdapter(new MenuAdapter(rechargeList, this));
         binding.firstHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
@@ -248,39 +248,40 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         utilitiesList.add(new MenuModel(R.drawable.water, "Water"));
         utilitiesList.add(new MenuModel(R.drawable.postpaid, "Postpaid"));
 //        utilitiesList.add(new MenuModel(R.drawable.broadband, "Broadband"));
+
         utilitiesList.add(new MenuModel(R.drawable.piped_gas, "Piped Gas", "Gas"));
 //        utilitiesList.add(new MenuModel(R.drawable.c_datacard_postpaid, "Data Card\nPrepaid", "Datacard Prepaid"));
         utilitiesList.add(new MenuModel(R.drawable.landline, "Landline"));
-        utilitiesList.add(new MenuModel(R.drawable.ic_cms, "CMS"));
-        utilitiesList.add(new MenuModel(R.drawable.utipancard, "UTI Pan"));
-        utilitiesList.add(new MenuModel(R.drawable.utipancard, "NSDL Pan"));
-        utilitiesList.add(new MenuModel(R.drawable.school_bus, "Bus"));
+//        utilitiesList.add(new MenuModel(R.drawable.ic_cms, "CMS"));
+//        utilitiesList.add(new MenuModel(R.drawable.utipancard, "UTI Pan"));
+//        utilitiesList.add(new MenuModel(R.drawable.utipancard, "NSDL Pan"));
+//        utilitiesList.add(new MenuModel(R.drawable.school_bus, "Bus"));
 //        utilitiesList.add(new MenuModel(R.drawable.ic_data_card_postpaid, "Data Card\nPostpaid", "BBPS"));
         binding.utilitiesHomeMenu.setAdapter(new MenuAdapter(utilitiesList, this));
         binding.utilitiesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         //Finances and Taxes
-        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        binding.taxesHomeMenu.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
         List<MenuModel> financesList = new ArrayList<>();
         financesList.add(new MenuModel(R.drawable.emi, "EMI"));
         financesList.add(new MenuModel(R.drawable.insurance, "Insurance", "Insurance"));
-        financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
+//        financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
         financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         //Travels & Holiday
-        binding.travelMenus.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
-        List<MenuModel> BookingList = new ArrayList<>();
-        BookingList.add(new MenuModel(R.drawable.flightsbooking, "Flights"));
-        BookingList.add(new MenuModel(R.drawable.trainbooking, "Train"));
+//        binding.travelMenus.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+//        List<MenuModel> BookingList = new ArrayList<>();
+//        BookingList.add(new MenuModel(R.drawable.flightsbooking, "Flights"));
+//        BookingList.add(new MenuModel(R.drawable.trainbooking, "Train"));
 
 
         binding.b2bclickPayout.setOnClickListener(v -> viewModel.checkPaysprintServiceExistence(requireActivity(), onBoard -> startPaysprintOnboard(onBoard.getPaysprintApiCredentials()), start -> startPayout()));
 
-        binding.accountOpeningContainer.setVisibility(View.VISIBLE);
+//        binding.accountOpeningContainer.setVisibility(View.VISIBLE);
         binding.b2BContainer.setVisibility(View.VISIBLE);
         binding.b2cContainer.setVisibility(View.GONE);
         viewModel.isAlreadySet = true;
@@ -289,28 +290,28 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
         String url = getString(R.string.base_url_data);
         if (url.contains("easytravelhub")) {
 
-            binding.accountOpeningContainer.setVisibility(View.GONE);
-            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
-            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            binding.accountOpeningContainer.setVisibility(View.GONE);
+//            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
+//            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
         } else {
 
             //Account Opening
-            binding.accountOpeningContainer.setVisibility(View.VISIBLE);
-            binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
-            List<MenuModel> accountOpening = new ArrayList<>();
-            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
-            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
-            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
-            binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
-            binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            binding.accountOpeningContainer.setVisibility(View.VISIBLE);
+//            binding.accountOpening.setLayoutManager(new GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false));
+//            List<MenuModel> accountOpening = new ArrayList<>();
+//            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Saving Account"));
+//            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Account"));
+//            accountOpening.add(new MenuModel(R.drawable.ic_axis_bank_01, "Current Properitor"));
+//            binding.accountOpening.setAdapter(new MenuAdapter(accountOpening, this));
+//            binding.accountOpening.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 
-            BookingList.add(new MenuModel(R.drawable.busbooking, "Bus"));
-            BookingList.add(new MenuModel(R.drawable.hotelbooking, "Hotels"));
-            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
-            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//            BookingList.add(new MenuModel(R.drawable.busbooking, "Bus"));
+//            BookingList.add(new MenuModel(R.drawable.hotelbooking, "Hotels"));
+//            binding.travelMenus.setAdapter(new MenuAdapter(BookingList, this));
+//            binding.travelMenus.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
     }
 
