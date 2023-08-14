@@ -306,7 +306,6 @@ repositories {
 }
 
 afterEvaluate {
-    //fixed
     sdkname = "paysprintnew"
     project.dependencies {
         fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
