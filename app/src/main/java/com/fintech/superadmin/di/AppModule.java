@@ -99,26 +99,23 @@ public class AppModule {
                 .readTimeout(5, TimeUnit.MINUTES)
                 .writeTimeout(5, TimeUnit.MINUTES)
                 /**
-                .sslSocketFactory(sslSocketFactory, new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                 .sslSocketFactory(sslSocketFactory, new X509TrustManager() {
+                @Override public void checkClientTrusted(X509Certificate[] chain, String authType) {
 
-                    }
+                }
 
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                @Override public void checkServerTrusted(X509Certificate[] chain, String authType) {
 
-                    }
+                }
 
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
+                @Override public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
+                }
                 })
-                **/
+                 **/
                 .hostnameVerifier((hostname, session) -> {
                     HostnameVerifier hv = HttpsURLConnection.getDefaultHostnameVerifier();
-                    return hv.verify(BuildConfig.APPLICATION_ID, session);
+                    return hv.verify(context.getString(R.string.base_url_data), session);
                 });
 
         httpClient.addInterceptor(chain -> {
@@ -151,7 +148,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public static APIServices getApiServices(@ApplicationContext Context context , OkHttpClient httpClient) {
+    public static APIServices getApiServices(@ApplicationContext Context context, OkHttpClient httpClient) {
 
         final Gson gson = new GsonBuilder()
                 .setLenient()
@@ -161,7 +158,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://" + context.getString(R.string.base_url_data) + "/")
                 .client(httpClient)
                 .build();
         return retrofit.create(APIServices.class);
@@ -170,7 +167,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public static AuthApi getAuthApi(@ApplicationContext Context context ,OkHttpClient httpClient) {
+    public static AuthApi getAuthApi(@ApplicationContext Context context, OkHttpClient httpClient) {
 
         final Gson gson = new GsonBuilder()
                 .setLenient()
@@ -180,7 +177,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://" + context.getString(R.string.base_url_data) + "/")
                 .client(httpClient)
                 .build();
         return retrofit.create(AuthApi.class);
@@ -188,7 +185,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public static YesApi getYesAPI(@ApplicationContext Context context ,OkHttpClient httpClient) {
+    public static YesApi getYesAPI(@ApplicationContext Context context, OkHttpClient httpClient) {
         final Gson gson = new GsonBuilder()
                 .setLenient()
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
@@ -197,7 +194,7 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("https://"+ BuildConfig.APPLICATION_ID+"/")
+                .baseUrl("https://" + context.getString(R.string.base_url_data) + "/")
                 .client(httpClient)
                 .build();
         return retrofit.create(YesApi.class);
@@ -220,7 +217,7 @@ public class AppModule {
     @Provides
     public SSLSocketFactory getGlobalSSlFactory(@ApplicationContext Context context) {
         try {
-            InputStream inputStream= context.getResources().openRawResource(R.raw.certificate);
+            InputStream inputStream = context.getResources().openRawResource(R.raw.certificate);
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             Certificate ca = cf.generateCertificate(inputStream);
             inputStream.close();

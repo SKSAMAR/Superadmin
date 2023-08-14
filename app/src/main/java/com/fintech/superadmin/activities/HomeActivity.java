@@ -106,7 +106,7 @@ public class HomeActivity extends BaseActivity {
         StartGettingLocation.setAllTheLocations(HomeActivity.this);
         homeBinding.toolbar.customerSupport.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, NewTicketRise.class)));
         homeBinding.toolbar.qrCode.setOnClickListener(v -> {
-            String baseUrl = BuildConfig.APPLICATION_ID;
+            String baseUrl = getString(R.string.base_url_data);
             if (baseUrl.equals("kkpayments.co.in")) {
                 Intent intent = new Intent(HomeActivity.this, PayActivityWebView.class);
                 startActivity(intent);
@@ -140,7 +140,7 @@ public class HomeActivity extends BaseActivity {
         String secondaryUrl;
         try {
             secondaryUrl = getString(R.string.secondaryUrl);
-            if (secondaryUrl != null && !secondaryUrl.trim().isEmpty() && !secondaryUrl.equals(BuildConfig.APPLICATION_ID)) {
+            if (secondaryUrl != null && !secondaryUrl.trim().isEmpty() && !secondaryUrl.equals(getString(R.string.base_url_data))) {
                 homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(true);
                 homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(true);
             } else {
@@ -149,7 +149,7 @@ public class HomeActivity extends BaseActivity {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            secondaryUrl = BuildConfig.APPLICATION_ID;
+            secondaryUrl = getString(R.string.base_url_data);
         }
         String finalSecondaryUrl = secondaryUrl;
         homeBinding.bottomNavigation.setOnItemSelectedListener(item -> {

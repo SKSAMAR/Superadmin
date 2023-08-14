@@ -14,12 +14,12 @@ android {
     defaultConfig {
         manifestPlaceholders = [appName: "RNS Pay"]
         appType = "B2B"
-        applicationId "rnspay.com"
+        applicationId "app.rnspay.com"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
-        versionCode 6
-        versionName "0.0.1.6"
+        versionCode 9
+        versionName "0.0.1.9"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

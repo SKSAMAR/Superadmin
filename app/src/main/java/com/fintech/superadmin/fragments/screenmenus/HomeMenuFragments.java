@@ -463,7 +463,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
             }
 
             case "Apply PAN": {
-                String panPage = "https://" + BuildConfig.APPLICATION_ID + "/Dashboard/User/ApplyPanAgent";
+                String panPage = "https://" + getString(R.string.base_url_data) + "/Dashboard/User/ApplyPanAgent";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(panPage));
                 startActivity(browserIntent);
                 break;
