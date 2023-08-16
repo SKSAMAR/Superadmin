@@ -12,9 +12,9 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "RNS Pay"]
+        manifestPlaceholders = [appName: "Rakesh Pay"]
         appType = "B2B"
-        applicationId "rnspay.com"
+        applicationId "beta.hindmoney.in"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
