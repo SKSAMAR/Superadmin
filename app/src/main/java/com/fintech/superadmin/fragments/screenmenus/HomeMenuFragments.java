@@ -51,6 +51,7 @@ import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.adapters.MenuAdapter;
 import com.fintech.superadmin.clean.presentation.payout.PayoutActivity;
+import com.fintech.superadmin.clean.presentation.rakeshpan.RakeshPanUTIApply;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -339,7 +340,8 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "UTI Pan": {
-                viewModel.startUTIPan(requireActivity());
+                startActivity(new Intent(requireActivity(), RakeshPanUTIApply.class));
+                //viewModel.startUTIPan(requireActivity());
                 break;
             }
             case "NSDL Pan": {

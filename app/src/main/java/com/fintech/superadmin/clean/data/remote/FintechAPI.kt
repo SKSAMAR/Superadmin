@@ -204,4 +204,23 @@ interface FintechAPI {
     ): Observable<RegularResponse>
 
     //MAGIC WALLET
+
+    //RAKESH
+
+    @FormUrlEncoded
+    @POST("Merchant/UTI_PAN_RK.php")
+    fun rakeshUTIRegister(
+        @Field("name") name: String,
+        @Field("address") address: String,
+        @Field("pincode") pincode: String,
+        @Field("state") state: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+        @Field("pan") pan: String,
+        @Field("shop") shop: String,
+        @Field("adhaar") adhaar: String,
+        @Field("apply_agent") apply_agent: String = "apply_agent",
+    ): Observable<RegularResponse>
+
+    //RAKESH
 }
