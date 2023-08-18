@@ -12,14 +12,14 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "PaytCash"]
+        manifestPlaceholders = [appName: "Zuqzuq Pay"]
         appType = "B2B"
-        applicationId "paytcash.in"
+        applicationId "zuqzuq.in"
         minSdk 22
         //noinspection OldTargetApi
         targetSdk 31
-        versionCode 6
-        versionName "0.0.1.6"
+        versionCode 7
+        versionName "0.0.1.7"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
