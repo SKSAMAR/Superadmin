@@ -10,6 +10,7 @@ plugins {
 def appType
 def sdkname
 android {
+
     compileSdk 33
     defaultConfig {
         manifestPlaceholders = [appName: "PaytCash"]
