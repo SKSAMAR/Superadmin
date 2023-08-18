@@ -837,6 +837,15 @@
             />
 
 
+        <activity
+            android:name=".clean.presentation.rakeshpan.coupon.UTIPanCouponActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:launchMode="singleTask"
+            />
+
+
         <meta-data
             android:name="com.phonepe.android.sdk.Debuggable"
             android:value="false" />

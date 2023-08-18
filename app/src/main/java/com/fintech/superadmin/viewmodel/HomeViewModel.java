@@ -21,6 +21,8 @@ import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.fingBoard.FingBoardHome;
 import com.fintech.superadmin.activities.mobilenumber.SendMoney;
 import com.fintech.superadmin.clean.presentation.magic.MagicWalletActivity;
+import com.fintech.superadmin.clean.presentation.rakeshpan.RakeshPanUTIApply;
+import com.fintech.superadmin.clean.presentation.rakeshpan.coupon.UTIPanCouponActivity;
 import com.fintech.superadmin.clean.util.ViewUtils;
 import com.fintech.superadmin.data.apiResponse.merchant.FingPayBoardCred;
 import com.fintech.superadmin.data.db.entities.User;
@@ -269,6 +271,26 @@ public class HomeViewModel extends ViewModel {
                             ViewUtils.INSTANCE.openInCustomBrowser(context, res.getData().getUrl(), res.getData().getEncdata());
                         } else {
                             DisplayMessageUtil.error(context, res.getMessage());
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    public void startRakeshUTIPan(Context context) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.rakeshUTI("rakeshUTI")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.status && res.response_code == 1) {
+                            context.startActivity(new Intent(context, UTIPanCouponActivity.class));
+                        } else if (res.response_code == 2) {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        } else {
+                            context.startActivity(new Intent(context, RakeshPanUTIApply.class));
                         }
                     }, err -> DisplayMessageUtil.error(context, err.getMessage()));
         }

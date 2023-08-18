@@ -17,8 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -31,7 +29,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.fintech.superadmin.BuildConfig;
 import com.fintech.superadmin.R;
-import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
 import com.fintech.superadmin.activities.aeps.brandedComp.AllString;
 import com.fintech.superadmin.activities.aeps.brandedComp.DeviceDataModel;
@@ -39,19 +36,16 @@ import com.fintech.superadmin.activities.aeps.brandedComp.util;
 import com.fintech.superadmin.activities.aeps.brandedComp.utilDevices;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
 import com.fintech.superadmin.activities.creditcard.CCFetchBillK;
-import com.fintech.superadmin.activities.eko_tobank.QueryRemitter;
 import com.fintech.superadmin.activities.fastag.OperatorList;
 import com.fintech.superadmin.activities.lic.LicFetchBill;
 import com.fintech.superadmin.activities.mahagrm_bc.BcRegistration;
 import com.fintech.superadmin.activities.microatm.MicroAtmHome;
-import com.fintech.superadmin.activities.mobilenumber.SendMoney;
 import com.fintech.superadmin.activities.pan.NSDLPanActivity;
 import com.fintech.superadmin.activities.payoutpaysprint.PaysprintPayout;
 import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.adapters.MenuAdapter;
 import com.fintech.superadmin.clean.presentation.payout.PayoutActivity;
-import com.fintech.superadmin.clean.presentation.rakeshpan.RakeshPanUTIApply;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
@@ -60,7 +54,6 @@ import com.fintech.superadmin.data.dto.MahagramMerchant;
 import com.fintech.superadmin.data.dto.PaysprintApiCred;
 import com.fintech.superadmin.data.dto.PaysprintMerchantCred;
 import com.fintech.superadmin.data.model.MenuModel;
-import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.databinding.AepsDailyAuthDialogBinding;
 import com.fintech.superadmin.databinding.AepsRegAuthDialogBinding;
 import com.fintech.superadmin.databinding.FragmentHomeMenuFragmentsBinding;
@@ -68,10 +61,8 @@ import com.fintech.superadmin.deer_listener.Receiver;
 import com.fintech.superadmin.flight.presentation.home.FlightHomeActivity;
 import com.fintech.superadmin.fragments.sliders.SliderFragment;
 import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
-import com.fintech.superadmin.listeners.NumberPayListener;
 import com.fintech.superadmin.listeners.RecyclerViewClickListener;
 import com.fintech.superadmin.log.MahaDashActReturnResp;
-import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -322,7 +313,6 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         bank = "2";
         switch (model.getTitle()) {
-
             case "Flights": {
                 startActivity(new Intent(requireActivity(), FlightHomeActivity.class));
                 break;
@@ -340,8 +330,7 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "UTI Pan": {
-                startActivity(new Intent(requireActivity(), RakeshPanUTIApply.class));
-                //viewModel.startUTIPan(requireActivity());
+                viewModel.startRakeshUTIPan(requireActivity());
                 break;
             }
             case "NSDL Pan": {

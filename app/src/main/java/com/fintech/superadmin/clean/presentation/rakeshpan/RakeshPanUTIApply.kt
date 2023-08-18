@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -28,15 +27,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.clean.presentation.common.BasicScreenState
+import com.fintech.superadmin.clean.presentation.rakeshpan.UTIApplyViewModel
 import com.fintech.superadmin.clean.util.sdp
 import com.fintech.superadmin.ui.theme.MyColors
 import com.fintech.superadmin.ui.theme.SuperAdminTheme
@@ -84,8 +81,13 @@ class RakeshPanUTIApply : BaseComponentAct() {
             },
             bottomBar = {
                 BottomAppBar(
-                    modifier = Modifier.fillMaxWidth()
-                        .clickable { viewModel.register() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            viewModel.register {
+                                onBackPressedDispatcher.onBackPressed()
+                            }
+                        },
                     containerColor = MyColors.primary,
                 ) {
                     Row(

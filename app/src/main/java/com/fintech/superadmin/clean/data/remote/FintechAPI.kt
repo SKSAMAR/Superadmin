@@ -3,6 +3,7 @@ package com.fintech.superadmin.clean.data.remote
 import com.fintech.superadmin.clean.data.remote.dto.cashfree.CashFree
 import com.fintech.superadmin.clean.data.remote.dto.cashfree.PayoutBeneficiary
 import com.fintech.superadmin.clean.data.remote.dto.otps.OTPResponse
+import com.fintech.superadmin.clean.data.remote.dto.rakeshpan.RakeshUTIApplyDto
 import com.fintech.superadmin.clean.data.remote.dto.refer.ReferDto
 import com.fintech.superadmin.clean.data.remote.dto.reward.ScratchCardData
 import com.fintech.superadmin.clean.data.remote.dto.suvidhaPayout.SuvidhaBeneficiary
@@ -220,7 +221,7 @@ interface FintechAPI {
         @Field("shop") shop: String,
         @Field("adhaar") adhaar: String,
         @Field("apply_agent") apply_agent: String = "apply_agent",
-    ): Observable<RegularResponse>
+    ): Observable<RakeshUTIApplyDto>
 
     //RAKESH
 }

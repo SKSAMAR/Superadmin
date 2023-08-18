@@ -25,14 +25,14 @@ class UTIApplyViewModel
     var adhaar by mutableStateOf("")
 
 
-    fun register() {
+    fun register(doneAction: () -> Unit) {
         if (name.trim().isEmpty()) {
             displayResponseMessage("Enter a valid name")
         } else if (address.trim().isEmpty()) {
             displayResponseMessage("Enter a valid address")
         } else if (pincode.trim().isEmpty()) {
             displayResponseMessage("Enter a valid Pin Code")
-        }  else if (homeState.trim().isEmpty()) {
+        } else if (homeState.trim().isEmpty()) {
             displayResponseMessage("Enter a valid State")
         } else if (phone.trim().isEmpty()) {
             displayResponseMessage("Enter a valid phone")
@@ -47,8 +47,30 @@ class UTIApplyViewModel
         } else {
             if (Accessable.isAccessable()) {
                 displayDialogLoading("Please wait")
-                NetworkUtil.getNetworkResult(fintechAPI.rakeshUTIRegister(name = name.trim(), address = address, pincode = pincode, state = homeState, phone = phone, email = email, pan = pan, shop = shop, adhaar = adhaar), null){
-                    displayResponseMessage(it.toString())
+                NetworkUtil.getNetworkResult(
+                    fintechAPI.rakeshUTIRegister(
+                        name = name.trim(),
+                        address = address,
+                        pincode = pincode,
+                        state = homeState,
+                        phone = phone,
+                        email = email,
+                        pan = pan,
+                        shop = shop,
+                        adhaar = adhaar
+                    ), null
+                ) {
+                    dismissDialog()
+                    if (it.data?.txnStatus?.contains("success", true) == true) {
+                        displayResponseMessage(it.data.message ?: it.data.txnStatus){
+                            doneAction.invoke()
+                        }
+                    } else {
+                        displayResponseMessage(
+                            it.data?.message ?: it.data?.txnStatus ?: it.message ?: it.status
+                            ?: "Some Error"
+                        )
+                    }
                 }
             }
         }
