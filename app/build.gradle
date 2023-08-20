@@ -15,9 +15,9 @@ android {
         manifestPlaceholders = [appName: "Rakesh Pay"]
         appType = "B2B"
         applicationId "beta.hindmoney.in"
-        minSdk 22
+        minSdk 23
         //noinspection OldTargetApi
-        targetSdk 31
+        targetSdk 33
         versionCode 5
         versionName "0.0.1.5"
         multiDexEnabled true
@@ -147,7 +147,7 @@ dependencies {
     implementation 'com.github.corouteam:GlideToVectorYou:2.0.0'
 
     //OnBoarding
-    implementation files('libs/onboardinglib_live.v-1.0.11.aar')
+    implementation files('libs/onboardinglib_V.1.1.13.aar')
 
 
     implementation 'de.greenrobot:greendao:2.1.0'
