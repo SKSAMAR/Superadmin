@@ -1,14 +1,15 @@
 package com.fintech.superadmin.activities.pan
 
 import android.content.Context
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.fintech.superadmin.clean.common.BaseViewModel
 import com.fintech.superadmin.clean.data.remote.FintechAPI
-import com.fintech.superadmin.clean.util.ViewUtils.openInCustomBrowser
+import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper
 import com.fintech.superadmin.util.Accessable
-import com.fintech.superadmin.util.DisplayMessageUtil
+import com.fintech.superadmin.util.Constant
 import com.fintech.superadmin.util.NetworkUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,9 +18,6 @@ import javax.inject.Inject
 class NSDLViewModel
 @Inject constructor(private val fintechAPI: FintechAPI) : BaseViewModel<Any>() {
 
-    var titleTypeList = listOf("Mr.", "Mrs.")
-    var titleType by mutableStateOf<String?>(null)
-    var titleDialog by mutableStateOf(false)
 
     var genderTypeList = listOf("Male", "Female")
     var genderType by mutableStateOf<String?>(null)
@@ -29,82 +27,47 @@ class NSDLViewModel
     var transactionType by mutableStateOf<String?>(null)
     var transactionDialog by mutableStateOf(false)
 
-    var serviceTypeList = listOf("CREATION", "CORRECTION")
-    var serviceType by mutableStateOf<String?>(null)
-    var serviceDialog by mutableStateOf(false)
 
     var fname by mutableStateOf("")
-    var lname by mutableStateOf("")
+    var mobile by mutableStateOf("")
     var email by mutableStateOf("")
 
-    fun createNsdl(context: Context) {
+    fun createNsdl(context: ComponentActivity) {
         if (Accessable.isAccessable()) {
-            if (serviceType.isNullOrEmpty()) {
-                displayResponseMessage("Select a valid Service Type")
-            } else if (titleType.isNullOrEmpty()) {
-                displayResponseMessage("Select a valid Title")
-            } else if (fname.isEmpty()) {
+            if (fname.isEmpty()) {
                 displayResponseMessage("Enter a valid First name")
-            } else if (lname.isEmpty()) {
-                displayResponseMessage("Enter a valid Last name")
+            } else if (mobile.isEmpty() || mobile.trim().length < 10) {
+                displayResponseMessage("Enter a valid Mobile")
+            } else if (email.isEmpty()) {
+                displayResponseMessage("Enter a valid Email")
             } else if (genderType.isNullOrEmpty()) {
                 displayResponseMessage("Select a valid Gender")
             } else if (transactionType.isNullOrEmpty()) {
                 displayResponseMessage("Select a valid PAN Type")
             } else {
+                NetworkUtil.getNetworkResult(
+                    fintechAPI.nsdlChangePanCardSubmit(
+                        name = fname.trim(),
+                        em = email.trim(),
+                        mob = mobile.trim(),
+                        gen = genderType.toString().trim(),
+                        appmode = if (transactionType == transactionTypeList.firstOrNull()) "P" else "E",
+                    ),
+                    context
+                ) { res ->
+                    dismissDialog()
+                    if (res.status) {
 
-                if (serviceType == serviceTypeList.firstOrNull()) {
-
-                    NetworkUtil.getNetworkResult(
-                        fintechAPI.naslCreationPanCardRedirect(
-                            first_name = fname.trim(),
-                            last_name = lname.trim(),
-                            mode = if (transactionType == transactionTypeList.firstOrNull()) "P" else "E",
-                            title = if (genderType == genderTypeList.firstOrNull()) "1" else "2",
-                            gender = genderType.toString()
-                        ),
-                        context
-                    ) { res ->
-                        if (res.status != null && res.status) {
-                            openInCustomBrowser(context, res.data?.url, res.data?.encdata)
-                            titleType = null
-                            genderType = null
-                            transactionType = null
-                            serviceType = null
-                            fname = ""
-                            lname = ""
-                        } else {
-                            displayDialogFailure(res.message)
-                        }
-                    }
-                }
-                else {
-                    if (email.isEmpty()) {
-                        displayResponseMessage("Enter valid Email")
-                        return
-                    }
-                    NetworkUtil.getNetworkResult(
-                        fintechAPI.naslChangePanCardRedirect(
-                            first_name = fname.trim(),
-                            last_name = lname.trim(),
-                            email = email,
-                            mode = if (transactionType == transactionTypeList.firstOrNull()) "P" else "E",
-                            title = if (genderType == genderTypeList.firstOrNull()) "1" else "2",
-                            gender = genderType.toString()
-                        ),
-                        context
-                    ) { res ->
-                        if (res.status != null && res.status) {
-                            openInCustomBrowser(context, res.data?.url, res.data?.encdata)
-                            titleType = null
-                            genderType = null
-                            transactionType = null
-                            serviceType = null
-                            fname = ""
-                            lname = ""
-                        } else {
-                            displayDialogFailure(res.message)
-                        }
+                        displayResponseMessage("Success")
+                        val simple = SimpleCustomChromeTabsHelper(context)
+                        simple.openUrlForResult(res.getMessage(), Constant.CHROME_CUSTOM_TAB_REQUEST_CODE)
+                        genderType = null
+                        transactionType = null
+                        fname = ""
+                        email = ""
+                        mobile = ""
+                    } else {
+                        displayDialogFailure(""+res.getMessage())
                     }
                 }
             }

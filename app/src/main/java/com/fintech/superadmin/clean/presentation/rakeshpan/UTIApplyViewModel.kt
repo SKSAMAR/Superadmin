@@ -24,6 +24,56 @@ class UTIApplyViewModel
     var shop by mutableStateOf("")
     var adhaar by mutableStateOf("")
 
+    fun registerWithNsdl(doneAction: () -> Unit) {
+        if (name.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid name")
+        } else if (address.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid address")
+        } else if (pincode.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid Pin Code")
+        } else if (homeState.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid State")
+        } else if (phone.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid phone")
+        } else if (email.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid email")
+        } else if (pan.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid pan")
+        } else if (shop.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid shop")
+        } else if (adhaar.trim().isEmpty()) {
+            displayResponseMessage("Enter a valid Aadhaar")
+        } else {
+            if (Accessable.isAccessable()) {
+                displayDialogLoading("Please wait")
+                NetworkUtil.getNetworkResult(
+                    fintechAPI.rakeshNSDLRegister(
+                        name = name.trim(),
+                        address = address,
+                        pincode = pincode,
+                        state = homeState,
+                        phone = phone,
+                        email = email,
+                        pan = pan,
+                        shop = shop,
+                        adhaar = adhaar
+                    ), null
+                ) {
+                    dismissDialog()
+                    if (it.data?.txnStatus?.contains("success", true) == true) {
+                        displayResponseMessage(it.data.message ?: it.data.txnStatus){
+                            doneAction.invoke()
+                        }
+                    } else {
+                        displayResponseMessage(
+                            it.data?.message ?: it.data?.txnStatus ?: it.message ?: it.status
+                            ?: "Some Error"
+                        )
+                    }
+                }
+            }
+        }
+    }
 
     fun register(doneAction: () -> Unit) {
         if (name.trim().isEmpty()) {

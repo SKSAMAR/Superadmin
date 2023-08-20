@@ -43,9 +43,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class RakeshPanUTIApply : BaseComponentAct() {
 
     private val viewModel by viewModels<UTIApplyViewModel>()
+    var type: String? = "uti"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        type = intent.getStringExtra("type")
         setContent {
             SuperAdminTheme {
                 Surface(color = MaterialTheme.colorScheme.surface) {
@@ -84,8 +86,14 @@ class RakeshPanUTIApply : BaseComponentAct() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            viewModel.register {
-                                onBackPressedDispatcher.onBackPressed()
+                            if (type.equals("uti", true)) {
+                                viewModel.register {
+                                    onBackPressedDispatcher.onBackPressed()
+                                }
+                            }else{
+                                viewModel.registerWithNsdl {
+                                    onBackPressedDispatcher.onBackPressed()
+                                }
                             }
                         },
                     containerColor = MyColors.primary,

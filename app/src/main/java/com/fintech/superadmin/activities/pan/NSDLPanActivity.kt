@@ -95,7 +95,7 @@ class NSDLPanActivity : BaseComponentAct() {
                 ) {
                     Card(
                         onClick = {
-                            viewModel.createNsdl(context)
+                            viewModel.createNsdl(this@NSDLPanActivity)
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -134,125 +134,11 @@ class NSDLPanActivity : BaseComponentAct() {
                                 .padding(vertical = 5.sdp, horizontal = 10.sdp)
                         ) {
 
-                            //Service
-                            Spacer(modifier = Modifier.height(10.sdp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .height(40.sdp)
-                                        .fillMaxWidth(.8f)
-                                        .border(width = 0.5.dp, color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        fontSize = MaterialTheme.typography.body2.fontSize,
-                                        text = if (viewModel.serviceType == null) "Service Type" else viewModel.serviceType
-                                            ?: "",
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.sdp),
-                                        color = if (viewModel.serviceType == null) Color.Gray else Color.Black,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .height(40.sdp)
-                                        .width(40.sdp)
-                                        .clickable { viewModel.serviceDialog = true }
-                                        .border(width = 0.5.dp, color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        modifier = Modifier
-                                            .width(8.sdp)
-                                            .height(14.sdp),
-                                        painter = painterResource(id = R.drawable.down_arrow),
-                                        contentDescription = "down_arrow"
-                                    )
-                                }
-
-                            }
-                            Spacer(modifier = Modifier.height(8.sdp))
-                            if (viewModel.serviceDialog) {
-                                DropDownSystem(
-                                    list = viewModel.serviceTypeList,
-                                    expanded = viewModel.serviceDialog,
-                                    onSelect = {
-                                        viewModel.serviceDialog = false
-                                        it?.let {
-                                            viewModel.serviceType = it
-                                        }
-                                    }
-                                )
-                            }
-                            //Service
-
                             //Title
                             Spacer(modifier = Modifier.height(10.sdp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .height(40.sdp)
-                                        .fillMaxWidth(.8f)
-                                        .border(width = 0.5.dp, color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        fontSize = MaterialTheme.typography.body2.fontSize,
-                                        text = if (viewModel.titleType == null) "Select Title" else viewModel.titleType
-                                            ?: "",
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(horizontal = 16.sdp),
-                                        color = if (viewModel.titleType == null) Color.Gray else Color.Black,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .height(40.sdp)
-                                        .width(40.sdp)
-                                        .clickable { viewModel.titleDialog = true }
-                                        .border(width = 0.5.dp, color = Color.Black),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        modifier = Modifier
-                                            .width(8.sdp)
-                                            .height(14.sdp),
-                                        painter = painterResource(id = R.drawable.down_arrow),
-                                        contentDescription = "down_arrow"
-                                    )
-                                }
-
-                            }
-                            Spacer(modifier = Modifier.height(8.sdp))
-                            if (viewModel.titleDialog) {
-                                DropDownSystem(
-                                    list = viewModel.titleTypeList,
-                                    expanded = viewModel.titleDialog,
-                                    onSelect = {
-                                        viewModel.titleDialog = false
-                                        it?.let {
-                                            viewModel.titleType = it
-                                        }
-                                    }
-                                )
-                            }
-                            //Gender
-
 
                             BasicOutlinedTextView(
-                                hint = "First Name",
+                                hint = "Full Name",
                                 value = viewModel.fname,
                                 onValueChange = { viewModel.fname = it },
                                 maxLength = 100,
@@ -266,33 +152,30 @@ class NSDLPanActivity : BaseComponentAct() {
                             Spacer(modifier = Modifier.height(8.sdp))
 
                             BasicOutlinedTextView(
-                                hint = "Last Name",
-                                value = viewModel.lname,
-                                onValueChange = { viewModel.lname = it },
-                                maxLength = 100,
+                                hint = "Mobile",
+                                value = viewModel.mobile,
+                                onValueChange = { viewModel.mobile = it },
+                                maxLength = 10,
                                 keyboardOptions = KeyboardOptions(
-                                    imeAction = ImeAction.Done,
-                                    keyboardType = KeyboardType.Text,
-                                    capitalization = KeyboardCapitalization.None
+                                    imeAction = ImeAction.Next,
+                                    keyboardType = KeyboardType.Number,
                                 ),
                                 modifier = Modifier.fillMaxWidth()
                             )
 
-                            if (viewModel.serviceType == viewModel.serviceTypeList.last()){
-                                BasicOutlinedTextView(
-                                    hint = "Email",
-                                    value = viewModel.email,
-                                    onValueChange = { viewModel.email = it },
-                                    maxLength = 100,
-                                    keyboardOptions = KeyboardOptions(
-                                        imeAction = ImeAction.Done,
-                                        keyboardType = KeyboardType.Email,
-                                        capitalization = KeyboardCapitalization.None
-                                    ),
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                                Spacer(modifier = Modifier.height(8.sdp))
-                            }
+                            BasicOutlinedTextView(
+                                hint = "Email",
+                                value = viewModel.email,
+                                onValueChange = { viewModel.email = it },
+                                maxLength = 100,
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done,
+                                    keyboardType = KeyboardType.Email,
+                                    capitalization = KeyboardCapitalization.None
+                                ),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(8.sdp))
 
 
                             //Gender

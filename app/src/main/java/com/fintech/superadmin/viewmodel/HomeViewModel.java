@@ -20,6 +20,7 @@ import com.fintech.superadmin.activities.addfunds.AddFundList;
 import com.fintech.superadmin.activities.addfunds.FundExchange;
 import com.fintech.superadmin.activities.fingBoard.FingBoardHome;
 import com.fintech.superadmin.activities.mobilenumber.SendMoney;
+import com.fintech.superadmin.activities.pan.NSDLPanActivity;
 import com.fintech.superadmin.clean.presentation.magic.MagicWalletActivity;
 import com.fintech.superadmin.clean.presentation.rakeshpan.RakeshPanUTIApply;
 import com.fintech.superadmin.clean.presentation.rakeshpan.coupon.UTIPanCouponActivity;
@@ -290,7 +291,31 @@ public class HomeViewModel extends ViewModel {
                         } else if (res.response_code == 2) {
                             DisplayMessageUtil.error(context, res.getMessage());
                         } else {
-                            context.startActivity(new Intent(context, RakeshPanUTIApply.class));
+                            Intent intent = new Intent(context, RakeshPanUTIApply.class);
+                            intent.putExtra("type", "uti");
+                            context.startActivity(intent);
+                        }
+                    }, err -> DisplayMessageUtil.error(context, err.getMessage()));
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    public void startRakeshNSDLPan(Context context) {
+        if (Accessable.isAccessable()) {
+            DisplayMessageUtil.loading(context);
+            apiServices.rakeshNSDL("rakeshNSDL")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(res -> {
+                        DisplayMessageUtil.dismissDialog();
+                        if (res.status && res.response_code == 1) {
+                            context.startActivity(new Intent(context, NSDLPanActivity.class));
+                        } else if (res.response_code == 2) {
+                            DisplayMessageUtil.error(context, res.getMessage());
+                        } else {
+                            Intent intent = new Intent(context, RakeshPanUTIApply.class);
+                            intent.putExtra("type", "nsdl");
+                            context.startActivity(intent);
                         }
                     }, err -> DisplayMessageUtil.error(context, err.getMessage()));
         }

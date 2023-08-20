@@ -5,12 +5,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -38,6 +40,7 @@ import com.fintech.superadmin.clean.common.BaseComponentAct
 import com.fintech.superadmin.clean.presentation.common.BasicScreenState
 import com.fintech.superadmin.clean.util.common.BasicSelectView
 import com.fintech.superadmin.clean.util.sdp
+import com.fintech.superadmin.data.dto.CouponDto
 import com.fintech.superadmin.ui.theme.SuperAdminTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +54,7 @@ class UTIPanCouponActivity : BaseComponentAct() {
         setContent {
             SuperAdminTheme {
                 Surface(color = MaterialTheme.colors.surface) {
-                    DoOnBoard()
+                    UTICoupons()
                 }
             }
         }
@@ -59,7 +62,7 @@ class UTIPanCouponActivity : BaseComponentAct() {
 
 
     @Composable
-    private fun DoOnBoard() {
+    private fun UTICoupons() {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -109,10 +112,14 @@ class UTIPanCouponActivity : BaseComponentAct() {
                                 Spacer(modifier = Modifier.height(4.sdp))
                                 OutlinedButton(
                                     onClick = {
-
+                                        if (viewModel.resetStatus !=null && viewModel.resetStatus?.response_code != 1){
+                                            viewModel.doResetPassword()
+                                        }else{
+                                            viewModel.checkResetPassword()
+                                        }
                                     }
                                 ) {
-                                    Text(text = "Reset Password")
+                                    Text(text = if (viewModel.resetStatus !=null && viewModel.resetStatus?.response_code != 1) "Reset Password" else "Check Reset Password Status")
                                 }
                             }
                         }
@@ -136,10 +143,11 @@ class UTIPanCouponActivity : BaseComponentAct() {
                                 Spacer(modifier = Modifier.height(4.sdp))
 
                                 OutlinedTextField(
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier
+                                        .fillMaxWidth()
                                         .clickable {
                                             viewModel.selCouponType(this@UTIPanCouponActivity)
-                                    },
+                                        },
                                     value = viewModel.couponType.value,
                                     onValueChange = {
 
@@ -199,10 +207,69 @@ class UTIPanCouponActivity : BaseComponentAct() {
                     item {
                         Spacer(modifier = Modifier.height(8.sdp))
                     }
+
+
+                    viewModel.state.value.receivedResponse?.let {
+                        items(it) {
+                            Coupon(it)
+                        }
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(8.sdp))
+                    }
                 }
             }
         }
     }
 
+
+    @Composable
+    private fun Coupon(data: CouponDto) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 2.sdp, horizontal = 12.sdp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.sdp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.sdp)
+                ) {
+                    Text(
+                        text = "Type: ${if (data.tYPE == "1") "Physical" else "E-Coupon"}",
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(text = "Status: ${data.sTATUS}", modifier = Modifier.weight(1f))
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.sdp)
+                ) {
+                    Text(text = "Quantity: ${data.nUM}", modifier = Modifier.fillMaxWidth())
+                    Text(text = "RefId: ${data.oDID}", modifier = Modifier.fillMaxWidth())
+                }
+                if (data.sTATUS?.contains("pending", true) == true) {
+                    OutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 2.sdp),
+                        onClick = {
+                            viewModel.checkCouponStatus(id = data.oDID ?: "")
+                        }
+                    ) {
+                        Text(text = "Check Status")
+                    }
+                }
+            }
+        }
+    }
 
 }

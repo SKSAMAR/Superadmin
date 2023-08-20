@@ -334,7 +334,8 @@ public class HomeMenuFragments extends Fragment implements RecyclerViewClickList
                 break;
             }
             case "NSDL Pan": {
-                startActivity(new Intent(requireActivity(), NSDLPanActivity.class));
+                viewModel.startRakeshNSDLPan(requireActivity());
+                //startActivity(new Intent(requireActivity(), NSDLPanActivity.class));
                 break;
             }
             case "X-Payout": {

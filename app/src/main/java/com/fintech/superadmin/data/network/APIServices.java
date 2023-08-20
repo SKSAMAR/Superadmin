@@ -179,6 +179,12 @@ public interface APIServices {
     );
 
     @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<RegularResponse> rakeshNSDL(
+            @Field("rakeshNSDL") String rakeshUTI
+    );
+
+    @FormUrlEncoded
     @POST("Backend/Merchant/API/QrSystem/main.php")
     Observable<SystemResponse<String>> showQrSystem(
             @Field("displayMyQrCode") String displayMyQrCode
