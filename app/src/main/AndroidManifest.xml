@@ -98,7 +98,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ProjectRC"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"/>
 
         <activity
             android:name="com.fintech.superadmin.activities.transactionDetails.TransactionDetailsReceiptActivity"
