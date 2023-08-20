@@ -2,8 +2,8 @@
 <resources>
     <string name="app_type">B2B</string>
     <string name="base_url_data">beta.hindmoney.in</string>
-    <string name="atmType"></string>
-    <string name="secondaryUrl"></string>
+    <string name="atmType">paysprintnew</string>
+    <string name="secondaryUrl">beta.hindmoney.in</string>
     <string name="roffer">no</string>
     <string name="dmtName">paysprint</string>
     <string name="magicWallet">no</string>
