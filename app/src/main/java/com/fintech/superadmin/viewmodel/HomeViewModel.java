@@ -240,6 +240,18 @@ public class HomeViewModel extends ViewModel {
         }
     }
 
+    public void getQRInfoRazor(Context context){
+        NetworkUtil.getNetworkResult(apiServices.startRazorQRGeneration("virtual_account_bank"), context, result->{
+            if (result.getVirtualAccountBank()!=null){
+
+            }else{
+
+            }
+        });
+    }
+
+
+
 
     @SuppressLint("CheckResult")
     public void busRedirect(Context context) {

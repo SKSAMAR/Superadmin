@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -105,13 +106,15 @@ public class HomeActivity extends BaseActivity {
         StartGettingLocation.setAllTheLocations(HomeActivity.this);
         homeBinding.toolbar.customerSupport.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, NewTicketRise.class)));
         homeBinding.toolbar.qrCode.setOnClickListener(v -> {
-            String baseUrl = BuildConfig.APPLICATION_ID;
-            if (baseUrl.equals("kkpayments.co.in")) {
-                Intent intent = new Intent(HomeActivity.this, PayActivityWebView.class);
-                startActivity(intent);
-                return;
-            }
-            startActivity(new Intent(HomeActivity.this, QrMobilePayActivity.class));
+
+//            String baseUrl = BuildConfig.APPLICATION_ID;
+//            if (baseUrl.equals("kkpayments.co.in")) {
+//                Intent intent = new Intent(HomeActivity.this, PayActivityWebView.class);
+//                startActivity(intent);
+//                return;
+//            }
+
+            startActivity(new Intent(HomeActivity.this, VirtualHomeActivity.class));
         });
 
         String appType = getString(R.string.app_type);
@@ -190,8 +193,14 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void checkPermission() {
-        if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO}, STORAGE_PERMISSION);
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
+            }
         }
     }
 

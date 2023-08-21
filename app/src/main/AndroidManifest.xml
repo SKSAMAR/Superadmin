@@ -35,6 +35,13 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
+
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
     <queries>
         <intent>
             <action android:name="android.support.customtabs.action.CustomTabsService" />
@@ -75,6 +82,15 @@
             android:exported="true">
 
         </activity>
+
+        <activity
+            android:name="com.fintech.superadmin.activities.VirtualHomeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ProjectRC"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            />
 
         <activity
             android:name="com.fintech.superadmin.activities.aeps.BrandedAePSHome"

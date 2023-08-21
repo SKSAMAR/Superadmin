@@ -163,6 +163,8 @@ class NSDLPanActivity : BaseComponentAct() {
                                 modifier = Modifier.fillMaxWidth()
                             )
 
+                            Spacer(modifier = Modifier.height(10.sdp))
+
                             BasicOutlinedTextView(
                                 hint = "Email",
                                 value = viewModel.email,
@@ -179,7 +181,6 @@ class NSDLPanActivity : BaseComponentAct() {
 
 
                             //Gender
-                            Spacer(modifier = Modifier.height(10.sdp))
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween

@@ -2,6 +2,7 @@ package com.fintech.superadmin.data.network;
 
 import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
 import com.fintech.superadmin.clean.data.remote.dto.browsePlan.BrowsePlanDto;
+import com.fintech.superadmin.clean.data.remote.dto.virtual.VirtualAcc;
 import com.fintech.superadmin.data.DetailedDto;
 import com.fintech.superadmin.data.DynamicROfferResponse;
 import com.fintech.superadmin.data.ROfferPlan;
@@ -26,6 +27,7 @@ import com.fintech.superadmin.data.dto.CmsResponse;
 import com.fintech.superadmin.data.dto.CreditCardHistory;
 import com.fintech.superadmin.data.dto.MahagramResponse;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
+import com.fintech.superadmin.data.dto.RazorCheckDto;
 import com.fintech.superadmin.data.eko.BaseEkoResponse;
 import com.fintech.superadmin.data.eko.EkoAddBeneResponse;
 import com.fintech.superadmin.data.eko.EkoDmtFerchBeneficaryResponse;
@@ -158,6 +160,12 @@ public interface APIServices {
     @POST("Backend/Merchant/Railway/Railway.php")
     Observable<RegularResponse> startRailways(
             @Field("flight") String flight
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/VirtualAccount/Razorpay/ShowQr.php")
+    Observable<VirtualAcc> startRazorQRGeneration(
+            @Field("virtual_account_bank") String virtual_account_bank
     );
 
     @FormUrlEncoded
