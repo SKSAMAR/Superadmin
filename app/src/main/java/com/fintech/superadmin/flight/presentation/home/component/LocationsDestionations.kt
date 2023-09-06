@@ -443,6 +443,13 @@ fun LocationsDestinationsRoundTrip(
 }
 
 
+fun toSpecificDepartDates(date: Date, format: String, givenDateModel: (String) -> Unit = {}) {
+    val sdf = SimpleDateFormat(format)
+    val currentDate = sdf.format(date)
+    givenDateModel.invoke(currentDate)
+}
+
+
 fun toSpecificDepartDates(date: Date, givenDateModel: (DateModel) -> Unit = {}) {
     val sdf = SimpleDateFormat("MM/dd/yyyy")
     val currentDate = sdf.format(date)

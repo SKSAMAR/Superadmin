@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -33,15 +32,19 @@ import com.fintech.superadmin.activities.aeps.BrandedAePSHome;
 import com.fintech.superadmin.activities.bbps.BbpsEnter;
 import com.fintech.superadmin.activities.creditcard.CCFetchBillK;
 import com.fintech.superadmin.activities.fastag.OperatorList;
-import com.fintech.superadmin.activities.lic.LicFetchBill;
-import com.fintech.superadmin.activities.mahagrm_bc.BcRegistration;
 import com.fintech.superadmin.activities.microatm.MicroAtmHome;
-import com.fintech.superadmin.activities.mobilenumber.SendMoney;
 import com.fintech.superadmin.activities.payoutpaysprint.PaysprintPayout;
 import com.fintech.superadmin.activities.rechargeactivities.RechargeMyPlan;
 import com.fintech.superadmin.activities.rechargeactivities.SelectOperator;
 import com.fintech.superadmin.activities.tobank.QueryRemitter;
 import com.fintech.superadmin.adapters.MenuAdapter;
+import com.fintech.superadmin.clean.presentation.companyIncoporation.CompanyIncoActivity;
+import com.fintech.superadmin.clean.presentation.gstfiling.GSTFilingActivity;
+import com.fintech.superadmin.clean.presentation.gstregistration.GSTRegistrationActivity;
+import com.fintech.superadmin.clean.presentation.itrfilingBusiness.ITRFillingBusinessActivity;
+import com.fintech.superadmin.clean.presentation.itrfilingsalraied.ITRFillingSalariedActivity;
+import com.fintech.superadmin.clean.presentation.msmeRegistration.MSMEActivity;
+import com.fintech.superadmin.clean.presentation.partnershipfirm.PartnershipFirmActivity;
 import com.fintech.superadmin.clean.presentation.referEarn.ReferEarnActivity;
 import com.fintech.superadmin.clean.presentation.rewards.RewardActivity;
 import com.fintech.superadmin.clean.presentation.suvidhaPayout.SuvidhaPayout;
@@ -49,19 +52,14 @@ import com.fintech.superadmin.clean.presentation.wallet.WalletBalanceActivity;
 import com.fintech.superadmin.data.apiResponse.merchant.MerchantCred;
 import com.fintech.superadmin.data.db.AppDatabase;
 import com.fintech.superadmin.data.db.entities.User;
-import com.fintech.superadmin.data.dto.MahagramApiCred;
-import com.fintech.superadmin.data.dto.MahagramMerchant;
 import com.fintech.superadmin.data.dto.PaysprintApiCred;
 import com.fintech.superadmin.data.dto.PaysprintMerchantCred;
 import com.fintech.superadmin.data.model.MenuModel;
-import com.fintech.superadmin.data.network.responses.AuthResponse;
 import com.fintech.superadmin.databinding.CustomerHomeMenuFragmentsBinding;
 import com.fintech.superadmin.fragments.sliders.SliderFragment;
 import com.fintech.superadmin.helper.SimpleCustomChromeTabsHelper;
-import com.fintech.superadmin.listeners.NumberPayListener;
 import com.fintech.superadmin.listeners.RecyclerViewClickListener;
 import com.fintech.superadmin.log.MahaDashActReturnResp;
-import com.fintech.superadmin.util.Accessable;
 import com.fintech.superadmin.util.Constant;
 import com.fintech.superadmin.util.DisplayMessageUtil;
 import com.fintech.superadmin.util.MyAlertUtils;
@@ -72,12 +70,9 @@ import com.fintech.superadmin.viewmodel.MobileRechargeViewModel;
 import com.paysprint.onboardinglib.activities.HostActivity;
 
 import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -177,8 +172,29 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
         financesList.add(new MenuModel(R.drawable.lic_insurance, "LIC", "LIC"));
         financesList.add(new MenuModel(R.drawable.muncipaltax, "Municipal", "MUNICIPALITY"));
         //financesList.add(new MenuModel(R.drawable.carinsurance, "Car Insurance"));
+
         binding.taxesHomeMenu.setAdapter(new MenuAdapter(financesList, this));
         binding.taxesHomeMenu.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+
+
+        //Finances and Taxes
+        binding.legalServices.setLayoutManager(new GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false));
+        List<MenuModel> legalServicesList = new ArrayList<>();
+        legalServicesList.add(new MenuModel(R.drawable.gst_filing, "GST Filling"));
+        legalServicesList.add(new MenuModel(R.drawable.gst_filing, "GST Registration"));
+        legalServicesList.add(new MenuModel(R.drawable.itr_filing, "ITR Filling Salaried"));
+        legalServicesList.add(new MenuModel(R.drawable.itr_filing, "ITR Filling Business"));
+        legalServicesList.add(new MenuModel(R.drawable.company_registration, "Company Incorporation"));
+        legalServicesList.add(new MenuModel(R.drawable.partnership_registration, "Partnership Firm"));
+        legalServicesList.add(new MenuModel(R.drawable.msme_registration, "MSME Registration"));
+
+
+
+
+        binding.legalServices.setAdapter(new MenuAdapter(legalServicesList, this));
+        binding.legalServices.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
 
 
         //Travels & Holiday
@@ -207,6 +223,36 @@ public class CustomerMenuFragments extends Fragment implements RecyclerViewClick
     @Override
     public void onRecyclerViewClickItem(View view, MenuModel model) {
         switch (model.getTitle()) {
+
+            case "GST Filling": {
+                startActivity(new Intent(requireActivity(), GSTFilingActivity.class));
+                break;
+            }
+            case "GST Registration": {
+                startActivity(new Intent(requireActivity(), GSTRegistrationActivity.class));
+                break;
+            }
+            case "ITR Filling Salaried": {
+                startActivity(new Intent(requireActivity(), ITRFillingSalariedActivity.class));
+                break;
+            }
+            case "ITR Filling Business":{
+                startActivity(new Intent(requireActivity(), ITRFillingBusinessActivity.class));
+                break;
+            }
+
+            case "Company Incorporation":{
+                startActivity(new Intent(requireActivity(), CompanyIncoActivity.class));
+                break;
+            }
+            case "Partnership Firm":{
+                startActivity(new Intent(requireActivity(), PartnershipFirmActivity.class));
+                break;
+            }
+            case "MSME Registration":{
+                startActivity(new Intent(requireActivity(), MSMEActivity.class));
+                break;
+            }
 
             case "Add Fund": {
                 startActivity(new Intent(requireActivity(), AddFundList.class));

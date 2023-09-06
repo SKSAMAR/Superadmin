@@ -462,6 +462,63 @@
             android:theme="@style/Theme.ProjectRC"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".clean.presentation.gstfiling.GSTFilingActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".activities.transactionDetails.LegalsDetailsReceiptActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.gstregistration.GSTRegistrationActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.companyIncoporation.CompanyIncoActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.partnershipfirm.PartnershipFirmActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+
+        <activity
+            android:name=".clean.presentation.msmeRegistration.MSMEActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.itrfilingsalraied.ITRFillingSalariedActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.itrfilingBusiness.ITRFillingBusinessActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
 
         <activity
             android:name="com.fintech.superadmin.activities.profile.Settings"

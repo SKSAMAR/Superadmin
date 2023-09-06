@@ -43,7 +43,7 @@ object DateDialogSys{
                 onDateChange(mCalendar.time)
             }, mYear, mMonth, mDay
         )
-        mDatePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        //mDatePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         mDatePickerDialog.show()
     }
 
