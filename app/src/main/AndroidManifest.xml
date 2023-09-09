@@ -506,6 +506,20 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".clean.presentation.addMember.AddMemberActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".clean.presentation.memberList.MemberListActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.ProjectRC"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".clean.presentation.itrfilingsalraied.ITRFillingSalariedActivity"
             android:exported="false"
             android:launchMode="singleTop"

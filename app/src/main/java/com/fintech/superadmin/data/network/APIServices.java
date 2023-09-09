@@ -1,6 +1,7 @@
 package com.fintech.superadmin.data.network;
 
 import com.fintech.superadmin.activities.mahagrm_bc.BCRegisterResponse;
+import com.fintech.superadmin.clean.data.remote.dto.addMember.MemberDataDto;
 import com.fintech.superadmin.clean.data.remote.dto.browsePlan.BrowsePlanDto;
 import com.fintech.superadmin.data.DetailedDto;
 import com.fintech.superadmin.data.DynamicROfferResponse;
@@ -1082,6 +1083,29 @@ public interface APIServices {
     @POST("Backend/Merchant/API/AePs/FingPay/main.php")
     Observable<SendOtpResp> completeFingKyc(@Field("aadhar") String aadhar, @Field("fingerData") String fingerData, @Field("otp") String otp, @Field("fptid") String fptid, @Field("pkeyid") String pkeyid, @Field("long") String longi, @Field("lat") String lat);
     //FingpayBoard
+
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<MemberDataDto>>> getMembersList(
+            @Field("userType") String userType,
+            @Field("search") String search,
+            @Field("membersList") String membersList
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<MemberDataDto>>> getMyMembersList(
+            @Field("oid") String oid,
+            @Field("search") String search,
+            @Field("myMembersList") String myMembersList
+    );
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<MemberDataDto>>> changeMemberStatus(@Field("status") String status, @Field("userId") String userId, @Field("memberStatus") String memberStatus);
 
 
 }

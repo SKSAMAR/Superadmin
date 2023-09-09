@@ -20,6 +20,9 @@ import com.fintech.superadmin.activities.common.BaseActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.fintech.superadmin.clean.presentation.addMember.AddMemberActivity;
+import com.fintech.superadmin.clean.presentation.memberList.MemberListActivity;
+import com.fintech.superadmin.data.db.entities.User;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.creation.CreationActivity;
@@ -44,6 +47,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 
@@ -52,6 +57,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
 
     ActivityProfileBinding binding;
     ProfileViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,7 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
     }
 
     private void setElementsInList() {
+        User user = AppDatabase.getAppDatabase(ProfileActivity.this).getUserDao().getRegularUser();
         List<ProfileListModel> list = new ArrayList<>();
 //        list.add(new ProfileListModel(R.drawable.ic_profile_socialmedia,"Social Media"));
         list.add(new ProfileListModel(R.drawable.ic_account, "My Profile"));
@@ -95,6 +102,10 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
         list.add(new ProfileListModel(R.drawable.ic_profile_bank, "KYC REGISTRATION"));
         list.add(new ProfileListModel(R.drawable.ic_profile_settings, "M-PIN"));
         list.add(new ProfileListModel(R.drawable.ic_profile_settings, "Change Password"));
+        if (user != null && !user.getUserstatus().equals("1")) {
+            list.add(new ProfileListModel(R.drawable.ic_profile_settings, "Add Member"));
+            list.add(new ProfileListModel(R.drawable.ic_profile_settings, "My Members"));
+        }
 //        list.add(new ProfileListModel(R.drawable.ic_account,"AePS Package"));
 //        list.add(new ProfileListModel(R.drawable.ic_account,"My Commission"));
         list.add(new ProfileListModel(R.drawable.ic_account, "Customer Care"));
@@ -118,6 +129,8 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
 
     @Override
     public void onListItemSelected(View view, ProfileListModel model) {
+
+
         Intent intent;
         switch (model.getTitle()) {
             case "Social Media":
@@ -126,6 +139,14 @@ public class ProfileActivity extends BaseActivity implements ProfileListListener
                 break;
             case "My Profile": {
                 startActivity(new Intent(view.getContext(), ProfileDetails.class));
+            }
+            break;
+            case "Add Member": {
+                startActivity(new Intent(view.getContext(), AddMemberActivity.class));
+            }
+            break;
+            case "My Members": {
+                startActivity(new Intent(ProfileActivity.this, MemberListActivity.class));
             }
             break;
             case "KYC REGISTRATION":

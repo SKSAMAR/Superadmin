@@ -50,7 +50,6 @@ class MSMEViewModel
     var commoditiessupplied by mutableStateOf("")
     var d_service by mutableStateOf("")
     var investment_b by mutableStateOf("")
-
     var proprietor by mutableStateOf<Uri?>(null)
 
 

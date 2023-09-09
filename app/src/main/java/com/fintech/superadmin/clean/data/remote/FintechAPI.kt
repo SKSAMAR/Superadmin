@@ -1009,4 +1009,33 @@ interface FintechAPI {
     ): Observable<SystemResponse<List<Any?>?>>
 
 
+    @Multipart
+    @POST("Backend/Merchant/MemberOperation/AddMemberNew.php")
+    fun addNewMember(
+        @Part("u_type") u_type: RequestBody,
+        @Part("mobile") mobile: RequestBody,
+        @Part("debit_wallet") debit_wallet: RequestBody,
+        @Part("credit_wallet") credit_wallet: RequestBody,
+        @Part("fname") fname: RequestBody,
+        @Part("lname") lname: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("state") state: RequestBody,
+        @Part("pincode") pincode: RequestBody,
+        @Part("status") status: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("firm_name") firm_name: RequestBody,
+        @Part("dob") dob: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("Landmark") Landmark: RequestBody,
+        @Part("aadhar_no") aadhar_no: RequestBody,
+        @Part("pan_no") pan_no: RequestBody,
+        @Part("gst_no") gst_no: RequestBody,
+        @Part aadhar_front: MultipartBody.Part?,
+        @Part aadhar_back: MultipartBody.Part?,
+        @Part pancard: MultipartBody.Part?
+    ): Observable<RegularResponse>
+
+
 }

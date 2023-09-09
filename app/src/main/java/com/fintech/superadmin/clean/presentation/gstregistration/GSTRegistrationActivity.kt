@@ -922,6 +922,13 @@ fun ComponentActivity.OutlinedTextFieldImage(
     singleLine: Boolean,
     placeholder: @Composable (() -> Unit),
 ) {
+    var imageName = ""
+    try {
+        val name = value?.toString()?:""
+        imageName = name.replaceBeforeLast("/","")
+    }catch (e: Exception){
+        e.printStackTrace()
+    }
 
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
@@ -959,7 +966,7 @@ fun ComponentActivity.OutlinedTextFieldImage(
                     }
             },
         enabled = false,
-        value = if (value == null) "Select a valid Image" else "Selected",
+        value = if (value == null) "Select a valid Image" else "Image Selected $imageName",
         onValueChange = {
 
         },
