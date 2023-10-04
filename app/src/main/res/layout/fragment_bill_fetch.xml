@@ -61,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_6sdp"
-                        android:hint="@{viewModel.selectedBBPS.ad1_d_name}">
+                        android:hint="@{viewModel.selectedBBPS.toString}">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ad1"
@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_6sdp"
-                        android:hint="@{viewModel.selectedBBPS.displayname}">
+                        android:hint="@{viewModel.selectedBBPS.toString}">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/consumer_number"
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_6sdp"
-                        android:hint="@{viewModel.selectedBBPS.ad2_d_name}">
+                        android:hint="@{viewModel.selectedBBPS.toString}">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ad2"
@@ -138,7 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_6sdp"
-                        android:hint="@{viewModel.selectedBBPS.ad3_d_name}">
+                        android:hint="@{viewModel.selectedBBPS.toString}">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ad3"

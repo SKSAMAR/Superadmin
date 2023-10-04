@@ -61,7 +61,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_6sdp"
-                    android:hint="@{viewModel.selectedBBPS.displayname}">
+                    android:hint="@{viewModel.selectedBBPS.RESPONSE.billerInfoResponse.biller.billerName}">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/consumer_number"
                         android:layout_width="match_parent"

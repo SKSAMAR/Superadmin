@@ -3,6 +3,7 @@ package com.fintech.superadmin.util;
 import android.content.Context;
 
 import com.fintech.superadmin.R;
+import com.fintech.superadmin.deer_listener.Receiver;
 
 public class DisplayMessageUtil {
 
@@ -32,5 +33,9 @@ public class DisplayMessageUtil {
     }
     public static void anotherDialogFailure(Context context, String message){
         MyAlertUtils.anotherAlertDialog(context, message, "Failed", R.drawable.warning);
+    }
+
+    public static void showSuccess(Context context, String message, Receiver<Boolean> receiver) {
+        MyAlertUtils.showAlertDialogSuccess(context, message,receiver);
     }
 }

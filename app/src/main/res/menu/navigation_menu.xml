@@ -24,7 +24,6 @@
         android:icon="@drawable/ic_store"
         android:fontFamily="@font/sagnika"
         android:textStyle="bold"
-
         />
 
 

@@ -24,6 +24,7 @@ import com.fintech.superadmin.R;
 import com.fintech.superadmin.adapters.DthInfoAdapter;
 import com.fintech.superadmin.adapters.DynamicListAdapter;
 import com.fintech.superadmin.adapters.OperatorAdapter;
+import com.fintech.superadmin.data.api_response.billavenue.lulu.BillersListItem;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPData;
 import com.fintech.superadmin.data.browseplan.BrowsePlanResponse;
 import com.fintech.superadmin.data.dthinfo.DthInfoResponse;
@@ -95,7 +96,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     public static String service = null;
     public String enteredNumber = null;
     public PaymentListener listener = null;
-    public List<String> modeList = new ArrayList<String>();
+    public List<String> modeList = new ArrayList<>();
 
     public MutableLiveData<String> mobileNumber = new MutableLiveData<>("");
     public HLRResponse hlrResponse = new HLRResponse();
@@ -103,7 +104,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     //Dth Bill essential ends
     public ResetListener resetListener;
     boolean access = false;
-    public BBPSOPData selectedBBPS;
+    public BillersListItem selectedBBPS;
 
     //LIC
     public String lic_number = "";
@@ -131,7 +132,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
     public FetchBillInfo myFetchedBill;
     MutableLiveData<BBPSState> _bBBPs_state = new MutableLiveData<>(BBPSState.SELECTION_OF_BILLER);
     public LiveData<BBPSState> bBBPsState = _bBBPs_state;
-    public ArrayList<BBPSOPData> opData;
+    public List<BillersListItem> opData;
     public String consumer_number;
 
     public String ad1 = "";
@@ -277,10 +278,10 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                 Object value = json.get(key);
                 String setKey = key.trim().replace("_", " ").toUpperCase();
                 try {
-                    if (!value.toString().isEmpty()){
+                    if (!value.toString().isEmpty()) {
                         dynamicList.add(new DynamicData(setKey, value));
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -393,18 +394,18 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {
                         DisplayMessageUtil.dismissDialog();
-                        if (res.getStatus() && res.getResponse_code().equals(1)) {
-                            opData = res.getData();
-                            for (BBPSOPData e : res.getData()) {
+                        if (res != null) {
+                            opData = res;
+                            for (BillersListItem e : res) {
                                 try {
-                                    categoryList.add(e.getCategory().toUpperCase().trim());
+                                    categoryList.add(e.getRESPONSE().getBillerInfoResponse().getBiller().getBillerCategory().toUpperCase().trim());
                                 } catch (NullPointerException exception) {
                                     exception.printStackTrace();
                                 }
                             }
                             receiver.getData(1);
                         } else {
-                            DisplayMessageUtil.success(context, res.getMessage());
+                            DisplayMessageUtil.success(context, "Not Found");
                         }
                     }, err -> DisplayMessageUtil.error(context, err.getLocalizedMessage()));
         }
@@ -419,9 +420,9 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             DisplayMessageUtil.error(view.getContext(), "Select a valid category");
             return;
         } else if (opData != null) {
-            ArrayList<BBPSOPData> arr_filtered = new ArrayList<>();
-            for (BBPSOPData e : opData) {
-                if (e.getCategory().equalsIgnoreCase(category_bbps.getText().toString())) {
+            ArrayList<BillersListItem> arr_filtered = new ArrayList<>();
+            for (BillersListItem e : opData) {
+                if (e.getRESPONSE().getBillerInfoResponse().getBiller().getBillerCategory().equalsIgnoreCase(category_bbps.getText().toString())) {
                     arr_filtered.add(e);
                 }
             }
@@ -432,7 +433,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
             return;
         }
         if (Accessable.isAccessable()) {
-            ArrayList<BBPSOPData> arr_filtered = new ArrayList<>();
+            ArrayList<BillersListItem> arr_filtered = new ArrayList<>();
             DisplayMessageUtil.loading(view.getContext());
             mobileRechargesRepository.apiServices
                     .fetchBBpsOperators("fetch_operators")
@@ -440,11 +441,11 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {
                         DisplayMessageUtil.dismissDialog();
-                        if (res.getStatus() && res.getResponse_code().equals(1)) {
-                            opData = res.getData();
-                            for (BBPSOPData e : res.getData()) {
+                        if (res != null) {
+                            opData = res;
+                            for (BillersListItem e : res) {
                                 try {
-                                    if (e.getCategory().equalsIgnoreCase(op_category)) {
+                                    if (e.getRESPONSE().getBillerInfoResponse().getBiller().getBillerCategory().equalsIgnoreCase(op_category)) {
                                         arr_filtered.add(e);
                                     }
                                 } catch (NullPointerException exception) {
@@ -453,7 +454,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                             }
                             popInfoDesign(view.getContext(), arr_filtered, (view1, data) -> operatorName.setText(data));
                         } else {
-                            DisplayMessageUtil.success(view.getContext(), res.getMessage());
+                            DisplayMessageUtil.success(view.getContext(), "Not Found");
                         }
                     }, err -> DisplayMessageUtil.error(view.getContext(), err.getLocalizedMessage()));
         }
@@ -497,7 +498,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
              **/
 
             if (consumer_number == null || consumer_number.trim().isEmpty()) {
-                DisplayMessageUtil.error(view.getContext(), "Enter a valid " + selectedBBPS.getDisplayname());
+                DisplayMessageUtil.error(view.getContext(), "Enter a valid " + selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerName());
                 return;
             }
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -510,7 +511,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
 
             DisplayMessageUtil.loading(view.getContext());
             mobileRechargesRepository.apiServices
-                    .fetchBBpsBill(consumer_number, selectedBBPS.getId(), "", getAd1(), getAd2(), getAd3(), json)
+                    .fetchBBpsBill(consumer_number, selectedBBPS.getBILLERID(), "", getAd1(), getAd2(), getAd3(), json)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(res -> {
@@ -545,9 +546,13 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (selectedBBPS == null) {
+            DisplayMessageUtil.error(view.getContext(), "Select  a valid Operator");
+            return;
+        }
 
         if (Accessable.isAccessable()) {
-            if (selectedBBPS.getViewbill().equals("1") && myFetchedBill == null) {
+            if (selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerFetchRequiremet().equalsIgnoreCase("MANDATORY") && myFetchedBill == null) {
                 ViewUtils.showToast(view.getContext(), "Bill Fetch is Mandatory for this Operator");
             } else if (op_name == null || op_category == null) {
                 ViewUtils.showToast(view.getContext(), "Select all information");
@@ -556,7 +561,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                 ViewUtils.showSnackBar(view, "Select a valid mode");
             } else {
 
-                if (!selectedBBPS.getViewbill().equals("1")) {
+                if (!selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerFetchRequiremet().equalsIgnoreCase("MANDATORY")) {
                     if (consumer_number == null || consumer_number.trim().isEmpty()) {
                         ViewUtils.showToast(view.getContext(), "Enter a valid Payee Number");
                         return;
@@ -586,7 +591,7 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
                 }
                 DisplayMessageUtil.loading(view.getContext());
                 mobileRechargesRepository.apiServices
-                        .payBBpsBill(plan.trim(), consumer_number, selectedBBPS.getId(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), mode)
+                        .payBBpsBill(plan.trim(), consumer_number, selectedBBPS.getBILLERID(), json, op_name, op_category, mPin, UtilHolder.getLongitude(), UtilHolder.getLatitude(), mode)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(res -> {
@@ -629,9 +634,9 @@ public class MobileRechargeViewModel extends ViewModel implements CircleListener
         });
         binding.myRecycler.setAdapter(adapter);
         binding.myRecycler.setOnItemClickListener((parent, view, position, id) -> {
-            selectedBBPS = (BBPSOPData) adapter.getItem(position);
+            selectedBBPS = (BillersListItem) adapter.getItem(position);
             if (regularClick != null) {
-                regularClick.onClickItem(view, selectedBBPS.getName());
+                regularClick.onClickItem(view, "" + selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerName());
             }
             dialog.dismiss();
         });

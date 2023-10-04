@@ -1,8 +1,10 @@
 package com.fintech.superadmin.clean.util.common
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.DatePicker
+import java.text.SimpleDateFormat
 import java.util.*
 
 object DateDialogSys{
@@ -45,6 +47,12 @@ object DateDialogSys{
 
         mDatePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 1000
         mDatePickerDialog.show()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun Date.toSpecificDates(format: String = "dd-MM-yyyy"): String {
+        val sdf = SimpleDateFormat(format)
+        return sdf.format(this)
     }
 
 }

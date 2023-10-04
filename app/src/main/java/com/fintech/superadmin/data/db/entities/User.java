@@ -24,6 +24,9 @@ public class User {
     public String userstatusname;
     public String pin;
     public String address;
+    public String dist;
+    public String city;
+    public String state;
     public String us_status;
     public String partner_id;
     public String image;

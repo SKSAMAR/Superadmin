@@ -68,8 +68,9 @@
                         android:layout_height="wrap_content">
                         <com.google.android.material.textfield.TextInputEditText
                             android:onClick="@{viewModel::fetchBbpsOperators}"
-                            android:id="@+id/operator_bbps"                            android:hint="@string/operator"
-                            android:text="@{viewModel.selectedBBPS.name}"
+                            android:id="@+id/operator_bbps"
+                            android:hint="@string/operator"
+                            android:text="@{viewModel.selectedBBPS.RESPONSE.billerInfoResponse.biller.billerName}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/baseline_keyboard_arrow_down_24"

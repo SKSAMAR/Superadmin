@@ -26,6 +26,7 @@ import com.fintech.superadmin.R;
 import com.fintech.superadmin.activities.addfunds.PayActivityWebView;
 import com.fintech.superadmin.activities.common.BaseActivity;
 import com.fintech.superadmin.activities.customersupport.NewTicketRise;
+import com.fintech.superadmin.activities.products.ProductsListActivity;
 import com.fintech.superadmin.activities.profile.ProfileActivity;
 import com.fintech.superadmin.activities.qrscanner.QrMobilePayActivity;
 import com.fintech.superadmin.data.repositories.UserRepository;
@@ -136,21 +137,21 @@ public class HomeActivity extends BaseActivity {
     @SuppressLint("NonConstantResourceId")
     private <T extends Fragment> void setNavigationClick(T homeMenuFragments) {
         homeBinding.bottomNavigation.setBackground(null);
-        String secondaryUrl;
-        try {
-            secondaryUrl = getString(R.string.secondaryUrl);
-            if (secondaryUrl != null && !secondaryUrl.trim().isEmpty() && !secondaryUrl.equals(BuildConfig.APPLICATION_ID)) {
-                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(true);
-                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(true);
-            } else {
-                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(false);
-                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            secondaryUrl = BuildConfig.APPLICATION_ID;
-        }
-        String finalSecondaryUrl = secondaryUrl;
+//        String secondaryUrl;
+//        try {
+//            secondaryUrl = getString(R.string.secondaryUrl);
+//            if (secondaryUrl != null && !secondaryUrl.trim().isEmpty() && !secondaryUrl.equals(BuildConfig.APPLICATION_ID)) {
+//                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(true);
+//                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(true);
+//            } else {
+//                homeBinding.bottomNavigation.getMenu().getItem(2).setEnabled(false);
+//                homeBinding.bottomNavigation.getMenu().getItem(2).setVisible(false);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            secondaryUrl = BuildConfig.APPLICATION_ID;
+//        }
+//        String finalSecondaryUrl = secondaryUrl;
         homeBinding.bottomNavigation.setOnItemSelectedListener(item -> {
 
             if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
@@ -169,8 +170,7 @@ public class HomeActivity extends BaseActivity {
                         item.setCheckable(false);
                         break;
                     case R.id.my_store: {
-                        SimpleCustomChromeTabsHelper simple = new SimpleCustomChromeTabsHelper(HomeActivity.this);
-                        simple.openUrlForResult("https://" + finalSecondaryUrl, Constant.CHROME_CUSTOM_TAB_REQUEST_CODE);
+                        startActivity(new Intent(HomeActivity.this, ProductsListActivity.class));
                         item.setCheckable(false);
                         break;
                     }

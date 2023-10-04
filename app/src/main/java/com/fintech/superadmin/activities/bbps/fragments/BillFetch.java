@@ -39,24 +39,24 @@ public class BillFetch extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(MobileRechargeViewModel.class);
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(requireActivity());
-        if (viewModel.selectedBBPS.getAd1_d_name() == null || viewModel.selectedBBPS.getAd1_d_name().trim().isEmpty()) {
-            binding.ad1Layout.setVisibility(View.GONE);
-        }
-
-        if (viewModel.selectedBBPS.getAd2_d_name() == null || viewModel.selectedBBPS.getAd2_d_name().trim().isEmpty()) {
-            binding.ad2Layout.setVisibility(View.GONE);
-        }
-
-        if (viewModel.selectedBBPS.getAd3_d_name() == null || viewModel.selectedBBPS.getAd3_d_name().trim().isEmpty()) {
-            binding.ad3Layout.setVisibility(View.GONE);
-        }
+//        if (viewModel.selectedBBPS.getAd1_d_name() == null || viewModel.selectedBBPS.getAd1_d_name().trim().isEmpty()) {
+//            binding.ad1Layout.setVisibility(View.GONE);
+//        }
+//
+//        if (viewModel.selectedBBPS.getAd2_d_name() == null || viewModel.selectedBBPS.getAd2_d_name().trim().isEmpty()) {
+//            binding.ad2Layout.setVisibility(View.GONE);
+//        }
+//
+//        if (viewModel.selectedBBPS.getAd3_d_name() == null || viewModel.selectedBBPS.getAd3_d_name().trim().isEmpty()) {
+//            binding.ad3Layout.setVisibility(View.GONE);
+//        }
         selectModes();
     }
 
     @SuppressLint("SetTextI18n")
     private void selectModes() {
         try {
-            if (viewModel.selectedBBPS.getViewbill().equals("1")) {
+            if (viewModel.selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerFetchRequiremet().equalsIgnoreCase("MANDATORY")) {
 
                 binding.payMyBBPS.setVisibility(View.GONE);
                 binding.directPayBBPS.setVisibility(View.GONE);
@@ -68,8 +68,8 @@ public class BillFetch extends Fragment {
                 binding.getDetails.setVisibility(View.GONE);
                 binding.fetchableConsumerLayout.setVisibility(View.GONE);
                 binding.mPinBBPS.setVisibility(View.VISIBLE);
-                if (viewModel.selectedBBPS.getCategory()!=null){
-                    binding.directPayCaNum.setHint(viewModel.selectedBBPS.getCategory()+" Number");
+                if (viewModel.selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerCategory()  !=null){
+                    binding.directPayCaNum.setHint(viewModel.selectedBBPS.getRESPONSE().getBillerInfoResponse().getBiller().getBillerCategory()+" Number");
                 }else{
                     binding.directPayCaNum.setHint("Consumer Number");
                 }

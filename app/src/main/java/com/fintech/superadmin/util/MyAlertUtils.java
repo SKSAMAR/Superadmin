@@ -183,4 +183,34 @@ public class MyAlertUtils {
         binding.alertMessage.setText(message);
         binding.centerLogo.setImageResource(gifIcon);
     }
+
+    public static void showAlertDialogSuccess(Context context, String message, Receiver<Boolean> receiver) {
+        if (alertDialog != null) {
+            alertDialog.dismiss();
+        }
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(context, R.style.CustomDialog);
+        CustomAlertDialogBinding binding = CustomAlertDialogBinding.inflate(LayoutInflater.from(context));
+        alert.setView(binding.getRoot());
+        alert.setOnDismissListener(dialog -> {
+            alertDialog.dismiss();
+            receiver.getData(true);
+        });
+        alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+        binding.alertCancel.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            receiver.getData(true);
+        });
+        binding.alertOkay.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            receiver.getData(true);
+        });
+
+        binding.alertMessage.setText(message);
+    }
 }

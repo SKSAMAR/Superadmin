@@ -48,6 +48,22 @@ public class NewTicketRise extends BaseActivity implements ResetListener {
 
     private void setListeners(){
 
+        try {
+
+            String type = getIntent().getStringExtra("transactionType");
+            String tid = getIntent().getStringExtra("transactionId");
+            String date = getIntent().getStringExtra("transactionDate");
+            viewModel.binding.departmentEdit.setText(type);
+            viewModel.binding.transactionDate.setText(date);
+            viewModel.binding.subject.setText(tid);
+            viewModel.department = ""+type;
+            viewModel.transactionId = ""+tid;
+            viewModel.transactionDate = ""+date;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
         chooseFile.addCategory(Intent.CATEGORY_OPENABLE);
         chooseFile.setType("*/*");

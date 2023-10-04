@@ -11,6 +11,7 @@ import com.fintech.superadmin.data.apiResponse.fingpay.aadharOTP.SendOtpResp;
 import com.fintech.superadmin.data.apiResponse.fingpay.aeps.AePsResponse;
 import com.fintech.superadmin.data.apiResponse.fingpay.boad.OnboardPanResponse;
 import com.fintech.superadmin.data.apiResponse.merchant.FingPayBoardCred;
+import com.fintech.superadmin.data.api_response.billavenue.lulu.BillersListItem;
 import com.fintech.superadmin.data.bbpsresponse.BBPSOPResponse;
 import com.fintech.superadmin.data.bc_response.BcDistrictDto;
 import com.fintech.superadmin.data.bc_response.BcStateDto;
@@ -26,7 +27,9 @@ import com.fintech.superadmin.data.dto.AtmProceedableDto;
 import com.fintech.superadmin.data.dto.CmsResponse;
 import com.fintech.superadmin.data.dto.CreditCardHistory;
 import com.fintech.superadmin.data.dto.MahagramResponse;
+import com.fintech.superadmin.data.dto.OrderDto;
 import com.fintech.superadmin.data.dto.PaysprintResponse;
+import com.fintech.superadmin.data.dto.ProductDto;
 import com.fintech.superadmin.data.eko.BaseEkoResponse;
 import com.fintech.superadmin.data.eko.EkoAddBeneResponse;
 import com.fintech.superadmin.data.eko.EkoDmtFerchBeneficaryResponse;
@@ -286,8 +289,10 @@ public interface APIServices {
     Observable<SystemResponse<Object>> dth_info(@Field("service_type") String service_type, @Field("number") String number, @Field("operatorCode") String operatorCode, @Field("dth_info") String dth_info);
 
     @FormUrlEncoded
-    @POST("Backend/Merchant/API/BBPS/PaySprint/fetchDetails.php")
-    Observable<BBPSOPResponse> fetchBBpsOperators(@Field("fetch_operators") String fetch_operators);
+    @POST("Backend/Merchant/API/BBPS/billAvenue/main.php")
+    Observable<List<BillersListItem>> fetchBBpsOperators(@Field("billbillers") String billbillers);
+
+
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/BBPS/PaySprint/fetchDetails.php")
@@ -295,9 +300,12 @@ public interface APIServices {
                                             @Field("billingUnit") String billingUnit, @Field("ad1") String ad1,
                                             @Field("ad2") String ad2, @Field("ad3") String ad3, @Field("opData") String bbpsopData);
 
+
     @FormUrlEncoded
     @POST("Backend/Merchant/API/BBPS/PaySprint/fetchDetails.php")
     Observable<SystemResponse<List<String>>> fetchBBPSMode(@Field("modesList") String modesList);
+
+
 
     @FormUrlEncoded
     @POST("Backend/Merchant/API/BBPS/PaySprint/bill_pay.php")
@@ -1106,6 +1114,27 @@ public interface APIServices {
     @FormUrlEncoded
     @POST("Backend/Merchant/API/app/temp/main.php")
     Observable<SystemResponse<List<MemberDataDto>>> changeMemberStatus(@Field("status") String status, @Field("userId") String userId, @Field("memberStatus") String memberStatus);
+
+
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<OrderDto>>> getOrdersList(
+            @Field("showOrders") String showOrders
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/API/app/temp/main.php")
+    Observable<SystemResponse<List<ProductDto>>> getProductsList(
+            @Field("showProducts") String showProducts
+    );
+
+    @FormUrlEncoded
+    @POST("Backend/Merchant/ProductManagment/OrderProduct.php")
+    Observable<RegularResponse> orderProduct(@Field("product_id") String product_id, @Field("fname") String fname,
+                                             @Field("address") String address, @Field("landmark") String landmark,
+                                             @Field("city") String city, @Field("state") String state,
+                                             @Field("pincode") String pincode, @Field("tpin") String tpin, @Field("order") Integer order);
 
 
 }

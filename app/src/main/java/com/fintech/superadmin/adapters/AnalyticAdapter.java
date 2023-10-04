@@ -1,6 +1,7 @@
 package com.fintech.superadmin.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fintech.superadmin.activities.customersupport.NewTicketRise;
+import com.fintech.superadmin.activities.profile.CustomerCare;
 import com.fintech.superadmin.data.network.responses.AnalyticsResponseModel;
 import com.fintech.superadmin.databinding.AnalyticDesignLayoutBinding;
 import com.fintech.superadmin.listeners.AnalyticOperationListener;
@@ -43,20 +46,27 @@ public class AnalyticAdapter extends RecyclerView.Adapter<AnalyticAdapter.Analyt
         holder.binding.setAnalyticDataModel(analyticsList.get(position));
         holder.binding.checkDetails.setOnClickListener(v -> listener.checkMyDetailsOf(v, analyticsList.get(position)));
         //holder.binding.updateButton.setOnClickListener(v -> listener.updateMyDetailsOf(v, analyticsList.get(position)));
-        /**
-        holder.binding.updateButton.setVisibility(View.GONE);
-        listener.observerData(holder.binding.updateButton, analyticsList.get(position));
 
+        holder.binding.complainButton.setVisibility(View.GONE);
         try {
-            if (analyticsList.get(position).getStatus().trim().equalsIgnoreCase("pending")){
-                holder.binding.updateButton.setVisibility(View.VISIBLE);
+            if (analyticsList.get(position).getTransactionType().trim().toLowerCase().contains("recharge") || analyticsList.get(position).getTransactionType().trim().toLowerCase().contentEquals("bbps")){
+                holder.binding.complainButton.setVisibility(View.VISIBLE);
+                holder.binding.complainButton.setOnClickListener(view -> {
+
+                    Intent intent = new Intent(holder.binding.getRoot().getContext(), NewTicketRise.class);
+                    intent.putExtra("transactionType",analyticsList.get(position).getTransactionType().trim());
+                    intent.putExtra("transactionId",analyticsList.get(position).getTxn_id().trim());
+                    intent.putExtra("transactionDate",analyticsList.get(position).getDate().trim());
+                    holder.binding.getRoot().getContext().startActivity(intent);
+
+                });
             }else{
-                holder.binding.updateButton.setVisibility(View.GONE);
+                holder.binding.complainButton.setVisibility(View.GONE);
             }
         }catch (Exception e){
             e.printStackTrace();
-            holder.binding.updateButton.setVisibility(View.GONE);
-        }**/
+            holder.binding.complainButton.setVisibility(View.GONE);
+        }
 
 
     }

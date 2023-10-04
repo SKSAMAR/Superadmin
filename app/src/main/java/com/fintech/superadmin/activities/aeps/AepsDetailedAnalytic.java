@@ -338,6 +338,7 @@ public class AepsDetailedAnalytic extends ShareActivity {
     private void printPDF() {
         PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
         try {
+            String path = getExternalFilesDir(filepath)+"/"+filename;
             PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(this, getExternalFilesDir(filepath)+"/"+filename);
             printManager.print("Document", printDocumentAdapter, new PrintAttributes.Builder().build());
         }catch (Exception e){
