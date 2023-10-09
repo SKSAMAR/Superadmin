@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.Color
 
 
 object MyColors {
-    var primary by mutableStateOf(Color(red = 37, green = 150, blue = 190))
-    var secondary by mutableStateOf(Color(red = 37, green = 150, blue = 190))
+    var primary by mutableStateOf(Color(0xFF696cff))
+    var secondary by mutableStateOf(Color(0xFF696cff))
 
     fun setColorsAgain(red: Int, green: Int, blue: Int){
         primary = Color(red = red, green = green, blue = blue)

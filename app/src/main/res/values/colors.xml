@@ -10,7 +10,7 @@
     <color name="blue_bhart">?android:colorPrimary</color>
     <color name="screenBackground">#DAD4DC</color>
     <color name="none">#00000000</color>
-    <color name="iconColor">#BD0407</color>
+    <color name="iconColor">#696cff</color>
 
 
     <color name="ucrop_color_toolbar">@color/white</color>

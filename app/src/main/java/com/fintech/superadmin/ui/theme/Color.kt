@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-var Purple200 = Color(0xFFBD0407)
-var Purple500 = Color(0xFFBD0407)
-var Purple700 = Color(0xFFBD0407)
+var Purple200 = Color(0xFF696cff)
+var Purple500 = Color(0xFF696cff)
+var Purple700 = Color(0xFF696cff)
 
 val Teal200 = Color(0xFF03DAC5)
-val IconColor = Color(0xFFBD0407)
+val IconColor = Color(0xFF696cff)
 
 val LightestRed = Color(0xFFFFF3F1)
 val MyRed = Color(0xFFF44336)
@@ -67,11 +67,11 @@ fun BackgroundCardGrey(): Color {
     return Color(0xFFF2F2F2)
 }
 
-val Purple80 = Color(0xFF5b34a0)
-val PurpleGrey80 = Color(0xFF5b34a0)
-val Pink80 = Color(0xFF5b34a0)
+val Purple80 = Color(0xFF696cff)
+val PurpleGrey80 = Color(0xFF696cff)
+val Pink80 = Color(0xFF696cff)
 
-val Purple40 = Color(0xFF58378a)
+val Purple40 = Color(0xFF696cff)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 

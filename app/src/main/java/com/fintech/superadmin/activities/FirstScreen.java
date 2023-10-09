@@ -80,16 +80,12 @@ public class FirstScreen extends BaseActivity {
 
     private void getColorModel() {
         User user = userRepository.getSignedInRegularUser();
-        NetworkUtil.getNetworkResult(apiServices.getAppColor("appColor"), null, res -> {
-            MyColors.INSTANCE.setColorsAgain(res.RED, res.GREEN, res.BLUE);
-            ThemeColors.setThemeColor(FirstScreen.this, res.RED, res.GREEN, res.BLUE);
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    chooseFate(user);
-                }
-            }, 1500);
-        });
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                chooseFate(user);
+            }
+        }, 1500);
     }
 }

@@ -12,9 +12,9 @@ def sdkname
 android {
     compileSdk 33
     defaultConfig {
-        manifestPlaceholders = [appName: "Rakesh Pay"]
+        manifestPlaceholders = [appName: "Payware"]
         appType = "B2B"
-        applicationId "beta.hindmoney.in"
+        applicationId "payware.in"
         minSdk 23
         //noinspection OldTargetApi
         targetSdk 33
@@ -305,140 +305,9 @@ repositories {
     mavenCentral()
 }
 
-static def fetchAarFileNames(appId) {
-    String responseString = ""
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=ATM")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-        connection.setConnectTimeout(60000)
-        connection.setReadTimeout(60000)
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            responseString = reader.readLine()
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
-static def fetchDMTName(appId) {
-    String responseString = "paysprint"
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=DMT")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-        connection.setConnectTimeout(60000)
-        connection.setReadTimeout(60000)
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            responseString = reader.readLine()
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
-static def fetchMagicWalletName(appId) {
-    String responseString = "no"
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?services=MagicWallet")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-        connection.setConnectTimeout(60000)
-        connection.setReadTimeout(60000)
-
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            responseString = reader.readLine()
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
-static def fetchSecondaryUrl(appId) {
-    String responseString = ""
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?redirection=redirection")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-        connection.setConnectTimeout(60000)
-        connection.setReadTimeout(60000)
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            responseString = reader.readLine()
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
-static def fetchROffer(appId) {
-    String responseString = "no"
-    try {
-        URL url = new URL("https://${appId}/Backend/Merchant/API/app/temp/services.php?roffer=roffer")
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection()
-        connection.setRequestMethod("GET")
-        connection.connect()
-        connection.setConnectTimeout(60000)
-        connection.setReadTimeout(60000)
-        if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))
-            if (reader.readLine() != null && !reader.readLine().trim().isEmpty()) {
-                responseString = reader.readLine()
-            }
-            reader.close()
-        } else {
-            // Handle error response
-        }
-        connection.disconnect()
-    } catch (Exception e) {
-        e.printStackTrace()
-    }
-    return responseString
-}
-
 afterEvaluate {
     //fixed
-    def appId = android.defaultConfig.applicationId
-    def apiName = fetchAarFileNames(appId)
-    def dmtName = fetchDMTName(appId)
-    def magicWallet = fetchMagicWalletName(appId)
-    def secondaryUrl = fetchSecondaryUrl(appId)
-    def rOfferAvailability = fetchROffer(appId)
-    sdkname = apiName.trim().toLowerCase()
-    if (secondaryUrl == null || secondaryUrl.trim().isEmpty()) {
-        secondaryUrl = ""
-    }
-    createInfoXml(appType, sdkname, secondaryUrl, rOfferAvailability, dmtName, magicWallet)
-
+    sdkname = "paysprintnew"
     project.dependencies {
         fileTree(dir: "atms/${sdkname}", include: '*.aar').each { File file ->
             print "file : ${file.name}\n"
@@ -454,44 +323,4 @@ afterEvaluate {
             print("Bouncy Included")
         }
     }
-}
-
-def downloadImage(String url, String filename) {
-
-    def drawableDir = new File(projectDir, "src/main/res/drawable")
-    if (!drawableDir.exists()) {
-        drawableDir.mkdirs()
-    }
-    def file = new File(projectDir, "src/main/res/drawable/${filename}")
-    new URL(url).withInputStream { i ->
-        file.withOutputStream { it << i }
-    }
-}
-
-afterEvaluate {
-    def appId = android.defaultConfig.applicationId
-    downloadImage("https://${appId}/Backend/Merchant/API/app/temp/icons.php?mode=download", "logo.png")
-}
-
-def createInfoXml(String appType, String sdkname, String secondaryUrl, String rOfferAvailability, String dmtName, String magicWallet) {
-    def appId = android.defaultConfig.applicationId
-    def xmlContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-            "<resources>\n" +
-            "    <string name=\"app_type\">${appType}</string>\n" +
-            "    <string name=\"base_url_data\">${appId}</string>\n" +
-            "    <string name=\"atmType\">${sdkname}</string>\n" +
-            "    <string name=\"secondaryUrl\">${secondaryUrl}</string>\n" +
-            "    <string name=\"roffer\">${rOfferAvailability}</string>\n" +
-            "    <string name=\"dmtName\">${dmtName}</string>\n" +
-            "    <string name=\"magicWallet\">${magicWallet}</string>\n" +
-            "</resources>"
-    print(xmlContent)
-    def file = new File(projectDir, "src/main/res/values/info.xml")
-    if (file.exists()) {
-        file.delete()
-    }
-    file.withWriter { writer ->
-        writer.write(xmlContent)
-    }
-    return file
 }
